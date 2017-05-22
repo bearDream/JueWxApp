@@ -1,9 +1,10 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import mutations from './mutations'
-import dish from './modules/dish'
-import business from './modules/business'
-import user from './modules/user'
+import home from './modules/home'
+import find from './modules/find'
+import ranking from './modules/ranking'
+import mine from './modules/mine'
 
 import actions from './actions'
 Vue.use(Vuex)
@@ -26,8 +27,9 @@ export default new Vuex.Store({
   mutations,
   actions,
   modules: {
-    dish,
-    business,
-    user
+    home,
+    find,
+    ranking,
+    mine
   }
 })
