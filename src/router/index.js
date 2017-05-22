@@ -31,6 +31,15 @@ const router = new Router({
         requiresAuth: true
       }
     }, {
+      path: '/home/subpage',
+      name: 'homeList',
+      components: {
+        'insidePage': resolve => require(['../components/home/subpage/homeList.vue'], resolve)
+      },
+      meta: {
+        requiresAuth: true
+      }
+    }, {
       path: '/find',
       name: '发现',
       components: {
