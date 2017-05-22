@@ -1,6 +1,6 @@
 <template>
   <div>
-    <x-header v-on:click="$router.back()">商家列表</x-header>
+    <x-header v-on:click="$router.back()">食话食说</x-header>
     <br>
     <!--<header class="wx-header">-->
       <!--<div class="center">-->

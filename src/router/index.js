@@ -40,6 +40,15 @@ const router = new Router({
         requiresAuth: true
       }
     }, {
+      path: '/find/shss',
+      name: 'find',
+      components: {
+        'insidePage': resolve => require(['../components/find/subpage/findList.vue'], resolve)
+      },
+      meta: {
+        requiresAuth: true
+      }
+    }, {
       path: '/ranking',
       name: '排行',
       components: {

@@ -54,7 +54,7 @@
     methods: {
       business_list (item) {
         // 数据交互：通过传params或query的方式进行交互
-        this.$router.push({name: 'home', params: { businessId: 1 }})
+        this.$router.push({name: 'find', params: { businessId: 1 }})
         console.info(item)
       },
       gets () {
