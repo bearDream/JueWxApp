@@ -2,14 +2,6 @@
   <div>
     <x-header v-on:click="$router.back()">商家列表</x-header>
     <br>
-    <!--<header class="wx-header">-->
-      <!--<div class="center">-->
-        <!--<div class="iconfont icon-return-arrow" v-on:click="$router.back()">-->
-          <!--<span>返回</span>-->
-        <!--</div>-->
-        <!--<span>聊天详情</span>-->
-      <!--</div>-->
-    <!--</header>-->
     <div style="margin: 10px;overflow: hidden;" v-for="item in list" v-on:click="business_info(item)">
       <masker style="border-radius: 2px;" >
         <div class="m-img" :style="{backgroundImage: 'url(' + item.img + ')'}"></div>
@@ -24,39 +16,39 @@
 </template>
 
 <script>
-import { Masker, XHeader, TransferDom } from 'vux'
-export default {
-  directives: {
-    TransferDom
-  },
-  components: {
-    Masker,
-    XHeader
-  },
-  created () {
-    // 数据交互：通过this.$route.params或.query取出数据
-    console.info(this.$route.params)
-  },
-  data () {
-    return {
-      list: [{
-        title: '洗颜新潮流！人气洁面皂排行榜',
-        img: 'https://cdn.xiaotaojiang.com/uploads/82/1572ec37969ee263735262dc017975/_.jpg'
-      }, {
-        title: '美容用品 & 日用品（上）',
-        img: 'https://cdn.xiaotaojiang.com/uploads/59/b22e0e62363a4a652f28630b3233b9/_.jpg'
-      }]
-    }
-  },
-  mounted () {
-    // 进入页面的钩子函数
-  },
-  methods: {
-    business_info (item) {
-      alert(item.title)
+  import { Masker, XHeader, TransferDom } from 'vux'
+  export default {
+    directives: {
+      TransferDom
+    },
+    components: {
+      Masker,
+      XHeader
+    },
+    created () {
+      // 数据交互：通过this.$route.params或.query取出数据
+      console.info(this.$route.params)
+    },
+    data () {
+      return {
+        list: [{
+          title: '洗颜新潮流！人气洁面皂排行榜',
+          img: 'https://cdn.xiaotaojiang.com/uploads/82/1572ec37969ee263735262dc017975/_.jpg'
+        }, {
+          title: '美容用品 & 日用品（上）',
+          img: 'https://cdn.xiaotaojiang.com/uploads/59/b22e0e62363a4a652f28630b3233b9/_.jpg'
+        }]
+      }
+    },
+    mounted () {
+      // 进入页面的钩子函数
+    },
+    methods: {
+      business_info (item) {
+        alert(item.title)
+      }
     }
   }
-}
 </script>
 
 <style lang="less">
