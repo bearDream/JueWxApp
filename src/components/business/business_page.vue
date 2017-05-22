@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div style="margin: 10px;overflow: hidden;" v-for="item in list" v-on:click="business_list(item)">
+    <div style="margin: 10px;overflow: hidden;"
+         v-for="item in list" v-on:click="business_list(item)">
       <masker style="border-radius: 2px;" >
         <div class="m-img" :style="{backgroundImage: 'url(' + item.img + ')'}"></div>
         <div slot="content" class="m-title">
