@@ -7,23 +7,23 @@
         </dt>
         <dd>首页</dd>
     </router-link>
-		<router-link to="/business" tag="dl">
+		<router-link to="/find" tag="dl">
         <dt class="iconfont icon-contact" >
             <!--<i class="new-msg-count">2</i>-->
         </dt>
-        <dd>良心商家</dd>
+        <dd>发现</dd>
     </router-link>
-		<router-link to="/dish" tag="dl">
+		<router-link to="/ranking" tag="dl">
         <dt class="iconfont icon-find" >
             <i class="new-msg-dot"></i>
         </dt>
-        <dd>美食</dd>
+        <dd>排行</dd>
     </router-link>
-		<router-link to="/me" tag="dl">
+		<router-link to="/mine" tag="dl">
         <dt class="iconfont icon-me" >
             <!--<i class="new-msg-dot"></i>-->
         </dt>
-        <dd>个人中心</dd>
+        <dd>我的</dd>
     </router-link>
     </nav>
   </div>

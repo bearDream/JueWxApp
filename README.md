@@ -21,12 +21,12 @@ npm run build --report
 # 开发底层封装流程
 
 ```
-  1、先写mock数据，参考utils下的mock包中的文件，每一个mock文件对应一个请求  
-  写完mock文件后，在main。js中把这个mock引入进来，如：
+  1、先写mock数据，参考utils下的mock包中的文件，每一个mock文件对应一个请求
+  写完mock文件后，在main.js中把这个mock引入进来，如：
   import userMock from './utils/mock/userMock'
   Vue.use(userMock)
   2、然后开始写model，在models包下新建一个model，更改path为相应的地址
-  3、之后写vuex层的东西，在modules包下新建一个模块，写完这个模块后不要忘记了  
+  3、之后写vuex层的东西，在modules包下新建一个模块，写完这个模块后不要忘记了
   在store中将你写的模块注册添加。
   4、在应用层中直接调用dispatch分发事件。。。
 ```

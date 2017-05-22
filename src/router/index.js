@@ -10,7 +10,7 @@ const router = new Router({
     {
       path: '/',
       name: '首页',
-      component: resolve => require(['../components/jue/jue_page.vue'], resolve),
+      component: resolve => require(['../components/home/home_page.vue'], resolve),
       meta: {
         requiresAuth: false
       }
@@ -22,37 +22,37 @@ const router = new Router({
         requiresAuth: false
       }
     }, {
-      path: '/business',
-      name: '商家',
+      path: '/home/home',
+      name: 'home',
       components: {
-        'default': resolve => require(['../components/business/business_page.vue'], resolve)
+        'insidePage': resolve => require(['../components/home/subpage/homeList.vue'], resolve)
       },
       meta: {
         requiresAuth: true
       }
     }, {
-      path: '/business/business',
-      name: 'business',
+      path: '/find',
+      name: '发现',
       components: {
-        'insidePage': resolve => require(['../components/business/businessList.vue'], resolve)
+        'insidePage': resolve => require(['../components/find/find_page.vue'], resolve)
       },
       meta: {
         requiresAuth: true
       }
     }, {
-      path: '/dish',
-      name: '美食',
+      path: '/ranking',
+      name: '排行',
       components: {
-        'insidePage': resolve => require(['../components/dish/dish_page.vue'], resolve)
+        'insidePage': resolve => require(['../components/ranking/ranking_page.vue'], resolve)
       },
       meta: {
         requiresAuth: true
       }
     }, {
-      path: '/me',
-      name: '个人中心',
+      path: '/mine',
+      name: '我的',
       components: {
-        'insidePage': resolve => require(['../components/me/me_page.vue'], resolve)
+        'insidePage': resolve => require(['../components/mine/mine_page.vue'], resolve)
       },
       meta: {
         requiresAuth: true
