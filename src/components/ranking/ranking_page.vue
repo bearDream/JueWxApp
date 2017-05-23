@@ -1,12 +1,13 @@
 <template>
   <div style="">
+
     <blur :blur-amount=0 :url="url" style="height:260px">
 
       <div style="border-radius: 2px;width: 100%">
-        <div class="m-buttom" >营养价值分析111</div>
+        <div class="m-buttom" >营养价值分析</div>
         <div class="m-buttom1"></div>
         <ul class="me_show">
-          <li><p>{{attentions}}</p></li>
+          <li @click="GoRankingList"><p>{{attentions}}</p></li>
           <li><p>{{editedate}}</p></li>
         </ul>
       </div>
@@ -53,6 +54,12 @@
         url: img,
         attentions: '营养菜品排行',
         editedate: '点击了解详情'
+      }
+    },
+    methods: {
+      GoRankingList () {
+        alert('跳转')
+        this.$router.push({name: 'RankingList'})
       }
     },
     mounted () {
