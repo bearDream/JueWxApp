@@ -33,12 +33,6 @@
         sumScore: 6689,
         score: 10
       }
-    },
-    methods: {
-      GoSite () {
-        alert('sdfdsfdfsd')
-        this.$router.push(name('check'))
-      }
     }
   }
 </script>
