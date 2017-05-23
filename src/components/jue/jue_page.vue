@@ -59,7 +59,7 @@
           img: 'https://cdn.xiaotaojiang.com/uploads/82/1572ec37969ee263735262dc017975/_.jpg'
         }],
         list2: [{
-          title: '藏在昆明小巷子里的小咖啡馆',
+          title: '藏在111111111111昆明小巷子里的小咖啡馆',
           addrase: 'by join 上海',
           img: 'https://cdn.xiaotaojiang.com/uploads/82/1572ec37969ee263735262dc017975/_.jpg'
         }, {

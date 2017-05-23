@@ -31,6 +31,33 @@ const router = new Router({
         requiresAuth: true
       }
     }, {
+      path: '/home/subpage',
+      name: 'homeList',
+      components: {
+        'insidePage': resolve => require(['../components/home/subpage/homeList.vue'], resolve)
+      },
+      meta: {
+        requiresAuth: true
+      }
+    }, {
+      path: '/home/subpage',
+      name: 'Nutration',
+      components: {
+        'insidePage': resolve => require(['../components/home/subpage/nutration.vue'], resolve)
+      },
+      meta: {
+        requiresAuth: true
+      }
+    }, {
+      path: '/home/subpage',
+      name: 'random',
+      components: {
+        'insidePage': resolve => require(['../components/home/subpage/random.vue'], resolve)
+      },
+      meta: {
+        requiresAuth: true
+      }
+    }, {
       path: '/find',
       name: '发现',
       components: {
@@ -53,6 +80,33 @@ const router = new Router({
       name: '我的',
       components: {
         'insidePage': resolve => require(['../components/mine/mine_page.vue'], resolve)
+      },
+      meta: {
+        requiresAuth: true
+      }
+    }, {
+      path: '/subpage/site',
+      name: 'site',
+      components: {
+        'insidePage': resolve => require(['../components/mine/subpage/site.vue'], resolve)
+      },
+      meta: {
+        requiresAuth: true
+      }
+    }, {
+      path: '/subpage/check',
+      name: 'check',
+      components: {
+        'insidePage': resolve => require(['../components/mine/subpage/check.vue'], resolve)
+      },
+      meta: {
+        requiresAuth: true
+      }
+    }, {
+      path: '/subpage/about',
+      name: 'about',
+      components: {
+        'insidePage': resolve => require(['../components/mine/subpage/about.vue'], resolve)
       },
       meta: {
         requiresAuth: true

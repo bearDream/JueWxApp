@@ -1,30 +1,30 @@
 <template>
   <div style="">
-    <blur :blur-amount=40 :url="url" style="height:250px">
+    <blur :blur-amount=5 :url="url" style="height:250px">
       <p class="center">
         <img :src="url">
         <br>
-        Dream
+        {{name}}
       </p>
-      <marsker style="border-radius: 2px;">
         <div class="m-buttom"></div>
         <ul class="me_show">
           <li><p>{{attentions}}</p>关注</li>
           <li><p>{{fans}}</p>粉丝</li>
           <li><p>{{editedate}}</p></li>
         </ul>
-      </marsker>
     </blur>
     <grid>
-      <grid-item  ><img src="../../assets/images/collection.png" alt=""></grid-item>
-      <grid-item  ><img src="../../assets/images/vip.png" alt=""></grid-item>
-      <grid-item  ><img src="../../assets/images/release.png" alt=""></grid-item>
+      <grid-item ><img src="../../assets/images/collection.png" alt=""></grid-item>
+      <grid-item ><img src="../../assets/images/vip.png" alt=""></grid-item>
+      <grid-item ><img src="../../assets/images/release.png" alt=""></grid-item>
     </grid>
     <group>
-      <cell title='设置' is-link></cell>
-      <cell title='每日签到' is-link></cell>
-      <cell title='关于我们' is-link></cell>
+      <cell title='设置'  link="subpage/site"  is-link></cell>
+      <cell title='每日签到' link="subpage/check" is-link></cell>
+      <cell title='关于我们' link="subpage/about" is-link></cell>
     </group>
+    <br>
+    <br>
   </div>
 
 </template>
@@ -48,7 +48,8 @@ export default {
       url: 'https://o3e85j0cv.qnssl.com/tulips-1083572__340.jpg',
       attentions: 888,
       fans: 666,
-      editedate: '编辑资料'
+      editedate: '编辑资料',
+      name: 'Dream'
     }
   },
   mounted () {
@@ -56,7 +57,13 @@ export default {
   },
   computed: mapState([
     'me'
-  ])
+  ]),
+  methods: {
+    GoSite () {
+      alert('sdfdsfdfsd')
+      this.$router.push(name('site'))
+    }
+  }
 }
 </script>
 
