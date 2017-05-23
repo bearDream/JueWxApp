@@ -85,6 +85,15 @@ const router = new Router({
         requiresAuth: true
       }
     }, {
+      path: '/subpage/editor',
+      name: 'editor',
+      components: {
+        'insidePage': resolve => require(['../components/mine/subpage/editor.vue'], resolve)
+      },
+      meta: {
+        requiresAuth: true
+      }
+    }, {
       path: '/subpage/site',
       name: 'site',
       components: {

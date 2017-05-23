@@ -10,11 +10,11 @@
         <ul class="me_show">
           <li><p>{{attentions}}</p>关注</li>
           <li><p>{{fans}}</p>粉丝</li>
-          <li><p>{{editedate}}</p></li>
+          <li v-on:click="GoEditor"><p>{{editedate}}</p></li>
         </ul>
     </blur>
     <grid>
-      <grid-item ><img src="../../assets/images/collection.png" alt=""></grid-item>
+      <grid-item link="subpage/collect"><img src="../../assets/images/collection.png" alt=""></grid-item>
       <grid-item ><img src="../../assets/images/vip.png" alt=""></grid-item>
       <grid-item ><img src="../../assets/images/release.png" alt=""></grid-item>
     </grid>
@@ -59,9 +59,8 @@ export default {
     'me'
   ]),
   methods: {
-    GoSite () {
-      alert('sdfdsfdfsd')
-      this.$router.push(name('site'))
+    GoEditor () {
+      this.$router.push({name: 'editor'})
     }
   }
 }
