@@ -1,3 +1,4 @@
+
 <template>
   <div>
     <scroller enable-horizontal-swiping=""  pulldown:loading="load" >
@@ -161,6 +162,13 @@
     text-align: center;
     top: 50%;
     transform: translateY(-50%);
+  }
+  .m-time {
+    font-size: 12px;
+    padding-top: 4px;
+    border-top: 1px solid #f0f0f0;
+    display: inline-block;
+    margin-top: 5px;
   }
   a{
     text-align: center;
