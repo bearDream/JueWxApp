@@ -2,16 +2,16 @@
   <div style="">
     <blur :blur-amount=0 :url="url" style="height:260px">
 
-      <marsker style="border-radius: 2px;">
-        <div class="m-buttom">营养价值分析</div>
+      <div style="border-radius: 2px;width: 100%">
+        <div class="m-buttom" >营养价值分析</div>
         <div class="m-buttom1"></div>
         <ul class="me_show">
           <li><p>{{attentions}}</p></li>
           <li><p>{{editedate}}</p></li>
         </ul>
-      </marsker>
+      </div>
     </blur>
-    <panel :footer="footer" :list="list" :type="type">
+    <panel :list="list">
     </panel>
   </div>
 </template>
@@ -75,7 +75,7 @@
     height: 25%;
     background: #f3f3f5;
     opacity: 0.5;
-    bottom: 0;
+    top:35%;
     margin-bottom: 25%;
     text-align: center;
     line-height: 60px;
