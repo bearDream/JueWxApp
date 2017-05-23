@@ -76,6 +76,15 @@ const router = new Router({
         requiresAuth: true
       }
     }, {
+      path: '/ranking/detalis',
+      name: 'detalis',
+      components: {
+        'insidePage': resolve => require(['../components/ranking/subpage/rankingLIst.vue'], resolve)
+      },
+      meta: {
+        requiresAuth: true
+      }
+    }, {
       path: '/mine',
       name: '我的',
       components: {
