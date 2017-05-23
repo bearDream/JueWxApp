@@ -1,10 +1,16 @@
 <template>
   <div>
+
+    <grid :rows="5">
+      <grid-item v-for="i in 5" :key="i">
+        <span class="grid-center">{{i}}</span>
+      </grid-item>
+    </grid>
     <div>
       <div id="headershow" style="width: 100%;overflow: hidden;height: 300px;"
            :style="{backgroundImage: 'url('+src+')'}">
         <masker style="border-radius: 2px;margin:20% auto;
-        opacity:0.8;width: 80%;height: 40%; color: rgb(255,255,255)">
+        opacity:0.8;width: 80%;height: 40%;">
           <div slot="content" class="m-title">
             dsfgdfg
             <br/>
@@ -12,7 +18,6 @@
           </div>
         </masker>
       </div>
-
     </div>
 
     <grid :rows="2" >
