@@ -22,8 +22,8 @@ const router = new Router({
         requiresAuth: false
       }
     }, {
-      path: '/home/home',
-      name: 'home',
+      path: '/home/takepage',
+      name: 'takepage',
       components: {
         'insidePage': resolve => require(['../components/home/subpage/takepage.vue'], resolve)
       },
@@ -31,28 +31,28 @@ const router = new Router({
         requiresAuth: true
       }
     }, {
-      path: '/home/subpage',
-      name: 'homeList',
+      path: '/home/nutritional',
+      name: 'nutritional',
       components: {
-        'insidePage': resolve => require(['../components/home/subpage/takepage.vue'], resolve)
+        'insidePage': resolve => require(['../components/home/subpage/nutritional.vue'], resolve)
       },
       meta: {
         requiresAuth: true
       }
     }, {
-      path: '/home/subpage',
-      name: 'Nutration',
-      components: {
-        'insidePage': resolve => require(['../components/home/subpage/nutration.vue'], resolve)
-      },
-      meta: {
-        requiresAuth: true
-      }
-    }, {
-      path: '/home/subpage',
+      path: '/home/random',
       name: 'random',
       components: {
         'insidePage': resolve => require(['../components/home/subpage/random.vue'], resolve)
+      },
+      meta: {
+        requiresAuth: true
+      }
+    }, {
+      path: '/home/food',
+      name: 'food',
+      components: {
+        'insidePage': resolve => require(['../components/home/subpage/food.vue'], resolve)
       },
       meta: {
         requiresAuth: true
@@ -85,19 +85,10 @@ const router = new Router({
         requiresAuth: true
       }
     }, {
-      path: '/ranking/more',
-      name: 'more',
+      path: '/ranking/details',
+      name: 'details',
       components: {
         'insidePage': resolve => require(['../components/ranking/subpage/rankingList.vue'], resolve)
-      },
-      meta: {
-        requiresAuth: true
-      }
-    }, {
-      path: '/ranking/detalis',
-      name: 'detalis',
-      components: {
-        'insidePage': resolve => require(['../components/ranking/subpage/rankingLIst.vue'], resolve)
       },
       meta: {
         requiresAuth: true

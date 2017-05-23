@@ -1,7 +1,7 @@
 <template>
   <!--复兴性高，数据交互比较频繁-->
   <div id="wx-header">
-    <div class="center" style="background-color: #59850b;">
+    <div class="center">
       <!-- <transition name="fade">
           <div class="iconfont icon-return-arrow" style="left: 10px;position: absolute;font-size: 16px;" v-on:click="goBack" v-show="$route.path.split('/').length>2"><span>{{$store.state.backPageName}}</span></div>
       </transition>-->

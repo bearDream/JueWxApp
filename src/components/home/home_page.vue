@@ -1,18 +1,18 @@
 
 <template>
   <div>
-    <scroller enable-horizontal-swiping=""  pulldown:loading="load" >
+    <scroller enable-horizontal-swiping=""  :loading="load" >
       <search @on-submit="onSubmit" :auto-fixed="false" v-model="value2" @on-focus="onFocus" @on-cancel="onCancel"></search>
       <swiper :list="list1" :min-moving-distance="20" auto=""  height="260px">
-        <div class="theme">方便生活从蕨菜开始a</div>
+        <div class="theme">方便生活从蕨菜开始</div>
       </swiper>
     </scroller>
     <grid>
-      <grid-item ><img src="../../assets/images/take.png" v-on:click="GoTakePage" alt=""><p>在线取号</p></grid-item>
-      <grid-item  ><img src="../../assets/images/nutrition.png" v-on:click="GoNutritional" alt=""><p>营养价值</p></grid-item>
-      <grid-item  ><img src="../../assets/images/random.png" v-on:click="GoRandom" alt=""><p>随机</p></grid-item>
+      <grid-item><img src="../../assets/images/take.png" v-on:click="GoTakePage" alt=""><p>在线取号</p></grid-item>
+      <grid-item><img src="../../assets/images/nutrition.png" v-on:click="GoNutritional" alt=""><p>营养价值</p></grid-item>
+      <grid-item><img src="../../assets/images/random.png" v-on:click="GoRandom" alt=""><p>随机</p></grid-item>
     </grid>
-    <div style="margin: 10px;overflow: hidden;height:40%;" v-for="item in list2" v-on:click="business_list(item)">
+    <div style="margin: 10px;overflow: hidden;height:40%;" v-for="item in list2" v-on:click="GoFood">
       <div class="m-img"  :style="{backgroundImage: 'url(' + item.img + ')'}">
         <div class="outer">
           <div class="masker" style="border-radius:3px;width:90%;height:80%;position:absolute;top:10%;left:5%;  backgroundColor:rgba(255,255,255,.5);">
@@ -105,13 +105,16 @@
         console.log('on focus')
       },
       GoTakePage () {
-        this.$router.push({name: 'homeList'})
+        this.$router.push({name: 'takepage'})
       },
       GoNutritional () {
         this.$router.push({name: 'nutritional'})
       },
       GoRandom () {
         this.$router.push({name: 'random'})
+      },
+      GoFood () {
+        this.$router.push({name: 'food'})
       }
     },
     mounted () {
@@ -122,13 +125,16 @@
 
 <style lang="less">
   .theme{
+    width:66%;
+    height:14%;
     border:2px solid #fff;
     color:#fff;
     font-size:26px;
     z-index:10;
     position:fixed;
-    top:140px;
-    left:70px;
+    top:46%;
+    left:20%;
+    text-align:center;
   }
   .m-img {
     padding-bottom: 33%;
@@ -156,9 +162,9 @@
     font-weight: 500;
     font-size: 16px;
     position: absolute;
-    left: 18%;
+    left: 0;
     right: 0;
-    width: 66%;
+    width: 100%;
     text-align: center;
     top: 50%;
     transform: translateY(-50%);

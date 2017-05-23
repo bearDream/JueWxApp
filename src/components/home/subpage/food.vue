@@ -1,7 +1,15 @@
 <template>
   <div>
-    <x-header v-on:click="$router.back()">营养价值</x-header>
+    <x-header v-on:click="$router.back()">食话食说</x-header>
     <br>
+    <!--<header class="wx-header">-->
+    <!--<div class="center">-->
+    <!--<div class="iconfont icon-return-arrow" v-on:click="$router.back()">-->
+    <!--<span>返回</span>-->
+    <!--</div>-->
+    <!--<span>聊天详情</span>-->
+    <!--</div>-->
+    <!--</header>-->
     <div style="margin: 10px;overflow: hidden;" v-for="item in list" v-on:click="business_info(item)">
       <masker style="border-radius: 2px;" >
         <div class="m-img" :style="{backgroundImage: 'url(' + item.img + ')'}"></div>

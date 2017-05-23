@@ -1,6 +1,6 @@
 <template>
   <div>
-    <x-header v-on:click="$router.back()">商家列表</x-header>
+    <x-header v-on:click="$router.back()">排队取号</x-header>
     <br>
     <div style="margin: 10px;overflow: hidden;" v-for="item in list" v-on:click="business_info(item)">
       <masker style="border-radius: 2px;" >

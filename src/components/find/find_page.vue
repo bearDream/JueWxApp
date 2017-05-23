@@ -16,12 +16,12 @@
     </div>
 
     <grid :rows="2" >
-      <grid-item v-for="i in list2">
+      <grid-item v-for="i in list2" :key="i">
         <img :src='i.img'>
       </grid-item>
     </grid>
     <grid :rows="1">
-      <grid-item v-for="j in list3">
+      <grid-item v-for="j in list3" :key="j">
         <img :src='j.img'>
       </grid-item>
     </grid>
