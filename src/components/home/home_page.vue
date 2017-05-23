@@ -1,4 +1,3 @@
-
 <template>
   <div>
     <scroller enable-horizontal-swiping=""  pulldown:loading="load" >
@@ -129,6 +128,7 @@
     cursor: pointer;
     border-radius: 2px;
   }
+
   .m-title {
     color: #fff;
     text-align: center;
@@ -143,6 +143,7 @@
     top: 50%;
     transform: translateY(-50%);
   }
+
   .m-time {
     font-size: 12px;
     padding-top: 4px;

@@ -3,7 +3,7 @@
     <blur :blur-amount=0 :url="url" style="height:260px">
 
       <div style="border-radius: 2px;width: 100%">
-        <div class="m-buttom" >营养价值分析</div>
+        <div class="m-buttom" >营养价值分析111</div>
         <div class="m-buttom1"></div>
         <ul class="me_show">
           <li><p>{{attentions}}</p></li>
