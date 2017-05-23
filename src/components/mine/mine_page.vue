@@ -19,10 +19,12 @@
       <grid-item ><img src="../../assets/images/release.png" alt=""></grid-item>
     </grid>
     <group>
-      <cell title='设置' is-link></cell>
-      <cell title='每日签到' is-link></cell>
-      <cell title='关于我们' is-link></cell>
+      <cell title='设置'  link="subpage/site"  is-link></cell>
+      <cell title='每日签到' link="subpage/check" is-link></cell>
+      <cell title='关于我们' link="subpage/about" is-link></cell>
     </group>
+    <br>
+    <br>
   </div>
 
 </template>
@@ -55,7 +57,13 @@ export default {
   },
   computed: mapState([
     'me'
-  ])
+  ]),
+  methods: {
+    GoSite () {
+      alert('sdfdsfdfsd')
+      this.$router.push(name('site'))
+    }
+  }
 }
 </script>
 

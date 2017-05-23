@@ -1,5 +1,6 @@
 <template>
-  <x-header v-on:click="$router.back()">随机来几个菜</x-header>
+  <x-header v-on:click="$router.back()">设置</x-header>
+
 </template>
 <script>
   import { XHeader } from 'vux'
