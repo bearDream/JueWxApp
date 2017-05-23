@@ -10,8 +10,8 @@ import router from './router/index'
 import { LoadingPlugin } from 'vux'
 Vue.use(LoadingPlugin)
 // 测试接口mock
-import dishMock from './utils/mock/dishMock'
-import userMock from './utils/mock/userMock'
+import dishMock from './utils/mock/mineMock'
+import userMock from './utils/mock/findMock'
 Vue.use(dishMock)
 Vue.use(userMock)
 
