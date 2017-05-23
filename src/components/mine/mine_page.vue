@@ -87,8 +87,8 @@ export default {
     background-position: center center;
     cursor: pointer;
     border-radius: 2px;
-    height: 50px;
-    background: #000;
+    height: 60px;
+    background: #f3f3f5;
     opacity: .1;
     bottom: 0;
   }
