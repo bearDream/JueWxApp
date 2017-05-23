@@ -2,14 +2,20 @@
 <template>
   <div>
     <scroller enable-horizontal-swiping=""  pulldown:loading="load" >
-      <search class="search" @on-submit="onSubmit" :auto-fixed="false" v-model="value2" @on-focus="onFocus" @on-cancel="onCancel"></search>
+      <search @on-submit="onSubmit" :auto-fixed="false" v-model="value2" @on-focus="onFocus" @on-cancel="onCancel"></search>
       <swiper :list="list1" :min-moving-distance="20" auto=""  height="260px">
       </swiper>
     </scroller>
     <grid>
-      <grid-item ><img src="../../assets/images/take.png" v-on:click="GoTakePage" alt=""><p>在线取号</p></grid-item>
-      <grid-item  ><img src="../../assets/images/nutrition.png" alt=""><p>营养价值</p></grid-item>
-      <grid-item  ><img src="../../assets/images/random.png" alt=""><p>随机</p></grid-item>
+      <grid-item >
+        <img src="../../assets/images/take.png" v-on:click="GoTakePage" alt=""><p>在线取号</p>
+      </grid-item>
+      <grid-item  >
+        <img src="../../assets/images/nutrition.png" v-on:click="GoNutration" alt=""><p>营养价值</p>
+      </grid-item>
+      <grid-item  >
+        <img src="../../assets/images/random.png" v-on:click="GoRandom" alt=""><p>随机</p>
+      </grid-item>
     </grid>
     <div style="margin: 10px;overflow: hidden;" v-for="item in list2" v-on:click="business_list(item)">
       <masker style="border-radius: 2px;" >
@@ -98,6 +104,12 @@
       },
       GoTakePage () {
         this.$router.push({name: 'homeList'})
+      },
+      GoNutration () {
+        this.$router.push({name: 'Nutration'})
+      },
+      GoRandom () {
+        this.$router.push({name: 'random'})
       }
     },
     mounted () {
@@ -131,7 +143,6 @@
     top: 50%;
     transform: translateY(-50%);
   }
-
   .m-time {
     font-size: 12px;
     padding-top: 4px;

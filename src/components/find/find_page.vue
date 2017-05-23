@@ -1,29 +1,41 @@
 <template>
   <div>
-    <div style="text-align:center;height: 250px;overflow: hidden">
-      <span style="font-size:20px;">Loading</span>
-      <x-img :src="src" :webp-src="`${src}?type=webp`" @on-success="success" @on-error="error" class="ximg-demo" error-class="ximg-error" :offset="-100" container="#vux_view_box_body"></x-img>
+    <div>
+      <div id="headershow" style="width: 100%;overflow: hidden;height: 300px;"
+           :style="{backgroundImage: 'url('+src+')'}">
+        <masker style="border-radius: 2px;margin:20% auto;
+        opacity:0.8;width: 80%;height: 40%; color: rgb(255,255,255)">
+          <div slot="content" class="m-title">
+            dsfgdfg
+            <br/>
+            <span>2016-03-18</span>
+          </div>
+        </masker>
+      </div>
+
     </div>
-    <div class="model_show">
-      <p>{{new_show}}</p>
-    </div>
+
     <grid :rows="2" >
       <grid-item v-for="i in list2">
         <img :src='i.img'>
       </grid-item>
     </grid>
     <grid :rows="1">
-      <grid-item v-for="i in list2">
-        <img :src='i.img'>
+      <grid-item v-for="j in list3">
+        <img :src='j.img'>
       </grid-item>
     </grid>
+
+
   </div>
 </template>
 
 <script>
+
   import { Masker, XImg, Grid, GridItem } from 'vux'
   import grid1 from '../../assets/images/grid1.jpg'
   import grid2 from '../../assets/images/grid2.jpg'
+  import grid3 from '../../assets/images/grid4.jpg'
 
   export default {
     components: {
@@ -36,7 +48,8 @@
       return {
         src: 'https://o5omsejde.qnssl.com/demo/test1.jpg',
         new_show: '今日特价，全部菜系五折',
-        list2: [{img: grid1}, {img: grid2}]
+        list2: [{img: grid1}, {img: grid2}],
+        list3: [{img: grid3}]
       }
     },
     methods: {
@@ -81,4 +94,5 @@
     color: #fff;
     font-size: 20px;
   }
+
 </style>
