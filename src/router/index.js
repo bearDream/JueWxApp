@@ -25,7 +25,7 @@ const router = new Router({
       path: '/home/home',
       name: 'home',
       components: {
-        'insidePage': resolve => require(['../components/home/subpage/homeList.vue'], resolve)
+        'insidePage': resolve => require(['../components/home/subpage/takepage.vue'], resolve)
       },
       meta: {
         requiresAuth: true
@@ -34,7 +34,7 @@ const router = new Router({
       path: '/home/subpage',
       name: 'homeList',
       components: {
-        'insidePage': resolve => require(['../components/home/subpage/homeList.vue'], resolve)
+        'insidePage': resolve => require(['../components/home/subpage/takepage.vue'], resolve)
       },
       meta: {
         requiresAuth: true
@@ -62,6 +62,15 @@ const router = new Router({
       name: '排行',
       components: {
         'insidePage': resolve => require(['../components/ranking/ranking_page.vue'], resolve)
+      },
+      meta: {
+        requiresAuth: true
+      }
+    }, {
+      path: '/ranking/more',
+      name: 'more',
+      components: {
+        'insidePage': resolve => require(['../components/ranking/subpage/rankingList.vue'], resolve)
       },
       meta: {
         requiresAuth: true
