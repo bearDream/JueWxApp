@@ -3,25 +3,44 @@
     <x-header v-on:click="$router.back()">取号</x-header>
 
     <div class="card-demo-flex card-demo-content">
-      <div  >
+      <div >
         <group>
           <cell title="附近" is-link arrow-direction="down"></cell>
         </group>
       </div>
       <div >
         <group>
-          <cell title="全部" is-link arrow-direction="down"></cell>
+          <cell
+            title="全部"
+            is-link
+            :border-intent="false"
+            :arrow-direction="showContent002 ? 'up' : 'down'"
+            @click.native="showContent002 = !showContent002"></cell>
+
+          <template v-if="showContent002">
+            <cell-box :border-intent="false" class="sub-item" is-link>content 001</cell-box>
+            <cell-box class="sub-item" is-link>content 001</cell-box>
+            <cell-box class="sub-item" is-link>content 001</cell-box>
+          </template>
         </group>
       </div>
       <div>
         <group>
-          <cell title="排序" is-link arrow-direction="down"></cell>
+          <cell
+            title="排序"
+            is-link
+            :border-intent="false"
+            :arrow-direction="showContent001 ? 'up' : 'down'"
+            @click.native="showContent001 = !showContent001"></cell>
         </group>
       </div>
+
     </div>
 
-
-
+    <template v-if="showContent001" style="position: fixed">
+      <panel :list="list1">
+      </panel>
+    </template>
 
 
 
@@ -30,7 +49,8 @@
 </template>
 
 <script>
-  import { Card, Masker, XHeader, TransferDom, Group, Cell } from 'vux'
+  import { CellBox, Card, Masker, XHeader, TransferDom, Group, Cell, Panel } from 'vux'
+  import img1 from '../../../assets/img/8.png'
   export default {
     directives: {
       TransferDom
@@ -40,7 +60,9 @@
       XHeader,
       Group,
       Cell,
-      Card
+      Card,
+      CellBox,
+      Panel
     },
 //    created () {
 //      // 数据交互：通过this.$route.params或.query取出数据
@@ -48,6 +70,13 @@
 //    },
     data () {
       return {
+        showContent001: false,
+        showContent002: false,
+        list1: [{
+          src: img1,
+          title: '海底捞',
+          desc: '排队'
+        }]
       }
     },
     mounted () {
@@ -61,7 +90,7 @@
   }
 </script>
 
-<style lang="less">
+<style scoped="" lang="less">
   .card-demo-flex {
     display: flex;
   }

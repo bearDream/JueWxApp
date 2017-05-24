@@ -1,13 +1,13 @@
 <template>
   <div>
    <x-header v-on:click="$router.back()">每日签到</x-header>
-    <blur :blur-amount=5 style="height:250px">
+    <div  style="height:250px;width: 100%">
         <ul class="center">
           <li>{{sumScore}}分</li>
           <li><div class="m-buttom">已签+{{score}}</div></li>
           <li>每签到一次,积分增加{{score}}分</li>
         </ul>
-    </blur>
+    </div>
     <group>
       <cell title='赚更多积分'  link="subpage/earn"  is-link></cell>
       <cell title='关注微信' link="subpage/concern" is-link></cell>
@@ -21,6 +21,7 @@
 </template>
 <script>
   import { XHeader, Blur, Group, Cell } from 'vux'
+  import img from '../../../assets/img/4.png'
   export default {
     components: {
       XHeader,
@@ -31,14 +32,15 @@
     data () {
       return {
         sumScore: 6689,
-        score: 10
+        score: 10,
+        url: img
       }
     }
   }
 </script>
 <style scoped>
   div.vux-header{
-    background:#8FC31F;
+    background:#59850b;
   }
   div.vux-header+div{
     background:#8FC31F;
@@ -55,7 +57,7 @@
     margin:15px;
   }
   ul.center>li{
-    margin-top:10px;
+    margin-bottom:10px;
   }
   ul.center>li:nth-child(3) {
     font-size:15px;
