@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/JueWxapp.iml" filepath="$PROJECT_DIR$/.idea/JueWxapp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/JueWxApp.iml" filepath="$PROJECT_DIR$/.idea/JueWxApp.iml" />
     </modules>
   </component>
 </project>

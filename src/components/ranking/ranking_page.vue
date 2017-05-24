@@ -13,7 +13,7 @@
       </div>
     </blur>
     <panel :list="list">
-    </panel>
+  </panel>
   </div>
 </template>
 

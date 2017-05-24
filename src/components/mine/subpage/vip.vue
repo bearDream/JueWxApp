@@ -1,6 +1,6 @@
 <template>
   <div>
-    <x-header v-on:click="$router.back()">我的收藏</x-header>
+    <x-header v-on:click="$router.back()">我的会员</x-header>
   </div>
 </template>
 
