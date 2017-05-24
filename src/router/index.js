@@ -85,8 +85,8 @@ const router = new Router({
         requiresAuth: true
       }
     }, {
-      path: '/ranking/details',
-      name: 'details',
+      path: '/ranking/subpage',
+      name: 'RankingList',
       components: {
         'insidePage': resolve => require(['../components/ranking/subpage/rankingList.vue'], resolve)
       },
@@ -94,6 +94,34 @@ const router = new Router({
         requiresAuth: true
       }
     }, {
+      path: '/ranking/subpage',
+      name: 'Fruit',
+      components: {
+        'insidePage': resolve => require(['../components/ranking/subpage/Fruit.vue'], resolve)
+      },
+      meta: {
+        requiresAuth: true
+      }
+    }, {
+      path: '/ranking/subpage',
+      name: 'Breakfast',
+      components: {
+        'insidePage': resolve => require(['../components/ranking/subpage/Breakfast.vue'], resolve)
+      },
+      meta: {
+        requiresAuth: true
+      }
+    }, {
+      path: '/ranking/subpage',
+      name: 'Lunch',
+      components: {
+        'insidePage': resolve => require(['../components/ranking/subpage/Lunch.vue'], resolve)
+      },
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
       path: '/mine',
       name: '我的',
       components: {

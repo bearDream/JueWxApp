@@ -7,13 +7,23 @@
         <div class="m-buttom" >营养价值分析</div>
         <div class="m-buttom1"></div>
         <ul class="me_show">
-          <li @click="GoRankingList"><p>{{attentions}}</p></li>
-          <li><p>{{editedate}}</p></li>
+          <li><p>{{attentions}}</p></li>
+          <li @click="GoRankingList"><p>{{editedate}}</p></li>
         </ul>
       </div>
     </blur>
-    <panel :list="list">
-  </panel>
+    <div @click="GoFruit" >
+      <panel :list="list1">
+      </panel>
+    </div>
+    <div @click="GoBreakfast">
+      <panel :list="list2">
+      </panel>
+    </div>
+    <div @click="GoLunch">
+      <panel :list="list3">
+      </panel>
+    </div>
   </div>
 </template>
 
@@ -38,18 +48,21 @@
     },
     data () {
       return {
-        list: [{
+        toTake: 'subpage/rankingList',
+        list1: [{
           src: img1,
           title: 'NO.1',
           desc: '水果紫米粥'
-        }, {
+        }],
+        list2: [{
           src: img2,
           title: 'NO.2',
           desc: '营养*早餐'
-        }, {
+        }],
+        list3: [{
           src: img3,
           title: 'NO.3',
-          desc: '营养*早餐'
+          desc: '爱心*午餐'
         }],
         url: img,
         attentions: '营养菜品排行',
@@ -58,8 +71,16 @@
     },
     methods: {
       GoRankingList () {
-        alert('跳转')
         this.$router.push({name: 'RankingList'})
+      },
+      GoFruit () {
+        this.$router.push({name: 'Fruit'})
+      },
+      GoBreakfast () {
+        this.$router.push({name: 'Breakfast'})
+      },
+      GoLunch () {
+        this.$router.push({name: 'Lunch'})
       }
     },
     mounted () {
