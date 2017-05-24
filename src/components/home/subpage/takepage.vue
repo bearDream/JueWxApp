@@ -5,7 +5,11 @@
     <div class="card-demo-flex card-demo-content">
       <div >
         <group>
-          <cell title="附近" is-link arrow-direction="down"></cell>
+          <cell title="附近" is-link
+                :border-intent="false"
+                :arrow-direction="showContent001 ? 'up' : 'down'"
+                @click.native="show1">
+          </cell>
         </group>
       </div>
       <div >
@@ -15,7 +19,7 @@
             is-link
             :border-intent="false"
             :arrow-direction="showContent002 ? 'up' : 'down'"
-            @click.native="showContent002 = !showContent002"></cell>
+            @click.native="show2"></cell>
 
           <template v-if="showContent002">
             <cell-box :border-intent="false" class="sub-item" is-link>content 001</cell-box>
@@ -30,8 +34,8 @@
             title="排序"
             is-link
             :border-intent="false"
-            :arrow-direction="showContent001 ? 'up' : 'down'"
-            @click.native="showContent001 = !showContent001"></cell>
+            :arrow-direction="showContent003 ? 'up' : 'down'"
+            @click.native="show3"></cell>
         </group>
       </div>
 
@@ -39,6 +43,11 @@
 
     <template v-if="showContent001" style="position: fixed">
       <panel :list="list1">
+      </panel>
+    </template>
+
+    <template v-if="showContent003" style="position: fixed">
+      <panel :list="list3">
       </panel>
     </template>
 
@@ -70,9 +79,15 @@
 //    },
     data () {
       return {
-        showContent001: false,
+        showContent001: true,
         showContent002: false,
+        showContent003: false,
         list1: [{
+          src: img1,
+          title: '海底捞11',
+          desc: '环城路'
+        }],
+        list3: [{
           src: img1,
           title: '海底捞',
           desc: '排队'
@@ -85,6 +100,21 @@
     methods: {
       business_info (item) {
         alert(item.title)
+      },
+      show1 () {
+        this.showContent001 = !this.showContent001
+        this.showContent003 = false
+        this.showContent002 = false
+      },
+      show2 () {
+        this.showContent002 = !this.showContent002
+        this.showContent003 = false
+        this.showContent001 = false
+      },
+      show3 () {
+        this.showContent003 = !this.showContent003
+        this.showContent002 = false
+        this.showContent001 = false
       }
     }
   }
