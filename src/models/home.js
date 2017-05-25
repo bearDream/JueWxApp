@@ -8,6 +8,6 @@ export default class extends REST {
     this.baseURL = consts.API_URL
     this.errorHandler = restHelpers.errorHandler
     // this.headers = restHelpers.getHeaders()
-    this.path = 'home'
+    this.path = 'mobile/article/getpage'
   }
 }
