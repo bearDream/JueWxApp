@@ -11,7 +11,7 @@
         </ul>
       </div>
     </blur>
-    <panel :list="list">
+    <panel :list="list" type="4">
   </panel>
   </div>
 </template>
@@ -37,18 +37,19 @@
     },
     data () {
       return {
+        // 修改panel源码文件来更改字段名
         list: [{
-          src: img1,
+          dishImage: img1,
           title: 'NO.1',
-          desc: '水果紫米粥'
+          dishName: '水果紫米粥'
         }, {
-          src: img2,
+          dishImage: img2,
           title: 'NO.2',
-          desc: '营养*早餐'
+          dishName: '营养*早餐'
         }, {
-          src: img3,
+          dishImage: img3,
           title: 'NO.3',
-          desc: '营养*早餐'
+          dishName: '营养*早餐'
         }],
         url: img,
         attentions: '营养菜品排行',
@@ -60,7 +61,23 @@
     },
     computed: mapState([
       'ranking'
-    ])
+    ]),
+    created () {
+      this.gets()
+    },
+    methods: {
+      gets () {
+        this.$store.dispatch('getRankings', {
+          params: {
+          }
+        }).then(() => {
+          if (this.$store.getters.getRankings.code !== -1) {
+            console.info(this.$store.getters.getRankings.data.page.list)
+            this.$set(this, 'list', this.$store.getters.getRankings.data.page.list)
+          }
+        })
+      }
+    }
   }
 </script>
 
