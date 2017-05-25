@@ -2,9 +2,11 @@
   <div>
     <x-header :left-options="{backText: ''}" v-on:click="$router.back()">编辑资料</x-header>
     <group>
-      <cell title="头像" is-link @click="avatarshow1"></cell>
+      <cell title="头像" is-link @click.native="avatarshow1"></cell>
     </group>
-
+    <group>
+      <cell title="昵称" is-link></cell>
+    </group>
     <tempate v-if="avatarshow">
         <div>
           <p>编辑头像</p>
@@ -28,6 +30,7 @@
       },
       methods: {
         avatarshow1 () {
+          alert(123)
           this.avatarshow = !this.avatarshow
         }
       }
