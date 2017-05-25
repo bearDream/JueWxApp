@@ -8,7 +8,6 @@ export default {
    */
   getHomes ({commit}, {params}) {
     return new Model().GET({params}).then(res => {
-      console.info(res.data)
       commit(types.GET_HOMES, {
         data: res.data
       })

@@ -130,6 +130,33 @@ const router = new Router({
         requiresAuth: true
       }
     }, {
+      path: '/subpage/collect',
+      name: 'collect',
+      components: {
+        'insidePage': resolve => require(['../components/mine/subpage/collect.vue'], resolve)
+      },
+      meta: {
+        requiresAuth: true
+      }
+    }, {
+      path: '/subpage/vip',
+      name: 'vip',
+      components: {
+        'insidePage': resolve => require(['../components/mine/subpage/vip.vue'], resolve)
+      },
+      meta: {
+        requiresAuth: true
+      }
+    }, {
+      path: '/subpage/release',
+      name: 'release',
+      components: {
+        'insidePage': resolve => require(['../components/mine/subpage/release.vue'], resolve)
+      },
+      meta: {
+        requiresAuth: true
+      }
+    }, {
       path: '/subpage/about',
       name: 'about',
       components: {
