@@ -18,7 +18,7 @@ export default {
   /**
    * 获取详情
    */
-  getFInd ({commit}, {uri}) {
+  getFind ({commit}, {uri}) {
     return new Model().GET({uri}).then(res => {
       commit(types.GET_FIND, {
         data: res.data

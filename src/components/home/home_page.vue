@@ -1,4 +1,3 @@
-
 <template>
   <div>
     <scroller enable-horizontal-swiping=""  :loading="load" >
@@ -8,9 +7,15 @@
       </swiper>
     </scroller>
     <grid>
-      <grid-item><img src="../../assets/images/take.png" v-on:click="GoTakePage" alt=""><p>在线取号</p></grid-item>
-      <grid-item><img src="../../assets/images/nutrition.png" v-on:click="GoNutritional" alt=""><p>营养价值</p></grid-item>
-      <grid-item><img src="../../assets/images/random.png" v-on:click="GoRandom" alt=""><p>随机</p></grid-item>
+      <grid-item>
+        <div class="icon" v-on:click="GoTakePage" style="background-position: -69px -3px;"></div><p>在线取号</p>
+      </grid-item>
+      <grid-item>
+        <div class="icon" style="background-position: -130px -4px;" v-on:click="GoNutritional" alt=""></div><p>营养价值</p>
+      </grid-item>
+      <grid-item>
+        <div class="icon" style="background-position: -186px -4px;" v-on:click="GoRandom" alt=""></div><p>今天吃啥</p>
+      </grid-item>
     </grid>
     <div style="margin: 10px;overflow: hidden;height:40%;" v-for="item in list2" v-on:click="GoFood">
       <div class="m-img"  :style="{backgroundImage: 'url(' + item.img + ')'}">
@@ -123,7 +128,16 @@
   }
 </script>
 
-<style lang="less">
+<style scoped lang="less">
+  .icon{
+    display:inline-block;
+    width:50px;
+    height:50px;
+    background-image: url("../../assets/img/icon-green.png");
+  }
+  p{
+    color:#59850b;
+  }
   .theme{
     width:66%;
     height:14%;

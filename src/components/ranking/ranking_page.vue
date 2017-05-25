@@ -29,10 +29,10 @@
 
 <script>
   import { Flexbox, FlexboxItem, Blur, Masker, Group, Grid, GridItem, Cell, Panel } from 'vux'
-  import img from '../../assets/img/7.png'
-  import img1 from '../../assets/img/8.png'
-  import img2 from '../../assets/img/9.png'
-  import img3 from '../../assets/img/10.png'
+  import img from '../../assets/images/7.png'
+  import img1 from '../../assets/images/8.png'
+  import img2 from '../../assets/images/9.png'
+  import img3 from '../../assets/images/10.png'
   import { mapState } from 'vuex'
   export default {
     components: {
