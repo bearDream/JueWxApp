@@ -1,99 +1,111 @@
 <template>
-  <div>
-
-
-    <div>
-      <div id="headershow" style="width: 100%;overflow: hidden;height: 300px;"
-           :style="{backgroundImage: 'url('+src+')'}">
-        <masker style="border-radius: 2px;margin:20% auto;
-        opacity:0.8;width: 80%;height: 40%;">
-          <div slot="content" class="m-title">
-            dsfgdfg
-            <br/>
-            <span>2016-03-18</span>
-          </div>
-        </masker>
+  <div style="height:100%;width:100%;background-color: #f2f2f2;">
+    <grid :row="2" style="margin-top:12%;">
+      <grid-item v-for="i in 2" :key="i"></grid-item>
+    </grid>
+    <div style="padding:5% 3%;margin-top:2%;background-color:#fff;">
+      <div class="t-img" :style="{backgroundImage: 'url(' + list1.img + ')'}">
+        <div class="masker" style="background-color: rgba(255, 255, 255, .5);">
+          <div class="title">{{ list1.title }}</div>
+        </div>
       </div>
     </div>
-
-    <grid :rows="2" >
-      <grid-item v-for="i in list2" :key="i">
-        <img :src='i.img'>
-      </grid-item>
-    </grid>
-    <grid :rows="1">
-      <grid-item v-for="j in list3" :key="j">
-        <img :src='j.img'>
-      </grid-item>
-    </grid>
-
-
+    <div style="padding:5% 3%;margin-top:2%;background-color:#fff;">
+      <div class="e-img" style="margin-right:2%;" :style="{backgroundImage: 'url(' + list2.img1 + ')'}"></div>
+      <div class="e-img" style="margin-left: 2.5%;" :style="{backgroundImage: 'url(' + list2.img2 + ')'}"></div>
+    </div>
+    <div style="padding:5% 3%;margin-top:2%;background-color:#fff;">
+      <div class="b-img":style="{backgroundImage: 'url(' + list3.img + ')'}">
+        <div class="masker" style="background-color: rgba(0, 0, 0, .3);">
+          <div class="title">{{ list3.title }}</div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+ import { Grid, GridItem } from 'vux'
+ import { mapState } from 'vuex'
+ import find1 from '../../assets/img/find1.png'
+ import find2 from '../../assets/img/find2.png'
+ import find3 from '../../assets/img/find3.png'
+ import find4 from '../../assets/img/find4.png'
 
-  import { Masker, XImg, Grid, GridItem } from 'vux'
-  import grid1 from '../../assets/images/grid1.jpg'
-  import grid2 from '../../assets/images/grid2.jpg'
-  import grid3 from '../../assets/images/grid4.jpg'
-
-  export default {
-    components: {
-      Masker,
-      XImg,
-      Grid,
-      GridItem
-    },
-    data () {
-      return {
-        src: 'https://o5omsejde.qnssl.com/demo/test1.jpg',
-        new_show: '今日特价，全部菜系五折',
-        list2: [{img: grid1}, {img: grid2}],
-        list3: [{img: grid3}]
-      }
-    },
-    methods: {
-      success (src, ele) {
-        console.log('success load', src)
-        const span = ele.parentNode.querySelector('span')
-        ele.parentNode.removeChild(span)
-      },
-      error (src, ele, msg) {
-        console.log('error load', msg, src)
-        const span = ele.parentNode.querySelector('span')
-        span.innerText = 'load error'
-      }
-    }
-  }
+ export default {
+   components: {
+     Grid,
+     GridItem
+   },
+   computed: mapState([
+     'find'
+   ]),
+   data () {
+     return {
+       list1: {
+         title: '今日特价，全部菜系打五折',
+         img: find1
+       },
+       list2: {
+         img1: find2,
+         img2: find3
+       },
+       list3: {
+         img: find4,
+         title: '本店饮品今日买一赠一'
+       }
+     }
+   }
+ }
 </script>
 
-<style>
-  .ximg-demo {
-    width: 100%;
-    height: auto;
+<style scoped>
+  .t-img{
+    padding-bottom: 35%;
+    display: block;
+    position: relative;
+    max-width: 100%;
+    background-size: cover;
+    background-position: center center;
+    cursor: pointer;
   }
-  .ximg-error {
-    background-color: yellow;
-  }
-  .ximg-error:after {
-    content: '加载失败';
-    color: red;
-  }
-  .model_show{
-    width: 80%;
-    height:130px;
+  .masker {
+    width: 70%;
+    height: 70%;
     position: absolute;
-    top: 80px;
-    left: 25%;
-    margin-left: -15%;
-    background: rgba(255,255,255,0.3);
+    top: 15%;
+    left: 18%;
+    border-radius: 5px;
+  }
+  .title{
+    color:#fff;
+    text-align:center;
+    font-size:1.5em;
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100%;
     text-align: center;
-    line-height: 100px;
+    top: 50%;
+    transform: translateY(-50%);
   }
-  .model_show p{
-    color: #fff;
-    font-size: 20px;
+  .e-img{
+    padding-bottom:40%;
+    width:47%;
+    display:inline-block;
+    text-align:center;
+    position: relative;
+    background-size: cover;
+    background-position: center center;
+    cursor: pointer;
   }
-
+  .b-img{
+    padding-bottom: 40%;
+    display: block;
+    position: relative;
+    max-width: 100%;
+    background-size: cover;
+    background-position: center center;
+    cursor: pointer;
+  }
 </style>
