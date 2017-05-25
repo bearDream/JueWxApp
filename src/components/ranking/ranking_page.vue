@@ -11,7 +11,7 @@
         </ul>
       </div>
     </blur>
-    <panel :list="list">
+    <panel :list="list" >
   </panel>
   </div>
 </template>
@@ -44,6 +44,10 @@
         }, {
           src: img2,
           title: 'NO.2',
+          desc: '营养*早餐'
+        }, {
+          src: img3,
+          title: 'NO.3',
           desc: '营养*早餐'
         }, {
           src: img3,

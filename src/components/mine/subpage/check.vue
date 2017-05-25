@@ -21,7 +21,6 @@
 </template>
 <script>
   import { XHeader, Blur, Group, Cell } from 'vux'
-  import img from '../../../assets/img/4.png'
   export default {
     components: {
       XHeader,
@@ -32,8 +31,7 @@
     data () {
       return {
         sumScore: 6689,
-        score: 10,
-        url: img
+        score: 10
       }
     }
   }
