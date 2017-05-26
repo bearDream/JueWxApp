@@ -143,9 +143,19 @@
     mounted () {
       // 进入页面的钩子函数
     },
+    created () {
+      this.getsort()
+    },
     methods: {
       business_info (item) {
         alert(item.title)
+      },
+      getsort () {
+        this.$store.dispatch('getBusinesss', {
+          params: {
+            sort: 'add_time'
+          }
+        })
       },
       show1 () {
         this.showContent001 = !this.showContent001

@@ -5,6 +5,7 @@ import home from './modules/home'
 import find from './modules/find'
 import ranking from './modules/ranking'
 import mine from './modules/mine'
+import business from './modules/business'
 
 import actions from './actions'
 Vue.use(Vuex)
@@ -30,6 +31,7 @@ export default new Vuex.Store({
     home,
     find,
     ranking,
-    mine
+    mine,
+    business
   }
 })
