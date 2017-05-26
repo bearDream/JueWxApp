@@ -1,6 +1,6 @@
 import Mock from 'mockjs'
 
-export default Mock.mock('http://171590mx26.51mypc.cn/ranking', {
+export default Mock.mock('http://171590mx26.51mypc.cn/food', {
   'code': 0,
   'msg': '后台正常',
   'data': {

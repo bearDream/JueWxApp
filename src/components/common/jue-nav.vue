@@ -12,8 +12,8 @@
         </dt>
         <dd>发现</dd>
     </router-link>
-		<router-link to="/ranking" tag="dl">
-        <dt class="iconfont icon-ranking" >
+		<router-link to="/food" tag="dl">
+        <dt class="iconfont icon-food" >
         </dt>
         <dd>排行</dd>
     </router-link>
@@ -42,7 +42,7 @@
   .icon-finds{
     background:url('../../assets/img/icon-gray.png') no-repeat -50px -86px;
   }
-  .icon-ranking{
+  .icon-food{
     background:url('../../assets/img/icon-gray.png') no-repeat -95px -87px;
   }
   .icon-mine{
@@ -54,7 +54,7 @@
   #wx-nav nav dl.router-link-active dt.icon-finds{
     background: url('../../assets/img/icon-green.png') no-repeat -50px -86px;
   }
-  #wx-nav nav dl.router-link-active dt.icon-ranking{
+  #wx-nav nav dl.router-link-active dt.icon-food{
     background: url('../../assets/img/icon-green.png') no-repeat -95px -87px;
   }
   #wx-nav nav dl.router-link-active dt.icon-mine{
