@@ -20,12 +20,6 @@
             :border-intent="false"
             :arrow-direction="showContent002 ? 'up' : 'down'"
             @click.native="show2"></cell>
-
-          <template v-if="showContent002">
-            <cell-box :border-intent="false" class="sub-item" is-link>content 001</cell-box>
-            <cell-box class="sub-item" is-link>content 001</cell-box>
-            <cell-box class="sub-item" is-link>content 001</cell-box>
-          </template>
         </group>
       </div>
       <div>
@@ -40,11 +34,39 @@
       </div>
     </div>
 
-    <template v-if="showContent001" style="position: fixed">
-      <panel :list="list1">
-      </panel>
+    <template v-if="showContent001" style="position: fixed" v-for="item in list1">
+      <div class="takeSorting" @click="GoBusiness (item)">
+        <div class="sortingl" :style="{backgroundImage: 'url(' + item.src + ')'}"></div>
+        <div class="sortingr">
+          <h3>{{item.title}}</h3>
+          <span class="distance">{{item.distance}}米</span>
+          <span class="address">地址&nbsp;:&nbsp;</span>
+          <div class="addressdiv">
+            <span class="address">{{item.address}}</span>
+          </div>
+          <br>
+          <br>
+          <span class="tel">电话&nbsp;:&nbsp;&nbsp;&nbsp;{{item.tel}}</span>
+        </div>
+      </div>
     </template>
-    <template  v-if="showContent003" v-for="item in list2" >
+    <template v-if="showContent002" v-for="item in list2">
+      <div class="takeSorting" @click="GoBusiness (item)">
+        <div class="allsortingl" :style="{backgroundImage: 'url(' + item.src + ')'}"></div>
+        <div class="allsortingr">
+          <h3>{{item.title}}</h3>
+          <span class="distance">{{item.distance}}米</span>
+          <span class="address">地址&nbsp;:&nbsp;</span>
+          <div class="addressdiv">
+            <span class="address">{{item.address}}</span>
+          </div>
+          <br>
+          <br>
+          <span class="tel">电话&nbsp;:&nbsp;&nbsp;&nbsp;{{item.tel}}</span>
+        </div>
+      </div>
+    </template>
+    <template  v-if="showContent003" v-for="item in list3" >
       <div class="takeSorting" @click="GoBusiness (item)">
         <div class="sortingl" :style="{backgroundImage: 'url(' + item.img + ')'}"></div>
         <div class="sortingr">
@@ -68,6 +90,7 @@
 <script>
   import { CellBox, Card, Masker, XHeader, TransferDom, Group, Cell, Panel, Rater, Badge } from 'vux'
   import img1 from '../../../assets/img/8.png'
+  import img2 from '../../../assets/img/5.png'
   export default {
     directives: {
       TransferDom
@@ -99,12 +122,26 @@
         showContent003: true,
         tel: 1232132,
         list1: [{
-          src: img1,
+          src: img2,
           title: '海底捞11',
-          desc: 'drass'
+          distance: 228,
+          address: '盘龙区白龙路东华菜市场熟食区六区15商铺',
+          tel: '1398702586'
+        }, {
+          src: img1,
+          title: '北京烤鸭',
+          distance: 80,
+          address: '盘龙区白龙路',
+          tel: '1398702586'
+        }, {
+          src: img1,
+          title: '外婆味道',
+          distance: 100,
+          address: '盘龙区白龙路昆明理工大学',
+          tel: '1398702586'
         }],
-        list2: [{
-          img: img1,
+        list3: [{
+          img: img2,
           title: '海底捞(同德广场)',
           type: '海鲜',
           start: 4,
@@ -132,7 +169,7 @@
           content: '前方正在排队',
           statuss: 30
         }],
-        list3: [{
+        list2: [{
           src: img1,
           title: '海底捞',
           desc: '排队'
@@ -226,5 +263,44 @@
   .sortingr .statuss {
     color: red;
     margin-right: 2px;
+  }
+  .distance{
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 5px;
+    background-color: #c6c7ca;
+    position: absolute;
+    top:20px;
+    right: 0;
+  }
+  .address , .distance , .tel{
+    color: #5b5b5d;
+    font-size: 15px;
+  }
+  .addressdiv{
+    display: inline-block;
+    width: 70%;
+    position: absolute;
+    top:53px;
+    right: 10px;
+  }
+  .allsortingl{
+    width: 150px;
+    height: 100px;
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    background-size: cover;
+    background-color: #9b9b9b;
+    display: inline-block;
+  }
+  .allsortingr{
+    width: 40%;
+    height: 150px;
+    padding:20px 5px;
+    position: absolute;
+    top:0;
+    right:0;
+    display: inline-block;
   }
 </style>

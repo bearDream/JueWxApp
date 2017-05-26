@@ -1,10 +1,14 @@
 <template>
   <div>
     <scroller enable-horizontal-swiping=""  :loading="load" >
-      <search @on-submit="onSubmit" :auto-fixed="false" v-model="value2" @on-focus="onFocus" @on-cancel="onCancel"></search>
-      <swiper :list="list1" :min-moving-distance="20" auto=""  height="260px">
+      <!--<search @on-submit="onSubmit" :auto-fixed="false" v-model="value2" @on-focus="onFocus" @on-cancel="onCancel"></search>--> <!--height="260px"-->
+      <swiper :list="list1" :min-moving-distance="20" auto="" style="height: 240px" >
         <div class="theme">方便生活从蕨菜开始</div>
       </swiper>
+      <div class="searchdiv">
+       <input type="text" style="padding-left: 60px;" placeholder="搜索菜品、用户、商家" class="inputsearch">
+       <div class="searchicon"></div>
+      </div>
     </scroller>
     <grid>
       <grid-item>
@@ -34,7 +38,7 @@
 </template>
 
 <script>
-  import { Divider, Grid, GridItem, Masker, XInput, Scroller, Swiper, Search } from 'vux'
+  import { Divider, Grid, GridItem, Masker, XInput, Scroller, Swiper, Search, Icon } from 'vux'
   import { mapState } from 'vuex'
   import banner from '../../assets/images/bg/home1.png'
 
@@ -47,7 +51,8 @@
       Search,
       Grid,
       GridItem,
-      Divider
+      Divider,
+      Icon
     },
     created () {
     },
@@ -140,7 +145,7 @@
   }
   .theme{
     width:66%;
-    height:14%;
+    height:18%;
     border:2px solid #fff;
     color:#fff;
     font-size:26px;
@@ -192,5 +197,29 @@
   }
   a{
     text-align: center;
+  }
+  .inputsearch{
+    color: #4bb94b;
+    opacity: .6;
+    position: absolute;
+    width: 95%;
+    right: 2%;
+    border-radius: 15px;
+    border: none;
+    padding: 5px;
+    height: 2.4em;
+    font-size: 14px;
+  }
+  .searchdiv{
+    position: absolute;
+    width:100%;
+    text-align: center;
+    height: 30px;
+    top: 30px;
+  }
+  .searchicon{
+    position:absolute;left: 40px;width:30px;height:30px;
+    top:3px;
+    background: url("../../assets/img/icon_search.png")no-repeat -48px -108px;
   }
 </style>
