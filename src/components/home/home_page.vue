@@ -11,7 +11,7 @@
         <div class="icon" v-on:click="GoTakePage" style="background-position: -69px -3px;"></div><p>在线取号</p>
       </grid-item>
       <grid-item>
-        <div class="icon" style="background-position: -130px -4px;" v-on:click="GoNutritional" alt=""></div><p>营养价值</p>
+        <div class="icon" style="background-position: -130px -4px;" v-on:click="GoNutrition" alt=""></div><p>营养价值</p>
       </grid-item>
       <grid-item>
         <div class="icon" style="background-position: -186px -4px;" v-on:click="GoRandom" alt=""></div><p>今天吃啥</p>
@@ -112,8 +112,8 @@
       GoTakePage () {
         this.$router.push({name: 'takepage'})
       },
-      GoNutritional () {
-        this.$router.push({name: 'nutritional'})
+      GoNutrition () {
+        this.$router.push({name: 'nutrition'})
       },
       GoRandom () {
         this.$router.push({name: 'random'})
