@@ -95,9 +95,9 @@
     },
     data () {
       return {
-        showContent001: true,
+        showContent001: false,
         showContent002: false,
-        showContent003: false,
+        showContent003: true,
         tel: 1232132,
         list1: [{
           src: img1,
