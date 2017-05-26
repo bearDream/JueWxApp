@@ -47,17 +47,18 @@
     </template>
     <template  v-if="showContent003" v-for="item in list2" >
       <div class="takeSorting" @click="GoBusiness (item)">
-        <div class="sortingl" :style="{backgroundImage: 'url(' + item.img + ')'}"></div>
+        <div class="sortingl" :style="{backgroundImage: 'url(' + item.businessImage + ')'}"></div>
         <div class="sortingr">
-          <h3>{{item.title}}</h3>
+          <h3>{{item.name}}</h3>
           <rater v-model="item.start" slot="value" disabled></rater>
           <br>
           <span>{{item.type}}</span>
           <span>{{item.address}}</span>
           <br>
-          <badge :text="item.status"></badge>
-          <span>{{item.content}}</span>
-          <span class="statuss">{{item.statuss}}</span><span>桌</span>
+          <badge :text="quename"></badge>
+          <span v-if="item.wait>0">前方正在排队</span>
+          <span v-else>竟然没有人排队</span>
+          <span class="statuss">{{item.wait}}</span><span>桌</span>
         </div>
       </div>
     </template>
@@ -98,6 +99,7 @@
         showContent001: true,
         showContent002: false,
         showContent003: false,
+        quename: '排队',
         tel: 1232132,
         list1: [{
           src: img1,
@@ -105,37 +107,37 @@
           desc: 'drass'
         }],
         list2: [{
-          img: img1,
-          title: '海底捞(同德广场)',
+          businessImage: img1,
+          name: '海底捞(同德广场)',
           type: '海鲜',
           start: 4,
           address: '233米',
           status: '排队',
           content: '前方正在排队',
-          statuss: 50,
+          wait: 50,
           url: 'www.baidu.com'
         }, {
-          img: img1,
-          title: '外婆味道(昆明广场)',
+          businessImage: img1,
+          name: '外婆味道(昆明广场)',
           type: '老味道',
           start: 1,
           address: '2323米',
           status: '排队',
           content: '前方正在排队',
-          statuss: 20
+          wait: 20
         }, {
-          img: img1,
-          title: '5710海鲜(同德广场)',
+          businessImage: img1,
+          name: '5710海鲜(同德广场)',
           type: '海鲜',
           start: 3,
           address: '233米',
           status: '排队',
           content: '前方正在排队',
-          statuss: 30
+          wait: 30
         }],
         list3: [{
           src: img1,
-          title: '海底捞',
+          name: '海底捞',
           desc: '排队'
         }]
       }
@@ -153,7 +155,14 @@
       getsort () {
         this.$store.dispatch('getBusinesss', {
           params: {
-            sort: 'add_time'
+            sort: 'add_time',
+            waitSort: 'desc'
+          }
+        }).then(() => {
+          let data = this.$store.getters.getBusinesss
+          if (data.code !== -1) {
+            console.info(this.$store.getters.getBusinesss.data)
+            this.$set(this, 'list2', this.$store.getters.getBusinesss.data)
           }
         })
       },
@@ -173,8 +182,8 @@
         this.showContent001 = false
       },
       GoBusiness (item) {
-        this.$router.push({name: 'business'})
-        alert(item.title)
+        this.$router.push({name: 'business', params: { businessId: item.businessId }})
+        alert(item.businessId)
       }
     }
   }

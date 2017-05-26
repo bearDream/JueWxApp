@@ -76,6 +76,7 @@
     },
     data () {
       return {
+        businessId: '',
         img: img,
         title: '生物生鲜肉店(同德广场店)',
         grade: 4,
@@ -95,6 +96,12 @@
         takePageshow: false,
         alertConfirm: false,
         loading: false
+      }
+    },
+    created () {
+      console.info(this.$route.params.businessId)
+      if (this.$route.params.businessId === '' || this.$route.params.businessId === undefined) {
+        this.$router.go(-1)
       }
     },
     methods: {
