@@ -1,6 +1,6 @@
 import helpers from '@/utils/helpers/base'
 
 export default helpers.keyMirror({
-  GET_RANKINGS: null,
-  GET_RANKING: null
+  GET_FOODS: null,
+  GET_FOOD: null
 })

@@ -1,5 +1,5 @@
 import types from './types'
-import Model from '../../../models/ranking'
+import Model from '../../../models/food'
 // import storage from '@/utils/helpers/storageLite'
 //
 // const USERINFO = 'userinfo'
@@ -9,10 +9,10 @@ export default {
   /**
    * 获取列表
    */
-  getRankings ({commit}, {params}) {
+  getFoods ({commit}, {params}) {
     return new Model().GET({params}).then(res => {
       console.info(res.data)
-      commit(types.GET_RANKINGS, {
+      commit(types.GET_FOODS, {
         data: res.data
       })
     })
@@ -21,9 +21,9 @@ export default {
   /**
    * 获取详情
    */
-  getRanking ({commit}, {uri}) {
+  getFood ({commit}, {uri}) {
     return new Model().GET({uri}).then(res => {
-      commit(types.GET_RANKING, {
+      commit(types.GET_FOOD, {
         data: res.data
       })
     })
@@ -32,21 +32,21 @@ export default {
   /**
    * 删除
    */
-  deleteRanking ({commit}, {params}) {
+  deleteFood ({commit}, {params}) {
     return new Model().DELETE({params})
   },
 
   /**
    * 添加数据
    */
-  postRanking ({commit}, {uri, data}) {
+  postFood ({commit}, {uri, data}) {
     return new Model().POST({uri, data})
   },
 
   /**
    * 修改数据
    */
-  putRanking ({commit}, {uri, data}) {
+  putFood ({commit}, {uri, data}) {
     return new Model().PUT({uri, data})
   }
 }

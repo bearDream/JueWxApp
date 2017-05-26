@@ -4,20 +4,28 @@
       <grid-item v-for="i in 2" :key="i"></grid-item>
     </grid>
     <div style="padding:5% 3%;margin-top:2%;background-color:#fff;">
-      <div class="t-img" :style="{backgroundImage: 'url(' + list1.img + ')'}">
-        <div class="masker" style="background-color: rgba(255, 255, 255, .5);">
-          <div class="title">{{ list1.title }}</div>
+      <div>
+        <div class="t-img" :style="{backgroundImage: 'url(' + list1.img + ')'}">
+          <div class="masker" style="background-color: rgba(255, 255, 255, .5);">
+            <div class="title">{{ list1.title }}</div>
+          </div>
+        </div>
+        <div style="padding:5% 3%;margin-top:2%;background-color:#fff;">
+          <div class="e-img" style="margin-right:2%;" :style="{backgroundImage: 'url(' + list2.img1 + ')'}"></div>
+          <div class="e-img" style="margin-left: 2.5%;" :style="{backgroundImage: 'url(' + list2.img2 + ')'}"></div>
         </div>
       </div>
     </div>
     <div style="padding:5% 3%;margin-top:2%;background-color:#fff;">
-      <div class="e-img" style="margin-right:2%;" :style="{backgroundImage: 'url(' + list2.img1 + ')'}"></div>
-      <div class="e-img" style="margin-left: 2.5%;" :style="{backgroundImage: 'url(' + list2.img2 + ')'}"></div>
-    </div>
-    <div style="padding:5% 3%;margin-top:2%;background-color:#fff;">
-      <div class="b-img":style="{backgroundImage: 'url(' + list3.img + ')'}">
-        <div class="masker" style="background-color: rgba(0, 0, 0, .3);">
-          <div class="title">{{ list3.title }}</div>
+      <div>
+        <div class="b-img":style="{backgroundImage: 'url(' + list3.img + ')'}">
+          <div class="masker" style="background-color: rgba(0, 0, 0, .3);">
+            <div class="title">{{ list3.title }}</div>
+          </div>
+        </div>
+        <div style="padding:5% 3%;margin-top:2%;background-color:#fff;">
+          <div class="e-img" style="margin-right:2%;" :style="{backgroundImage: 'url(' + list2.img1 + ')'}"></div>
+          <div class="e-img" style="margin-left: 2.5%;" :style="{backgroundImage: 'url(' + list2.img2 + ')'}"></div>
         </div>
       </div>
     </div>
