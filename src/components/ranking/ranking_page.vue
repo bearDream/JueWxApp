@@ -11,7 +11,7 @@
         </ul>
       </div>
     </blur>
-    <panel :list="list" type="4">
+    <panel :list="list" >
   </panel>
   </div>
 </template>

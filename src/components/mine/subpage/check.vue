@@ -1,7 +1,7 @@
 <template>
   <div>
    <x-header v-on:click="$router.back()">每日签到</x-header>
-    <div :blur-amount=5 style="height:250px">
+    <div  style="height:250px;width: 100%">
         <ul class="center">
           <li>{{sumScore}}分</li>
           <li><div class="m-buttom">已签+{{score}}</div></li>
@@ -20,10 +20,11 @@
   </div>
 </template>
 <script>
-  import { XHeader, Group, Cell } from 'vux'
+  import { XHeader, Blur, Group, Cell } from 'vux'
   export default {
     components: {
       XHeader,
+      Blur,
       Group,
       Cell
     },
@@ -40,7 +41,7 @@
     background:#59850b;
   }
   div.vux-header+div{
-    background:#59850b;
+    background:#8FC31F;
     font-size:18px;
     color:#fff;
     height:180px !important;
@@ -54,7 +55,7 @@
     margin:15px;
   }
   ul.center>li{
-    margin-buttom:10px;
+    margin-bottom:10px;
   }
   ul.center>li:nth-child(3) {
     font-size:15px;
