@@ -8,7 +8,7 @@
         <div class="m-buttom1"></div>
         <ul class="me_show">
           <li><p>{{attentions}}</p></li>
-          <li @click="GoRankingList"><p>{{editedate}}</p></li>
+          <li @click="GoRankingDetail"><p>{{editedate}}</p></li>
         </ul>
       </div>
     </blur>
@@ -70,8 +70,8 @@
       }
     },
     methods: {
-      GoRankingList () {
-        this.$router.push({name: 'RankingList'})
+      GoRankingDetail () {
+        this.$router.push({name: 'RankingDetail'})
       },
       GoFruit () {
         this.$router.push({name: 'Fruit'})

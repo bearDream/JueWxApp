@@ -86,9 +86,9 @@ const router = new Router({
       }
     }, {
       path: '/ranking/subpage',
-      name: 'RankingList',
+      name: 'RankingDetail',
       components: {
-        'insidePage': resolve => require(['../components/ranking/subpage/rankingDetail.vue'], resolve)
+        'insidePage': resolve => require(['../components/ranking/subpage/RankingDetail.vue'], resolve)
       },
       meta: {
         requiresAuth: true
