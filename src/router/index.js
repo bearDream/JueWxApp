@@ -31,10 +31,46 @@ const router = new Router({
         requiresAuth: true
       }
     }, {
-      path: '/home/nutrition',
+      path: '/home/subpage',
       name: 'nutrition',
       components: {
         'insidePage': resolve => require(['../components/home/subpage/nutrition.vue'], resolve)
+      },
+      meta: {
+        requiresAuth: true
+      }
+    }, {
+      path: '/home/subpage/NutritionDetail',
+      name: 'NutritionDetail',
+      components: {
+        'insidePage': resolve => require(['../components/home/subpage/NutritionDetail.vue'], resolve)
+      },
+      meta: {
+        requiresAuth: true
+      }
+    }, {
+      path: '/home/subpage/Fruit',
+      name: 'Fruit',
+      components: {
+        'insidePage': resolve => require(['../components/home/subpage/Fruit.vue'], resolve)
+      },
+      meta: {
+        requiresAuth: true
+      }
+    }, {
+      path: '/home/subpage/Breakfast',
+      name: 'Breakfast',
+      components: {
+        'insidePage': resolve => require(['../components/home/subpage/Breakfast.vue'], resolve)
+      },
+      meta: {
+        requiresAuth: true
+      }
+    }, {
+      path: '/home/subpage/Lunch',
+      name: 'Lunch',
+      components: {
+        'insidePage': resolve => require(['../components/home/subpage/Lunch.vue'], resolve)
       },
       meta: {
         requiresAuth: true

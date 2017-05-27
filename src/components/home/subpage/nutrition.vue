@@ -1,14 +1,14 @@
 <template>
   <div>
     <x-header v-on:click="$router.back()">营养价值</x-header>
-    <blur :blur-amount=0 :url="url" style="height:260px">
+    <blur :blur-amount=0 :url="url" style="height:220px">
 
       <div style="border-radius: 2px;width: 100%">
         <div class="m-buttom" >营养价值分析</div>
         <div class="m-buttom1"></div>
         <ul class="me_show">
           <li><p>{{attentions}}</p></li>
-          <li @click="GonutritionDetail"><p>{{editedate}}</p></li>
+          <li @click="GoNutritionDetail"><p>{{editedate}}</p></li>
         </ul>
       </div>
     </blur>
@@ -71,7 +71,7 @@
       }
     },
     methods: {
-      GonutritionDetail () {
+      GoNutritionDetail () {
         this.$router.push({name: 'NutritionDetail'})
       },
       GoFruit () {
@@ -97,19 +97,19 @@
   .m-buttom {
     display: block;
     position: absolute;
-    width: 40%;
-    margin-left: 30%;
+    width: 70%;
+    margin-left: 15%;
     cursor: pointer;
     border-radius: 2px;
-    height: 25%;
+    height: 40%;
     background: #f3f3f5;
     opacity: 0.5;
-    top:35%;
+    top:20%;
     margin-bottom: 25%;
     text-align: center;
-    line-height: 60px;
+    line-height: 100px;
     color: #000;
-    font-size:20px;
+    font-size:24px;
     font-weight: bold;
   }
   .m-buttom1 {
