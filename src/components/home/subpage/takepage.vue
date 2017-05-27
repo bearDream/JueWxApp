@@ -52,9 +52,9 @@
     </template>
     <template v-if="showContent002" v-for="item in list2">
       <div class="takeSorting" @click="GoBusiness (item)">
+        <h3 class="businesstitle">{{item.title}}</h3>
         <div class="allsortingl" :style="{backgroundImage: 'url(' + item.src + ')'}"></div>
         <div class="allsortingr">
-          <h3>{{item.title}}</h3>
           <span class="distance">{{item.distance}}米</span>
           <span class="address">地址&nbsp;:&nbsp;</span>
           <div class="addressdiv">
@@ -104,22 +104,13 @@
       CellBox,
       Panel,
       Rater,
-      Badge,
-      first: {
-        template: '<p>电话1{{tel}}</p>'
-      },
-      second: {
-        template: '<p>电话2}</p>'
-      },
-      third: {
-        template: '<p>电话3}</p>'
-      }
+      Badge
     },
     data () {
       return {
         showContent001: false,
-        showContent002: false,
-        showContent003: true,
+        showContent002: true,
+        showContent003: false,
         tel: 1232132,
         list1: [{
           src: img2,
@@ -171,7 +162,7 @@
         }],
         list2: [{
           src: img1,
-          title: '海底捞',
+          title: '巴蜀知味重庆老火锅',
           desc: '排队'
         }]
       }
@@ -288,7 +279,7 @@
     width: 150px;
     height: 100px;
     position: absolute;
-    top: 25px;
+    top: 30px;
     left: 25px;
     background-size: cover;
     background-color: #9b9b9b;
@@ -302,5 +293,10 @@
     top:0;
     right:0;
     display: inline-block;
+  }
+  h3.businesstitle {
+    padding-left: 25px;
+    font-size: 18px;
+    color: #5b5b5d;
   }
 </style>
