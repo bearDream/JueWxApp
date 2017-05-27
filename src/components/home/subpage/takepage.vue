@@ -55,14 +55,11 @@
         <h3 class="businesstitle">{{item.title}}</h3>
         <div class="allsortingl" :style="{backgroundImage: 'url(' + item.src + ')'}"></div>
         <div class="allsortingr">
-          <span class="distance">{{item.distance}}米</span>
-          <span class="address">地址&nbsp;:&nbsp;</span>
-          <div class="addressdiv">
-            <span class="address">{{item.address}}</span>
-          </div>
+          <span class="address2">{{item.address}}</span>
+          <span class="tel addressstel">地址&nbsp;:&nbsp;&nbsp;&nbsp;{{item.detailed}}</span>
           <br>
           <br>
-          <span class="tel">电话&nbsp;:&nbsp;&nbsp;&nbsp;{{item.tel}}</span>
+          <span class="addressstel tel" style="top: 80px"><i style="color: red">电话</i>&nbsp;:&nbsp;&nbsp;&nbsp;{{item.tel}}</span>
         </div>
       </div>
     </template>
@@ -163,7 +160,15 @@
         list2: [{
           src: img1,
           title: '巴蜀知味重庆老火锅',
-          desc: '排队'
+          address: '呈贡大学城',
+          detailed: '雨花毓秀小区',
+          tel: 13067349324
+        }, {
+          src: img1,
+          title: '巴蜀知味重庆老火锅',
+          address: '昆明盘龙区',
+          detailed: '雨花毓秀小区',
+          tel: 1234563324
         }]
       }
     },
@@ -214,7 +219,7 @@
   }
   .takeSorting{
     width: 100%;
-    height:150px;
+    height:160px;
     position: relative;
     margin-bottom: 10px;
     border-bottom: 1px solid #dddbdb;
@@ -231,7 +236,7 @@
   }
   .sortingr{
     width: 60%;
-    height: 150px;
+    height: 160px;
     padding:20px 5px;
     position: absolute;
     top:0;
@@ -276,19 +281,19 @@
     right: 10px;
   }
   .allsortingl{
-    width: 150px;
+    width: 160px;
     height: 100px;
     position: absolute;
-    top: 30px;
+    top: 40px;
     left: 25px;
     background-size: cover;
     background-color: #9b9b9b;
     display: inline-block;
   }
   .allsortingr{
-    width: 40%;
-    height: 150px;
-    padding:20px 5px;
+    width: 48%;
+    height: 160px;
+    padding:25px 5px;
     position: absolute;
     top:0;
     right:0;
@@ -296,7 +301,21 @@
   }
   h3.businesstitle {
     padding-left: 25px;
-    font-size: 18px;
-    color: #5b5b5d;
+    padding-top: 5px;
+    font-size: 16px;
+    color: #1b1b1b;
+    border-bottom: 1px solid #c6c7ca;
+  }
+  span.address2{
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 5px;
+    position: absolute;
+    top:5px;
+    right: 10px;
+  }
+  .addressstel {
+    position: absolute;
+    top:40px;
   }
 </style>
