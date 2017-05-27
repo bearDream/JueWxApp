@@ -21,14 +21,12 @@
       </div>
     </blur>
     <div class="body"style="width: 100%;">我的发布</div>
-    <div class="foture" style="margin:4%; height:220px;" v-for="item in list1" >
+    <div class="foture" style="margin:4%; padding-bottom:50%;" v-for="item in list1" >
       <img :src="item.beiou">
-      <p>{{ item.content }}
-        <i style="background-position: -8px -4px;"  v-show="item.bad"></i>
-        <i style="background-position: -50px -4px;" v-show="item.good"></i>
-        <span v-model="item.goods"></span>
-        {{item.sumScore}}
-      </p>
+      <p style="height:30%">{{ item.content }} </p>
+        <i style="background-position: -5px -5px;" v-show="item.bad" @click="addgoods(item,item.sum)"></i>
+        <i style="background-position: -45px -4px;" v-show="item.good" @click="addgoods(item,item.sum)"></i>
+       <a>{{item.sumScore}}</a>
     </div>
   </div>
 </template>
@@ -39,6 +37,8 @@
   import img1 from '../../../assets/img/touxiang.png'
   import img2 from '../../../assets/img/beiou.png'
   import img3 from '../../../assets/img/wanghong.png'
+  import img4 from '../../../assets/img/pizza.png'
+  import img5 from '../../../assets/img/zhuanjiao.png'
   import { mapState } from 'vuex'
   export default {
     components: {
@@ -63,27 +63,28 @@
         list1: [{
           beiou: img2,
           content: '藏在昆明小巷子的小清新咖啡馆',
-          sumScore: '赞',
-          goods: 1,
-          good: true
+          sumScore: 0,
+          bad: true,
+          sum: 0
         }, {
           beiou: img3,
-          content: '藏在昆明小巷子的小清新咖啡馆',
-          sumScore: '赞',
-          goods: 0,
-          bad: true
+          content: '昆明网红简约咖啡馆',
+          sumScore: 4,
+          goods: 4,
+          bad: true,
+          sum: 0
         }, {
-          beiou: img3,
-          content: '昆明小巷子的小清新咖啡馆',
-          sumScore: '赞',
-          goods: 0,
-          bad: true
+          beiou: img4,
+          content: '这是一个来自pizza爱好者的推荐',
+          sumScore: 0,
+          bad: true,
+          sum: 0
         }, {
-          beiou: img3,
-          content: '昆明小巷子的小清新咖啡馆',
-          sumScore: '赞',
-          goods: 0,
-          bad: true
+          beiou: img5,
+          content: '藏在转交的咖啡店',
+          sumScore: 123,
+          bad: true,
+          sum: 0
         }],
         url: img,
         fabu: 4,
@@ -92,6 +93,19 @@
       }
     },
     methods: {
+      addgoods (item, sum) {
+        if (sum >= 1) {
+          item.good = false
+          item.bad = true
+          item.sumScore -= 1
+          item.sum -= 1
+        } else {
+          item.good = true
+          item.bad = false
+          item.sumScore += 1
+          item.sum += 1
+        }
+      }
     },
     mounted () {
     },
@@ -169,19 +183,38 @@
   }
   .foture {
     display: inline-block;
+    position: relative;
     float: left;
     width:42%;
     font-size: 15px;
   }
   .foture img{
     width: 100%;
+    position: absolute;
+    top: 0%;
+    left: 2%;
+  }
+  .foture p{
+    width:100%;
+    position: absolute;
+    top: 85%;
+    left: 2%;
+    overflow:hidden;
   }
   .foture i{
-    float: right;
+    padding-right:5%;
+    position: absolute;
+    top: 98%;
+    right: 15%;
     display: inline-block;
-    width:25px;
+    width:30px;
     height:25px;
     background-image: url("../../../assets/img/tubioa.png");
+  }
+  .foture a{
+    position: absolute;
+    top: 98%;
+    right: 0%;
   }
   .body{
    text-align: center;
