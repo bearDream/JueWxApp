@@ -81,6 +81,9 @@
       GoLunch () {
         this.$router.push({name: 'Lunch'})
       },
+      created () {
+        this.gets()
+      },
       gets () {
         this.$store.dispatch('getRankings', {
           params: {
@@ -98,10 +101,7 @@
     },
     computed: mapState([
       'ranking'
-    ]),
-    created () {
-      this.gets()
-    },
+    ])
   }
 </script>
 

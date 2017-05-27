@@ -49,7 +49,7 @@
         <div class="sortingl" :style="{backgroundImage: 'url(' + item.businessImage + ')'}"></div>
         <div class="sortingr">
           <h3>{{item.name}}</h3>
-          <rater v-model="item.start" slot="value" disabled></rater>
+          <rater v-model="item.level" slot="value" disabled></rater>
           <br>
           <span>{{item.type}}</span>
           <span>{{item.address}}</span>
@@ -182,7 +182,6 @@
       },
       GoBusiness (item) {
         this.$router.push({name: 'business', params: { businessId: item.businessId }})
-        alert(item.businessId)
       }
     }
   }
