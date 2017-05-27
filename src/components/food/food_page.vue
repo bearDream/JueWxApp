@@ -1,53 +1,35 @@
 <template>
-  <div>
-    <scroller enable-horizontal-swiping=""  :loading="load" >
-      <search @on-submit="onSubmit" :auto-fixed="false" v-model="value2" @on-focus="onFocus" @on-cancel="onCancel"></search>
-      <swiper :list="list1" :min-moving-distance="20" auto=""  height="260px">
-        <div class="theme">方便生活从蕨菜开始</div>
-      </swiper>
-    </scroller>
-    <grid>
-      <grid-item>
-        <div class="icon" v-on:click="GoTakePage" style="background-position: -69px -3px;"></div><p>在线取号</p>
-      </grid-item>
-      <grid-item>
-        <div class="icon" style="background-position: -130px -4px;" v-on:click="GoNutration" alt=""></div><p>营养价值</p>
-      </grid-item>
-      <grid-item>
-        <div class="icon" style="background-position: -186px -4px;" v-on:click="GoRandom" alt=""></div><p>今天吃啥</p>
-      </grid-item>
-    </grid>
-    <div style="margin: 10px;overflow: hidden;height:40%;" v-for="item in list2" v-on:click="GoFood">
-      <div class="m-img"  :style="{backgroundImage: 'url(' + item.img + ')'}">
-        <div class="outer">
-          <div class="masker" style="border-radius:3px;width:90%;height:80%;position:absolute;top:10%;left:5%;  backgroundColor:rgba(255,255,255,.5);">
-            <div slot="content" class="m-title">
-              {{item.title}}
-              <br/>
-              <divider style="width: 50%;color: #000;margin:auto;padding:0;">{{item.addrase}}</divider>
-            </div>
+  <div style="background-color: #f2f2f2;">
+    <divider style="margin-top:12%;font-size:16px;background-color: #fff;">看看大家都在吃什么</divider>
+      <div v-for="(item,index) in list">
+        <div style="background-color: #fff;padding:2% 2%;position: relative;">
+          <div class="avatar" :style="{backgroundImage: 'url(' + item.avatar + ')'}"></div>
+          <p class="f-name">{{item.name}}</p>
+          <p class="f-time">{{item.time}}</p>
+          <p class="f-title">{{item.title}}</p>
+          <rater v-model="data1" slot="value" star="♡" :max="1" active-color="#59850b" style="position: absolute;top:5%;left:88%;" :font-size="40"></rater>
+          <div class="photo">
+            <img :src="item.img1">
+            <img :src="item.img2">
+            <img :src="item.img3">
           </div>
         </div>
       </div>
-    </div>
   </div>
 </template>
 
 <script>
-  import { Divider, Grid, GridItem, Masker, XInput, Scroller, Swiper, Search } from 'vux'
+  import { Divider, Rater } from 'vux'
   import { mapState } from 'vuex'
-  import banner from '../../assets/images/bg/home1.png'
+  import ava from '../../assets/img/avatar1.png'
+  import food1 from '../../assets/img/food1.png'
+  import food2 from '../../assets/img/food2.png'
+  import food3 from '../../assets/img/food3.png'
 
   export default {
     components: {
-      Masker,
-      XInput,
-      Scroller,
-      Swiper,
-      Search,
-      Grid,
-      GridItem,
-      Divider
+      Divider,
+      Rater
     },
     created () {
     },
@@ -56,32 +38,28 @@
     ]),
     data () {
       return {
-        toTake: 'subpage/homeList',
-        value2: 'vux',
-        list1: [{
-          url: 'http://mp.weixin.qq.com/s?__biz=MzAxNjU0MDYxMg==&mid=400385458&idx=1&sn=78f6b8d99715384bdcc7746596d88359&scene=19#wechat_redirect',
-          img: banner
+        list: [{
+          avatar: ava,
+          name: '蕨菜团队',
+          time: '2017-5-26',
+          title: '好的食物应该大家分享，今天的美食推荐给大家~',
+          img1: food1,
+          img2: food2,
+          img3: food3,
+          title1: '营养早餐',
+          title2: '美味烧烤',
+          title3: '鱼片寿司'
         }, {
-          url: 'http://mp.weixin.qq.com/s?__biz=MzAxNjU0MDYxMg==&mid=400160890&idx=1&sn=29ef02af25793a11a3f6aec92bfb46c1&scene=19#wechat_redirect',
-          img: banner
-        }, {
-          url: 'http://mp.weixin.qq.com/s?__biz=MzAxNjU0MDYxMg==&mid=400094682&idx=1&sn=8231a2053b772b2108784fccc254d28c&scene=19#wechat_redirect',
-          img: banner
+          avatar: ava,
+          name: '蕨菜团队',
+          time: '2017-5-26',
+          title: '好的食物应该大家分享，今天的美食推荐给大家~',
+          img1: food1,
+          img2: food2,
+          title1: '营养早餐',
+          title2: '美味烧烤'
         }],
-        list2: [{
-          title: '藏在昆明巷子里的北欧小清新咖啡馆',
-          addrase: 'by jenny 上海',
-          img: 'https://cdn.xiaotaojiang.com/uploads/82/1572ec37969ee263735262dc017975/_.jpg'
-        }, {
-          title: '小翠—— 一个特别"脆"的饭馆',
-          addrase: 'by Bubble.yuki from kunmin',
-          img: 'https://cdn.xiaotaojiang.com/uploads/59/b22e0e62363a4a652f28630b3233b9/_.jpg'
-        }, {
-          title: '昆明探店——来自pizza爱好者的推荐',
-          addrase: 'by Anitalyx tom 昆明',
-          img: 'https://cdn.xiaotaojiang.com/uploads/56/4b3601364b86fdfd234ef11d8712ad/_.jpg'
-        }]
-
+        data1: 0
       }
     },
     methods: {
@@ -96,30 +74,6 @@
         setTimeout(function () {
           _this.$broadcast('pulldown:reset', uuid)
         }, 2000)
-      },
-      onSubmit (val) {
-        this.$vux.toast.show({
-          type: '搜索菜品、用户、商家'
-        })
-        window.alert('on submit' + val)
-      },
-      onCancel () {
-        console.log('on cancel')
-      },
-      onFocus () {
-        console.log('on focus')
-      },
-      GoTakePage () {
-        this.$router.push({name: 'takepage'})
-      },
-      GoNutration () {
-        this.$router.push({name: 'nutration'})
-      },
-      GoRandom () {
-        this.$router.push({name: 'random'})
-      },
-      GoFood () {
-        this.$router.push({name: 'food'})
       }
     },
     mounted () {
@@ -129,68 +83,40 @@
 </script>
 
 <style scoped lang="less">
-  .icon{
-    display:inline-block;
-    width:50px;
-    height:50px;
-    background-image: url("../../assets/img/icon-green.png");
-  }
-  p{
-    color:#59850b;
-  }
-  .theme{
-    width:66%;
-    height:14%;
-    border:2px solid #fff;
-    color:#fff;
-    font-size:26px;
-    z-index:10;
-    position:fixed;
-    top:46%;
-    left:20%;
-    text-align:center;
-  }
-  .m-img {
-    padding-bottom: 33%;
-    display: block;
-    position: relative;
-    max-width: 100%;
-    background-size: cover;
-    background-position: center center;
-    cursor: pointer;
-    border-radius: 2px;
-  }
-  .outer{
-    width: 85%;
-    height: 70%;
-    position: absolute;
-    top: 14%;
-    left: 8%;
-    border: 2px solid #fff;
-    border-radius: 3px;
-  }
-  .m-title {
-    color: #000;
-    text-align: center;
-    text-shadow: 0 0 2px rgba(0, 0, 0, .5);
-    font-weight: 500;
-    font-size: 16px;
-    position: absolute;
-    left: 0;
-    right: 0;
-    width: 100%;
-    text-align: center;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-  .m-time {
-    font-size: 12px;
-    padding-top: 4px;
-    border-top: 1px solid #f0f0f0;
+  .avatar{
     display: inline-block;
-    margin-top: 5px;
+    width:15%;
+    border-radius: 50%;
+    padding-bottom:15%;
   }
-  a{
-    text-align: center;
+  .f-name{
+    position: absolute;
+    top:4%;
+    left:20%;
+    display:inline-block;
+    font-size:18px;
+    color:#777;
+  }
+  .f-time{
+    position: absolute;
+    top:4%;
+    left:65%;
+    font-size:14px;
+    color:#777;
+  }
+  .f-title{
+    position: absolute;
+    font-size:12px;
+    top:20%;
+    left:20%;
+    color:#666;
+  }
+  .photo{
+    width: 100%;
+  }
+  .photo img{
+    width: 30%;
+    margin-top:1%;
+    margin-left:2%;
   }
 </style>

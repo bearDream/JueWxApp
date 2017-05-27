@@ -21,7 +21,7 @@
         <div class="icon" style="background-position: -186px -4px;" v-on:click="GoRandom" alt=""></div><p>今天吃啥</p>
       </grid-item>
     </grid>
-    <div style="margin: 10px;overflow: hidden;height:40%;" v-for="item in list2" v-on:click="GoFood">
+    <div style="margin: 10px;overflow: hidden;height:40%;" v-for="item in list2" v-on:click="GoArticle">
       <div class="m-img"  :style="{backgroundImage: 'url(' + item.img + ')'}">
         <div class="outer">
           <div class="masker" style="border-radius:3px;width:90%;height:80%;position:absolute;top:10%;left:5%;  backgroundColor:rgba(255,255,255,.5);">
@@ -123,8 +123,8 @@
       GoRandom () {
         this.$router.push({name: 'random'})
       },
-      GoFood () {
-        this.$router.push({name: 'food'})
+      GoArticle () {
+        this.$router.push({name: 'article'})
       }
     },
     mounted () {
