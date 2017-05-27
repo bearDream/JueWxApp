@@ -2,7 +2,7 @@
   <div>
     <scroller enable-horizontal-swiping=""  :loading="load" >
       <!--<search @on-submit="onSubmit" :auto-fixed="false" v-model="value2" @on-focus="onFocus" @on-cancel="onCancel"></search>--> <!--height="260px"-->
-      <swiper :list="list1" :min-moving-distance="20" auto="" style="height: 240px" >
+      <swiper :list="list1" :min-moving-distance="20" auto="" style="height: 180px" >
         <div class="theme">方便生活从蕨菜开始</div>
       </swiper>
       <div class="searchdiv">
@@ -34,15 +34,29 @@
         </div>
       </div>
     </div>
+
+<!--随机来几个菜-->
+    <div>
+      <x-dialog style="border-radius: 10px" v-model="showHideOnBlur" class="dialog-demo" hide-on-blur>
+        <div class="img-box">
+          <img :src="banner" style="max-width:100%">
+
+        </div>
+        <div @click="showHideOnBlur=false"></div>
+      </x-dialog>
+    </div>
   </div>
 </template>
 
 <script>
-  import { Divider, Grid, GridItem, Masker, XInput, Scroller, Swiper, Search, Icon } from 'vux'
+  import { Divider, Grid, GridItem, Masker, XInput, Scroller, Swiper, Search, Icon, Alert, XDialog, TransferDomDirective as TransferDom } from 'vux'
   import { mapState } from 'vuex'
   import banner from '../../assets/images/bg/home1.png'
 
   export default {
+    directives: {
+      TransferDom
+    },
     components: {
       Masker,
       XInput,
@@ -52,7 +66,9 @@
       Grid,
       GridItem,
       Divider,
-      Icon
+      Icon,
+      Alert,
+      XDialog
     },
     created () {
     },
@@ -63,6 +79,8 @@
       return {
         toTake: 'subpage/homeList',
         value2: 'vux',
+        showHideOnBlur: false,
+        banner: banner,
         list1: [{
           url: 'http://mp.weixin.qq.com/s?__biz=MzAxNjU0MDYxMg==&mid=400385458&idx=1&sn=78f6b8d99715384bdcc7746596d88359&scene=19#wechat_redirect',
           img: banner
@@ -121,7 +139,7 @@
         this.$router.push({name: 'nutrition'})
       },
       GoRandom () {
-        this.$router.push({name: 'random'})
+        this.showHideOnBlur = true
       },
       GoArticle () {
         this.$router.push({name: 'article'})
@@ -221,5 +239,11 @@
     position:absolute;left: 40px;width:30px;height:30px;
     top:3px;
     background: url("../../assets/img/icon_search.png")no-repeat -48px -108px;
+  }
+  .img-box{
+    height: 250px;
+    width:100%;
+    overflow: hidden;
+    background-color: #0bb908;
   }
 </style>
