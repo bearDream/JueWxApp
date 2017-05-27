@@ -1,30 +1,42 @@
 <template>
-  <div style="">
+  <div>
+    <x-header v-on:click="$router.back()">营养价值</x-header>
     <blur :blur-amount=0 :url="url" style="height:260px">
 
       <div style="border-radius: 2px;width: 100%">
-        <div class="m-buttom" >营养价值分析111</div>
+        <div class="m-buttom" >营养价值分析</div>
         <div class="m-buttom1"></div>
         <ul class="me_show">
           <li><p>{{attentions}}</p></li>
-          <li><p>{{editedate}}</p></li>
+          <li @click="GonutritionDetail"><p>{{editedate}}</p></li>
         </ul>
       </div>
     </blur>
-    <panel :list="list" >
-  </panel>
+    <div @click="GoFruit" >
+      <panel :list="list1">
+      </panel>
+    </div>
+    <div @click="GoBreakfast">
+      <panel :list="list2">
+      </panel>
+    </div>
+    <div @click="GoLunch">
+      <panel :list="list3">
+      </panel>
+    </div>
   </div>
 </template>
 
 <script>
-  import { Flexbox, FlexboxItem, Blur, Masker, Group, Grid, GridItem, Cell, Panel } from 'vux'
-  import img from '../../assets/images/7.png'
-  import img1 from '../../assets/images/8.png'
-  import img2 from '../../assets/images/9.png'
-  import img3 from '../../assets/images/10.png'
+  import { XHeader, Flexbox, FlexboxItem, Blur, Masker, Group, Grid, GridItem, Cell, Panel } from 'vux'
+  import img from '../../../assets/images/7.png'
+  import img1 from '../../../assets/images/8.png'
+  import img2 from '../../../assets/images/9.png'
+  import img3 from '../../../assets/images/10.png'
   import { mapState } from 'vuex'
   export default {
     components: {
+      XHeader,
       Blur,
       Flexbox,
       FlexboxItem,
@@ -56,16 +68,19 @@
         editedate: '点击了解详情'
       }
     },
-    mounted () {
-      // 进入页面的钩子函数
-    },
-    computed: mapState([
-      'ranking'
-    ]),
-    created () {
-      this.gets()
-    },
     methods: {
+      GonutritionDetail () {
+        this.$router.push({name: 'NutritionDetail'})
+      },
+      GoFruit () {
+        this.$router.push({name: 'Fruit'})
+      },
+      GoBreakfast () {
+        this.$router.push({name: 'Breakfast'})
+      },
+      GoLunch () {
+        this.$router.push({name: 'Lunch'})
+      },
       gets () {
         this.$store.dispatch('getRankings', {
           params: {
@@ -77,7 +92,16 @@
           }
         })
       }
-    }
+    },
+    mounted () {
+      // 进入页面的钩子函数
+    },
+    computed: mapState([
+      'ranking'
+    ]),
+    created () {
+      this.gets()
+    },
   }
 </script>
 

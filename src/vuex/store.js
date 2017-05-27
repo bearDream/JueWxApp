@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import mutations from './mutations'
 import home from './modules/home'
 import find from './modules/find'
-import ranking from './modules/ranking'
+import food from './modules/food'
 import mine from './modules/mine'
 import business from './modules/business'
 
@@ -30,7 +30,7 @@ export default new Vuex.Store({
   modules: {
     home,
     find,
-    ranking,
+    food,
     mine,
     business
   }

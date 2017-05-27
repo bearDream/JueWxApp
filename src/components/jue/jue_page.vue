@@ -1,7 +1,7 @@
 
 <template>
   <div>
-    <scroller enable-horizontal-swiping=""  pulldown:loading="load" >
+    <scroller enable-horizontal-swiping=""  :loading="load" >
       <search class="search" @on-submit="onSubmit" :auto-fixed="false" v-model="value2" @on-focus="onFocus" @on-cancel="onCancel"></search>
       <swiper :list="list1" :min-moving-distance="20" auto=""  height="260px">
       </swiper>

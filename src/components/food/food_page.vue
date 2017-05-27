@@ -11,14 +11,14 @@
         <div class="icon" v-on:click="GoTakePage" style="background-position: -69px -3px;"></div><p>在线取号</p>
       </grid-item>
       <grid-item>
-        <div class="icon" style="background-position: -130px -4px;" v-on:click="GoNutrition" alt=""></div><p>营养价值</p>
+        <div class="icon" style="background-position: -130px -4px;" v-on:click="GoNutration" alt=""></div><p>营养价值</p>
       </grid-item>
       <grid-item>
         <div class="icon" style="background-position: -186px -4px;" v-on:click="GoRandom" alt=""></div><p>今天吃啥</p>
       </grid-item>
     </grid>
     <div style="margin: 10px;overflow: hidden;height:40%;" v-for="item in list2" v-on:click="GoFood">
-      <div class="m-img"  :style="{backgroundImage: 'url(' + item.coverImage + ')'}">
+      <div class="m-img"  :style="{backgroundImage: 'url(' + item.img + ')'}">
         <div class="outer">
           <div class="masker" style="border-radius:3px;width:90%;height:80%;position:absolute;top:10%;left:5%;  backgroundColor:rgba(255,255,255,.5);">
             <div slot="content" class="m-title">
@@ -49,8 +49,10 @@
       GridItem,
       Divider
     },
+    created () {
+    },
     computed: mapState([
-      'home'
+      'food'
     ]),
     data () {
       return {
@@ -69,34 +71,26 @@
         list2: [{
           title: '藏在昆明巷子里的北欧小清新咖啡馆',
           addrase: 'by jenny 上海',
-          coverImage: 'https://cdn.xiaotaojiang.com/uploads/82/1572ec37969ee263735262dc017975/_.jpg'
+          img: 'https://cdn.xiaotaojiang.com/uploads/82/1572ec37969ee263735262dc017975/_.jpg'
         }, {
           title: '小翠—— 一个特别"脆"的饭馆',
           addrase: 'by Bubble.yuki from kunmin',
-          coverImage: 'https://cdn.xiaotaojiang.com/uploads/59/b22e0e62363a4a652f28630b3233b9/_.jpg'
+          img: 'https://cdn.xiaotaojiang.com/uploads/59/b22e0e62363a4a652f28630b3233b9/_.jpg'
         }, {
           title: '昆明探店——来自pizza爱好者的推荐',
           addrase: 'by Anitalyx tom 昆明',
-          coverImage: 'https://cdn.xiaotaojiang.com/uploads/56/4b3601364b86fdfd234ef11d8712ad/_.jpg'
+          img: 'https://cdn.xiaotaojiang.com/uploads/56/4b3601364b86fdfd234ef11d8712ad/_.jpg'
         }]
 
       }
     },
-    created () {
-      this.gets()
-    },
     methods: {
-      gets () {
-        this.$store.dispatch('getHomes', {
-          params: {
-          }
-        }).then(() => {
-          if (this.$store.getters.getHomes.code !== -1) {
-            console.info(this.$store.getters.getHomes.data.page.list)
-            this.$set(this, 'list2', this.$store.getters.getHomes.data.page.list)
-          }
-        })
-      },
+//      gets () {
+//        this.$store.dispatch('getBusinessList', {
+//          params: {
+//          }
+//        })
+//      }
       load (uuid) {
         const _this = this
         setTimeout(function () {
@@ -118,8 +112,8 @@
       GoTakePage () {
         this.$router.push({name: 'takepage'})
       },
-      GoNutrition () {
-        this.$router.push({name: 'nutrition'})
+      GoNutration () {
+        this.$router.push({name: 'nutration'})
       },
       GoRandom () {
         this.$router.push({name: 'random'})

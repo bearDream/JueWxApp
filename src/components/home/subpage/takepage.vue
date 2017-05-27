@@ -38,7 +38,6 @@
             @click.native="show3"></cell>
         </group>
       </div>
-
     </div>
 
     <template v-if="showContent001" style="position: fixed">
