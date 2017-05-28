@@ -67,6 +67,15 @@ const router = new Router({
         requiresAuth: true
       }
     }, {
+      path: '/home/article',
+      name: 'article',
+      components: {
+        'insidePage': resolve => require(['../components/home/subpage/article.vue'], resolve)
+      },
+      meta: {
+        requiresAuth: true
+      }
+    }, {
       path: '/find',
       name: '发现',
       components: {
@@ -86,7 +95,7 @@ const router = new Router({
       }
     }, {
       path: '/food',
-      name: '排行',
+      name: '食话食说',
       components: {
         'insidePage': resolve => require(['../components/food/food_page.vue'], resolve)
       },
