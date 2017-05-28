@@ -2,9 +2,9 @@
   <div id="app">
     <div class="outter" :class="{'hideLeft':$route.path.split('/').length>2}">
     <!--通用头部-->
-    <header class="app-header">
-      <JueHead :pageName="pageName"></JueHead>
-    </header>
+    <!--<header class="app-header">-->
+      <!--<JueHead :pageName="pageName"></JueHead>-->
+    <!--</header>-->
     <!--搜索框 只在“微信”和“通讯录”页面下显示-->
     <!--<search v-show="$route.path.indexOf('explore')===-1&&$route.path.indexOf('self')===-1"></search>-->
     <!--四个门面页 “微信” “通讯录” “发现” “我1”-->

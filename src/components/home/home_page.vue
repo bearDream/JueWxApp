@@ -21,7 +21,7 @@
         <div class="icon" style="background-position: -186px -4px;" v-on:click="GoRandom" alt=""></div><p>今天吃啥</p>
       </grid-item>
     </grid>
-    <div style="margin: 10px;overflow: hidden;height:40%;" v-for="item in list2" v-on:click="GoFood">
+    <div style="margin: 10px;overflow: hidden;height:40%;" v-for="item in list2" v-on:click="GoArticle">
       <div class="m-img"  :style="{backgroundImage: 'url(' + item.coverImage + ')'}">
         <div class="outer">
           <div class="masker" style="border-radius:3px;width:90%;height:80%;position:absolute;top:10%;left:5%;  backgroundColor:rgba(255,255,255,.5);">
@@ -35,7 +35,7 @@
       </div>
     </div>
 
-<!--随机来几个菜-->
+<!--今天吃啥-->
     <div >
       <x-dialog style="border-radius: 10px" v-model="showHideOnBlur" class="dialog-demo" hide-on-blur>
         <div class="img-box" id="Rotation" v-drag-and-drop   v-drop='rotation'>
