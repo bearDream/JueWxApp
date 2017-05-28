@@ -21,8 +21,8 @@
 
 <script>
   import { XHeader, Flexbox, FlexboxItem, Blur, Masker, Group, Grid, GridItem, Cell, Panel } from 'vux'
-  import img from '../../../assets/images/7.png'
-  import img1 from '../../../assets/images/8.png'
+  import img from '../../../assets/images/8.png'
+  import img1 from '../../../assets/images/7.png'
   import img2 from '../../../assets/images/9.png'
   import img3 from '../../../assets/images/10.png'
   import { mapState } from 'vuex'
@@ -45,13 +45,11 @@
           src: img1,
           title: 'NO.1',
           desc: '水果紫米粥'
-        },
-        {
+        }, {
           src: img2,
           title: 'NO.2',
           desc: '营养*早餐'
-        },
-        {
+        }, {
           src: img3,
           title: 'NO.3',
           desc: '爱心*午餐'
