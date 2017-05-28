@@ -38,9 +38,10 @@
 <!--随机来几个菜-->
     <div >
       <x-dialog style="border-radius: 10px" v-model="showHideOnBlur" class="dialog-demo" hide-on-blur>
-        <div class="img-box" id="Rotation" v-drag-and-drop   v-drop='rotation'>
-          <img :src="banner" style="max-width:100%">
-
+        <div class="img-box" @touchmove='rotation' @touchstart='touchstart' @touchend='touchend' v-for="item in list3" id="Rotation" >
+          <img :src="item.randomdish1" class="l_mid_r l">
+          <img :src="item.randomdish3" class="l_mid_r r">
+          <img :src="item.randomdish2" class="l_mid_r mid">
         </div>
         <div @click="showHideOnBlur=false"></div>
       </x-dialog>
@@ -49,9 +50,14 @@
 </template>
 
 <script>
+  let start = 0
+  let end = 0
   import { Divider, Grid, GridItem, Masker, XInput, Scroller, Swiper, Search, Icon, Alert, XDialog, TransferDomDirective as TransferDom } from 'vux'
   import { mapState } from 'vuex'
   import banner from '../../assets/images/bg/home1.png'
+  import randomdish1 from '../../assets/img/busi1.jpg'
+  import randomdish2 from '../../assets/img/busi2.jpg'
+  import randomdish3 from '../../assets/img/busi3.jpg'
   export default {
     directives: {
       TransferDom
@@ -79,7 +85,6 @@
         toTake: 'subpage/homeList',
         value2: 'vux',
         showHideOnBlur: false,
-        banner: banner,
         list1: [{
           url: 'http://mp.weixin.qq.com/s?__biz=MzAxNjU0MDYxMg==&mid=400385458&idx=1&sn=78f6b8d99715384bdcc7746596d88359&scene=19#wechat_redirect',
           img: banner
@@ -102,8 +107,13 @@
           title: '昆明探店——来自pizza爱好者的推荐',
           addrase: 'by Anitalyx tom 昆明',
           img: 'https://cdn.xiaotaojiang.com/uploads/56/4b3601364b86fdfd234ef11d8712ad/_.jpg'
-        }]
-
+        }],
+        list3: [{
+          randomdish1: randomdish1,
+          randomdish2: randomdish2,
+          randomdish3: randomdish3
+        }
+        ]
       }
     },
     methods: {
@@ -113,9 +123,28 @@
 //          }
 //        })
 //      }
-      rotation () {
-        alert(123)
-        console.log(123)
+      rotation: function (e) {
+//        console.log('*****' + e.changedTouches[0].clientX)
+//        console.log('xxxxx' + e.changedTouches[0].clientX)
+//        let ml = e.changedTouches[0].clientX
+//        var img = document.getElementsByClassName('mid')[0]
+//        var left = img.clientLeft
+//        img.setAttribute(left, e.changedTouches[0].clientX)
+//        console.log(document.getElementsByClassName('mid')[0].offsetLeft)
+//        document.getElementsByClassName('mid')[0].style.offsetLeft += e.changedTouches[0].clientX - 100 + 'px'
+//        this.className('mid').style.left = e.changedTouches[0].clientX - this.className('mid').style.left
+//        var start = e.changedTouches[0].clientX
+//        var mid = document.getElementsByClassName('mid')[0]
+      },
+      touchend (e) {
+        end = e.changedTouches[0].clientX
+        if (end > start) {
+          document.getElementsByClassName('mid')[0].classList.add('l')
+        }
+      },
+      touchstart (e) {
+        start = e.changedTouches[0].clientX
+//        console.log(e.changedTouches[0].clientX)
       },
       load (uuid) {
         const _this = this
@@ -149,7 +178,6 @@
       }
     },
     mounted () {
-      // 进入页面的钩子函数
     }
   }
 </script>
@@ -244,9 +272,28 @@
     background: url("../../assets/img/icon_search.png")no-repeat -48px -108px;
   }
   .img-box{
+    position: relative;
     height: 250px;
     width:100%;
     overflow: hidden;
     background-color: #0bb908;
+  }
+  .img-box .l_mid_r{
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    top: 40px;
+    transform: scale(0.8);
+  }
+  .img-box .mid{
+    left: 24%;
+    z-index: 10;
+    transform: scale(1.2);
+  }
+  .img-box .l{
+    left: 5%;
+  }
+  .img-box .r{
+    left: 45%;
   }
 </style>
