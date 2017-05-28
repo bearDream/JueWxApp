@@ -1,10 +1,14 @@
 <template>
   <div>
     <scroller enable-horizontal-swiping=""  :loading="load" >
-      <search @on-submit="onSubmit" :auto-fixed="false" v-model="value2" @on-focus="onFocus" @on-cancel="onCancel"></search>
-      <swiper :list="list1" :min-moving-distance="20" auto=""  height="260px">
+      <!--<search @on-submit="onSubmit" :auto-fixed="false" v-model="value2" @on-focus="onFocus" @on-cancel="onCancel"></search>--> <!--height="260px"-->
+      <swiper :list="list1" :min-moving-distance="20" auto="" style="height: 180px" >
         <div class="theme">方便生活从蕨菜开始</div>
       </swiper>
+      <div class="searchdiv">
+       <input type="text" style="padding-left: 60px;" placeholder="搜索菜品、用户、商家" class="inputsearch">
+       <div class="searchicon"></div>
+      </div>
     </scroller>
     <grid>
       <grid-item>
@@ -30,15 +34,28 @@
         </div>
       </div>
     </div>
+
+<!--随机来几个菜-->
+    <div >
+      <x-dialog style="border-radius: 10px" v-model="showHideOnBlur" class="dialog-demo" hide-on-blur>
+        <div class="img-box" id="Rotation" v-drag-and-drop   v-drop='rotation'>
+          <img :src="banner" style="max-width:100%">
+
+        </div>
+        <div @click="showHideOnBlur=false"></div>
+      </x-dialog>
+    </div>
   </div>
 </template>
 
 <script>
-  import { Divider, Grid, GridItem, Masker, XInput, Scroller, Swiper, Search } from 'vux'
+  import { Divider, Grid, GridItem, Masker, XInput, Scroller, Swiper, Search, Icon, Alert, XDialog, TransferDomDirective as TransferDom } from 'vux'
   import { mapState } from 'vuex'
   import banner from '../../assets/images/bg/home1.png'
-
   export default {
+    directives: {
+      TransferDom
+    },
     components: {
       Masker,
       XInput,
@@ -47,7 +64,10 @@
       Search,
       Grid,
       GridItem,
-      Divider
+      Divider,
+      Icon,
+      Alert,
+      XDialog
     },
     computed: mapState([
       'home'
@@ -56,6 +76,8 @@
       return {
         toTake: 'subpage/homeList',
         value2: 'vux',
+        showHideOnBlur: false,
+        banner: banner,
         list1: [{
           url: 'http://mp.weixin.qq.com/s?__biz=MzAxNjU0MDYxMg==&mid=400385458&idx=1&sn=78f6b8d99715384bdcc7746596d88359&scene=19#wechat_redirect',
           img: banner
@@ -69,15 +91,15 @@
         list2: [{
           title: '藏在昆明巷子里的北欧小清新咖啡馆',
           addrase: 'by jenny 上海',
-          coverImage: 'https://cdn.xiaotaojiang.com/uploads/82/1572ec37969ee263735262dc017975/_.jpg'
+          img: 'https://cdn.xiaotaojiang.com/uploads/82/1572ec37969ee263735262dc017975/_.jpg'
         }, {
           title: '小翠—— 一个特别"脆"的饭馆',
           addrase: 'by Bubble.yuki from kunmin',
-          coverImage: 'https://cdn.xiaotaojiang.com/uploads/59/b22e0e62363a4a652f28630b3233b9/_.jpg'
+          img: 'https://cdn.xiaotaojiang.com/uploads/59/b22e0e62363a4a652f28630b3233b9/_.jpg'
         }, {
           title: '昆明探店——来自pizza爱好者的推荐',
           addrase: 'by Anitalyx tom 昆明',
-          coverImage: 'https://cdn.xiaotaojiang.com/uploads/56/4b3601364b86fdfd234ef11d8712ad/_.jpg'
+          img: 'https://cdn.xiaotaojiang.com/uploads/56/4b3601364b86fdfd234ef11d8712ad/_.jpg'
         }]
 
       }
@@ -122,7 +144,7 @@
         this.$router.push({name: 'nutrition'})
       },
       GoRandom () {
-        this.$router.push({name: 'random'})
+        this.showHideOnBlur = true
       },
       GoArticle () {
         this.$router.push({name: 'article'})
@@ -146,7 +168,7 @@
   }
   .theme{
     width:66%;
-    height:14%;
+    height:18%;
     border:2px solid #fff;
     color:#fff;
     font-size:26px;
@@ -198,5 +220,35 @@
   }
   a{
     text-align: center;
+  }
+  .inputsearch{
+    color: #4bb94b;
+    opacity: .6;
+    position: absolute;
+    width: 95%;
+    right: 2%;
+    border-radius: 15px;
+    border: none;
+    padding: 5px;
+    height: 2.4em;
+    font-size: 14px;
+  }
+  .searchdiv{
+    position: absolute;
+    width:100%;
+    text-align: center;
+    height: 30px;
+    top: 30px;
+  }
+  .searchicon{
+    position:absolute;left: 40px;width:30px;height:30px;
+    top:3px;
+    background: url("../../assets/img/icon_search.png")no-repeat -48px -108px;
+  }
+  .img-box{
+    height: 250px;
+    width:100%;
+    overflow: hidden;
+    background-color: #0bb908;
   }
 </style>

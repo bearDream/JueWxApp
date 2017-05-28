@@ -45,6 +45,8 @@
           <h3>还需等待 <span class="waitNum"> {{wait}} </span>桌</h3>
         </div>
         <alert v-model="alertConfirm" title="取号" content="确认取号，默认小桌"  @on-hide="onHide"></alert>
+        <div v-if="takePageshow">当前状态 还有{{num}}位</div>
+        <confirm v-model="alertConfirm" title="取号" content="确认取号"  @on-confirm="onconfirem" @on-cancel="onCancel"></confirm>
       </grid-item>
     </grid>
     <div class="business_foot">
@@ -61,7 +63,7 @@
   </div>
 </template>
 <script>
-  import { XHeader, Blur, Group, Cell, Rater, Badge, Grid, GridItem, XButton, Alert, Loading, Toast } from 'vux'
+  import { Confirm, XHeader, Blur, Group, Cell, Rater, Badge, Grid, GridItem, XButton, Alert, Loading, Toast } from 'vux'
   import img from '../../../assets/img/8.png'
   export default {
     components: {
@@ -76,7 +78,8 @@
       XButton,
       Alert,
       Loading,
-      Toast
+      Toast,
+      Confirm
     },
     data () {
       return {
@@ -180,7 +183,7 @@
         this.takebutton = !this.takebutton
         this.$set(this, 'alertConfirm', true)
       },
-      onHide () {
+      onconfirem () {
         this.loading = true
 //        let that = this
         console.info(this.businessInfo)
@@ -196,7 +199,10 @@
           this.getUserNum()
           this.loading = false
           this.takePageshow = !this.takePageshow
-        })
+        }, 2000)
+      },
+      onCancel () {
+        this.takebutton = !this.takebutton
       }
     }
   }
@@ -268,11 +274,6 @@
   .statuss {
     color: red;
     margin-right: 3px;
-  }
-  .waitNum {
-    color: red;
-    margin-right: 3px;
-    font-size: 16px;
   }
   .business_foot h4{
     padding:20px 20px;

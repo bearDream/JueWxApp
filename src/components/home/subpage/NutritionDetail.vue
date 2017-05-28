@@ -21,8 +21,8 @@
 
 <script>
   import { XHeader, Flexbox, FlexboxItem, Blur, Masker, Group, Grid, GridItem, Cell, Panel } from 'vux'
-  import img from '../../../assets/images/7.png'
-  import img1 from '../../../assets/images/8.png'
+  import img from '../../../assets/images/8.png'
+  import img1 from '../../../assets/images/7.png'
   import img2 from '../../../assets/images/9.png'
   import img3 from '../../../assets/images/10.png'
   import { mapState } from 'vuex'
@@ -41,19 +41,18 @@
     },
     data () {
       return {
-        // 修改panel源码文件来更改字段名
-        list: [{
-          dishImage: img1,
+        list1: [{
+          src: img1,
           title: 'NO.1',
-          dishName: '水果紫米粥'
+          desc: '水果紫米粥'
         }, {
-          dishImage: img2,
+          src: img2,
           title: 'NO.2',
-          dishName: '营养*早餐'
+          desc: '营养*早餐'
         }, {
-          dishImage: img3,
+          src: img3,
           title: 'NO.3',
-          dishName: '营养*早餐'
+          desc: '爱心*午餐'
         }],
         url: img,
         attentions: '营养菜品排行',
@@ -66,20 +65,6 @@
       },
       GoRankingdetails () {
         this.$router.push({name: 'Rankingdetails'})
-      },
-      created () {
-        this.gets()
-      },
-      gets () {
-        this.$store.dispatch('getRankings', {
-          params: {
-          }
-        }).then(() => {
-          if (this.$store.getters.getRankings.code !== -1) {
-            console.info(this.$store.getters.getRankings.data.page.list)
-            this.$set(this, 'list', this.$store.getters.getRankings.data.page.list)
-          }
-        })
       }
     },
     mounted () {

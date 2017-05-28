@@ -20,12 +20,6 @@
             :border-intent="false"
             :arrow-direction="showContent002 ? 'up' : 'down'"
             @click.native="show2"></cell>
-
-          <template v-if="showContent002">
-            <cell-box :border-intent="false" class="sub-item" is-link>content 001</cell-box>
-            <cell-box class="sub-item" is-link>content 001</cell-box>
-            <cell-box class="sub-item" is-link>content 001</cell-box>
-          </template>
         </group>
       </div>
       <div>
@@ -40,11 +34,36 @@
       </div>
     </div>
 
-    <template v-if="showContent001" style="position: fixed">
-      <panel :list="list1">
-      </panel>
+    <template v-if="showContent001" style="position: fixed" v-for="item in list1">
+      <div class="takeSorting" @click="GoBusiness (item)">
+        <div class="sortingl" :style="{backgroundImage: 'url(' + item.src + ')'}"></div>
+        <div class="sortingr">
+          <h3>{{item.title}}</h3>
+          <span class="distance">{{item.distance}}米</span>
+          <span class="address">地址&nbsp;:&nbsp;</span>
+          <div class="addressdiv">
+            <span class="address">{{item.address}}</span>
+          </div>
+          <br>
+          <br>
+          <span class="tel">电话&nbsp;:&nbsp;&nbsp;&nbsp;{{item.tel}}</span>
+        </div>
+      </div>
     </template>
-    <template  v-if="showContent003" v-for="item in list2" >
+    <template v-if="showContent002" v-for="item in list2">
+      <div class="takeSorting" @click="GoBusiness (item)">
+        <h3 class="businesstitle">{{item.title}}</h3>
+        <div class="allsortingl" :style="{backgroundImage: 'url(' + item.src + ')'}"></div>
+        <div class="allsortingr">
+          <span class="address2">{{item.address}}</span>
+          <span class="tel addressstel">地址&nbsp;:&nbsp;&nbsp;&nbsp;{{item.detailed}}</span>
+          <br>
+          <br>
+          <span class="addressstel tel" style="top: 80px"><i style="color: red">电话</i>&nbsp;:&nbsp;&nbsp;&nbsp;{{item.tel}}</span>
+        </div>
+      </div>
+    </template>
+    <template  v-if="showContent003" v-for="item in list3" >
       <div class="takeSorting" @click="GoBusiness (item)">
         <div class="sortingl" :style="{backgroundImage: 'url(' + item.businessImage + ')'}"></div>
         <div class="sortingr">
@@ -69,6 +88,7 @@
 <script>
   import { CellBox, Card, Masker, XHeader, TransferDom, Group, Cell, Panel, Rater, Badge } from 'vux'
   import img1 from '../../../assets/img/8.png'
+  import img2 from '../../../assets/img/5.png'
   export default {
     directives: {
       TransferDom
@@ -82,31 +102,36 @@
       CellBox,
       Panel,
       Rater,
-      Badge,
-      first: {
-        template: '<p>电话1{{tel}}</p>'
-      },
-      second: {
-        template: '<p>电话2}</p>'
-      },
-      third: {
-        template: '<p>电话3}</p>'
-      }
+      Badge
     },
     data () {
       return {
-        showContent001: true,
-        showContent002: false,
+        showContent001: false,
+        showContent002: true,
         showContent003: false,
         quename: '排队',
         tel: 1232132,
         list1: [{
-          src: img1,
+          src: img2,
           title: '海底捞11',
-          desc: 'drass'
+          distance: 228,
+          address: '盘龙区白龙路东华菜市场熟食区六区15商铺',
+          tel: '1398702586'
+        }, {
+          src: img1,
+          title: '北京烤鸭',
+          distance: 80,
+          address: '盘龙区白龙路',
+          tel: '1398702586'
+        }, {
+          src: img1,
+          title: '外婆味道',
+          distance: 100,
+          address: '盘龙区白龙路昆明理工大学',
+          tel: '1398702586'
         }],
-        list2: [{
-          businessImage: img1,
+        list3: [{
+          businessImage: img2,
           name: '海底捞(同德广场)',
           type: '海鲜',
           start: 4,
@@ -134,10 +159,18 @@
           content: '前方正在排队',
           wait: 30
         }],
-        list3: [{
+        list2: [{
           src: img1,
-          name: '海底捞',
-          desc: '排队'
+          title: '巴蜀知味重庆老火锅',
+          address: '呈贡大学城',
+          detailed: '雨花毓秀小区',
+          tel: 13067349324
+        }, {
+          src: img1,
+          title: '巴蜀知味重庆老火锅',
+          address: '昆明盘龙区',
+          detailed: '雨花毓秀小区',
+          tel: 1234563324
         }]
       }
     },
@@ -204,7 +237,7 @@
   }
   .takeSorting{
     width: 100%;
-    height:150px;
+    height:160px;
     position: relative;
     margin-bottom: 10px;
     border-bottom: 1px solid #dddbdb;
@@ -221,7 +254,7 @@
   }
   .sortingr{
     width: 60%;
-    height: 150px;
+    height: 160px;
     padding:20px 5px;
     position: absolute;
     top:0;
@@ -244,5 +277,63 @@
   .sortingr .statuss {
     color: red;
     margin-right: 2px;
+  }
+  .distance{
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 5px;
+    background-color: #c6c7ca;
+    position: absolute;
+    top:20px;
+    right: 0;
+  }
+  .address , .distance , .tel{
+    color: #5b5b5d;
+    font-size: 15px;
+  }
+  .addressdiv{
+    display: inline-block;
+    width: 70%;
+    position: absolute;
+    top:53px;
+    right: 10px;
+  }
+  .allsortingl{
+    width: 160px;
+    height: 100px;
+    position: absolute;
+    top: 40px;
+    left: 25px;
+    background-size: cover;
+    background-color: #9b9b9b;
+    display: inline-block;
+  }
+  .allsortingr{
+    width: 48%;
+    height: 160px;
+    padding:25px 5px;
+    position: absolute;
+    top:0;
+    right:0;
+    display: inline-block;
+  }
+  h3.businesstitle {
+    padding-left: 25px;
+    padding-top: 5px;
+    font-size: 16px;
+    color: #1b1b1b;
+    border-bottom: 1px solid #c6c7ca;
+  }
+  span.address2{
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 5px;
+    position: absolute;
+    top:5px;
+    right: 10px;
+  }
+  .addressstel {
+    position: absolute;
+    top:40px;
   }
 </style>
