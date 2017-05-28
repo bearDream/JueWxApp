@@ -8,7 +8,7 @@
         <p style="font-size: 24px;margin-left: 4%">{{item.name}}</p>
        <p style="font-size: 18px;margin-left: 2%;">
          <i style="background-position: -82px -4px;"></i>
-         {{item.sumScore}}
+         {{item.address}}
        </p>
       </div>
       <div style="border-radius: 2px;width: 100%">
@@ -58,7 +58,7 @@
         list: [{
           touxiang: img1,
           name: 'junny',
-          sumScore: '云南昆明'
+          address: '云南昆明'
         }],
         list1: [{
           beiou: img2,
@@ -70,7 +70,6 @@
           beiou: img3,
           content: '昆明网红简约咖啡馆',
           sumScore: 4,
-          goods: 4,
           bad: true,
           sum: 0
         }, {

@@ -1,5 +1,5 @@
 <template>
-  <x-header v-on:click="$router.back()">营养*早餐</x-header>
+  <x-header v-on:click="$router.back()">营养价值排行</x-header>
 </template>
 <script>
   import { XHeader } from 'vux'

@@ -49,28 +49,10 @@ const router = new Router({
         requiresAuth: true
       }
     }, {
-      path: '/home/subpage/Fruit',
-      name: 'Fruit',
+      path: '/home/subpage/Rankingdetails',
+      name: 'Rankingdetails',
       components: {
-        'insidePage': resolve => require(['../components/home/subpage/Fruit.vue'], resolve)
-      },
-      meta: {
-        requiresAuth: true
-      }
-    }, {
-      path: '/home/subpage/Breakfast',
-      name: 'Breakfast',
-      components: {
-        'insidePage': resolve => require(['../components/home/subpage/Breakfast.vue'], resolve)
-      },
-      meta: {
-        requiresAuth: true
-      }
-    }, {
-      path: '/home/subpage/Lunch',
-      name: 'Lunch',
-      components: {
-        'insidePage': resolve => require(['../components/home/subpage/Lunch.vue'], resolve)
+        'insidePage': resolve => require(['../components/home/subpage/Rankingdetails.vue'], resolve)
       },
       meta: {
         requiresAuth: true

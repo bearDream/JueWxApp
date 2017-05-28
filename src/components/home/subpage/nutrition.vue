@@ -12,16 +12,8 @@
         </ul>
       </div>
     </blur>
-    <div @click="GoFruit" >
+    <div @click="GoRankingdetails" >
       <panel :list="list1">
-      </panel>
-    </div>
-    <div @click="GoBreakfast">
-      <panel :list="list2">
-      </panel>
-    </div>
-    <div @click="GoLunch">
-      <panel :list="list3">
       </panel>
     </div>
   </div>
@@ -49,18 +41,17 @@
     },
     data () {
       return {
-        toTake: 'subpage/rankingList',
         list1: [{
           src: img1,
           title: 'NO.1',
           desc: '水果紫米粥'
-        }],
-        list2: [{
+        },
+        {
           src: img2,
           title: 'NO.2',
           desc: '营养*早餐'
-        }],
-        list3: [{
+        },
+        {
           src: img3,
           title: 'NO.3',
           desc: '爱心*午餐'
@@ -74,14 +65,8 @@
       GoNutritionDetail () {
         this.$router.push({name: 'NutritionDetail'})
       },
-      GoFruit () {
-        this.$router.push({name: 'Fruit'})
-      },
-      GoBreakfast () {
-        this.$router.push({name: 'Breakfast'})
-      },
-      GoLunch () {
-        this.$router.push({name: 'Lunch'})
+      GoRankingdetails () {
+        this.$router.push({name: 'Rankingdetails'})
       }
     },
     mounted () {
