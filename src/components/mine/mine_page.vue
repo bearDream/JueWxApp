@@ -2,30 +2,21 @@
   <div style="">
     <blur :blur-amount=5 :url="url" style="height:250px">
       <p class="center">
-        <img :src="url">
+        <img :src="headImgUrl">
         <br>
-        {{name}}
+        {{username}}
       </p>
         <div class="m-buttom"></div>
         <ul class="me_show">
-          <li><p>{{attentions}}</p>关注</li>
-          <li><p>{{fans}}</p>粉丝</li>
+          <li><p style="text-align: center">{{level}}</p><p style="text-align: center">等级</p></li>
+          <li><p style="text-align: center">{{point}}</p><p style="text-align: center">积分</p></li>
           <li v-on:click="GoEditor"><p>{{editedate}}</p></li>
         </ul>
     </blur>
     <grid>
-      <grid-item link="subpage/collect">
-        <img src="../../assets/images/collection.png" alt="">
-        <p>我的收藏</p>
-      </grid-item>
-      <grid-item link="subpage/vip">
-        <img src="../../assets/images/vip.png" alt="">
-        <p>会员</p>
-      </grid-item>
-      <grid-item link="subpage/release">
-        <img src="../../assets/images/release.png" alt="">
-        <p>我的发布</p>
-      </grid-item>
+      <grid-item link="subpage/collect"><img src="../../assets/images/collection.png" alt=""></grid-item>
+      <grid-item ><img src="../../assets/images/vip.png" alt=""></grid-item>
+      <grid-item ><img src="../../assets/images/release.png" alt=""></grid-item>
     </grid>
     <group>
       <cell title='设置'  link="subpage/site"  is-link></cell>
@@ -55,10 +46,11 @@ export default {
   data () {
     return {
       url: 'https://o3e85j0cv.qnssl.com/tulips-1083572__340.jpg',
-      attentions: 888,
-      fans: 666,
+      headImgUrl: 'https://o3e85j0cv.qnssl.com/tulips-1083572__340.jpg',
+      level: 888,
+      point: 666,
       editedate: '编辑资料',
-      name: 'Dream'
+      username: 'Dream'
     }
   },
   mounted () {
@@ -67,7 +59,40 @@ export default {
   computed: mapState([
     'me'
   ]),
+  created () {
+    this.get()
+  },
   methods: {
+    get () {
+      this.$store.dispatch('getMineInfo', {
+        params: ''
+      }).then(() => {
+        let userInfo = this.$store.getters.getMine
+        if (userInfo.code !== -1) {
+          console.info(userInfo.data)
+          this.$set(this, 'username', userInfo.data.username)
+          this.$set(this, 'headImgUrl', userInfo.data.headImgUrl)
+          // 根据登记区分不同名称
+          switch (userInfo.data.level) {
+            case 1: this.$set(this, 'level', '小白吃货')
+              break
+            case 2: this.$set(this, 'level', '浅尝辄止')
+              break
+            case 3:
+              this.$set(this, 'level', '初试牛刀')
+              break
+            case 4:
+              this.$set(this, 'level', '资深吃货')
+              break
+            case 5: this.$set(this, 'level', '食神')
+              break
+            default:
+              this.$set(this, 'level', '未知')
+          }
+          this.$set(this, 'point', userInfo.data.point)
+        }
+      })
+    },
     GoEditor () {
       this.$router.push({name: 'editor'})
     }
