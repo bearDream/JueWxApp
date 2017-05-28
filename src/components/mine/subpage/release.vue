@@ -33,12 +33,12 @@
 
 <script>
   import { XHeader, Flexbox, FlexboxItem, Blur, Masker, Group, Cell, Panel } from 'vux'
-  import img from '../../../assets/img/top.png'
-  import img1 from '../../../assets/img/touxiang.png'
-  import img2 from '../../../assets/img/beiou.png'
-  import img3 from '../../../assets/img/wanghong.png'
-  import img4 from '../../../assets/img/pizza.png'
-  import img5 from '../../../assets/img/zhuanjiao.png'
+  import img from '../../../assets/img/re-top.png'
+  import img1 from '../../../assets/img/re-header.png'
+  import img2 from '../../../assets/img/re-Nordic.png'
+  import img3 from '../../../assets/img/re-coffee.png'
+  import img4 from '../../../assets/img/re-pizza.png'
+  import img5 from '../../../assets/img/re-corner.png'
   import { mapState } from 'vuex'
   export default {
     components: {
@@ -178,7 +178,7 @@
     display: inline-block;
     width:25px;
     height:25px;
-    background-image: url("../../../assets/img/tubioa.png");
+    background-image: url("../../../assets/img/re-icon.png");
   }
   .foture {
     display: inline-block;
@@ -208,7 +208,7 @@
     display: inline-block;
     width:30px;
     height:25px;
-    background-image: url("../../../assets/img/tubioa.png");
+    background-image: url("../../../assets/img/re-icon.png");
   }
   .foture a{
     position: absolute;

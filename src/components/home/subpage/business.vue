@@ -41,7 +41,7 @@
       <grid-item>
         <x-button type="primary" v-if="takebutton" @click.native="takePage">点击取票</x-button>
         <div v-if="takePageshow">当前状态 还有{{num}}位</div>
-        <alert v-model="alertConfirm" title="取号" content="确认取号"  @on-hide="onHide"></alert>
+        <confirm v-model="alertConfirm" title="取号" content="确认取号"  @on-confirm="onconfirem" @on-cancel="onCancel"></confirm>
       </grid-item>
     </grid>
     <div class="business_foot">
@@ -58,7 +58,7 @@
   </div>
 </template>
 <script>
-  import { XHeader, Blur, Group, Cell, Rater, Badge, Grid, GridItem, XButton, Alert, Loading } from 'vux'
+  import { Confirm, XHeader, Blur, Group, Cell, Rater, Badge, Grid, GridItem, XButton, Alert, Loading } from 'vux'
   import img from '../../../assets/img/8.png'
   export default {
     components: {
@@ -72,7 +72,8 @@
       GridItem,
       XButton,
       Alert,
-      Loading
+      Loading,
+      Confirm
     },
     data () {
       return {
@@ -106,12 +107,15 @@
         this.takebutton = !this.takebutton
         this.$set(this, 'alertConfirm', true)
       },
-      onHide () {
+      onconfirem () {
         this.loading = true
         setTimeout(() => {
           this.loading = false
           this.takePageshow = !this.takePageshow
         }, 2000)
+      },
+      onCancel () {
+        this.takebutton = !this.takebutton
       }
     }
   }

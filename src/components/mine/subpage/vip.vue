@@ -190,14 +190,14 @@
     display:inline-block;
     width:100px;
     height:100px;
-    background-image: url("../../../assets/img/tag.png");
+    background-image: url("../../../assets/img/re-tag.png");
 
   }
   .icon2{
      display:inline-block;
      width:110px;
      height:90px;
-     background-image: url("../../../assets/img/tag.png");
+     background-image: url("../../../assets/img/re-tag.png");
      line-height:40px;
    }
   .icon0 {
