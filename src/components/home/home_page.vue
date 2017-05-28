@@ -36,9 +36,9 @@
     </div>
 
 <!--随机来几个菜-->
-    <div>
+    <div >
       <x-dialog style="border-radius: 10px" v-model="showHideOnBlur" class="dialog-demo" hide-on-blur>
-        <div class="img-box">
+        <div class="img-box" id="Rotation" v-drag-and-drop   v-drop='rotation'>
           <img :src="banner" style="max-width:100%">
 
         </div>
@@ -52,7 +52,6 @@
   import { Divider, Grid, GridItem, Masker, XInput, Scroller, Swiper, Search, Icon, Alert, XDialog, TransferDomDirective as TransferDom } from 'vux'
   import { mapState } from 'vuex'
   import banner from '../../assets/images/bg/home1.png'
-
   export default {
     directives: {
       TransferDom
@@ -114,6 +113,10 @@
 //          }
 //        })
 //      }
+      rotation () {
+        alert(123)
+        console.log(123)
+      },
       load (uuid) {
         const _this = this
         setTimeout(function () {
