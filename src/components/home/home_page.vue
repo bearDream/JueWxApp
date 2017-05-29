@@ -38,12 +38,20 @@
 <!--随机来几个菜-->
     <div >
       <x-dialog style="border-radius: 10px" v-model="showHideOnBlur" class="dialog-demo" hide-on-blur>
-        <div class="img-box" @touchmove='rotation' @touchstart='touchstart' @touchend='touchend' v-for="item in list3" id="Rotation" >
-          <div class="businesstitle">香辣咖喱牛肉</div>
-          <img :src="item.randomdish1" class="l_mid_r l">
-          <img :src="item.randomdish3" class="l_mid_r r">
-          <img :src="item.randomdish2" class="l_mid_r mid">
-          <div class="onlyeat">就吃它了</div>
+        <div class="img-box" @touchmove='rotation' @touchstart='touchstart' @touchend='touchend'  id="Rotation" >
+          <div>
+            <div class="businesstitle" v-if="dishname1">{{list3[0].dishName}}</div>
+            <img :src="list3[0].dishImage" class="l_mid_r l">
+          </div>
+          <div>
+            <div class="businesstitle" v-if="dishname3">{{list3[1].dishName}}</div>
+            <img :src="list3[1].dishImage" class="l_mid_r r">
+          </div>
+          <div>
+            <div class="businesstitle" v-if="dishname2">{{list3[2].dishName}}</div>
+            <img :src="list3[2].dishImage" class="l_mid_r mid">
+          </div>
+          <div class="onlyeat" @click="Refresh (item)">不想吃换一批</div>
         </div>
         <div @click="showHideOnBlur=false"></div>
       </x-dialog>
@@ -54,6 +62,9 @@
 <script>
   let start = 0
   let end = 0
+  let lnm = 1
+  let rnm = 3
+  let mnm = 2
   import { Divider, Grid, GridItem, Masker, XInput, Scroller, Swiper, Search, Icon, Alert, XDialog, TransferDomDirective as TransferDom } from 'vux'
   import { mapState } from 'vuex'
   import banner from '../../assets/images/bg/home1.png'
@@ -77,7 +88,9 @@
       Alert,
       XDialog
     },
-    created () {
+    created (i) {
+      this.i += 1
+      console.log(i)
     },
     computed: mapState([
       'home'
@@ -87,6 +100,10 @@
         toTake: 'subpage/homeList',
         value2: 'vux',
         showHideOnBlur: false,
+        i: 0,
+        dishname1: true,
+        dishname2: true,
+        dishname3: true,
         list1: [{
           url: 'http://mp.weixin.qq.com/s?__biz=MzAxNjU0MDYxMg==&mid=400385458&idx=1&sn=78f6b8d99715384bdcc7746596d88359&scene=19#wechat_redirect',
           img: banner
@@ -111,14 +128,25 @@
           img: 'https://cdn.xiaotaojiang.com/uploads/56/4b3601364b86fdfd234ef11d8712ad/_.jpg'
         }],
         list3: [{
-          randomdish1: randomdish1,
-          randomdish2: randomdish2,
-          randomdish3: randomdish3
+          dishId: 1,
+          dishName: '麻婆豆腐',
+          dishImage: randomdish1
+        }, {
+          dishId: 2,
+          dishName: '青椒炒肉',
+          dishImage: randomdish2
+        }, {
+          dishId: 3,
+          dishName: '番茄鸡蛋',
+          dishImage: randomdish3
         }
         ]
       }
     },
     methods: {
+      Refresh (item) {
+        this.item = false
+      },
 //      gets () {
 //        this.$store.dispatch('getBusinessList', {
 //          params: {
@@ -150,6 +178,25 @@
           l.classList.add('mid')
           r.className = ''
           r.classList.add('l')
+          lnm += 1
+          mnm += 1
+          rnm += 1
+          this.dishname1 = false
+          this.dishname2 = false
+          this.dishname3 = false
+          if (mnm === 4) {
+            this.dishname1 = true
+            mnm = 1
+          }
+          if (rnm === 4) {
+            this.dishname2 = true
+            rnm = 1
+          }
+          if (lnm === 4) {
+            this.dishname3 = true
+            lnm = 1
+          }
+          console.log('lnm:' + lnm + '  mnm:' + mnm + '  rnm:' + rnm)
         } else if (end < start) {
           mid.className = ''
           l.classList = ''
@@ -157,6 +204,25 @@
           mid.classList.add('l')
           l.classList.add('r')
           r.classList.add('mid')
+          this.dishname1 = false
+          this.dishname2 = false
+          this.dishname3 = false
+          lnm -= 1
+          mnm -= 1
+          rnm -= 1
+          if (lnm === 0) {
+            this.dishname2 = true
+            lnm = 3
+          }
+          if (rnm === 0) {
+            this.dishname1 = true
+            rnm = 3
+          }
+          if (mnm === 0) {
+            this.dishname3 = true
+            mnm = 3
+          }
+          console.log('lnm:' + lnm + '  mnm:' + mnm + '  rnm:' + rnm)
         } else {
           console.log(123)
         }
@@ -307,7 +373,7 @@
     top: 60px;
     left: 24%;
     z-index: 10;
-    transition: all 0.3s;
+    transition: all 0.4s;
     transform: scale(1.1);
   }
   .img-box .l{
@@ -316,7 +382,8 @@
     height: 140px;
     top: 60px;
     left: 5%;
-    transition: all 0.3s;
+    opacity: .5;
+    transition: all 0.4s;
     transform: scale(0.8);
   }
   .img-box .r{
@@ -325,7 +392,8 @@
     height: 140px;
     top: 60px;
     left: 45%;
-    transition: all 0.3s;
+    opacity: .7;
+    transition: all 0.4s;
     transform: scale(0.8);
   }
   .businesstitle{
@@ -334,10 +402,13 @@
     color: #B3D465;
   }
   .onlyeat{
-    font-size: 20px;
+    font-size: 15px;
     color: #B3D465;
     position: absolute;
     left: 35%;
     bottom: 5px;
+  }
+  .show{
+    display: block;
   }
 </style>
