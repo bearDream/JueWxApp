@@ -4,8 +4,8 @@ import mutations from './mutations'
 
 export default {
   state: {
-    rankings: null,
-    ranking: null
+    foods: null,
+    food: null
   },
   getters,
   actions,

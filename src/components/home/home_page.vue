@@ -1,23 +1,27 @@
 <template>
   <div>
     <scroller enable-horizontal-swiping=""  :loading="load" >
-      <search @on-submit="onSubmit" :auto-fixed="false" v-model="value2" @on-focus="onFocus" @on-cancel="onCancel"></search>
-      <swiper :list="list1" :min-moving-distance="20" auto=""  height="260px">
+      <!--<search @on-submit="onSubmit" :auto-fixed="false" v-model="value2" @on-focus="onFocus" @on-cancel="onCancel"></search>--> <!--height="260px"-->
+      <swiper :list="list1" :min-moving-distance="20" auto="" style="height: 180px" >
         <div class="theme">方便生活从蕨菜开始</div>
       </swiper>
+      <div class="searchdiv">
+       <input type="text" style="padding-left: 60px;" placeholder="搜索菜品、用户、商家" class="inputsearch">
+       <div class="searchicon"></div>
+      </div>
     </scroller>
     <grid>
       <grid-item>
         <div class="icon" v-on:click="GoTakePage" style="background-position: -69px -3px;"></div><p>在线取号</p>
       </grid-item>
       <grid-item>
-        <div class="icon" style="background-position: -130px -4px;" v-on:click="GoNutritional" alt=""></div><p>营养价值</p>
+        <div class="icon" style="background-position: -130px -4px;" v-on:click="GoNutrition" alt=""></div><p>营养价值</p>
       </grid-item>
       <grid-item>
         <div class="icon" style="background-position: -186px -4px;" v-on:click="GoRandom" alt=""></div><p>今天吃啥</p>
       </grid-item>
     </grid>
-    <div style="margin: 10px;overflow: hidden;height:40%;" v-for="item in list2" v-on:click="GoFood">
+    <div style="margin: 10px;overflow: hidden;height:40%;" v-for="item in list2" v-on:click="GoArticle">
       <div class="m-img"  :style="{backgroundImage: 'url(' + item.img + ')'}">
         <div class="outer">
           <div class="masker" style="border-radius:3px;width:90%;height:80%;position:absolute;top:10%;left:5%;  backgroundColor:rgba(255,255,255,.5);">
@@ -30,15 +34,34 @@
         </div>
       </div>
     </div>
+
+<!--随机来几个菜-->
+    <div >
+      <x-dialog style="border-radius: 10px" v-model="showHideOnBlur" class="dialog-demo" hide-on-blur>
+        <div class="img-box" @touchmove='rotation' @touchstart='touchstart' @touchend='touchend' v-for="item in list3" id="Rotation" >
+          <img :src="item.randomdish1" class="l_mid_r l">
+          <img :src="item.randomdish3" class="l_mid_r r">
+          <img :src="item.randomdish2" class="l_mid_r mid">
+        </div>
+        <div @click="showHideOnBlur=false"></div>
+      </x-dialog>
+    </div>
   </div>
 </template>
 
 <script>
-  import { Divider, Grid, GridItem, Masker, XInput, Scroller, Swiper, Search } from 'vux'
+  let start = 0
+  let end = 0
+  import { Divider, Grid, GridItem, Masker, XInput, Scroller, Swiper, Search, Icon, Alert, XDialog, TransferDomDirective as TransferDom } from 'vux'
   import { mapState } from 'vuex'
   import banner from '../../assets/images/bg/home1.png'
-
+  import randomdish1 from '../../assets/img/busi1.jpg'
+  import randomdish2 from '../../assets/img/busi2.jpg'
+  import randomdish3 from '../../assets/img/busi3.jpg'
   export default {
+    directives: {
+      TransferDom
+    },
     components: {
       Masker,
       XInput,
@@ -47,7 +70,10 @@
       Search,
       Grid,
       GridItem,
-      Divider
+      Divider,
+      Icon,
+      Alert,
+      XDialog
     },
     created () {
     },
@@ -58,6 +84,7 @@
       return {
         toTake: 'subpage/homeList',
         value2: 'vux',
+        showHideOnBlur: false,
         list1: [{
           url: 'http://mp.weixin.qq.com/s?__biz=MzAxNjU0MDYxMg==&mid=400385458&idx=1&sn=78f6b8d99715384bdcc7746596d88359&scene=19#wechat_redirect',
           img: banner
@@ -80,8 +107,13 @@
           title: '昆明探店——来自pizza爱好者的推荐',
           addrase: 'by Anitalyx tom 昆明',
           img: 'https://cdn.xiaotaojiang.com/uploads/56/4b3601364b86fdfd234ef11d8712ad/_.jpg'
-        }]
-
+        }],
+        list3: [{
+          randomdish1: randomdish1,
+          randomdish2: randomdish2,
+          randomdish3: randomdish3
+        }
+        ]
       }
     },
     methods: {
@@ -91,6 +123,29 @@
 //          }
 //        })
 //      }
+      rotation: function (e) {
+//        console.log('*****' + e.changedTouches[0].clientX)
+//        console.log('xxxxx' + e.changedTouches[0].clientX)
+//        let ml = e.changedTouches[0].clientX
+//        var img = document.getElementsByClassName('mid')[0]
+//        var left = img.clientLeft
+//        img.setAttribute(left, e.changedTouches[0].clientX)
+//        console.log(document.getElementsByClassName('mid')[0].offsetLeft)
+//        document.getElementsByClassName('mid')[0].style.offsetLeft += e.changedTouches[0].clientX - 100 + 'px'
+//        this.className('mid').style.left = e.changedTouches[0].clientX - this.className('mid').style.left
+//        var start = e.changedTouches[0].clientX
+//        var mid = document.getElementsByClassName('mid')[0]
+      },
+      touchend (e) {
+        end = e.changedTouches[0].clientX
+        if (end > start) {
+          document.getElementsByClassName('mid')[0].classList.add('l')
+        }
+      },
+      touchstart (e) {
+        start = e.changedTouches[0].clientX
+//        console.log(e.changedTouches[0].clientX)
+      },
       load (uuid) {
         const _this = this
         setTimeout(function () {
@@ -112,18 +167,17 @@
       GoTakePage () {
         this.$router.push({name: 'takepage'})
       },
-      GoNutritional () {
-        this.$router.push({name: 'nutritional'})
+      GoNutrition () {
+        this.$router.push({name: 'nutrition'})
       },
       GoRandom () {
-        this.$router.push({name: 'random'})
+        this.showHideOnBlur = true
       },
-      GoFood () {
-        this.$router.push({name: 'food'})
+      GoArticle () {
+        this.$router.push({name: 'article'})
       }
     },
     mounted () {
-      // 进入页面的钩子函数
     }
   }
 </script>
@@ -140,7 +194,7 @@
   }
   .theme{
     width:66%;
-    height:14%;
+    height:18%;
     border:2px solid #fff;
     color:#fff;
     font-size:26px;
@@ -192,5 +246,54 @@
   }
   a{
     text-align: center;
+  }
+  .inputsearch{
+    color: #4bb94b;
+    opacity: .6;
+    position: absolute;
+    width: 95%;
+    right: 2%;
+    border-radius: 15px;
+    border: none;
+    padding: 5px;
+    height: 2.4em;
+    font-size: 14px;
+  }
+  .searchdiv{
+    position: absolute;
+    width:100%;
+    text-align: center;
+    height: 30px;
+    top: 30px;
+  }
+  .searchicon{
+    position:absolute;left: 40px;width:30px;height:30px;
+    top:3px;
+    background: url("../../assets/img/icon_search.png")no-repeat -48px -108px;
+  }
+  .img-box{
+    position: relative;
+    height: 250px;
+    width:100%;
+    overflow: hidden;
+    background-color: #0bb908;
+  }
+  .img-box .l_mid_r{
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    top: 40px;
+    transform: scale(0.8);
+  }
+  .img-box .mid{
+    left: 24%;
+    z-index: 10;
+    transform: scale(1.2);
+  }
+  .img-box .l{
+    left: 5%;
+  }
+  .img-box .r{
+    left: 45%;
   }
 </style>

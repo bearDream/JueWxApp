@@ -31,10 +31,37 @@ const router = new Router({
         requiresAuth: true
       }
     }, {
-      path: '/home/nutritional',
-      name: 'nutritional',
+      path: '/home/subpage',
+      name: 'nutrition',
       components: {
-        'insidePage': resolve => require(['../components/home/subpage/nutritional.vue'], resolve)
+        'insidePage': resolve => require(['../components/home/subpage/nutrition.vue'], resolve)
+      },
+      meta: {
+        requiresAuth: true
+      }
+    }, {
+      path: '/home/subpage/NutritionDetail',
+      name: 'NutritionDetail',
+      components: {
+        'insidePage': resolve => require(['../components/home/subpage/NutritionDetail.vue'], resolve)
+      },
+      meta: {
+        requiresAuth: true
+      }
+    }, {
+      path: '/home/subpage/Rankingdetails',
+      name: 'Rankingdetails',
+      components: {
+        'insidePage': resolve => require(['../components/home/subpage/Rankingdetails.vue'], resolve)
+      },
+      meta: {
+        requiresAuth: true
+      }
+    }, {
+      path: '/home/business',
+      name: 'business',
+      components: {
+        'insidePage': resolve => require(['../components/home/subpage/business.vue'], resolve)
       },
       meta: {
         requiresAuth: true
@@ -49,19 +76,10 @@ const router = new Router({
         requiresAuth: true
       }
     }, {
-      path: '/home/food',
-      name: 'food',
+      path: '/home/article',
+      name: 'article',
       components: {
-        'insidePage': resolve => require(['../components/home/subpage/food.vue'], resolve)
-      },
-      meta: {
-        requiresAuth: true
-      }
-    }, {
-      path: '/home/subpage/business',
-      name: 'business',
-      components: {
-        'insidePage': resolve => require(['../components/home/subpage/business.vue'], resolve)
+        'insidePage': resolve => require(['../components/home/subpage/article.vue'], resolve)
       },
       meta: {
         requiresAuth: true
@@ -85,19 +103,10 @@ const router = new Router({
         requiresAuth: true
       }
     }, {
-      path: '/ranking',
-      name: '排行',
+      path: '/food',
+      name: '食话食说',
       components: {
-        'insidePage': resolve => require(['../components/ranking/ranking_page.vue'], resolve)
-      },
-      meta: {
-        requiresAuth: true
-      }
-    }, {
-      path: '/ranking/details',
-      name: 'details',
-      components: {
-        'insidePage': resolve => require(['../components/ranking/subpage/rankingDetail.vue'], resolve)
+        'insidePage': resolve => require(['../components/food/food_page.vue'], resolve)
       },
       meta: {
         requiresAuth: true
