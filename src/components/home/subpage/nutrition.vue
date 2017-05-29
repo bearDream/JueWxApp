@@ -41,20 +41,19 @@
     },
     data () {
       return {
-        list1: [{
-          src: img1,
+        // 修改panel源码文件来更改字段名
+        list: [{
+          dishImage: img1,
           title: 'NO.1',
-          desc: '水果紫米粥'
-        },
-        {
-          src: img2,
+          dishName: '水果紫米粥'
+        }, {
+          dishImage: img2,
           title: 'NO.2',
-          desc: '营养*早餐'
-        },
-        {
-          src: img3,
+          dishName: '营养*早餐'
+        }, {
+          dishImage: img3,
           title: 'NO.3',
-          desc: '爱心*午餐'
+          dishName: '营养*早餐'
         }],
         url: img,
         attentions: '营养菜品排行',
@@ -67,6 +66,20 @@
       },
       GoRankingdetails () {
         this.$router.push({name: 'Rankingdetails'})
+      },
+      created () {
+        this.gets()
+      },
+      gets () {
+        this.$store.dispatch('getRankings', {
+          params: {
+          }
+        }).then(() => {
+          if (this.$store.getters.getRankings.code !== -1) {
+            console.info(this.$store.getters.getRankings.data.page.list)
+            this.$set(this, 'list', this.$store.getters.getRankings.data.page.list)
+          }
+        })
       }
     },
     mounted () {
