@@ -1,38 +1,51 @@
 <template>
   <div>
-    <x-header v-on:click="$router.back()">取号</x-header>
+    <x-header v-on:click="$router.back()">营养价值详情</x-header>
+    <blur :blur-amount=0 :url="url" style="height:220px">
 
+      <div style="border-radius: 2px;width: 100%">
+        <div class="m-buttom1"></div>
+        <ul class="me_show">
+          <li><p>{{attentions}}</p></li>
+        </ul>
+      </div>
+    </blur>
     <div class="card-demo-flex card-demo-content">
-    <div >
-      <group>
-        <cell title="附近" is-link
-              :border-intent="false"
-              :arrow-direction="showContent001 ? 'up' : 'down'"
-              @click.native="show1">
-        </cell>
-      </group>
+      <div >
+        <group>
+          <cell title="上周排行" is-link
+                :border-intent="false"
+                :arrow-direction="showContent001 ? 'up' : 'down'"
+                @click.native="show1"
+                style="font-size:16px;">
+          </cell>
+        </group>
+      </div>
+      <div >
+        <group>
+          <cell
+            title="本周排行"
+            is-link
+            :border-intent="false"
+            :arrow-direction="showContent002 ? 'up' : 'down'"
+            @click.native="show2"
+            style="font-size:16px;">
+          </cell>
+        </group>
+      </div>
+      <div>
+        <group>
+          <cell
+            title="单品分析"
+            is-link
+            :border-intent="false"
+            :arrow-direction="showContent003 ? 'up' : 'down'"
+            @click.native="show3"
+            style="font-size:16px;">
+          </cell>
+        </group>
+      </div>
     </div>
-    <div >
-      <group>
-        <cell
-          title="全部"
-          is-link
-          :border-intent="false"
-          :arrow-direction="showContent002 ? 'up' : 'down'"
-          @click.native="show2"></cell>
-      </group>
-    </div>
-    <div>
-      <group>
-        <cell
-          title="排序"
-          is-link
-          :border-intent="false"
-          :arrow-direction="showContent003 ? 'up' : 'down'"
-          @click.native="show3"></cell>
-      </group>
-    </div>
-  </div>
 
     <template v-if="showContent001" style="position: fixed" v-for="item in list1">
       <div class="takeSorting" @click="GoBusiness (item)">
@@ -64,30 +77,40 @@
       </div>
     </template>
     <template  v-if="showContent003" v-for="item in list3" >
-      <div class="takeSorting" @click="GoBusiness (item)">
-        <div class="sortingl" :style="{backgroundImage: 'url(' + item.img + ')'}"></div>
-        <div class="sortingr">
-          <h3>{{item.title}}</h3>
-          <rater v-model="item.start" slot="value" disabled></rater>
+      <div class="takeSorting3" @click="GoBusiness (item)">
+        <div class="sorting3" :style="{backgroundImage: 'url(' + item.img + ')'}"></div>
+        <div class="sortingr3">
+          <h3 style="font-size: 20px;text-align: center">{{item.title}}</h3>
+          <hr>
           <br>
-          <span>{{item.type}}</span>
-          <span>{{item.address}}</span>
-          <br>
-          <badge :text="item.status"></badge>
-          <span>{{item.content}}</span>
-          <span class="statuss">{{item.statuss}}</span><span>桌</span>
+          <hr>
+
+
+          <h3 style="font-size: 20px;">{{item.title2}}
+            &nbsp &nbsp &nbsp<span style="font-size: 14px;">{{item.address2}}</span>
+          </h3>
+          <h3 style="font-size: 20px;">{{item.title3}}
+            &nbsp &nbsp &nbsp &nbsp &nbsp<span style="font-size: 14px;">{{item.address3}}</span>
+          </h3>
+          <h3 style="font-size: 20px;">{{item.title4}}
+            &nbsp &nbsp &nbsp<span style="font-size: 14px;">{{item.address4}}</span>
+          </h3>
+          <h3 style="font-size: 20px;">{{item.title5}}
+            &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp<span style="font-size: 14px;">{{item.address5}}</span>
+          </h3>
+          <h3 style="font-size: 20px;">{{item.title6}}
+            &nbsp&nbsp&nbsp&nbsp &nbsp &nbsp<span style="font-size: 14px;">{{item.address6}}</span>
+          </h3>
         </div>
       </div>
     </template>
-
   </div>
-
 </template>
-
 <script>
-  import { CellBox, Card, Masker, XHeader, TransferDom, Group, Cell, Panel, Rater, Badge } from 'vux'
+  import { CellBox, Card, Masker, XHeader, Blur, TransferDom, Group, Cell, Panel, Rater, Badge } from 'vux'
+  import img from '../../../assets/images/8.png'
   import img1 from '../../../assets/img/8.png'
-  import img2 from '../../../assets/img/5.png'
+  import img2 from '../../../assets/img/gruel.png'
   export default {
     directives: {
       TransferDom
@@ -101,7 +124,8 @@
       CellBox,
       Panel,
       Rater,
-      Badge
+      Badge,
+      Blur
     },
     data () {
       return {
@@ -130,32 +154,19 @@
         }],
         list3: [{
           img: img2,
-          title: '海底捞(同德广场)',
-          type: '海鲜',
-          start: 4,
-          address: '233米',
-          status: '排队',
-          content: '前方正在排队',
-          statuss: 50,
-          url: 'www.baidu.com'
-        }, {
-          img: img1,
-          title: '外婆味道(昆明广场)',
-          type: '老味道',
-          start: 1,
-          address: '2323米',
-          status: '排队',
-          content: '前方正在排队',
-          statuss: 20
-        }, {
-          img: img1,
-          title: '5710海鲜(同德广场)',
-          type: '海鲜',
-          start: 3,
-          address: '233米',
-          status: '排队',
-          content: '前方正在排队',
-          statuss: 30
+          title: '材料营  养价值',
+          title1: '大米 ',
+          address1: '补充营养素',
+          title2: '基尾虾 ',
+          address2: '增强免疫力',
+          title3: '芦笋 ',
+          address3: '抗癌、降脂',
+          title4: '色拉油 ',
+          address4: '抗氧化',
+          title5: '盐 ',
+          address5: '去腥味',
+          title6: '胡椒 ',
+          address6: '防腐调味'
         }],
         list2: [{
           src: img1,
@@ -169,7 +180,9 @@
           address: '昆明盘龙区',
           detailed: '雨花毓秀小区',
           tel: 1234563324
-        }]
+        }],
+        url: img,
+        attentions: '营养价值分析'
       }
     },
     mounted () {
@@ -215,7 +228,7 @@
   .card-demo-flex > div {
     flex: 1;
     text-align: center;
-    font-size: 12px;
+    font-size: 10px;
   }
   .takeSorting{
     width: 100%;
@@ -223,6 +236,12 @@
     position: relative;
     margin-bottom: 10px;
     border-bottom: 1px solid #dddbdb;
+  }
+  .takeSorting3{
+    width: 100%;
+    height:300px;
+    position: relative;
+    border: 3px solid #E6E6E6;
   }
   .sortingl{
     width: 100px;
@@ -234,6 +253,16 @@
     background-color: #9b9b9b;
     display: inline-block;
   }
+  .sorting3{
+    width: 45%;
+    height: 280px;
+    position: absolute;
+
+    left: 2%;  top: 2%;
+    background-size: cover;
+    background-color: #9b9b9b;
+    display: inline-block;
+  }
   .sortingr{
     width: 60%;
     height: 160px;
@@ -241,6 +270,13 @@
     position: absolute;
     top:0;
     right:0;
+    display: inline-block;
+  }
+  .sortingr3{
+    width: 45%;
+    height: 300px;
+    position: absolute;
+    right:5%;
     display: inline-block;
   }
   .sortingr h3{
@@ -317,5 +353,35 @@
   .addressstel {
     position: absolute;
     top:40px;
+  }
+
+
+  .m-buttom1 {
+    display: block;
+    position: absolute;
+    width: 100%;
+    background-size: cover;
+    background-position: center center;
+    cursor: pointer;
+    border-radius: 2px;
+    height: 50px;
+    background: #f3f3f5;
+    opacity: 0.8;
+    bottom: 0;
+  }
+  .me_show{
+    display: flex;
+    width: 100%;
+    height:40px;
+    position: absolute;
+    bottom: 5px;
+    color:#000;
+  }
+  .me_show li{
+    float: left;
+    padding-left:20px;
+    line-height:40px;
+    font-size:20px;
+    margin-left: 30%;
   }
 </style>

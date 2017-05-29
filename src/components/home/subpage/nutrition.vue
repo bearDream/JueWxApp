@@ -1,27 +1,19 @@
 <template>
   <div>
     <x-header v-on:click="$router.back()">营养价值</x-header>
-    <blur :blur-amount=0 :url="url" style="height:260px">
+    <blur :blur-amount=0 :url="url" style="height:220px">
 
       <div style="border-radius: 2px;width: 100%">
         <div class="m-buttom" >营养价值分析</div>
         <div class="m-buttom1"></div>
         <ul class="me_show">
           <li><p>{{attentions}}</p></li>
-          <li @click="GonutritionDetail"><p>{{editedate}}</p></li>
+          <li @click="GoNutritionDetail"><p>{{editedate}}</p></li>
         </ul>
       </div>
     </blur>
-    <div @click="GoFruit" >
+    <div @click="GoRankingdetails" >
       <panel :list="list1">
-      </panel>
-    </div>
-    <div @click="GoBreakfast">
-      <panel :list="list2">
-      </panel>
-    </div>
-    <div @click="GoLunch">
-      <panel :list="list3">
       </panel>
     </div>
   </div>
@@ -49,18 +41,17 @@
     },
     data () {
       return {
-        toTake: 'subpage/rankingList',
         list1: [{
           src: img1,
           title: 'NO.1',
           desc: '水果紫米粥'
-        }],
-        list2: [{
+        },
+        {
           src: img2,
           title: 'NO.2',
           desc: '营养*早餐'
-        }],
-        list3: [{
+        },
+        {
           src: img3,
           title: 'NO.3',
           desc: '爱心*午餐'
@@ -71,17 +62,11 @@
       }
     },
     methods: {
-      GonutritionDetail () {
+      GoNutritionDetail () {
         this.$router.push({name: 'NutritionDetail'})
       },
-      GoFruit () {
-        this.$router.push({name: 'Fruit'})
-      },
-      GoBreakfast () {
-        this.$router.push({name: 'Breakfast'})
-      },
-      GoLunch () {
-        this.$router.push({name: 'Lunch'})
+      GoRankingdetails () {
+        this.$router.push({name: 'Rankingdetails'})
       }
     },
     mounted () {
@@ -97,19 +82,19 @@
   .m-buttom {
     display: block;
     position: absolute;
-    width: 40%;
-    margin-left: 30%;
+    width: 70%;
+    margin-left: 15%;
     cursor: pointer;
     border-radius: 2px;
-    height: 25%;
+    height: 40%;
     background: #f3f3f5;
     opacity: 0.5;
-    top:35%;
+    top:20%;
     margin-bottom: 25%;
     text-align: center;
-    line-height: 60px;
+    line-height: 100px;
     color: #000;
-    font-size:20px;
+    font-size:24px;
     font-weight: bold;
   }
   .m-buttom1 {
