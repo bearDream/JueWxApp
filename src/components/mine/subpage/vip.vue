@@ -1,3 +1,5 @@
+<!--
+
 <template>
   <div style="">
     <x-header v-on:click="$router.back()">我的会员</x-header>
@@ -90,20 +92,6 @@
         editedate: '积分明细>'
       }
     },
-//    methods: {
-//      GoRankingList () {
-//        this.$router.push({name: 'RankingList'})
-//      },
-//      GoFruit () {
-//        this.$router.push({name: 'Fruit'})
-//      },
-//      GoBreakfast () {
-//        this.$router.push({name: 'Breakfast'})
-//      },
-//      GoLunch () {
-//        this.$router.push({name: 'Lunch'})
-//      }
-//    },
     mounted () {
       // 进入页面的钩子函数
     },
@@ -221,3 +209,5 @@
     text-align: center;
   }
 </style>
+
+-->

@@ -9,7 +9,7 @@
         <i class="a-like" v-show="item.bad" style="background-position:-6px 0;" :style="{backgroundImage:'url(' + item.img + ')'}" @click="addgoods(item,item.sum)"></i>
         <i class="a-like" v-show="item.goods" style="background-position: -45px 0;" :style="{backgroundImage:'url(' + item.img + ')'}" @click="addgoods(item,item.sum)"></i>
       </div>
-      <div style="position: relative;border-bottom: 1px solid #ddd;min-height:260px;">
+      <div style="position: relative;border-bottom: 1px solid #ddd;min-height:240px;">
         <p style="font-size:18px;font-weight:bold;margin:2% 5% 0;text-align:left;">{{item.title}}</p>
         <p style="font-size:14px;text-align:left;margin:1% 5% 0;">{{item.content}}</p>
         <p style="font-size:14px;text-align:left;margin:3% 5% 0;color:#59850b">{{item.recommend}}</p>
@@ -19,7 +19,8 @@
         <i style="color:#555;position:absolute;left:13%;margin-top:3%">{{item.sumScore}}个赞</i>
         <i class="a-info" style="background-position: -66px 0;right:20%" :style="{backgroundImage:'url(' + item.scan + ')'}"></i>
         <i style="color:#555;position:absolute;right:7%;margin-top:3%">{{item.sumScan}}次浏览</i>
-        <i></i>
+        <i class="a-detail" style="margin-top:10%">发布于 {{item.address}}</i>
+        <i class="a-detail" style="margin-top:15%">{{item.addtime}}</i>
       </div>
     </div>
   </div>
@@ -74,7 +75,9 @@
           content: '意外发现了这家躲在巷子里位置隐蔽但是特别好看的咖啡馆ヾ(o´∀｀o)ﾉ 老板人美态度好，布置精美好看，点了港式奶茶和忘了叫什么名字的甜品。奶茶好喝甜品略微有点酸，但是排出照来很好看啊，在里面拍写真可文艺可网红，也是姐妹聚会赖上一下午的好去处哦~',
           recommend: '#网红美食我来推# #拔草主体咖啡馆# #昆明# #文艺青年聚集地的网红咖啡馆# #少女心爆棚的高颜值咖啡馆#',
           laud: info,
-          scan: info
+          scan: info,
+          address: '昆明市 金星路',
+          addtime: '2017-05-28'
         }]
       }
     },
@@ -87,12 +90,12 @@
         if (sum >= 1) {
           item.goods = false
           item.bad = true
-          item.sunScore = -1
+          item.sumScore -= 1
           item.sum -= 1
         } else {
           item.goods = true
           item.bad = false
-          item.sunScore += 1
+          item.sumScore += 1
           item.sum += 1
         }
       }
@@ -129,5 +132,11 @@
     position:absolute;
     width:10%;
     height:30px;
+  }
+  .a-detail{
+    font-size:12px;
+    color:#555;
+    position:absolute;
+    left:5%;
   }
 </style>

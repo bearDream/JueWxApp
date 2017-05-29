@@ -1,8 +1,5 @@
 <template>
   <div style="height:100%;width:100%;background-color: #f2f2f2;">
-    <grid :row="2" style="margin-top:12%;">
-      <grid-item v-for="i in 2" :key="i"></grid-item>
-    </grid>
     <div style="padding:5% 3%;margin-top:2%;background-color:#fff;">
       <div>
         <div class="t-img" :style="{backgroundImage: 'url(' + list1.img + ')'}">
