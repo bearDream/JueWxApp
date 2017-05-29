@@ -5,7 +5,7 @@
     <div class="card-demo-flex card-demo-content">
       <div >
         <group>
-          <cell title="附近" is-link
+          <cell title="附近商家" is-link
                 :border-intent="false"
                 :arrow-direction="showContent001 ? 'up' : 'down'"
                 @click.native="show1">
@@ -15,7 +15,7 @@
       <div >
         <group>
           <cell
-            title="全部"
+            title="商家星级"
             is-link
             :border-intent="false"
             :arrow-direction="showContent002 ? 'up' : 'down'"
@@ -25,7 +25,7 @@
       <div>
         <group>
           <cell
-            title="排序"
+            title="排队人数"
             is-link
             :border-intent="false"
             :arrow-direction="showContent003 ? 'up' : 'down'"
@@ -34,11 +34,12 @@
       </div>
     </div>
 
+    <!-- 按照距离排序的list -->
     <template v-if="showContent001" style="position: fixed" v-for="item in list1">
       <div class="takeSorting" @click="GoBusiness (item)">
-        <div class="sortingl" :style="{backgroundImage: 'url(' + item.src + ')'}"></div>
+        <div class="sortingl" :style="{backgroundImage: 'url(' + item.businessImage + ')'}"></div>
         <div class="sortingr">
-          <h3>{{item.title}}</h3>
+          <h3>{{item.name}}</h3>
           <span class="distance">{{item.distance}}米</span>
           <span class="address">地址&nbsp;:&nbsp;</span>
           <div class="addressdiv">
@@ -50,19 +51,22 @@
         </div>
       </div>
     </template>
+    <!-- 按照商家星级level排序的list -->
     <template v-if="showContent002" v-for="item in list2">
       <div class="takeSorting" @click="GoBusiness (item)">
-        <h3 class="businesstitle">{{item.title}}</h3>
-        <div class="allsortingl" :style="{backgroundImage: 'url(' + item.src + ')'}"></div>
+        <h3 class="businesstitle">{{item.name}}</h3>
+        <div class="allsortingl" :style="{backgroundImage: 'url(' + item.businessImage + ')'}"></div>
         <div class="allsortingr">
           <span class="address2">{{item.address}}</span>
-          <span class="tel addressstel">地址&nbsp;:&nbsp;&nbsp;&nbsp;{{item.detailed}}</span>
+          <br>
+          <rater v-model="item.level" slot="value" disabled></rater>
           <br>
           <br>
           <span class="addressstel tel" style="top: 80px"><i style="color: red">电话</i>&nbsp;:&nbsp;&nbsp;&nbsp;{{item.tel}}</span>
         </div>
       </div>
     </template>
+    <!-- 按照排队人数排序的list -->
     <template  v-if="showContent003" v-for="item in list3" >
       <div class="takeSorting" @click="GoBusiness (item)">
         <div class="sortingl" :style="{backgroundImage: 'url(' + item.businessImage + ')'}"></div>
@@ -106,58 +110,31 @@
     },
     data () {
       return {
+        longtitude: '',
+        latitude: '',
         showContent001: false,
         showContent002: true,
         showContent003: false,
         quename: '排队',
         tel: 1232132,
         list1: [{
-          src: img2,
-          title: '海底捞11',
+          businessImage: img2,
+          name: '海底捞11',
           distance: 228,
           address: '盘龙区白龙路东华菜市场熟食区六区15商铺',
           tel: '1398702586'
         }, {
-          src: img1,
-          title: '北京烤鸭',
+          businessImage: img1,
+          name: '北京烤鸭',
           distance: 80,
           address: '盘龙区白龙路',
           tel: '1398702586'
         }, {
-          src: img1,
-          title: '外婆味道',
+          businessImage: img1,
+          name: '外婆味道',
           distance: 100,
           address: '盘龙区白龙路昆明理工大学',
           tel: '1398702586'
-        }],
-        list3: [{
-          businessImage: img2,
-          name: '海底捞(同德广场)',
-          type: '海鲜',
-          start: 4,
-          address: '233米',
-          status: '排队',
-          content: '前方正在排队',
-          wait: 50,
-          url: 'www.baidu.com'
-        }, {
-          businessImage: img1,
-          name: '外婆味道(昆明广场)',
-          type: '老味道',
-          start: 1,
-          address: '2323米',
-          status: '排队',
-          content: '前方正在排队',
-          wait: 20
-        }, {
-          businessImage: img1,
-          name: '5710海鲜(同德广场)',
-          type: '海鲜',
-          start: 3,
-          address: '233米',
-          status: '排队',
-          content: '前方正在排队',
-          wait: 30
         }],
         list2: [{
           src: img1,
@@ -171,6 +148,35 @@
           address: '昆明盘龙区',
           detailed: '雨花毓秀小区',
           tel: 1234563324
+        }],
+        list3: [{
+          businessImage: img2,
+          name: '海底捞(同德广场)',
+          type: '海鲜',
+          level: 4,
+          address: '233米',
+          status: '排队',
+          content: '前方正在排队',
+          wait: 50,
+          url: 'www.baidu.com'
+        }, {
+          businessImage: img1,
+          name: '外婆味道(昆明广场)',
+          type: '老味道',
+          level: 1,
+          address: '2323米',
+          status: '排队',
+          content: '前方正在排队',
+          wait: 20
+        }, {
+          businessImage: img1,
+          name: '5710海鲜(同德广场)',
+          type: '海鲜',
+          level: 3,
+          address: '233米',
+          status: '排队',
+          content: '前方正在排队',
+          wait: 30
         }]
       }
     },
@@ -178,6 +184,10 @@
       // 进入页面的钩子函数
     },
     created () {
+      console.info(this.$store.getters.getLontitude)
+      console.info(this.$store.getters.getLatitude)
+      this.$set(this, 'longtitude', this.$store.getters.getLontitude)
+      this.$set(this, 'latitude', this.$store.getters.getLatitude)
       this.getsort()
     },
     methods: {
@@ -188,13 +198,16 @@
         this.$store.dispatch('getBusinesss', {
           params: {
             sort: 'add_time',
-            waitSort: 'desc'
+            waitSort: 'desc',
+            longtitude: 'longtitude',
+            latitude: 'latitude'
           }
         }).then(() => {
           let data = this.$store.getters.getBusinesss
           if (data.code !== -1) {
-            console.info(this.$store.getters.getBusinesss.data)
-            this.$set(this, 'list2', this.$store.getters.getBusinesss.data)
+            console.info(this.$store.getters.getBusinesss.data.takeList)
+            this.$set(this, 'list3', this.$store.getters.getBusinesss.data.takeList)
+            this.$set(this, 'list2', this.$store.getters.getBusinesss.data.levelList)
           }
         })
       },

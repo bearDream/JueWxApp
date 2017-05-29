@@ -32,6 +32,9 @@
 import JueNav from './components/common/jue-nav'
 import JueHead from './components/common/jue_header'
 import JueHome from './components/jue/jue_page'
+import axios from 'axios'
+import consts from '@/utils/consts'
+
 export default {
   name: 'app',
   data () {
@@ -46,6 +49,12 @@ export default {
     JueNav,
     JueHead,
     JueHome
+  },
+  created () {
+    console.info('created')
+    console.info(this.$wechat)
+    // 使用微信获取地理位置
+    this.getLocation()
   },
   watch: {
     // 监听 $route 为店内页设置不同的过渡效果
@@ -65,6 +74,56 @@ export default {
       if (toDepth === 3) {
         this.leaveAnimate = 'animated fadeOutRight'
       }
+    }
+  },
+  methods: {
+    getLocation () {
+      let that = this
+      let url = location.href.split('#')[0]
+      axios.get(consts.API_URL + 'wechat/portal/getWxConfig?url=' + url, {})
+        .then(res => {
+          let data = res.data
+          if (data.code === -1) {
+            console.info(data.msg)
+          } else {
+            data = data.data
+            this.$wechat.config({
+              debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+              appId: data.appId, // 必填，公众号的唯一标识
+              timestamp: data.timestamp, // 必填，生成签名的时间戳
+              nonceStr: data.nonceStr, // 必填，生成签名的随机串
+              signature: data.signature, // 必填，签名，见附录1
+              jsApiList: ['getLocation'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+            })
+            this.$wechat.ready(() => {
+              this.$wechat.getLocation({
+                type: 'gcj02', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+                success: function (res) {
+                  console.info(res)
+                  that.$store.dispatch('setLocation', {
+                    params: {
+                      lontitude: res.longitude,
+                      latitude: res.latitude
+                    }
+                  })
+                  console.info(that.$store.getters.getLontitude)
+                  console.info(that.$store.getters.getLatitude)
+                },
+                cancel: function (res) {
+                  that.$vux.toast.show({
+                    text: '您取消了授权获取地理位置信息',
+                    type: 'text'
+                  })
+                }
+              })
+            })
+            this.$wechat.error(function (res) {
+              console.info('验证jsapi失败')
+              console.info(res)
+              // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+            })
+          }
+        })
     }
   }
 }

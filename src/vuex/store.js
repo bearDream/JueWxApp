@@ -7,6 +7,7 @@ import food from './modules/food'
 import mine from './modules/mine'
 import business from './modules/business'
 import take from './modules/take'
+import location from './modules/location'
 
 import actions from './actions'
 Vue.use(Vuex)
@@ -34,6 +35,7 @@ export default new Vuex.Store({
     food,
     mine,
     business,
-    take
+    take,
+    location
   }
 })
