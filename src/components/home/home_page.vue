@@ -38,7 +38,7 @@
 <!--随机来几个菜-->
     <div >
       <x-dialog style="border-radius: 10px" v-model="showHideOnBlur" class="dialog-demo" hide-on-blur>
-        <div class="img-box" @touchmove='rotation' @touchstart='touchstart' @touchend='touchend'  id="Rotation" >
+        <div class="img-box" @touchmove='rotation' @touchstart='touchstart' @touchend='touchend' id="Rotation" >
           <div>
             <div class="businesstitle" v-if="dishname1">{{list3[0].dishName}}</div>
             <img :src="list3[0].dishImage" class="l_mid_r l">
@@ -51,7 +51,7 @@
             <div class="businesstitle" v-if="dishname2">{{list3[2].dishName}}</div>
             <img :src="list3[2].dishImage" class="l_mid_r mid">
           </div>
-          <div class="onlyeat" @click="Refresh (item)">不想吃换一批</div>
+          <div class="onlyeat" @click="Refresh">不想吃换一批</div>
         </div>
         <div @click="showHideOnBlur=false"></div>
       </x-dialog>
@@ -196,7 +196,7 @@
             this.dishname3 = true
             lnm = 1
           }
-          console.log('lnm:' + lnm + '  mnm:' + mnm + '  rnm:' + rnm)
+//          console.log('lnm:' + lnm + '  mnm:' + mnm + '  rnm:' + rnm)
         } else if (end < start) {
           mid.className = ''
           l.classList = ''
@@ -222,9 +222,10 @@
             this.dishname3 = true
             mnm = 3
           }
-          console.log('lnm:' + lnm + '  mnm:' + mnm + '  rnm:' + rnm)
+//          console.log('lnm:' + lnm + '  mnm:' + mnm + '  rnm:' + rnm)
         } else {
           console.log(123)
+          this.$router.push({name: 'random'})
         }
       },
       touchstart (e) {
