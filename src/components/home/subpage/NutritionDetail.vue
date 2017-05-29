@@ -110,7 +110,7 @@
   import { CellBox, Card, Masker, XHeader, Blur, TransferDom, Group, Cell, Panel, Rater, Badge } from 'vux'
   import img from '../../../assets/images/8.png'
   import img1 from '../../../assets/img/8.png'
-  import img2 from '../../../assets/img/gruel.png'
+//  import img2 from '../../../assets/img/gruel.png'
   export default {
     directives: {
       TransferDom
@@ -134,7 +134,7 @@
         showContent003: false,
         tel: 1232132,
         list1: [{
-          src: img2,
+          src: img1,
           title: '海底捞11',
           distance: 228,
           address: '盘龙区白龙路东华菜市场熟食区六区15商铺',
@@ -153,7 +153,7 @@
           tel: '1398702586'
         }],
         list3: [{
-          img: img2,
+          img: img1,
           title: '材料营  养价值',
           title1: '大米 ',
           address1: '补充营养素',
