@@ -39,9 +39,11 @@
     <div >
       <x-dialog style="border-radius: 10px" v-model="showHideOnBlur" class="dialog-demo" hide-on-blur>
         <div class="img-box" @touchmove='rotation' @touchstart='touchstart' @touchend='touchend' v-for="item in list3" id="Rotation" >
+          <div class="businesstitle">香辣咖喱牛肉</div>
           <img :src="item.randomdish1" class="l_mid_r l">
           <img :src="item.randomdish3" class="l_mid_r r">
           <img :src="item.randomdish2" class="l_mid_r mid">
+          <div class="onlyeat">就吃它了</div>
         </div>
         <div @click="showHideOnBlur=false"></div>
       </x-dialog>
@@ -138,8 +140,25 @@
       },
       touchend (e) {
         end = e.changedTouches[0].clientX
+        let mid = document.getElementsByClassName('mid')[0]
+        let l = document.getElementsByClassName('l')[0]
+        let r = document.getElementsByClassName('r')[0]
         if (end > start) {
-          document.getElementsByClassName('mid')[0].classList.add('l')
+          mid.className = ''
+          mid.classList.add('r')
+          l.classList = ''
+          l.classList.add('mid')
+          r.className = ''
+          r.classList.add('l')
+        } else if (end < start) {
+          mid.className = ''
+          l.classList = ''
+          r.className = ''
+          mid.classList.add('l')
+          l.classList.add('r')
+          r.classList.add('mid')
+        } else {
+          console.log(123)
         }
       },
       touchstart (e) {
@@ -276,24 +295,49 @@
     height: 250px;
     width:100%;
     overflow: hidden;
-    background-color: #0bb908;
+    background-color: rgba(227,227,227,.5);
   }
-  .img-box .l_mid_r{
-    position: absolute;
-    width: 150px;
-    height: 150px;
-    top: 40px;
-    transform: scale(0.8);
-  }
+  /*.img-box .l_mid_r{*/
+  /*transform: scale(0.8);*/
+  /*}*/
   .img-box .mid{
+    position: absolute;
+    width: 140px;
+    height: 140px;
+    top: 60px;
     left: 24%;
     z-index: 10;
-    transform: scale(1.2);
+    transition: all 0.3s;
+    transform: scale(1.1);
   }
   .img-box .l{
+    position: absolute;
+    width: 140px;
+    height: 140px;
+    top: 60px;
     left: 5%;
+    transition: all 0.3s;
+    transform: scale(0.8);
   }
   .img-box .r{
+    position: absolute;
+    width: 140px;
+    height: 140px;
+    top: 60px;
     left: 45%;
+    transition: all 0.3s;
+    transform: scale(0.8);
+  }
+  .businesstitle{
+    margin-top: 20px;
+    font-size: 20px;
+    color: #B3D465;
+  }
+  .onlyeat{
+    font-size: 20px;
+    color: #B3D465;
+    position: absolute;
+    left: 35%;
+    bottom: 5px;
   }
 </style>
