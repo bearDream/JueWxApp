@@ -1,12 +1,20 @@
 <template>
-  <div style="background-color: #f2f2f2;">
+  <div  style="background-color: #f2f2f2;" @touchmove="hidescreen">
+    <template>
+      <div style="background:#fff;">
+        <load-more></load-more>
+        <load-more :show-loading="false"  background-color="#fff"></load-more>
+      </div>
+    </template>
     <divider style="margin-top:12%;font-size:16px;background-color: #fff;">看看大家都在吃什么</divider>
+
       <div v-for="(item,index) in list">
         <div style="background-color: #fff;padding:2% 2%;position: relative;">
           <div class="avatar" :style="{backgroundImage: 'url(' + item.avatar + ')'}"></div>
           <p class="f-name">{{item.name}}</p>
           <p class="f-time">{{item.time}}</p>
           <p class="f-title">{{item.title}}</p>
+
           <rater v-model="data1" slot="value" star="♡" :max="1" active-color="#59850b" style="position: absolute;top:5%;left:88%;" :font-size="40"></rater>
           <div class="photo">
             <img :src="item.img1">
@@ -19,7 +27,7 @@
 </template>
 
 <script>
-  import { Divider, Rater } from 'vux'
+  import { LoadMore, Divider, Rater } from 'vux'
   import { mapState } from 'vuex'
   import ava from '../../assets/img/avatar1.png'
   import food1 from '../../assets/img/food1.png'
@@ -29,7 +37,8 @@
   export default {
     components: {
       Divider,
-      Rater
+      Rater,
+      LoadMore
     },
     created () {
     },
@@ -58,7 +67,28 @@
           img2: food2,
           title1: '营养早餐',
           title2: '美味烧烤'
-        }],
+        }, {
+          avatar: ava,
+          name: '蕨菜团队',
+          time: '2017-5-26',
+          title: '好的食物应该大家分享，今天的美食推荐给大家~',
+          img1: food1,
+          img2: food2,
+          img3: food3,
+          title1: '营养早餐',
+          title2: '美味烧烤',
+          title3: '鱼片寿司'
+        }, {
+          avatar: ava,
+          name: '蕨菜团队',
+          time: '2017-5-26',
+          title: '好的食物应该大家分享，今天的美食推荐给大家~',
+          img1: food1,
+          img2: food2,
+          title1: '营养早餐',
+          title2: '美味烧烤'
+        }
+        ],
         data1: 0
       }
     },
@@ -74,6 +104,15 @@
         setTimeout(function () {
           _this.$broadcast('pulldown:reset', uuid)
         }, 2000)
+      },
+      hidescreen (event) {
+//        if (event.targetTouches.length == 1) {
+        event.preventDefault()
+/*          阻止浏览器默认事件，重要 */
+        var touch = event.targetTouches[0]
+          // 把元素放在手指所在的位置
+        console.log(touch.pageX + '   ' + touch.pageY)
+//        }
       }
     },
     mounted () {
