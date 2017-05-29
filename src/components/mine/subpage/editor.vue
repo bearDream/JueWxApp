@@ -7,11 +7,11 @@
     <group>
       <cell title="昵称" is-link></cell>
     </group>
-    <tempate v-if="avatarshow">
+    <template>
         <div>
           <p>编辑头像</p>
         </div>
-    </tempate>
+    </template>
   </div>
 </template>
 
