@@ -1,7 +1,7 @@
 <template>
   <div   @touchstart="getY" @touchend="getMore">
       <load-more  v-if="loadmore" tip="正在加载"></load-more>
-      <JueLoading v-show="jueloading"></JueLoading>
+      <JueLoading v-if="jueloading"></JueLoading>
       <divider style="margin-top:12%;font-size:16px;background-color: #fff;">看看大家都在吃什么</divider>
       <div v-for="item in list">
         <div  style="background-color: #fff;padding:2% 2%;overflow: hidden;height: 200px;position: relative;">
@@ -135,12 +135,12 @@
       getMore (e) {
         endY = e.changedTouches[0].clientY
         if (startY < endY) {
-          this.jueloading = true
-//          setInterval(function () {
-//            this.jueloading = false
-//            console.log(this.jueloading)
-//          }, 2000)
+          let t = setInterval(function () {
+            this.jueloading = true
+            console.log(this.jueloading)
+          }, 2000)
           console.log('加载中')
+          clearTimeout(t, 2000)
         }
         if (startY > endY) {
           this.jueloading = false
