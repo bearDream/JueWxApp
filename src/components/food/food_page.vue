@@ -1,6 +1,7 @@
 <template>
   <div   @touchstart="getY" @touchend="getMore">
       <load-more  v-if="loadmore" tip="正在加载"></load-more>
+      <JueLoading v-show="jueloading"></JueLoading>
       <divider style="margin-top:12%;font-size:16px;background-color: #fff;">看看大家都在吃什么</divider>
       <div v-for="item in list">
         <div  style="background-color: #fff;padding:2% 2%;overflow: hidden;height: 200px;position: relative;">
@@ -27,6 +28,7 @@
   let startY = 0
   let endY = 0
   import { Divider, Rater, LoadMore } from 'vux'
+  import { JueLoading } from '../../loading/index.js'
   import { mapState } from 'vuex'
   import ava from '../../assets/img/avatar1.png'
   import food1 from '../../assets/img/food1.png'
@@ -37,7 +39,8 @@
     components: {
       Divider,
       Rater,
-      LoadMore
+      LoadMore,
+      ...JueLoading
     },
     created () {
     },
@@ -47,6 +50,7 @@
     data () {
       return {
         loadmore: false,
+        jueloading: false,
         list: [{
           avatar: ava,
           name: '蕨菜团队',
@@ -131,8 +135,16 @@
       getMore (e) {
         endY = e.changedTouches[0].clientY
         if (startY < endY) {
-          this.loadmore = true
+          this.jueloading = true
+//          setInterval(function () {
+//            this.jueloading = false
+//            console.log(this.jueloading)
+//          }, 2000)
           console.log('加载中')
+        }
+        if (startY > endY) {
+          this.jueloading = false
+          this.loadmore = true
         }
       },
       togoods () {
