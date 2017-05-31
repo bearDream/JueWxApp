@@ -8,7 +8,7 @@
       <div class="takeSorting" v-for="item in list1">
         <div class="body">
           <div class="center1">
-            <span class="first">{{item.name}}</span>
+            <span class="first">{{item.businessname}}</span>
             <span class="second">{{item.price}}</span>
           </div>
           <div class="center1">
@@ -59,7 +59,7 @@
     data () {
       return {
         list1: [{
-          name: '越南家3人餐',
+          businessname: '越南家3人餐',
           price: '￥68',
           sum: '￥68'
         }]

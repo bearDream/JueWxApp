@@ -68,7 +68,7 @@
     </template>
     <!-- 按照排队人数排序的list -->
     <template  v-if="showContent003" v-for="item in list3" >
-      <div class="takeSorting" @click="GoBusiness (item)">
+      <div class="takeSorting" @click="GoBusiness (item)" >
         <div class="sortingl" :style="{backgroundImage: 'url(' + item.businessImage + ')'}"></div>
         <div class="sortingr">
           <h3>{{item.name}}</h3>
@@ -183,34 +183,34 @@
     mounted () {
       // 进入页面的钩子函数
     },
-    created () {
-      console.info(this.$store.getters.getLontitude)
-      console.info(this.$store.getters.getLatitude)
-      this.$set(this, 'longtitude', this.$store.getters.getLontitude)
-      this.$set(this, 'latitude', this.$store.getters.getLatitude)
-      this.getsort()
-    },
+//    created () {
+//      console.info(this.$store.getters.getLontitude)
+//      console.info(this.$store.getters.getLatitude)
+//      this.$set(this, 'longtitude', this.$store.getters.getLontitude)
+//      this.$set(this, 'latitude', this.$store.getters.getLatitude)
+//      this.getsort()
+//    },
     methods: {
       business_info (item) {
         alert(item.title)
       },
-      getsort () {
-        this.$store.dispatch('getBusinesss', {
-          params: {
-            sort: 'add_time',
-            waitSort: 'desc',
-            longtitude: 'longtitude',
-            latitude: 'latitude'
-          }
-        }).then(() => {
-          let data = this.$store.getters.getBusinesss
-          if (data.code !== -1) {
-            console.info(this.$store.getters.getBusinesss.data.takeList)
-            this.$set(this, 'list3', this.$store.getters.getBusinesss.data.takeList)
-            this.$set(this, 'list2', this.$store.getters.getBusinesss.data.levelList)
-          }
-        })
-      },
+//      getsort () {
+//        this.$store.dispatch('getBusinesss', {
+//          params: {
+//            sort: 'add_time',
+//            waitSort: 'desc',
+//            longtitude: 'longtitude',
+//            latitude: 'latitude'
+//          }
+//        }).then(() => {
+//          let data = this.$store.getters.getBusinesss
+//          if (data.code !== -1) {
+//            console.info(this.$store.getters.getBusinesss.data.takeList)
+//            this.$set(this, 'list3', this.$store.getters.getBusinesss.data.takeList)
+//            this.$set(this, 'list2', this.$store.getters.getBusinesss.data.levelList)
+//          }
+//        })
+//      },
       show1 () {
         this.showContent001 = !this.showContent001
         this.showContent003 = false
@@ -226,9 +226,12 @@
         this.showContent002 = false
         this.showContent001 = false
       },
-      GoBusiness (item) {
-        this.$router.push({name: 'business', params: { businessId: item.businessId }})
+      GoBusiness () {
+        this.$router.push({name: 'business'})
       }
+//      GoBusiness (item) {
+//        this.$router.push({name: 'business', params: { businessId: item.businessId }})
+//      }
     }
   }
 </script>
