@@ -40,7 +40,7 @@
         <div class="sortingl" :style="{backgroundImage: 'url(' + item.businessImage + ')'}"></div>
         <div class="sortingr">
           <h3>{{item.name}}</h3>
-          <span class="distance">{{item.distance}}米</span>
+          <span class="distance">{{item.distance}}km</span>
           <span class="address">地址&nbsp;:&nbsp;</span>
           <div class="addressdiv">
             <span class="address">{{item.address}}</span>
@@ -184,11 +184,11 @@
       // 进入页面的钩子函数
     },
     created () {
+      this.getsort()
       console.info(this.$store.getters.getLontitude)
       console.info(this.$store.getters.getLatitude)
       this.$set(this, 'longtitude', this.$store.getters.getLontitude)
       this.$set(this, 'latitude', this.$store.getters.getLatitude)
-      this.getsort()
     },
     methods: {
       business_info (item) {
@@ -199,15 +199,16 @@
           params: {
             sort: 'add_time',
             waitSort: 'desc',
-            longtitude: 'longtitude',
-            latitude: 'latitude'
+            longtitude: this.longtitude,
+            latitude: this.latitude
           }
         }).then(() => {
           let data = this.$store.getters.getBusinesss
           if (data.code !== -1) {
             console.info(this.$store.getters.getBusinesss.data.takeList)
-            this.$set(this, 'list3', this.$store.getters.getBusinesss.data.takeList)
+            this.$set(this, 'list1', this.$store.getters.getBusinesss.data.distanceList)
             this.$set(this, 'list2', this.$store.getters.getBusinesss.data.levelList)
+            this.$set(this, 'list3', this.$store.getters.getBusinesss.data.takeList)
           }
         })
       },
