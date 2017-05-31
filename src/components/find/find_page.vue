@@ -24,29 +24,22 @@
     <div  v-if="showContent001">
       <div style="padding:5% 3%;margin-top:2%;background-color:#fff;">
         <div>
-          <div class="t-img" :style="{backgroundImage: 'url(' + list1.img + ')'}">
+          <div class="t-img" :style="{backgroundImage: 'url(' + list3.img + ')'}">
             <div class="masker" style="background-color: rgba(255, 255, 255, .5);">
-              <div class="title">{{ list1.title }}</div>
-            </div>
-          </div>
-          <div style="padding:5% 3%;margin-top:2%;background-color:#fff;">
-            <div class="e-img" style="margin-right:2%;" :style="{backgroundImage: 'url(' + list2.img1 + ')'}"></div>
-            <div class="e-img" style="margin-left: 2.5%;" :style="{backgroundImage: 'url(' + list2.img2 + ')'}"></div>
-          </div>
-        </div>
-      </div>
-      <div style="padding:5% 3%;margin-top:2%;background-color:#fff;">
-        <div>
-          <div class="b-img":style="{backgroundImage: 'url(' + list3.img + ')'}">
-            <div class="masker" style="background-color: rgba(0, 0, 0, .3);">
               <div class="title">{{ list3.title }}</div>
             </div>
           </div>
-          <div style="padding:5% 3%;margin-top:2%;background-color:#fff;">
-            <div class="e-img" style="margin-right:2%;" :style="{backgroundImage: 'url(' + list2.img1 + ')'}"></div>
-            <div class="e-img" style="margin-left: 2.5%;" :style="{backgroundImage: 'url(' + list2.img2 + ')'}"></div>
-          </div>
         </div>
+        <div style="padding:5% 3%;margin-top:2%;background-color:#fff;">
+          <div class="e-img" style="margin-right:2%;" :style="{backgroundImage: 'url(' + list2.img3 + ')'}"></div>
+          <div class="e-img" style="margin-left: 2.5%;" :style="{backgroundImage: 'url(' + list2.img4 + ')'}"></div>
+        </div>
+        <div style="padding:5% 3%;margin-top:2%;background-color:#fff;">
+          <div class="e-img" style="margin-right:2%;" :style="{backgroundImage: 'url(' + list2.img5 + ')'}"></div>
+          <div class="e-img" style="margin-left: 2.5%;" :style="{backgroundImage: 'url(' + list2.img6 + ')'}"></div>
+        </div>
+
+
       </div>
     </div>
 
@@ -62,72 +55,81 @@
             <div class="e-img" style="margin-right:2%;" :style="{backgroundImage: 'url(' + list2.img1 + ')'}"></div>
             <div class="e-img" style="margin-left: 2.5%;" :style="{backgroundImage: 'url(' + list2.img2 + ')'}"></div>
           </div>
-        </div>
-      </div>
-      <div style="padding:5% 3%;margin-top:2%;background-color:#fff;">
-        <div>
-          <div class="b-img":style="{backgroundImage: 'url(' + list3.img + ')'}">
-            <div class="masker" style="background-color: rgba(0, 0, 0, .3);">
-              <div class="title">{{ list3.title }}</div>
+          <div>
+            <div class="t-img" :style="{backgroundImage: 'url(' + list2.img7 + ')'}">
+              <div class="masker" style="background-color: rgba(255, 255, 255, .5);">
+                <div class="title">{{ list3.title }}</div>
+              </div>
             </div>
-          </div>
-          <div style="padding:5% 3%;margin-top:2%;background-color:#fff;">
-            <div class="e-img" style="margin-right:2%;" :style="{backgroundImage: 'url(' + list2.img1 + ')'}"></div>
-            <div class="e-img" style="margin-left: 2.5%;" :style="{backgroundImage: 'url(' + list2.img2 + ')'}"></div>
           </div>
         </div>
       </div>
     </div>
+
   </div>
 </template>
 
 <script>
- import { Grid, GridItem, Group, Cell } from 'vux'
- import { mapState } from 'vuex'
- import find1 from '../../assets/img/find1.png'
- import find2 from '../../assets/img/find2.png'
- import find3 from '../../assets/img/find3.png'
- import find4 from '../../assets/img/find4.png'
+  import { Grid, GridItem, Group, Cell } from 'vux'
+  import { mapState } from 'vuex'
 
- export default {
-   components: {
-     Grid,
-     GridItem,
-     Group,
-     Cell
-   },
-   computed: mapState([
-     'find'
-   ]),
-   data () {
-     return {
-       showContent001: true,
-       showContent002: false,
-       list1: {
-         title: '今日特价，全部菜系打五折',
-         img: find1
-       },
-       list2: {
-         img1: find2,
-         img2: find3
-       },
-       list3: {
-         img: find4,
-         title: '本店饮品今日买一赠一'
-       }
-     }
-   },
-   methods: {
-     show1 () {
-       this.showContent001 = true
-       this.showContent002 = false
-     },
-     show2 () {
-       this.showContent001 = false
-       this.showContent002 = true
-     }
-   }
- }
+  import find1 from '../../assets/img/find1.png'
+  import find2 from '../../assets/img/find2.png'
+  import find3 from '../../assets/img/find3.png'
+  import find4 from '../../assets/img/find4.png'
+
+  import find5 from '../../assets/img/5-1.png'
+  import find6 from '../../assets/img/5-2.png'
+  import find7 from '../../assets/img/5-3.png'
+  import find8 from '../../assets/img/5-4.png'
+  import find9 from '../../assets/img/5-5.png'
+  import find10 from '../../assets/img/5-6.png'
+
+  export default {
+    components: {
+      Grid,
+      GridItem,
+      Group,
+      Cell
+    },
+    computed: mapState([
+      'find'
+    ]),
+    data () {
+      return {
+        showContent001: true,
+        showContent002: false,
+        list1: {
+          title: '今日特价，全部菜系打五折',
+          img: find1
+        },
+        list2: {
+          img1: find2,
+          img2: find3,
+          img3: find5,
+          img4: find6,
+          img5: find7,
+          img6: find8,
+          img7: find9,
+          img8: find10
+        },
+        list3: {
+          img: find4,
+          title: '本店饮品今日买一赠一'
+        }
+      }
+    },
+    methods: {
+      show1 () {
+        this.showContent001 = true
+        this.showContent002 = false
+      },
+      show2 () {
+        this.showContent001 = false
+        this.showContent002 = true
+      }
+    }
+  }
 </script>
 
 <style scoped>

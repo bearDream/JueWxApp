@@ -13,7 +13,7 @@
       </div>
     </blur>
     <div @click="GoRankingdetails" >
-      <panel :list="list1">
+      <panel :list="list">
       </panel>
     </div>
   </div>
@@ -43,17 +43,17 @@
       return {
         // 修改panel源码文件来更改字段名
         list: [{
-          dishImage: img1,
+          src: img1,
           title: 'NO.1',
-          dishName: '水果紫米粥'
+          desc: '水果紫米粥'
         }, {
-          dishImage: img2,
+          src: img2,
           title: 'NO.2',
-          dishName: '营养*早餐'
+          desc: '营养*早餐'
         }, {
-          dishImage: img3,
+          src: img3,
           title: 'NO.3',
-          dishName: '营养*早餐'
+          desc: '营养*早餐'
         }],
         url: img,
         attentions: '营养菜品排行',
