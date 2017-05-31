@@ -146,6 +146,7 @@
     methods: {
       Refresh (item) {
         this.item = false
+        console.log('换一批')
       },
 //      gets () {
 //        this.$store.dispatch('getBusinessList', {

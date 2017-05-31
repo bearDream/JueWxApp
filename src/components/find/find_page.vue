@@ -1,31 +1,80 @@
 <template>
-  <div style="height:100%;width:100%;background-color: #f2f2f2;">
-    <grid :row="2" style="margin-top:12%;">
-      <grid-item v-for="i in 2" :key="i"></grid-item>
-    </grid>
-    <div style="padding:5% 3%;margin-top:2%;background-color:#fff;">
-      <div>
-        <div class="t-img" :style="{backgroundImage: 'url(' + list1.img + ')'}">
-          <div class="masker" style="background-color: rgba(255, 255, 255, .5);">
-            <div class="title">{{ list1.title }}</div>
+  <div style="height:100%;width:100%;background-color: #fff;" >
+    <div style="width: 100%;height: 50px;">
+      <div style="width: 100px;height: 50px;float: left;">
+        <group>
+          <cell title="商家" is-link
+                :border-intent="false"
+                :arrow-direction="showContent001 ? 'up' : 'down'"
+                @click.native="show1">
+          </cell>
+        </group>
+      </div>
+      <div style="width: 100px;height: 50px;float: right;">
+        <group>
+          <cell title="菜品" is-link
+                :border-intent="false"
+                :arrow-direction="showContent002 ? 'up' : 'down'"
+                @click.native="show2">
+          </cell>
+        </group>
+      </div>
+    </div>
+
+    <div  v-if="showContent001">
+      <div style="padding:5% 3%;margin-top:2%;background-color:#fff;">
+        <div>
+          <div class="t-img" :style="{backgroundImage: 'url(' + list1.img + ')'}">
+            <div class="masker" style="background-color: rgba(255, 255, 255, .5);">
+              <div class="title">{{ list1.title }}</div>
+            </div>
+          </div>
+          <div style="padding:5% 3%;margin-top:2%;background-color:#fff;">
+            <div class="e-img" style="margin-right:2%;" :style="{backgroundImage: 'url(' + list2.img1 + ')'}"></div>
+            <div class="e-img" style="margin-left: 2.5%;" :style="{backgroundImage: 'url(' + list2.img2 + ')'}"></div>
           </div>
         </div>
-        <div style="padding:5% 3%;margin-top:2%;background-color:#fff;">
-          <div class="e-img" style="margin-right:2%;" :style="{backgroundImage: 'url(' + list2.img1 + ')'}"></div>
-          <div class="e-img" style="margin-left: 2.5%;" :style="{backgroundImage: 'url(' + list2.img2 + ')'}"></div>
+      </div>
+      <div style="padding:5% 3%;margin-top:2%;background-color:#fff;">
+        <div>
+          <div class="b-img":style="{backgroundImage: 'url(' + list3.img + ')'}">
+            <div class="masker" style="background-color: rgba(0, 0, 0, .3);">
+              <div class="title">{{ list3.title }}</div>
+            </div>
+          </div>
+          <div style="padding:5% 3%;margin-top:2%;background-color:#fff;">
+            <div class="e-img" style="margin-right:2%;" :style="{backgroundImage: 'url(' + list2.img1 + ')'}"></div>
+            <div class="e-img" style="margin-left: 2.5%;" :style="{backgroundImage: 'url(' + list2.img2 + ')'}"></div>
+          </div>
         </div>
       </div>
     </div>
-    <div style="padding:5% 3%;margin-top:2%;background-color:#fff;">
-      <div>
-        <div class="b-img":style="{backgroundImage: 'url(' + list3.img + ')'}">
-          <div class="masker" style="background-color: rgba(0, 0, 0, .3);">
-            <div class="title">{{ list3.title }}</div>
+
+    <div  v-if="showContent002">
+      <div style="padding:5% 3%;margin-top:2%;background-color:#fff;">
+        <div>
+          <div class="t-img" :style="{backgroundImage: 'url(' + list1.img + ')'}">
+            <div class="masker" style="background-color: rgba(255, 255, 255, .5);">
+              <div class="title">{{ list1.title }}</div>
+            </div>
+          </div>
+          <div style="padding:5% 3%;margin-top:2%;background-color:#fff;">
+            <div class="e-img" style="margin-right:2%;" :style="{backgroundImage: 'url(' + list2.img1 + ')'}"></div>
+            <div class="e-img" style="margin-left: 2.5%;" :style="{backgroundImage: 'url(' + list2.img2 + ')'}"></div>
           </div>
         </div>
-        <div style="padding:5% 3%;margin-top:2%;background-color:#fff;">
-          <div class="e-img" style="margin-right:2%;" :style="{backgroundImage: 'url(' + list2.img1 + ')'}"></div>
-          <div class="e-img" style="margin-left: 2.5%;" :style="{backgroundImage: 'url(' + list2.img2 + ')'}"></div>
+      </div>
+      <div style="padding:5% 3%;margin-top:2%;background-color:#fff;">
+        <div>
+          <div class="b-img":style="{backgroundImage: 'url(' + list3.img + ')'}">
+            <div class="masker" style="background-color: rgba(0, 0, 0, .3);">
+              <div class="title">{{ list3.title }}</div>
+            </div>
+          </div>
+          <div style="padding:5% 3%;margin-top:2%;background-color:#fff;">
+            <div class="e-img" style="margin-right:2%;" :style="{backgroundImage: 'url(' + list2.img1 + ')'}"></div>
+            <div class="e-img" style="margin-left: 2.5%;" :style="{backgroundImage: 'url(' + list2.img2 + ')'}"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -33,7 +82,7 @@
 </template>
 
 <script>
- import { Grid, GridItem } from 'vux'
+ import { Grid, GridItem, Group, Cell } from 'vux'
  import { mapState } from 'vuex'
  import find1 from '../../assets/img/find1.png'
  import find2 from '../../assets/img/find2.png'
@@ -43,13 +92,17 @@
  export default {
    components: {
      Grid,
-     GridItem
+     GridItem,
+     Group,
+     Cell
    },
    computed: mapState([
      'find'
    ]),
    data () {
      return {
+       showContent001: true,
+       showContent002: false,
        list1: {
          title: '今日特价，全部菜系打五折',
          img: find1
@@ -62,6 +115,16 @@
          img: find4,
          title: '本店饮品今日买一赠一'
        }
+     }
+   },
+   methods: {
+     show1 () {
+       this.showContent001 = true
+       this.showContent002 = false
+     },
+     show2 () {
+       this.showContent001 = false
+       this.showContent002 = true
      }
    }
  }
@@ -115,5 +178,9 @@
     background-size: cover;
     background-position: center center;
     cursor: pointer;
+  }
+  .weui-cells , .vux-no-group-title{
+    border-top: none!important;
+    margin-top: 0!important;
   }
 </style>
