@@ -8,10 +8,10 @@ const DEV = 'DEV'
 const PROD = 'PROD'
 
 // 当前环境
-const ENV = HOST === 'localhost:8080' ? DEV : PROD
+const ENV = HOST === 'http://localhost:8080' ? DEV : PROD
 
 // 基础地址
-const BASE_URL = ENV === DEV ? 'http://171590mx26.51mypc.cn/api' : 'http://171590mx26.51mypc.cn/api'
+const BASE_URL = ENV === DEV ? 'http://wx.chiprincess.cn/api/mobile' : '/api/mobile/'
 
 // 接口地址
 const API_URL = BASE_URL

@@ -5,6 +5,9 @@ import home from './modules/home'
 import find from './modules/find'
 import food from './modules/food'
 import mine from './modules/mine'
+import business from './modules/business'
+import take from './modules/take'
+import location from './modules/location'
 
 import actions from './actions'
 Vue.use(Vuex)
@@ -30,6 +33,9 @@ export default new Vuex.Store({
     home,
     find,
     food,
-    mine
+    mine,
+    business,
+    take,
+    location
   }
 })

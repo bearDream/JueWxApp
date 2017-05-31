@@ -6,8 +6,8 @@
         <div class="theme">方便生活从蕨菜开始</div>
       </swiper>
       <div class="searchdiv">
-       <input type="text" style="padding-left: 60px;" placeholder="搜索菜品、用户、商家" class="inputsearch">
-       <div class="searchicon"></div>
+        <input type="text" style="padding-left: 60px;" placeholder="搜索菜品、用户、商家" class="inputsearch">
+        <div class="searchicon"></div>
       </div>
     </scroller>
     <grid>
@@ -35,12 +35,24 @@
       </div>
     </div>
 
-<!--随机来几个菜-->
+    <!--随机来几个菜-->
     <div >
       <x-dialog style="border-radius: 10px" v-model="showHideOnBlur" class="dialog-demo" hide-on-blur>
-        <div class="img-box" id="Rotation" v-drag-and-drop   v-drop='rotation'>
-          <img :src="banner" style="max-width:100%">
-
+        <img src="../../assets/images/circle.png"  style="width:100%;height:50px;display:block;">
+        <div class="img-box" @touchmove='rotation' @touchstart='touchstart' @touchend='touchend' id="Rotation" >
+          <div>
+            <div class="businesstitle" v-if="dishname1">{{list3[0].dishName}}</div>
+            <img :src="list3[0].dishImage" class="l_mid_r l">
+          </div>
+          <div>
+            <div class="businesstitle" v-if="dishname3">{{list3[1].dishName}}</div>
+            <img :src="list3[1].dishImage" class="l_mid_r r">
+          </div>
+          <div>
+            <div class="businesstitle" v-if="dishname2">{{list3[2].dishName}}</div>
+            <img :src="list3[2].dishImage" class="l_mid_r mid">
+          </div>
+          <div class="onlyeat" @click="Refresh">不想吃换一批</div>
         </div>
         <div @click="showHideOnBlur=false"></div>
       </x-dialog>
@@ -49,9 +61,17 @@
 </template>
 
 <script>
+  let start = 0
+  let end = 0
+  let lnm = 1
+  let rnm = 3
+  let mnm = 2
   import { Divider, Grid, GridItem, Masker, XInput, Scroller, Swiper, Search, Icon, Alert, XDialog, TransferDomDirective as TransferDom } from 'vux'
   import { mapState } from 'vuex'
   import banner from '../../assets/images/bg/home1.png'
+  import randomdish1 from '../../assets/img/busi1.jpg'
+  import randomdish2 from '../../assets/img/busi2.jpg'
+  import randomdish3 from '../../assets/img/busi3.jpg'
   export default {
     directives: {
       TransferDom
@@ -69,7 +89,9 @@
       Alert,
       XDialog
     },
-    created () {
+    created (i) {
+      this.i += 1
+      console.log(i)
     },
     computed: mapState([
       'home'
@@ -79,7 +101,10 @@
         toTake: 'subpage/homeList',
         value2: 'vux',
         showHideOnBlur: false,
-        banner: banner,
+        i: 0,
+        dishname1: true,
+        dishname2: true,
+        dishname3: true,
         list1: [{
           url: 'http://mp.weixin.qq.com/s?__biz=MzAxNjU0MDYxMg==&mid=400385458&idx=1&sn=78f6b8d99715384bdcc7746596d88359&scene=19#wechat_redirect',
           img: banner
@@ -102,20 +127,112 @@
           title: '昆明探店——来自pizza爱好者的推荐',
           addrase: 'by Anitalyx tom 昆明',
           img: 'https://cdn.xiaotaojiang.com/uploads/56/4b3601364b86fdfd234ef11d8712ad/_.jpg'
-        }]
-
+        }],
+        list3: [{
+          dishId: 1,
+          dishName: '麻婆豆腐',
+          dishImage: randomdish1
+        }, {
+          dishId: 2,
+          dishName: '青椒炒肉',
+          dishImage: randomdish2
+        }, {
+          dishId: 3,
+          dishName: '番茄鸡蛋',
+          dishImage: randomdish3
+        }
+        ]
       }
     },
     methods: {
+      Refresh (item) {
+        this.item = false
+        console.log('换一批')
+      },
 //      gets () {
 //        this.$store.dispatch('getBusinessList', {
 //          params: {
 //          }
 //        })
 //      }
-      rotation () {
-        alert(123)
-        console.log(123)
+      rotation: function (e) {
+//        console.log('*****' + e.changedTouches[0].clientX)
+//        console.log('xxxxx' + e.changedTouches[0].clientX)
+//        let ml = e.changedTouches[0].clientX
+//        var img = document.getElementsByClassName('mid')[0]
+//        var left = img.clientLeft
+//        img.setAttribute(left, e.changedTouches[0].clientX)
+//        console.log(document.getElementsByClassName('mid')[0].offsetLeft)
+//        document.getElementsByClassName('mid')[0].style.offsetLeft += e.changedTouches[0].clientX - 100 + 'px'
+//        this.className('mid').style.left = e.changedTouches[0].clientX - this.className('mid').style.left
+//        var start = e.changedTouches[0].clientX
+//        var mid = document.getElementsByClassName('mid')[0]
+      },
+      touchend (e) {
+        end = e.changedTouches[0].clientX
+        let mid = document.getElementsByClassName('mid')[0]
+        let l = document.getElementsByClassName('l')[0]
+        let r = document.getElementsByClassName('r')[0]
+        if (end > start) {
+          mid.className = ''
+          mid.classList.add('r')
+          l.classList = ''
+          l.classList.add('mid')
+          r.className = ''
+          r.classList.add('l')
+          lnm += 1
+          mnm += 1
+          rnm += 1
+          this.dishname1 = false
+          this.dishname2 = false
+          this.dishname3 = false
+          if (mnm === 4) {
+            this.dishname1 = true
+            mnm = 1
+          }
+          if (rnm === 4) {
+            this.dishname2 = true
+            rnm = 1
+          }
+          if (lnm === 4) {
+            this.dishname3 = true
+            lnm = 1
+          }
+//          console.log('lnm:' + lnm + '  mnm:' + mnm + '  rnm:' + rnm)
+        } else if (end < start) {
+          mid.className = ''
+          l.classList = ''
+          r.className = ''
+          mid.classList.add('l')
+          l.classList.add('r')
+          r.classList.add('mid')
+          this.dishname1 = false
+          this.dishname2 = false
+          this.dishname3 = false
+          lnm -= 1
+          mnm -= 1
+          rnm -= 1
+          if (lnm === 0) {
+            this.dishname2 = true
+            lnm = 3
+          }
+          if (rnm === 0) {
+            this.dishname1 = true
+            rnm = 3
+          }
+          if (mnm === 0) {
+            this.dishname3 = true
+            mnm = 3
+          }
+//          console.log('lnm:' + lnm + '  mnm:' + mnm + '  rnm:' + rnm)
+        } else {
+          console.log(123)
+          this.$router.push({name: 'random'})
+        }
+      },
+      touchstart (e) {
+        start = e.changedTouches[0].clientX
+//        console.log(e.changedTouches[0].clientX)
       },
       load (uuid) {
         const _this = this
@@ -149,7 +266,6 @@
       }
     },
     mounted () {
-      // 进入页面的钩子函数
     }
   }
 </script>
@@ -244,9 +360,77 @@
     background: url("../../assets/img/icon_search.png")no-repeat -48px -108px;
   }
   .img-box{
+    position: relative;
     height: 250px;
     width:100%;
     overflow: hidden;
-    background-color: #0bb908;
+    background-color: rgba(227,227,227,.5);
   }
+  /*.img-box .l_mid_r{*/
+  /*transform: scale(0.8);*/
+  /*}*/
+  .img-box .mid{
+    position: absolute;
+    width: 140px;
+    height: 140px;
+    top: 60px;
+    left: 24%;
+    z-index: 10;
+    transition: all 0.4s;
+    transform: scale(1.1);
+  }
+  .img-box .l{
+    position: absolute;
+    width: 140px;
+    height: 140px;
+    top: 60px;
+    left: 5%;
+    opacity: .5;
+    transition: all 0.4s;
+    transform: scale(0.8);
+  }
+  .img-box .r{
+    position: absolute;
+    width: 140px;
+    height: 140px;
+    top: 60px;
+    left: 45%;
+    opacity: .7;
+    transition: all 0.4s;
+    transform: scale(0.8);
+  }
+  .businesstitle{
+    margin-top: 20px;
+    font-size: 20px;
+    color: #B3D465;
+  }
+  .onlyeat{
+    font-size: 15px;
+    color: #B3D465;
+    position: absolute;
+    left: 35%;
+    bottom: 5px;
+  }
+  .show{
+    display: block;
+  }
+
+
+  /*div#Rotation.img-box{*/
+  /*position:relative;*/
+  /*}*/
+  /*div#Rotation.img-box:before{*/
+    /*content:' ';*/
+    /*display:block;*/
+    /*width:50%;*/
+    /*min-height:50px;*/
+    /*position:absolute;*/
+    /*background-image:url(../../assets/images/circle.png);*/
+    /*background-size:100%;*/
+    /*background-repeat:no-repeat;*/
+    /*top:-30px;*/
+    /*left:25%;*/
+    /*z-index:100000;*/
+    /*overflow:hidden;*/
+  /*}*/
 </style>

@@ -7,13 +7,9 @@ import VueRouter from 'vue-router'
 import App from './App'
 import store from './vuex/store'
 import router from './router/index'
-import { LoadingPlugin } from 'vux'
+import { LoadingPlugin, WechatPlugin } from 'vux'
 Vue.use(LoadingPlugin)
-// 测试接口mock
-import dishMock from './utils/mock/mineMock'
-import userMock from './utils/mock/findMock'
-Vue.use(dishMock)
-Vue.use(userMock)
+Vue.use(WechatPlugin)
 
 Vue.use(VueRouter, axios)
 
@@ -25,5 +21,6 @@ Vue.config.productionTip = false
 new Vue({
   router,
   store,
+  WechatPlugin,
   render: h => h(App)
 }).$mount('#app-box')
