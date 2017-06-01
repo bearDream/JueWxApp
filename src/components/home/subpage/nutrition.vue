@@ -3,7 +3,7 @@
     <x-header v-on:click="$router.back()">营养价值</x-header>
     <blur :blur-amount=0 :url="url" style="height:220px">
 
-      <div style="border-radius: 2px;width: 100%">
+      <div style="border-radius: 2px;width: 100%;">
         <div class="m-buttom" >营养价值分析</div>
         <div class="m-buttom1"></div>
         <ul class="me_show">
@@ -121,14 +121,14 @@
     height: 50px;
     background: #f3f3f5;
     opacity: 0.8;
-    bottom: 0;
+    bottom: -5px;
   }
   .me_show{
     display: flex;
     width: 100%;
     height:40px;
     position: absolute;
-    bottom: 5px;
+    bottom: 0px;
     color:#000;
   }
   .me_show li{

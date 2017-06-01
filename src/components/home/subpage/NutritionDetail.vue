@@ -10,60 +10,8 @@
         </ul>
       </div>
     </blur>
-    <div class="card-demo-flex card-demo-content">
-      <div >
-        <group>
-          <cell title="上周排行" is-link
-                :border-intent="false"
-                :arrow-direction="showContent001 ? 'up' : 'down'"
-                @click.native="show1"
-                style="font-size:16px;">
-          </cell>
-        </group>
-      </div>
-      <div >
-        <group>
-          <cell
-            title="本周排行"
-            is-link
-            :border-intent="false"
-            :arrow-direction="showContent002 ? 'up' : 'down'"
-            @click.native="show2"
-            style="font-size:16px;">
-          </cell>
-        </group>
-      </div>
-      <div>
-        <group>
-          <cell
-            title="单品分析"
-            is-link
-            :border-intent="false"
-            :arrow-direction="showContent003 ? 'up' : 'down'"
-            @click.native="show3"
-            style="font-size:16px;">
-          </cell>
-        </group>
-      </div>
-    </div>
 
-    <template v-if="showContent001" style="position: fixed" v-for="item in list1">
-      <div class="takeSorting" @click="GoBusiness (item)">
-        <div class="sortingl" :style="{backgroundImage: 'url(' + item.src + ')'}"></div>
-        <div class="sortingr">
-          <h3>{{item.title}}</h3>
-          <span class="distance">{{item.distance}}米</span>
-          <span class="address">地址&nbsp;:&nbsp;</span>
-          <div class="addressdiv">
-            <span class="address">{{item.address}}</span>
-          </div>
-          <br>
-          <br>
-          <span class="tel">电话&nbsp;:&nbsp;&nbsp;&nbsp;{{item.tel}}</span>
-        </div>
-      </div>
-    </template>
-    <template v-if="showContent002" v-for="item in list2">
+    <template v-if="showContent002 = true" v-for="item in list2">
       <div class="takeSorting" @click="GoBusiness (item)">
         <h3 class="businesstitle">{{item.title}}</h3>
         <div class="allsortingl" :style="{backgroundImage: 'url(' + item.src + ')'}"></div>
@@ -73,34 +21,6 @@
           <br>
           <br>
           <span class="addressstel tel" style="top: 80px"><i style="color: red">电话</i>&nbsp;:&nbsp;&nbsp;&nbsp;{{item.tel}}</span>
-        </div>
-      </div>
-    </template>
-    <template  v-if="showContent003" v-for="item in list3" >
-      <div class="takeSorting3" @click="GoBusiness (item)">
-        <div class="sorting3" :style="{backgroundImage: 'url(' + item.img + ')'}"></div>
-        <div class="sortingr3">
-          <h3 style="font-size: 20px;text-align: center">{{item.title}}</h3>
-          <hr>
-          <br>
-          <hr>
-
-
-          <h3 style="font-size: 20px;">{{item.title2}}
-            &nbsp &nbsp &nbsp<span style="font-size: 14px;">{{item.address2}}</span>
-          </h3>
-          <h3 style="font-size: 20px;">{{item.title3}}
-            &nbsp &nbsp &nbsp &nbsp &nbsp<span style="font-size: 14px;">{{item.address3}}</span>
-          </h3>
-          <h3 style="font-size: 20px;">{{item.title4}}
-            &nbsp &nbsp &nbsp<span style="font-size: 14px;">{{item.address4}}</span>
-          </h3>
-          <h3 style="font-size: 20px;">{{item.title5}}
-            &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp<span style="font-size: 14px;">{{item.address5}}</span>
-          </h3>
-          <h3 style="font-size: 20px;">{{item.title6}}
-            &nbsp&nbsp&nbsp&nbsp &nbsp &nbsp<span style="font-size: 14px;">{{item.address6}}</span>
-          </h3>
         </div>
       </div>
     </template>
@@ -129,45 +49,7 @@
     },
     data () {
       return {
-        showContent001: false,
-        showContent002: true,
-        showContent003: false,
         tel: 1232132,
-        list1: [{
-          src: img1,
-          title: '海底捞11',
-          distance: 228,
-          address: '盘龙区白龙路东华菜市场熟食区六区15商铺',
-          tel: '1398702586'
-        }, {
-          src: img1,
-          title: '北京烤鸭',
-          distance: 80,
-          address: '盘龙区白龙路',
-          tel: '1398702586'
-        }, {
-          src: img1,
-          title: '外婆味道',
-          distance: 100,
-          address: '盘龙区白龙路昆明理工大学',
-          tel: '1398702586'
-        }],
-        list3: [{
-          img: img1,
-          title: '材料营  养价值',
-          title1: '大米 ',
-          address1: '补充营养素',
-          title2: '基尾虾 ',
-          address2: '增强免疫力',
-          title3: '芦笋 ',
-          address3: '抗癌、降脂',
-          title4: '色拉油 ',
-          address4: '抗氧化',
-          title5: '盐 ',
-          address5: '去腥味',
-          title6: '胡椒 ',
-          address6: '防腐调味'
-        }],
         list2: [{
           src: img1,
           title: '巴蜀知味重庆老火锅',
@@ -192,21 +74,6 @@
       business_info (item) {
         alert(item.title)
       },
-      show1 () {
-        this.showContent001 = !this.showContent001
-        this.showContent003 = false
-        this.showContent002 = false
-      },
-      show2 () {
-        this.showContent002 = !this.showContent002
-        this.showContent003 = false
-        this.showContent001 = false
-      },
-      show3 () {
-        this.showContent003 = !this.showContent003
-        this.showContent002 = false
-        this.showContent001 = false
-      },
       GoBusiness (item) {
         this.$router.push({name: 'business'})
         alert(item.title)
@@ -216,20 +83,6 @@
 </script>
 
 <style scoped="" lang="less">
-  .card-demo-flex {
-    display: flex;
-  }
-  .card-demo-content01  {
-    padding: 10px 0;
-  }
-  .card-padding {
-    padding: 15px;
-  }
-  .card-demo-flex > div {
-    flex: 1;
-    text-align: center;
-    font-size: 10px;
-  }
   .takeSorting{
     width: 100%;
     height:160px;

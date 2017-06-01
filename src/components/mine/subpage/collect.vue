@@ -40,11 +40,11 @@
       <!--</scroller>-->
       <p class="B-text">【美味大数据】今天你挑哪家？</p>
       <hr>
-      <div style=" position: relative;margin: 10px;overflow: hidden; width: 45%;float: left;height: 150px;" v-for="item in list1">
+      <div style=" position: relative;margin: 10px;overflow: hidden; width: 43%;float: left;height: 150px;" v-for="item in list1">
         <div class="m-img1" :style="{backgroundImage: 'url(' + item.img + ')'}"></div>
-          <div slot="content" class="m-title" >
-            <p>{{item.title}}</p>
-          </div>
+          <div slot="content" class="m-title" > </div>
+            <p class="m-title">{{item.title}}</p>
+
       </div>
      </template>
     <template  v-if="showContent002" style="position: fixed">
@@ -78,7 +78,7 @@
           <br>
           <!--222222222222222222-->
           <div @click="GoBusiness (item)" v-for="item in list4">
-            <div class="address" >
+            <div class="address">
               <a href="">
               <div class="address-img" :style="{backgroundImage: 'url(' + item.img + ')'}"></div>
               <p class="add-name">{{item.name}}</p>
@@ -86,11 +86,11 @@
               </a>
             </div>
             <p class="add-add2">{{item.address2}}</p>
-           <span class="add-add3">浏览</span> <span class="add-add4">{{item.look}}</span>
+            <span class="add-add3">浏览</span> <span class="add-add4">{{item.look}}</span>
             <!--3333333333333333333-->
-            <div  class="comment" @click="GoBusiness (item)" v-for="item in list5">
-            <div class="comment-img" :style="{backgroundImage: 'url(' + item.img + ')'}"></div>
-            <a href="" class="comment-text">{{item.comment}}</a>
+            <div  class="comment" >
+              <div class="comment-img" :style="{backgroundImage: 'url(' + item.list5.url + ')'}"></div>
+              <a href="" class="comment-text">{{item.list5.comment}}</a>
             </div>
           </div>
         </div>
@@ -244,12 +244,12 @@
           name: '湘村馆（七彩俊园）',
           address1: '环城东路',
           address2: '昆明理工大学  新迎校区',
-          look: '1314'
-        }],
-        list5: [{
-          comment: '22',
-          img: img16,
-          url: '../../../assets/images/comment.jpg'
+          look: '1314',
+          list5: [{
+            comment: '22',
+            img: img16,
+            url: '../../../assets/images/comment.jpg'
+          }]
         }]
       }
     },
@@ -317,7 +317,7 @@
     display: inline-block;
   }
   .comment-text{
-    border: 1px solid #878787;
+    /*border: 1px solid #878787;*/
     border-radius: 14px;
     padding: 2px 7px 2px 48px;
     position: absolute;
@@ -393,30 +393,37 @@
   }
   .m-img1 {
     display: inline-block!important;
-    min-width: 90%;
-    max-width: 90%;
+    min-width: 100%;
+    max-width: 100%;
     height: 150px;
     overflow: hidden;
     background-size: cover;
     cursor: pointer;
     border-radius: 2px;
-    margin-left: 10px;
+    /*margin-left: 10px;*/
 
   }
-  .m-title {
-    color: #fff;
-    text-align: center;
-    text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
-    font-weight: 500;
+  /*.m-title {*/
+    /*color: #fff;*/
+    /*text-align: center;*/
+    /*text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);*/
+    /*font-weight: 500;*/
+    /*font-size: 16px;*/
+    /*position: absolute;*/
+    /*left: 5%;*/
+    /*top: 91%;*/
+    /*width: 168px !important;*/
+    /*text-align: center;*/
+    /*background: rgba(37,37,38,.5);*/
+  /*}*/
+  p.m-title{
+    padding: 3px;
+    background-color: rgba(37,37,38,.5);
     font-size: 16px;
     position: absolute;
-    left: 5%;
-    top: 91%;
-    width: 168px !important;
-    text-align: center;
-    background: rgba(37,37,38,.5);
+    top:90%;
+    color: #ffffff;
   }
-
   .m-time {
     font-size: 12px;
     padding-top: 4px;
@@ -513,8 +520,7 @@
   .T-time{
     font-size: 15px;
     color: #8D8D8D;
-    margin: 63px;
-
+    margin-left: 60px;
   }
   .T-type{
     margin: -2px;

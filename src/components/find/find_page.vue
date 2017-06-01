@@ -1,7 +1,7 @@
 <template>
-  <div style="height:100%;width:100%;background-color: #fff;" >
+  <div style="height:100%;width:100%;background-color: #fff;margin-top: -20px" >
     <div style="width: 100%;height: 50px;">
-      <div style="width: 100px;height: 50px;float: left;">
+      <div style="width: 100px;height: 50px;position: absolute;left: 5%">
         <group>
           <cell title="商家" is-link
                 :border-intent="false"
@@ -10,8 +10,8 @@
           </cell>
         </group>
       </div>
-      <div style="width: 100px;height: 50px;float: right;">
-        <group>
+      <div style="width: 100px;height: 50px;position: absolute;right: 5%">
+        <group >
           <cell title="菜品" is-link
                 :border-intent="false"
                 :arrow-direction="showContent002 ? 'up' : 'down'"
@@ -21,44 +21,42 @@
       </div>
     </div>
 
-    <div  v-if="showContent001">
-      <div style="padding:5% 3%;margin-top:2%;background-color:#fff;">
-        <div>
-          <div class="t-img" :style="{backgroundImage: 'url(' + list3.img + ')'}">
+    <div  v-if="showContent001" v-for="item in list1">
+      <div style="padding:5% 3%;margin-top:-2px;background-color:#fff;">
+        <div >
+          <div class="t-img" :style="{backgroundImage: 'url(' + item.img1 + ')'}">
             <div class="masker" style="background-color: rgba(255, 255, 255, .5);">
-              <div class="title">{{ list3.title }}</div>
+              <div class="title">{{ item.title }}</div>
             </div>
           </div>
         </div>
-        <div style="padding:5% 3%;margin-top:2%;background-color:#fff;">
-          <div class="e-img" style="margin-right:2%;" :style="{backgroundImage: 'url(' + list2.img3 + ')'}"></div>
-          <div class="e-img" style="margin-left: 2.5%;" :style="{backgroundImage: 'url(' + list2.img4 + ')'}"></div>
+        <div style="padding:4% 0%;margin-top:2%;background-color:#fff;">
+          <div class="e-img" style="margin-right:2%;" :style="{backgroundImage: 'url(' + item.img2 + ')'}"></div>
+          <div class="e-img" style="margin-left: 2.5%;" :style="{backgroundImage: 'url(' + item.img3 + ')'}"></div>
         </div>
-        <div style="padding:5% 3%;margin-top:2%;background-color:#fff;">
-          <div class="e-img" style="margin-right:2%;" :style="{backgroundImage: 'url(' + list2.img5 + ')'}"></div>
-          <div class="e-img" style="margin-left: 2.5%;" :style="{backgroundImage: 'url(' + list2.img6 + ')'}"></div>
+        <div style="padding:0;background-color:#fff;">
+          <div class="e-img" style="margin-right:2%;" :style="{backgroundImage: 'url(' + item.img3 + ')'}"></div>
+          <div class="e-img" style="margin-left: 2.5%;" :style="{backgroundImage: 'url(' + item.img5 + ')'}"></div>
         </div>
-
-
       </div>
     </div>
 
-    <div  v-if="showContent002">
-      <div style="padding:5% 3%;margin-top:2%;background-color:#fff;">
-        <div>
-          <div class="t-img" :style="{backgroundImage: 'url(' + list1.img + ')'}">
+    <div  v-if="showContent002" v-for="item in list2">
+      <div style="padding:5% 3%;margin-top:-2px;background-color:#fff;">
+        <div >
+          <div class="t-img" :style="{backgroundImage: 'url(' + item.img1 + ')'}">
             <div class="masker" style="background-color: rgba(255, 255, 255, .5);">
-              <div class="title">{{ list1.title }}</div>
+              <div class="title">{{ item.title }}</div>
             </div>
           </div>
-          <div style="padding:5% 3%;margin-top:2%;background-color:#fff;">
-            <div class="e-img" style="margin-right:2%;" :style="{backgroundImage: 'url(' + list2.img1 + ')'}"></div>
-            <div class="e-img" style="margin-left: 2.5%;" :style="{backgroundImage: 'url(' + list2.img2 + ')'}"></div>
+          <div style="padding:5% 0%;margin-top:2%;background-color:#fff;">
+            <div class="e-img" style="margin-right:2%;" :style="{backgroundImage: 'url(' + item.img3 + ')'}"></div>
+            <div class="e-img" style="margin-left: 2.5%;" :style="{backgroundImage: 'url(' + item.img4 + ')'}"></div>
           </div>
           <div>
-            <div class="t-img" :style="{backgroundImage: 'url(' + list2.img7 + ')'}">
+            <div class="t-img" :style="{backgroundImage: 'url(' + item.img5 + ')'}">
               <div class="masker" style="background-color: rgba(255, 255, 255, .5);">
-                <div class="title">{{ list3.title }}</div>
+                <div class="title">{{ item.title }}</div>
               </div>
             </div>
           </div>
@@ -99,24 +97,26 @@
       return {
         showContent001: true,
         showContent002: false,
-        list1: {
-          title: '今日特价，全部菜系打五折',
-          img: find1
-        },
-        list2: {
-          img1: find2,
-          img2: find3,
-          img3: find5,
-          img4: find6,
-          img5: find7,
-          img6: find8,
-          img7: find9,
-          img8: find10
-        },
-        list3: {
-          img: find4,
-          title: '本店饮品今日买一赠一'
-        }
+        list1: [
+          {
+            title: '本店饮品今日买一赠一',
+            img5: find5,
+            img2: find6,
+            img3: find7,
+            img4: find8,
+            img6: find10,
+            img1: find4
+          }
+        ],
+        list2: [
+          {
+            title: '今日特价，全部菜系打五折',
+            img1: find1,
+            img3: find2,
+            img4: find3,
+            img5: find9
+          }
+        ]
       }
     },
     methods: {
