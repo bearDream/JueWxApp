@@ -1,98 +1,106 @@
 <template>
   <div>
-    <x-header v-on:click="$router.back()">随机推荐</x-header>
-    <br>
-    <div style="margin: 10px;overflow: hidden;" v-for="item in list" v-on:click="business_info(item)">
-      <masker style="border-radius: 2px;" >
-        <div class="m-img" :style="{backgroundImage: 'url(' + item.img + ')'}"></div>
-        <div slot="content" class="m-title">
-          {{item.title}}
-          <br/>
-          <span class="m-time">2016-03-18</span>
+    <x-header v-on:click="$router.back()">提交订单</x-header>
+    <!--<group>-->
+      <!--<p class="head">提交订单</p>-->
+    <!--</group>-->
+    <group>
+      <div class="takeSorting" v-for="item in list1">
+        <div class="body">
+          <div class="center1">
+            <span class="first">{{item.businessname}}</span>
+            <span class="second">{{item.price}}</span>
+          </div>
+          <div class="center1">
+            <span class="first">数量</span>
+            <div class="second">
+          <span>
+            <a>+</a>
+          </span>
+              <span class="count">123</span>
+              <span>
+            <a>-</a>
+          </span>
+            </div>
+          </div>
+          <div>
+            <span class="all first">小计</span>
+            <span class="second" >{{item.sum}}</span>
+          </div>
         </div>
-      </masker>
-    </div>
+      </div>
+    </group>
+    <group>
+      <div class="takeSorting" v-for="item in list1">
+        <div class="body">
+          <div class="center1">
+            <span class="first">抵用券</span>
+            <span class="second">使用抵用券</span>
+          </div>
+          <div class="center1">
+            <span class="first">总价</span>
+            <span class="second">{{item.sum}}</span>
+          </div>
+        </div>
+      </div>
+    </group>
+    <x-button type="primary" class="btn">提交订单</x-button>
   </div>
 </template>
-
 <script>
-  import { Masker, XHeader, TransferDom } from 'vux'
+  import { XHeader, Group, XButton, Icon } from 'vux'
   export default {
-    directives: {
-      TransferDom
-    },
     components: {
-      Masker,
-      XHeader
-    },
-    created () {
-      // 数据交互：通过this.$route.params或.query取出数据
-      console.info(this.$route.params)
+      XHeader,
+      Group,
+      XButton,
+      Icon
     },
     data () {
       return {
-        list: [{
-          title: '洗颜新潮流！人气洁面皂排行榜',
-          img: 'https://cdn.xiaotaojiang.com/uploads/82/1572ec37969ee263735262dc017975/_.jpg'
-        }, {
-          title: '美容用品 & 日用品（上）',
-          img: 'https://cdn.xiaotaojiang.com/uploads/59/b22e0e62363a4a652f28630b3233b9/_.jpg'
+        list1: [{
+          businessname: '越南家3人餐',
+          price: '￥68',
+          sum: '￥68'
         }]
-      }
-    },
-    mounted () {
-      // 进入页面的钩子函数
-    },
-    methods: {
-      business_info (item) {
-        alert(item.title)
       }
     }
   }
 </script>
-
-<style lang="less">
-
-  .iconfont {
-    font-family:"iconfont" !important;
-    font-size:16px;
-    font-style:normal;
-    -webkit-font-smoothing: antialiased;
-    -webkit-text-stroke-width: 0.2px;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  .m-img {
-    padding-bottom: 33%;
-    display: block;
-    position: relative;
-    max-width: 100%;
-    background-size: cover;
-    background-position: center center;
-    cursor: pointer;
-    border-radius: 2px;
-  }
-
-  .m-title {
-    color: #fff;
+<style>
+  .head{
     text-align: center;
-    text-shadow: 0 0 2px rgba(0, 0, 0, .5);
-    font-weight: 500;
-    font-size: 16px;
-    position: absolute;
-    left: 0;
-    right: 0;
-    width: 100%;
-    text-align: center;
-    top: 50%;
-    transform: translateY(-50%);
+    font-size: 22px;
+    margin: 10px;
   }
-
-  .m-time {
-    font-size: 12px;
-    padding-top: 4px;
-    border-top: 1px solid #f0f0f0;
+  .body{
+    font-size: 20px;
+    /*margin: 30px 0;*/
+  }
+  .center1{
+    border-bottom: 1px solid #dddbdb;
+    line-height: 70px;
+  }
+  .all{
+    margin-bottom: 19px;
     display: inline-block;
-    margin-top: 5px;
+    margin-top: 21px;
+  }
+  .first{
+    margin-left: 20px;
+  }
+  .second{
+    float: right;
+    margin-right: 20px;
+  }
+  .btn{
+    background: #59850B !important;
+    margin-top: 165px;
+    height: 65px !important;
+    border-radius: 0 !important;
+  }
+  .count{
+    border: 1px solid #ddd;
+    padding: 5px;
   }
 </style>

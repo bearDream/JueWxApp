@@ -40,6 +40,15 @@ const router = new Router({
         requiresAuth: true
       }
     }, {
+      path: '/home/subpage',
+      name: 'random',
+      components: {
+        'insidePage': resolve => require(['../components/home/subpage/random.vue'], resolve)
+      },
+      meta: {
+        requiresAuth: true
+      }
+    }, {
       path: '/home/subpage/NutritionDetail',
       name: 'NutritionDetail',
       components: {

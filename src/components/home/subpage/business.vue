@@ -44,9 +44,21 @@
           <h3>单号 <span class="statuss">{{number}}</span></h3>
           <h3>还需等待 <span class="waitNum"> {{wait}} </span>桌</h3>
         </div>
-        <alert v-model="alertConfirm" title="取号" content="确认取号，默认小桌"  @on-hide="onHide"></alert>
+
+        <!--<alert v-model="alertConfirm" title="取号" content="确认取号，默认小桌"  @on-hide="onHide"></alert>-->
+
         <div v-if="takePageshow">当前状态 还有{{num}}位</div>
-        <confirm v-model="alertConfirm" title="取号" content="确认取号"  @on-confirm="onconfirem" @on-cancel="onCancel"></confirm>
+        <confirm v-model="alertConfirm"  content="确认取号"  @on-confirm="onconfirem" @on-cancel="onCancel">
+<divider>选择人数{{demo1.i}}</divider>
+          <checker
+            v-model="demo1"
+            default-item-class="demo5-item"
+            selected-item-class="demo5-item-selected"
+          >
+            <checker-item v-for="i in list01" :key="i"  :value="i" :on-change="checker (demo1.i)">{{i.i}}</checker-item>
+          </checker>
+
+        </confirm>
       </grid-item>
     </grid>
     <div class="business_foot">
@@ -55,6 +67,7 @@
       <h4>{{time}}</h4>
     </div>
     </div>
+
     <!--加载进度-->
     <div >
       <loading v-model="loading" text="取票中..."></loading>
@@ -63,7 +76,8 @@
   </div>
 </template>
 <script>
-  import { Confirm, XHeader, Blur, Group, Cell, Rater, Badge, Grid, GridItem, XButton, Alert, Loading, Toast } from 'vux'
+  let demo1
+  import { Confirm, XHeader, Blur, Group, Cell, Rater, Badge, Grid, GridItem, XButton, Alert, Loading, Toast, Checker, CheckerItem, Divider } from 'vux'
   import img from '../../../assets/img/8.png'
   export default {
     components: {
@@ -79,10 +93,22 @@
       Alert,
       Loading,
       Toast,
-      Confirm
+      Confirm,
+      Checker,
+      CheckerItem,
+      Divider
     },
     data () {
       return {
+        demo1: 2,
+        list01: [
+            {i: 2},
+            {i: 3},
+            {i: 4},
+            {i: 6},
+            {i: 8},
+            {i: 10}
+        ],
         businessInfo: {
           businessId: '',
           businessImage: img,
@@ -123,7 +149,7 @@
     created () {
       console.info(this.$route.params.businessId)
       if (this.$route.params.businessId === '' || this.$route.params.businessId === undefined) {
-        this.$router.go(-1)
+//        this.$router.go(-1)
       }
       this.$set(this.businessInfo, 'businessId', this.$route.params.businessId)
       this.getInfo()
@@ -187,6 +213,7 @@
         this.loading = true
 //        let that = this
         console.info(this.businessInfo)
+        console.log('提交当前选择人数:' + demo1)
         // 发送网络请求（排队人数）
         this.$store.dispatch('takeNumber', {
           params: {
@@ -203,6 +230,9 @@
       },
       onCancel () {
         this.takebutton = !this.takebutton
+      },
+      checker (key) {
+        demo1 = key
       }
     }
   }
@@ -290,5 +320,19 @@
   }
   .weui-grid{
     position: static;
+  }
+  .demo5-item {
+    width: 30px;
+    height: 26px;
+    line-height: 26px;
+    text-align: center;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    margin-right: 6px;
+  }
+  .demo5-item-selected {
+    /*background: #ffffff url(../assets/demo/checker/active.png) no-repeat right bottom;*/
+    border-color: #ff4a00;
   }
 </style>
