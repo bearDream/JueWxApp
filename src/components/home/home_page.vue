@@ -1,5 +1,6 @@
 <template>
   <div>
+  <div>
     <scroller enable-horizontal-swiping=""  :loading="load" >
       <!--<search @on-submit="onSubmit" :auto-fixed="false" v-model="value2" @on-focus="onFocus" @on-cancel="onCancel"></search>--> <!--height="260px"-->
       <swiper :list="list1" :min-moving-distance="20" auto="" style="height: 180px" >
@@ -34,29 +35,29 @@
         </div>
       </div>
     </div>
-
-<!--随机来几个菜-->
-    <div >
-      <x-dialog style="border-radius: 10px" v-model="showHideOnBlur" class="dialog-demo" hide-on-blur>
-        <div class="img-box" @touchmove='rotation' @touchstart='touchstart' @touchend='touchend' id="Rotation" >
-          <div :style="{background: 'url(' + loop + ')'}" style="position:absolute;top:20px;text-align: center;width:100%;height:150px;"></div>
-          <div>
-            <div class="businesstitle" v-if="dishname1">{{list3[0].dishName}}</div>
-            <img :src="list3[0].dishImage" class="l_mid_r l">
-          </div>
-          <div>
-            <div class="businesstitle" v-if="dishname3">{{list3[1].dishName}}</div>
-            <img :src="list3[1].dishImage" class="l_mid_r r">
-          </div>
-          <div>
-            <div class="businesstitle" v-if="dishname2">{{list3[2].dishName}}</div>
-            <img :src="list3[2].dishImage" class="l_mid_r mid">
-          </div>
-          <div class="onlyeat" @click="Refresh">不想吃换一批</div>
+  </div>
+  <!--随机来几个菜-->
+  <div>
+    <x-dialog hide-on-blur  :dialog-style="{'max-width': '100%',overflow: 'visible', width: '90%', height: '50%', 'background-color': 'transparent'}" v-model="showHideOnBlur"  >
+      <div class="img-box" @touchmove='rotation' @touchstart='touchstart' @touchend='touchend' id="Rotation" >
+        <img src="../../assets/img/flow.png" style="position: absolute;width: 70%;top: -50px;left: 40px;z-index: 10">
+        <div>
+          <div class="businesstitle" v-if="dishname1">{{list3[0].dishName}}</div>
+          <img :src="list3[0].dishImage" class="l_mid_r l">
         </div>
-        <div @click="showHideOnBlur=false"></div>
-      </x-dialog>
-    </div>
+        <div>
+          <div class="businesstitle" v-if="dishname3">{{list3[1].dishName}}</div>
+          <img :src="list3[1].dishImage" class="l_mid_r r">
+        </div>
+        <div>
+          <div class="businesstitle" v-if="dishname2">{{list3[2].dishName}}</div>
+          <img :src="list3[2].dishImage" class="l_mid_r mid">
+        </div>
+        <div class="onlyeat" @click="Refresh">不想吃换一批</div>
+      </div>
+      <div @click="showHideOnBlur=false"></div>
+    </x-dialog>
+  </div>
   </div>
 </template>
 
@@ -72,7 +73,6 @@
   import randomdish1 from '../../assets/img/busi1.jpg'
   import randomdish2 from '../../assets/img/busi2.jpg'
   import randomdish3 from '../../assets/img/busi3.jpg'
-  import ring from '../../assets/img/ring.png'
   export default {
     directives: {
       TransferDom
@@ -106,7 +106,6 @@
         dishname1: true,
         dishname2: true,
         dishname3: true,
-        loop: ring,
         list1: [{
           url: 'http://mp.weixin.qq.com/s?__biz=MzAxNjU0MDYxMg==&mid=400385458&idx=1&sn=78f6b8d99715384bdcc7746596d88359&scene=19#wechat_redirect',
           img: banner
@@ -149,6 +148,7 @@
     methods: {
       Refresh (item) {
         this.item = false
+        console.log('换一批')
       },
 //      gets () {
 //        this.$store.dispatch('getBusinessList', {
@@ -283,10 +283,10 @@
   }
   .theme{
     width:66%;
-    height:18%;
+    height:35px;
     border:2px solid #fff;
     color:#fff;
-    font-size:26px;
+    font-size:22px;
     z-index:10;
     position:fixed;
     top:46%;
@@ -340,7 +340,7 @@
     color: #4bb94b;
     opacity: .6;
     position: absolute;
-    width: 95%;
+    width: 93%;
     right: 2%;
     border-radius: 15px;
     border: none;
@@ -365,7 +365,8 @@
     height: 250px;
     width:100%;
     /*overflow: hidden;*/
-    background-color: rgba(227,227,227,.5);
+    background-color: rgba(227,227,227,1);
+    border-radius: 5px;
   }
   /*.img-box .l_mid_r{*/
   /*transform: scale(0.8);*/
@@ -401,13 +402,15 @@
     transform: scale(0.8);
   }
   .businesstitle{
-    margin-top: 20px;
+    position: absolute;
+    top:15px;
+    left: 35%;
     font-size: 20px;
-    color: #B3D465;
+    color: #59850b;
   }
   .onlyeat{
     font-size: 15px;
-    color: #B3D465;
+    color: #59850b;
     position: absolute;
     left: 35%;
     bottom: 5px;

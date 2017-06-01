@@ -1,8 +1,10 @@
 <template>
-  <div style="background-color: #f2f2f2;">
-    <divider style="margin-top:12%;font-size:16px;background-color: #fff;">看看大家都在吃什么</divider>
-      <div v-for="(item,index) in list">
-        <div style="background-color: #fff;padding:2% 2%;overflow: hidden;height: 200px;position: relative;">
+  <div style="margin-top: -20px"  @touchstart="getY" @touchend="getMore">
+      <load-more  v-if="loadmore" tip="正在加载"></load-more>
+      <JueLoading v-if="jueloading"></JueLoading>
+      <divider style="margin-top:12%;font-size:16px;background-color: #fff;">看看大家都在吃什么</divider>
+      <div v-for="item in list">
+        <div  style="background-color: #fff;padding:2% 2%;overflow: hidden;height: 200px;position: relative;">
           <div class="avatar" :style="{backgroundImage: 'url(' + item.avatar + ')'}"></div>
           <p class="f-name">{{item.name}}</p>
           <p class="f-time">{{item.time}}</p>
@@ -23,7 +25,10 @@
 </template>
 
 <script>
-  import { Divider, Rater } from 'vux'
+  let startY = 0
+  let endY = 0
+  import { Divider, Rater, LoadMore } from 'vux'
+  import { JueLoading } from '../../loading/index.js'
   import { mapState } from 'vuex'
   import ava from '../../assets/img/avatar1.png'
   import food1 from '../../assets/img/food1.png'
@@ -33,7 +38,9 @@
   export default {
     components: {
       Divider,
-      Rater
+      Rater,
+      LoadMore,
+      ...JueLoading
     },
     created () {
     },
@@ -42,6 +49,8 @@
     ]),
     data () {
       return {
+        loadmore: false,
+        jueloading: false,
         list: [{
           avatar: ava,
           name: '蕨菜团队',
@@ -120,6 +129,24 @@
 //          }
 //        })
 //      }
+      getY (e) {
+        startY = e.changedTouches[0].clientY
+      },
+      getMore (e) {
+        endY = e.changedTouches[0].clientY
+        if (startY < endY) {
+          this.jueloading = true
+//          let t = setInterval(function () {
+//            this.jueloading = true
+//            console.log(this.jueloading)
+//          }, 2000)
+          console.log('加载中')
+        }
+        if (startY > endY) {
+          this.jueloading = false
+          this.loadmore = true
+        }
+      },
       togoods () {
         this.data1 = 1
       },

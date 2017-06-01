@@ -1,6 +1,6 @@
 <template>
   <div style="">
-    <blur :blur-amount=5 :url="url" style="height:250px">
+    <blur :blur-amount=0 :url="url" style="height:250px">
       <p class="center">
         <img :src="headImgUrl">
         <br>
@@ -14,9 +14,18 @@
         </ul>
     </blur>
     <grid>
-      <grid-item link="subpage/collect"><img src="../../assets/images/collection.png" alt=""></grid-item>
-      <grid-item ><img src="../../assets/images/vip.png" alt=""></grid-item>
-      <grid-item ><img src="../../assets/images/release.png" alt=""></grid-item>
+      <grid-item link="subpage/collect">
+        <img src="../../assets/images/collection.png" alt="">
+        <p>我的收藏</p>
+      </grid-item>
+      <grid-item >
+        <img src="../../assets/images/vip.png" alt="">
+        <p>我的会员</p>
+      </grid-item>
+      <grid-item >
+        <img src="../../assets/images/release.png" alt="">
+        <p>我的发布</p>
+      </grid-item>
     </grid>
     <group>
       <cell title='设置'  link="subpage/site"  is-link></cell>

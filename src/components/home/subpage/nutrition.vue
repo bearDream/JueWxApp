@@ -3,7 +3,7 @@
     <x-header v-on:click="$router.back()">营养价值</x-header>
     <blur :blur-amount=0 :url="url" style="height:220px">
 
-      <div style="border-radius: 2px;width: 100%">
+      <div style="border-radius: 2px;width: 100%;">
         <div class="m-buttom" >营养价值分析</div>
         <div class="m-buttom1"></div>
         <ul class="me_show">
@@ -13,7 +13,7 @@
       </div>
     </blur>
     <div @click="GoRankingdetails" >
-      <panel :list="list1">
+      <panel :list="list">
       </panel>
     </div>
   </div>
@@ -43,17 +43,17 @@
       return {
         // 修改panel源码文件来更改字段名
         list: [{
-          dishImage: img1,
+          src: img1,
           title: 'NO.1',
-          dishName: '水果紫米粥'
+          desc: '水果紫米粥'
         }, {
-          dishImage: img2,
+          src: img2,
           title: 'NO.2',
-          dishName: '营养*早餐'
+          desc: '营养*早餐'
         }, {
-          dishImage: img3,
+          src: img3,
           title: 'NO.3',
-          dishName: '营养*早餐'
+          desc: '营养*早餐'
         }],
         url: img,
         attentions: '营养菜品排行',
@@ -121,14 +121,14 @@
     height: 50px;
     background: #f3f3f5;
     opacity: 0.8;
-    bottom: 0;
+    bottom: -5px;
   }
   .me_show{
     display: flex;
     width: 100%;
     height:40px;
     position: absolute;
-    bottom: 5px;
+    bottom: 0px;
     color:#000;
   }
   .me_show li{
