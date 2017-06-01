@@ -1,6 +1,5 @@
 <template>
   <div>
-    <x-header v-on:click="$router.back()">蕨菜</x-header>
     <swiper loop auto :list="photo_list" :index="photo_index" @on-index-change="onIndexChange"></swiper>
     <div v-for="item in list">
       <div style="position: relative;border-bottom:1px solid #ccc">
@@ -27,7 +26,7 @@
 </template>
 
 <script>
-  import { XHeader, Swiper, Divider } from 'vux'
+  import { Swiper, Divider } from 'vux'
   import { mapState } from 'vuex'
   import photo from '../../../assets/img/carousel1.png'
   import avatal2 from '../../../assets/img/ava.png'
@@ -54,7 +53,6 @@
 
   export default {
     components: {
-      XHeader,
       Swiper,
       Divider
     },

@@ -39,6 +39,7 @@
     <div >
       <x-dialog style="border-radius: 10px" v-model="showHideOnBlur" class="dialog-demo" hide-on-blur>
         <div class="img-box" @touchmove='rotation' @touchstart='touchstart' @touchend='touchend' id="Rotation" >
+          <div :style="{background: 'url(' + loop + ')'}" style="position:absolute;top:20px;text-align: center;width:100%;height:150px;"></div>
           <div>
             <div class="businesstitle" v-if="dishname1">{{list3[0].dishName}}</div>
             <img :src="list3[0].dishImage" class="l_mid_r l">
@@ -71,6 +72,7 @@
   import randomdish1 from '../../assets/img/busi1.jpg'
   import randomdish2 from '../../assets/img/busi2.jpg'
   import randomdish3 from '../../assets/img/busi3.jpg'
+  import ring from '../../assets/img/ring.png'
   export default {
     directives: {
       TransferDom
@@ -104,6 +106,7 @@
         dishname1: true,
         dishname2: true,
         dishname3: true,
+        loop: ring,
         list1: [{
           url: 'http://mp.weixin.qq.com/s?__biz=MzAxNjU0MDYxMg==&mid=400385458&idx=1&sn=78f6b8d99715384bdcc7746596d88359&scene=19#wechat_redirect',
           img: banner
@@ -361,7 +364,7 @@
     position: relative;
     height: 250px;
     width:100%;
-    overflow: hidden;
+    /*overflow: hidden;*/
     background-color: rgba(227,227,227,.5);
   }
   /*.img-box .l_mid_r{*/
