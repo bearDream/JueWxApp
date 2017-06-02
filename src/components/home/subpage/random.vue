@@ -1,68 +1,66 @@
 <template>
-  <div>
-    <x-header v-on:click="$router.back()">提交订单</x-header>
-    <!--<group>-->
-      <!--<p class="head">提交订单</p>-->
-    <!--</group>-->
+  <div style="background-color: #eee;font-family: 'Adobe Fan Heiti Std B'">
+    <div class="head">提交订单</div>
     <group>
-      <div class="takeSorting" v-for="item in list1">
-        <div class="body">
-          <div class="center1">
-            <span class="first">{{item.businessname}}</span>
-            <span class="second">{{item.price}}</span>
-          </div>
-          <div class="center1">
-            <span class="first">数量</span>
-            <div class="second">
-          <span>
-            <a>+</a>
-          </span>
-              <span class="count">123</span>
-              <span>
-            <a>-</a>
-          </span>
-            </div>
-          </div>
-          <div>
-            <span class="all first">小计</span>
-            <span class="second" >{{item.sum}}</span>
-          </div>
+      <div class="body">
+        <div>
+          <span class="first">{{businessname}}</span>
+          <span class="second">蕨币：{{price}}</span>
+        </div>
+        <div>
+          <x-number class="first" title="数量" :min="0" style="padding:0;margin-right:0;" @on-change="count"></x-number>
+        </div>
+        <div>
+          <span class="first">小计</span>
+          <span class="second" >蕨币：{{subtotal}}</span>
         </div>
       </div>
     </group>
     <group>
-      <div class="takeSorting" v-for="item in list1">
+      <div class="takeSorting">
         <div class="body">
           <div class="center1">
             <span class="first">抵用券</span>
-            <span class="second">使用抵用券</span>
+            <span class="second">蕨币：-{{voucher}}</span>
           </div>
           <div class="center1">
-            <span class="first">总价</span>
-            <span class="second">{{item.sum}}</span>
+            <span class="first">还需支付</span>
+            <span class="second" >{{sum}}</span>
           </div>
         </div>
       </div>
     </group>
-    <x-button type="primary" class="btn">提交订单</x-button>
+    <div style="width:100%;position: absolute;bottom:0;">
+      <x-button type="primary" class="btn">提交订单</x-button>
+    </div>
   </div>
 </template>
 <script>
-  import { XHeader, Group, XButton, Icon } from 'vux'
+  import { Group, XButton, Icon, XNumber } from 'vux'
   export default {
     components: {
-      XHeader,
       Group,
       XButton,
-      Icon
+      Icon,
+      XNumber
     },
     data () {
       return {
-        list1: [{
-          businessname: '越南家3人餐',
-          price: '￥68',
-          sum: '￥68'
-        }]
+        businessname: '越南家3人餐',
+        price: 68,
+        voucher: 3.1,
+        subtotal: 0,
+        sum: 0
+      }
+    },
+    methods: {
+      count (val) {
+        this.subtotal = this.price * val
+        if (val === 0) {
+          this.sum = 0
+        } else {
+          this.sum = this.subtotal - this.voucher
+        }
       }
     }
   }
@@ -71,36 +69,39 @@
   .head{
     text-align: center;
     font-size: 22px;
-    margin: 10px;
+    background-color: #fff;
+    padding: 3% 0;
   }
   .body{
     font-size: 20px;
-    /*margin: 30px 0;*/
+    padding:2%;
   }
-  .center1{
-    border-bottom: 1px solid #dddbdb;
-    line-height: 70px;
-  }
-  .all{
-    margin-bottom: 19px;
-    display: inline-block;
-    margin-top: 21px;
+  .body>div{
+    width:100%;
+    margin-top:2%;
+    height:50px;
   }
   .first{
-    margin-left: 20px;
+    margin-left: 3%;
   }
   .second{
     float: right;
-    margin-right: 20px;
+    margin-right: 3%;
+  }
+  a.vux-number-selector-plus{
+    margin-right:0;
+    padding:0;
+  }
+  a.vux-number-selector-sub{
+    padding:0;
+  }
+  a.vux-number-selector svg{
+    fill:#59850b;
   }
   .btn{
     background: #59850B !important;
     margin-top: 165px;
     height: 65px !important;
     border-radius: 0 !important;
-  }
-  .count{
-    border: 1px solid #ddd;
-    padding: 5px;
   }
 </style>
