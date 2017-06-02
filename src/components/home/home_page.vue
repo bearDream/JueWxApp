@@ -40,7 +40,7 @@
   <div>
     <x-dialog hide-on-blur  :dialog-style="{'max-width': '100%',overflow: 'visible', width: '90%', height: '50%', 'background-color': 'transparent'}" v-model="showHideOnBlur"  >
       <div class="img-box" @touchmove='rotation' @touchstart='touchstart' @touchend='touchend' id="Rotation" >
-        <img src="../../assets/img/flow.png" style="position: absolute;width: 70%;top: -50px;left: 40px;z-index: 10">
+        <img src="../../assets/img/flow.png" style="position: absolute;width: 70%;top: -60px;left: 40px;z-index: 10">
         <div>
           <div class="businesstitle" v-if="dishname1">{{list3[0].dishName}}</div>
           <img :src="list3[0].dishImage" class="l_mid_r l">
@@ -64,9 +64,6 @@
 <script>
   let start = 0
   let end = 0
-  let lnm = 1
-  let rnm = 3
-  let mnm = 2
   import { Divider, Grid, GridItem, Masker, XInput, Scroller, Swiper, Search, Icon, Alert, XDialog, TransferDomDirective as TransferDom } from 'vux'
   import { mapState } from 'vuex'
   import banner from '../../assets/images/bg/home1.png'
@@ -103,9 +100,9 @@
         value2: 'vux',
         showHideOnBlur: false,
         i: 0,
-        dishname1: true,
+        dishname1: false,
         dishname2: true,
-        dishname3: true,
+        dishname3: false,
         list1: [{
           url: 'http://mp.weixin.qq.com/s?__biz=MzAxNjU0MDYxMg==&mid=400385458&idx=1&sn=78f6b8d99715384bdcc7746596d88359&scene=19#wechat_redirect',
           img: banner
@@ -157,17 +154,6 @@
 //        })
 //      }
       rotation: function (e) {
-//        console.log('*****' + e.changedTouches[0].clientX)
-//        console.log('xxxxx' + e.changedTouches[0].clientX)
-//        let ml = e.changedTouches[0].clientX
-//        var img = document.getElementsByClassName('mid')[0]
-//        var left = img.clientLeft
-//        img.setAttribute(left, e.changedTouches[0].clientX)
-//        console.log(document.getElementsByClassName('mid')[0].offsetLeft)
-//        document.getElementsByClassName('mid')[0].style.offsetLeft += e.changedTouches[0].clientX - 100 + 'px'
-//        this.className('mid').style.left = e.changedTouches[0].clientX - this.className('mid').style.left
-//        var start = e.changedTouches[0].clientX
-//        var mid = document.getElementsByClassName('mid')[0]
       },
       touchend (e) {
         end = e.changedTouches[0].clientX
@@ -181,25 +167,16 @@
           l.classList.add('mid')
           r.className = ''
           r.classList.add('l')
-          lnm += 1
-          mnm += 1
-          rnm += 1
-          this.dishname1 = false
-          this.dishname2 = false
-          this.dishname3 = false
-          if (mnm === 4) {
-            this.dishname1 = true
-            mnm = 1
-          }
-          if (rnm === 4) {
-            this.dishname2 = true
-            rnm = 1
-          }
-          if (lnm === 4) {
+          if (this.dishname1 === true) {
             this.dishname3 = true
-            lnm = 1
+            this.dishname1 = false
+          } else if (this.dishname2 === true) {
+            this.dishname1 = true
+            this.dishname2 = false
+          } else if (this.dishname3 === true) {
+            this.dishname2 = true
+            this.dishname3 = false
           }
-//          console.log('lnm:' + lnm + '  mnm:' + mnm + '  rnm:' + rnm)
         } else if (end < start) {
           mid.className = ''
           l.classList = ''
@@ -207,28 +184,19 @@
           mid.classList.add('l')
           l.classList.add('r')
           r.classList.add('mid')
-          this.dishname1 = false
-          this.dishname2 = false
-          this.dishname3 = false
-          lnm -= 1
-          mnm -= 1
-          rnm -= 1
-          if (lnm === 0) {
+          if (this.dishname1 === true) {
             this.dishname2 = true
-            lnm = 3
-          }
-          if (rnm === 0) {
-            this.dishname1 = true
-            rnm = 3
-          }
-          if (mnm === 0) {
+            this.dishname1 = false
+          } else if (this.dishname2 === true) {
             this.dishname3 = true
-            mnm = 3
+            this.dishname2 = false
+          } else if (this.dishname3 === true) {
+            this.dishname1 = true
+            this.dishname3 = false
           }
-//          console.log('lnm:' + lnm + '  mnm:' + mnm + '  rnm:' + rnm)
         } else {
           console.log(123)
-          this.$router.push({name: 'random'})
+//          this.$router.push({name: 'random'})
         }
       },
       touchstart (e) {
