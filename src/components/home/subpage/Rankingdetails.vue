@@ -12,37 +12,22 @@
     </blur>
 
 
-    <template  v-if="showContent003 = true" v-for="item in list3" >
-      <div class="takeSorting3" @click="GoBusiness (item)">
-        <div class="sorting3" :style="{backgroundImage: 'url(' + item.img + ')'}"></div>
+    <template  v-if="showContent003 = true" v-model="list3" >
+      <div class="takeSorting3">
+        <div class="sorting3" :style="{backgroundImage: 'url(' + list3.dishImage + ')'}"></div>
         <div class="sortingr3">
           <x-table :cell-bordered="false" :content-bordered="false" style="background-color:#fff;">
-            <thead >
-              <tr class="listtitle" >
-                <td >材料</td>
-                <td >营养价值</td>
-              </tr>
-            </thead>
             <tbody class="noneboder">
             <tr>
-              <td ><span class="spanfontsize">{{item.title2}}</span></td>
-              <td >{{item.address2}}</td>
+              <td ><span class="spanfontsize">热量</span></td>
+              <td >{{list3.heat}}</td>
             </tr>
             <tr>
-              <td><span class="spanfontsize">{{item.title3}}</span></td>
-              <td>{{item.address3}}</td>
+              <td><span class="spanfontsize">糖分</span></td>
+              <td>{{list3.sugar_content}}</td>
             </tr>
             <tr>
-              <td><span class="spanfontsize">{{item.title4}}</span></td>
-              <td>{{item.address4}}</td>
-            </tr>
-            <tr>
-              <td><span class="spanfontsize">{{item.title5}}</span></td>
-              <td>{{item.address5}}</td>
-            </tr>
-            <tr>
-              <td><span class="spanfontsize">{{item.title6}}</span></td>
-              <td>{{item.address6}}</td>
+              <td>{{list3.grease}}</td>
             </tr>
             </tbody>
           </x-table>
@@ -75,32 +60,50 @@
     },
     data () {
       return {
+        dishId: '',
         showContent003: true,
         tel: 1232132,
-        list3: [{
-          img: img1,
-          title: '材料营  养价值',
+        list3: {
+          dishImage: img1,
+          title: '材料  营养价值',
           title1: '大米 ',
           address1: '补充营养素',
-          title2: '基尾虾 ',
+          heat: '1 ',
           address2: '增强免疫力',
-          title3: '芦笋 ',
+          sugar_content: '2 ',
           address3: '抗癌、降脂',
-          title4: '色拉油 ',
+          grease: '营养价值分析，。。。。。。。。。。。。。。。。。。。。 ',
           address4: '抗氧化',
           title5: '盐 ',
           address5: '去腥味',
           title6: '胡椒 ',
           address6: '防腐调味'
-        }],
+        },
         url: img,
         attentions: '营养价值分析'
       }
     },
     mounted () {
-      // 进入页面的钩子函数
+      console.info('dishId: ' + this.$route.params.dishId)
+      this.$set(this, 'dishId', this.$route.params.dishId)
+      this.get()
     },
     methods: {
+      get () {
+        this.$store.dispatch('getNutritionDish', {
+          uri: '/get?dishId' + this.dishId
+        }).then(() => {
+          let data = this.$store.getters.getNutritionDish
+          if (data.code !== -1) {
+            console.info(data.data)
+            this.$set(this, 'list3', data.data)
+//            this.$set(this.list3, 'heat', data.data.heat)
+//            this.$set(this.list3, 'sugar_content', data.data.sugar_content)
+//            this.$set(this.list3, 'grease', data.data.grease)
+            console.info(this.list3.grease)
+          }
+        })
+      },
       business_info (item) {
         alert(item.title)
       },

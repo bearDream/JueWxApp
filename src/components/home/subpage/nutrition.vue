@@ -12,8 +12,8 @@
         </ul>
       </div>
     </blur>
-    <div @click="GoRankingdetails" >
-      <panel :list="list">
+    <div>
+      <panel :list="list" @on-click-item="GoRankingdetails">
       </panel>
     </div>
   </div>
@@ -45,15 +45,19 @@
         list: [{
           src: img1,
           title: 'NO.1',
-          desc: '水果紫米粥'
+          desc: '水果紫米粥',
+          dishId: ''
         }, {
           src: img2,
           title: 'NO.2',
-          desc: '营养*早餐'
+          desc: '营养*早餐',
+          dishId: ''
+
         }, {
           src: img3,
           title: 'NO.3',
-          desc: '营养*早餐'
+          desc: '营养*早餐',
+          dishId: ''
         }],
         url: img,
         attentions: '营养菜品排行',
@@ -76,8 +80,9 @@
             for (let i = 0; i < 3; i++) {
               datalist.push({
                 src: data[i].dishImage,
-                title: 'NO.' + i,
-                desc: data[i].dishName
+                title: 'NO.' + (parseInt(i) + 1),
+                desc: data[i].dishName,
+                dishId: data[i].dishId
               })
             }
             this.$set(this, 'list', datalist)
@@ -87,8 +92,8 @@
       GoNutritionDetail () {
         this.$router.push({name: 'NutritionDetail'})
       },
-      GoRankingdetails () {
-        this.$router.push({name: 'Rankingdetails'})
+      GoRankingdetails (param) {
+        this.$router.push({name: 'Rankingdetails', params: {dishId: param.dishId}})
       },
       created () {
         this.gets()
