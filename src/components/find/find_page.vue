@@ -1,64 +1,62 @@
 <template>
-  <div style="height:100%;width:100%;background-color: #fff;margin-top: -20px" >
-    <div style="width: 100%;height: 50px;">
-      <div style="width: 100px;height: 50px;position: absolute;left: 5%">
-        <group>
+  <div style="height:100%;width:100%;background-color: #eee;margin-top: -20px" >
+    <div style="width: 100%;height: 70px;background-color:#fff;">
+      <div style="width:100px;position:absolute;margin-top:5%;font-size:20px;left:12%">
           <cell title="商家" is-link
                 :border-intent="false"
                 :arrow-direction="showContent001 ? 'up' : 'down'"
                 @click.native="show1">
           </cell>
-        </group>
       </div>
-      <div style="width: 100px;height: 50px;position: absolute;right: 5%">
-        <group >
-          <cell title="菜品" is-link
-                :border-intent="false"
-                :arrow-direction="showContent002 ? 'up' : 'down'"
-                @click.native="show2">
-          </cell>
-        </group>
+      <div style="width:100px;;position:absolute;margin-top:5%;font-size:20px;right:12%">
+        <cell title="菜品" is-link
+              :border-intent="false"
+              :arrow-direction="showContent002 ? 'up' : 'down'"
+              @click.native="show2">
+        </cell>
       </div>
     </div>
 
     <div  v-if="showContent001" v-for="item in list1">
-      <div style="padding:5% 3%;margin-top:-2px;background-color:#fff;">
-        <div >
-          <div class="t-img" :style="{backgroundImage: 'url(' + item.img1 + ')'}">
-            <div class="masker" style="background-color: rgba(255, 255, 255, .5);">
-              <div class="title">{{ item.title }}</div>
-            </div>
+      <div style="padding:4% 4%;margin-top:2%;background-color:#fff;">
+        <div class="t-img" :style="{backgroundImage: 'url(' + item.img1 + ')'}">
+          <div class="masker" style="background-color: rgba(0, 0, 0, .3);">
+            <div class="title">{{ item.title }}</div>
           </div>
         </div>
-        <div style="padding:4% 0%;margin-top:2%;background-color:#fff;">
+      </div>
+      <div style="padding:4% 4%;margin-top:2%;background-color:#fff;">
+        <div>
           <div class="e-img" style="margin-right:2%;" :style="{backgroundImage: 'url(' + item.img2 + ')'}"></div>
           <div class="e-img" style="margin-left: 2.5%;" :style="{backgroundImage: 'url(' + item.img3 + ')'}"></div>
         </div>
-        <div style="padding:0;background-color:#fff;">
+      </div>
+      <div style="padding:4% 4%;margin-top:2%;background-color:#fff;">
+        <div>
           <div class="e-img" style="margin-right:2%;" :style="{backgroundImage: 'url(' + item.img3 + ')'}"></div>
           <div class="e-img" style="margin-left: 2.5%;" :style="{backgroundImage: 'url(' + item.img5 + ')'}"></div>
         </div>
       </div>
     </div>
 
-    <div  v-if="showContent002" v-for="item in list2">
-      <div style="padding:5% 3%;margin-top:-2px;background-color:#fff;">
-        <div >
-          <div class="t-img" :style="{backgroundImage: 'url(' + item.img1 + ')'}">
-            <div class="masker" style="background-color: rgba(255, 255, 255, .5);">
-              <div class="title">{{ item.title }}</div>
-            </div>
+    <div  v-if="showContent002" v-for="item in list2" @click="GoDishesDetail">
+      <div style="padding:4% 4%;margin-top:2%;background-color:#fff;">
+        <div class="t-img" :style="{backgroundImage: 'url(' + item.img1 + ')'}">
+          <div class="masker" style="background-color: rgba(255, 255, 255, .5);">
+            <div class="title">{{ item.title }}</div>
           </div>
-          <div style="padding:5% 0%;margin-top:2%;background-color:#fff;">
-            <div class="e-img" style="margin-right:2%;" :style="{backgroundImage: 'url(' + item.img3 + ')'}"></div>
-            <div class="e-img" style="margin-left: 2.5%;" :style="{backgroundImage: 'url(' + item.img4 + ')'}"></div>
-          </div>
-          <div>
-            <div class="t-img" :style="{backgroundImage: 'url(' + item.img5 + ')'}">
-              <div class="masker" style="background-color: rgba(255, 255, 255, .5);">
-                <div class="title">{{ item.title }}</div>
-              </div>
-            </div>
+        </div>
+      </div>
+      <div style="padding:4% 4%;margin-top:2%;background-color:#fff;">
+        <div style="padding:5% 0%;margin-top:2%;background-color:#fff;">
+          <div class="e-img" style="margin-right:2%;" :style="{backgroundImage: 'url(' + item.img3 + ')'}"></div>
+          <div class="e-img" style="margin-left: 2.5%;" :style="{backgroundImage: 'url(' + item.img4 + ')'}"></div>
+        </div>
+      </div>
+      <div style="padding:4% 4%;margin-top:2%;background-color:#fff;">
+        <div class="t-img" :style="{backgroundImage: 'url(' + item.img5 + ')'}">
+          <div class="masker" style="background-color: rgba(0, 0, 0, .3);">
+            <div class="title">{{ item.title }}</div>
           </div>
         </div>
       </div>
@@ -126,6 +124,9 @@
       show2 () {
         this.showContent001 = false
         this.showContent002 = true
+      },
+      GoDishesDetail () {
+        this.$router.push({name: 'dishesDetail'})
       }
     }
   }
