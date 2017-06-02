@@ -32,7 +32,7 @@ const router = new Router({
       }
     }, {
       path: '/home/subpage',
-      name: 'nutrition',
+      name: 'nutritionDish',
       components: {
         'insidePage': resolve => require(['../components/home/subpage/nutrition.vue'], resolve)
       },
