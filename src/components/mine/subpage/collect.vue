@@ -44,7 +44,6 @@
         <div class="m-img1" :style="{backgroundImage: 'url(' + item.img + ')'}"></div>
           <div slot="content" class="m-title" > </div>
             <p class="m-title">{{item.title}}</p>
-
       </div>
      </template>
     <template  v-if="showContent002" style="position: fixed">
@@ -60,41 +59,42 @@
         <div slot="content" class="m-title" ></div>
       </div>
 
-</template>
+    </template>
     <template v-if="showContent003">
-      <scroller enable-horizontal-swiping=""  :loading="load" >
-        <swiper :list="list02" :min-moving-distance="20" auto="" style="height:200px;margin: 15px 15px 0 15px ">
-        </swiper>
-      </scroller>
-      <!--11111111111111111-->
-      <div class="article">
-      <div class="takeSorting" @click="GoBusiness (item)" v-for="item in list3" >
-        <div class="sortingl" :style="{backgroundImage: 'url(' + item.img + ')'}"></div>
-        <div class="sortingr">
-          <span class="T-title">{{item.title}}</span>
-          <span class="T-time">{{item.time}}</span>
-          <br>
-          <span class="T-type">{{item.type}}</span>
-          <br>
-          <!--222222222222222222-->
-          <div @click="GoBusiness (item)" v-for="item in list4">
-            <div class="address">
-              <a href="">
-              <div class="address-img" :style="{backgroundImage: 'url(' + item.img + ')'}"></div>
-              <p class="add-name">{{item.name}}</p>
-              <p class="add-add1">{{item.address1}}</p>
-              </a>
-            </div>
-            <p class="add-add2">{{item.address2}}</p>
-            <span class="add-add3">浏览</span> <span class="add-add4">{{item.look}}</span>
-            <!--3333333333333333333-->
-            <div  class="comment" >
-              <div class="comment-img" :style="{backgroundImage: 'url(' + item.list5.url + ')'}"></div>
-              <a href="" class="comment-text">{{item.list5.comment}}</a>
+      <div>
+        <scroller enable-horizontal-swiping=""  :loading="load" >
+          <swiper :list="list02" :min-moving-distance="20" auto="" style="height:200px;margin: 15px 15px 0 15px ">
+          </swiper>
+        </scroller>
+
+        <!--11111111111111111-->
+        <div class="article" v-for="item in list3">
+          <div class="takeSorting"   >
+            <div class="sortingl" :style="{backgroundImage: 'url(' + item.img + ')'}"></div>
+            <div class="sortingr">
+              <span class="T-title">{{item.title}}</span>
+              <span class="T-time">{{item.time}}</span>
+              <br>
+              <span class="T-type">{{item.type}}</span>
+              <br>
+              <!--222222222222222222-->
+                <div class="address">
+                  <a href="">
+                    <div class="address-img" :style="{backgroundImage: 'url(' + item.img1 + ')'}"></div>
+                    <p class="add-name">{{item.name}}</p>
+                    <p class="add-add1">{{item.address1}}</p>
+                  </a>
+                </div>
+                <p class="add-add2">{{item.address2}}</p>
+                <span class="add-add3">浏览 </span> <span class="add-add4">{{item.look}}</span>
+                <!--3333333333333333333-->
+                <div  class="comment" >
+                  <img :src="comentb" class="comment-img">
+                  <a class="comment-text" @click="showcomment (item.list5[0])">{{item.comments}}</a>
+                </div>
             </div>
           </div>
         </div>
-      </div>
       </div>
     </template>
 
@@ -120,6 +120,7 @@
   import img14 from '../../../assets/images/T3-2.png'
   import img15 from '../../../assets/images/T3-3.png'
   import img16 from '../../../assets/images/comment.jpg'
+  import img17 from '../../../assets/img/commentsb.png'
   export default {
     directives: {
       TransferDom
@@ -151,9 +152,11 @@
     },
     data () {
       return {
-        showContent001: true,
+        showContent001: false,
         showContent002: false,
-        showContent003: false,
+        showContent003: true,
+        commentimg: img16, /** 评论显示的小图片 */
+        comentb: img17,
         tel: 1232132,
         value2: 'vux',
         list0: [{
@@ -236,19 +239,38 @@
           title: '小李吃货',
           time: '2017年4月17日',
           type: '无意见和同学来到了这家店，菜的味道真心不错，分量足足的，' +
-          '而且餐厅很有情调小清新风格工作人员态度热情，这里交通还方便，一定会再来！'
-        }],
-        list4: [{
-          img: img14,
+          '而且餐厅很有情调小清新风格工作人员态度热情，这里交通还方便，一定会再来！',
+          img1: img14,
           url: '../../../assets/images/T3-2.png',
           name: '湘村馆（七彩俊园）',
           address1: '环城东路',
           address2: '昆明理工大学  新迎校区',
-          look: '1314',
+          look: 1314,
+          comments: 22,
           list5: [{
-            comment: '22',
-            img: img16,
-            url: '../../../assets/images/comment.jpg'
+            comments1: '评论正解1',
+            comments2: '评论正解2',
+            comments3: '评论正解3',
+            comments4: '评论正解4'
+          }]
+        }, {
+          img: img15,
+          title: '小李吃货',
+          time: '2017年4月17日',
+          type: '无意见和同学来到了这家店，菜的味道真心不错，分量足足的，' +
+          '而且餐厅很有情调小清新风格工作人员态度热情，这里交通还方便，一定会再来！',
+          img1: img14,
+          url: '../../../assets/images/T3-2.png',
+          name: '湘村馆（七彩俊园）',
+          address1: '环城东路',
+          address2: '昆明理工大学  新迎校区',
+          look: 1314,
+          comments: 22,
+          list5: [{
+            comments1: '评论正解1',
+            comments2: '评论正解2',
+            comments3: '评论正解3',
+            comments4: '评论正解4'
           }]
         }]
       }
@@ -257,6 +279,9 @@
       // 进入页面的钩子函数
     },
     methods: {
+      showcomment (comment) {
+        this.$router.push({name: 'comments'})
+      },
       business_info (item) {
         alert(item.title)
       },
@@ -301,19 +326,18 @@
 <style scoped="" lang="less">
   .article{
     position: relative;
+    width:100%;
   }
   .comment{
     margin-top: -34px;
     margin-left: 70px;
   }
   .comment-img{
-    width: 29Px;
-    height: 21px;
+    width: 25Px;
     position: absolute;
-    left: 230px;
-    top: 260px;
+    right: 45px;
+    top: 255px;
     background-size: cover;
-    background-color: #9b9b9b;
     display: inline-block;
   }
   .comment-text{
@@ -321,9 +345,10 @@
     border-radius: 14px;
     padding: 2px 7px 2px 48px;
     position: absolute;
-    left: 220px;
+    right: 10px;
+    color: #5b5b5d;
     top:250px;
-    font-size: 20px;
+    font-size: 18px;
   }
   .add-add4{
     color: #878787;
@@ -485,9 +510,7 @@
   }
   .takeSorting{
     width: 100%;
-    height:150px;
-    position: absolute;
-    top:0;
+    height:300px;
     margin-bottom: 10px;
     /*border-bottom: 1px solid #dddbdb;*/
   }
