@@ -60,7 +60,30 @@
         editedate: '点击了解详情'
       }
     },
+    created () {
+      this.get()
+    },
     methods: {
+      get () {
+        this.$store.dispatch('getNutritionDishes', {
+          uri: '/rank'
+        }).then(() => {
+          let data = this.$store.getters.getNutritionDishes
+          var datalist = []
+          if (data.code !== -1) {
+            data = data.data
+            // 装数据
+            for (let i = 0; i < 3; i++) {
+              datalist.push({
+                src: data[i].dishImage,
+                title: 'NO.' + i,
+                desc: data[i].dishName
+              })
+            }
+            this.$set(this, 'list', datalist)
+          }
+        })
+      },
       GoNutritionDetail () {
         this.$router.push({name: 'NutritionDetail'})
       },

@@ -29,8 +29,8 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api': {
-        // target: 'http://localhost:8088',
-        target: 'http://egard6.natappfree.cc',
+        target: 'http://localhost:8888',
+        // target: 'http://bnqtai.natappfree.cc',
         changeOrigin: true
       }
     },
