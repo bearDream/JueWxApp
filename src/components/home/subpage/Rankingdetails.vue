@@ -12,22 +12,23 @@
     </blur>
 
 
-    <template  v-if="showContent003 = true" v-model="list3" >
-      <div class="takeSorting3">
-        <div class="sorting3" :style="{backgroundImage: 'url(' + list3.dishImage + ')'}"></div>
+    <template  v-if="showContent003 = true" v-for="item in list3" >
+      <div class="takeSorting3" @click="GoBusiness (item)">
+        <div class="sorting3" :style="{backgroundImage: 'url(' + item.dishImage + ')'}"></div>
         <div class="sortingr3">
           <x-table :cell-bordered="false" :content-bordered="false" style="background-color:#fff;">
             <tbody class="noneboder">
             <tr>
-              <td ><span class="spanfontsize">热量</span></td>
-              <td >{{list3.heat}}</td>
+              <td><span class="spanfontsize">热量</span></td>
+              <td>{{item.heat}}</td>
             </tr>
             <tr>
               <td><span class="spanfontsize">糖分</span></td>
-              <td>{{list3.sugar_content}}</td>
+              <td>{{item.sugarContent}}</td>
             </tr>
             <tr>
-              <td>{{list3.grease}}</td>
+              <td><span class="spanfontsize">营养价值</span></td>
+              <td>{{item.grease}}</td>
             </tr>
             </tbody>
           </x-table>
@@ -63,28 +64,31 @@
         dishId: '',
         showContent003: true,
         tel: 1232132,
-        list3: {
+        list3: [{
           dishImage: img1,
-          title: '材料  营养价值',
+          title: '材料营  养价值',
           title1: '大米 ',
           address1: '补充营养素',
-          heat: '1 ',
+          title2: '基尾虾 ',
           address2: '增强免疫力',
-          sugar_content: '2 ',
-          address3: '抗癌、降脂',
-          grease: '营养价值分析，。。。。。。。。。。。。。。。。。。。。 ',
-          address4: '抗氧化',
+          title3: '芦笋 ',
+          heat: '抗癌、降脂',
+          title4: '色拉油 ',
+          sugarContent: '抗氧化',
           title5: '盐 ',
-          address5: '去腥味',
+          grease: '去腥味',
           title6: '胡椒 ',
           address6: '防腐调味'
-        },
+        }],
         url: img,
         attentions: '营养价值分析'
       }
     },
     mounted () {
-      console.info('dishId: ' + this.$route.params.dishId)
+      console.info(this.$route.params)
+      if (this.$route.params.dishId === undefined) {
+        this.$router.go(-1)
+      }
       this.$set(this, 'dishId', this.$route.params.dishId)
       this.get()
     },

@@ -13,7 +13,7 @@
       </div>
     </blur>
     <div>
-      <panel :list="list" @on-click-item="GoRankingdetails">
+      <panel :list="list" @on-click-item="GoRankingdetails" >
       </panel>
     </div>
   </div>
@@ -46,18 +46,17 @@
           src: img1,
           title: 'NO.1',
           desc: '水果紫米粥',
-          dishId: ''
+          dishId: 1
         }, {
           src: img2,
           title: 'NO.2',
           desc: '营养*早餐',
-          dishId: ''
-
+          dishId: 2
         }, {
           src: img3,
           title: 'NO.3',
           desc: '营养*早餐',
-          dishId: ''
+          dishId: 3
         }],
         url: img,
         attentions: '营养菜品排行',
@@ -92,8 +91,8 @@
       GoNutritionDetail () {
         this.$router.push({name: 'NutritionDetail'})
       },
-      GoRankingdetails (param) {
-        this.$router.push({name: 'Rankingdetails', params: {dishId: param.dishId}})
+      GoRankingdetails (params) {
+        this.$router.push({name: 'Rankingdetails', params: {dishId: params.dishId}})
       },
       created () {
         this.gets()

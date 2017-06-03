@@ -18,8 +18,8 @@
         <i style="color:#555;position:absolute;left:13%;margin-top:3%">{{item.sumScore}}个赞</i>
         <i class="a-info" style="background-position: -66px 0;right:20%" :style="{backgroundImage:'url(' + item.scan + ')'}"></i>
         <i style="color:#555;position:absolute;right:7%;margin-top:3%">{{item.sumScan}}次浏览</i>
-        <i class="a-detail" style="margin-top:10%">发布于 {{item.address}}</i>
-        <i class="a-detail" style="margin-top:15%">{{item.addtime}}</i>
+        <!--<i class="a-detail" style="margin-top:10%">发布于 {{item.address}}</i>-->
+        <i class="a-detail" style="margin-top:20%">{{item.addtime}}</i>
       </div>
     </div>
   </div>
