@@ -48,7 +48,7 @@
         </div>
       </div>
       <div style="padding:4% 4%;margin-top:2%;background-color:#fff;">
-        <div style="padding:5% 0%;margin-top:2%;background-color:#fff;">
+        <div style="padding:3% 0%;margin-top:2%;background-color:#fff;">
           <div class="e-img" style="margin-right:2%;" :style="{backgroundImage: 'url(' + item.img3 + ')'}"></div>
           <div class="e-img" style="margin-left: 2.5%;" :style="{backgroundImage: 'url(' + item.img4 + ')'}"></div>
         </div>
