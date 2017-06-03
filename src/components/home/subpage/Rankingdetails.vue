@@ -14,7 +14,7 @@
 
     <template  v-if="showContent003 = true" v-for="item in list3" >
       <div class="takeSorting3" @click="GoBusiness (item)">
-        <div class="sorting3" :style="{backgroundImage: 'url(' + item.img + ')'}"></div>
+        <div class="sorting3" :style="{backgroundImage: 'url(' + item.dishImage + ')'}"></div>
         <div class="sortingr3">
           <x-table :cell-bordered="false" :content-bordered="false" style="background-color:#fff;">
             <thead >
@@ -25,24 +25,16 @@
             </thead>
             <tbody class="noneboder">
             <tr>
-              <td ><span class="spanfontsize">{{item.title2}}</span></td>
-              <td >{{item.address2}}</td>
+              <td><span class="spanfontsize">热量</span></td>
+              <td>{{item.heat}}</td>
             </tr>
             <tr>
-              <td><span class="spanfontsize">{{item.title3}}</span></td>
-              <td>{{item.address3}}</td>
+              <td><span class="spanfontsize">糖分</span></td>
+              <td>{{item.sugarContent}}</td>
             </tr>
             <tr>
-              <td><span class="spanfontsize">{{item.title4}}</span></td>
-              <td>{{item.address4}}</td>
-            </tr>
-            <tr>
-              <td><span class="spanfontsize">{{item.title5}}</span></td>
-              <td>{{item.address5}}</td>
-            </tr>
-            <tr>
-              <td><span class="spanfontsize">{{item.title6}}</span></td>
-              <td>{{item.address6}}</td>
+              <td><span class="spanfontsize">营养价值</span></td>
+              <td>{{item.grease}}</td>
             </tr>
             </tbody>
           </x-table>
@@ -75,21 +67,22 @@
     },
     data () {
       return {
+        dishId: '',
         showContent003: true,
         tel: 1232132,
         list3: [{
-          img: img1,
+          dishImage: img1,
           title: '材料营  养价值',
           title1: '大米 ',
           address1: '补充营养素',
           title2: '基尾虾 ',
           address2: '增强免疫力',
           title3: '芦笋 ',
-          address3: '抗癌、降脂',
+          heat: '抗癌、降脂',
           title4: '色拉油 ',
-          address4: '抗氧化',
+          sugarContent: '抗氧化',
           title5: '盐 ',
-          address5: '去腥味',
+          grease: '去腥味',
           title6: '胡椒 ',
           address6: '防腐调味'
         }],
@@ -98,9 +91,21 @@
       }
     },
     mounted () {
-      // 进入页面的钩子函数
+      console.info(this.$route.params)
+      if (this.$route.params.dishId === undefined) {
+        this.$router.go(-1)
+      }
+      this.$set(this, 'dishId', this.$route.params.dishId)
+      this.get()
     },
     methods: {
+      get () {
+        this.$store.dispatch('getNutritionDish', {
+          uri: '/get?dishId=' + this.dishId
+        }).then(() => {
+          console.info(this.$store.getters.getNutritionDish)
+        })
+      },
       business_info (item) {
         alert(item.title)
       },
