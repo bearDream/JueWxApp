@@ -23,7 +23,7 @@
       </grid-item>
     </grid>
     <div style="margin: 10px;overflow: hidden;height:40%;" v-for="item in list2" v-on:click="GoArticle">
-      <div class="m-img"  :style="{backgroundImage: 'url(' + item.img + ')'}">
+      <div class="m-img"  :style="{backgroundImage: 'url(' + item.coverImage + ')'}">
         <div class="outer">
           <div class="masker" style="border-radius:3px;width:90%;height:80%;position:absolute;top:10%;left:5%;  backgroundColor:rgba(255,255,255,.5);">
             <div slot="content" class="m-title">
@@ -90,6 +90,7 @@
     created (i) {
       this.i += 1
       console.log(i)
+      this.gets()
     },
     computed: mapState([
       'home'
@@ -116,15 +117,15 @@
         list2: [{
           title: '藏在昆明巷子里的北欧小清新咖啡馆',
           addrase: 'by jenny 上海',
-          img: 'https://cdn.xiaotaojiang.com/uploads/82/1572ec37969ee263735262dc017975/_.jpg'
+          coverImage: 'https://cdn.xiaotaojiang.com/uploads/82/1572ec37969ee263735262dc017975/_.jpg'
         }, {
           title: '小翠—— 一个特别"脆"的饭馆',
           addrase: 'by Bubble.yuki from kunmin',
-          img: 'https://cdn.xiaotaojiang.com/uploads/59/b22e0e62363a4a652f28630b3233b9/_.jpg'
+          coverImage: 'https://cdn.xiaotaojiang.com/uploads/59/b22e0e62363a4a652f28630b3233b9/_.jpg'
         }, {
           title: '昆明探店——来自pizza爱好者的推荐',
           addrase: 'by Anitalyx tom 昆明',
-          img: 'https://cdn.xiaotaojiang.com/uploads/56/4b3601364b86fdfd234ef11d8712ad/_.jpg'
+          coverImage: 'https://cdn.xiaotaojiang.com/uploads/56/4b3601364b86fdfd234ef11d8712ad/_.jpg'
         }],
         list3: [{
           dishId: 1,
@@ -147,12 +148,17 @@
         this.item = false
         console.log('换一批')
       },
-//      gets () {
-//        this.$store.dispatch('getBusinessList', {
-//          params: {
-//          }
-//        })
-//      }
+      gets () {
+        this.$store.dispatch('getHomes', {
+          params: {
+          }
+        }).then(() => {
+          if (this.$store.getters.getHomes.code !== -1) {
+            console.info(this.$store.getters.getHomes.data.page.list)
+            this.$set(this, 'list2', this.$store.getters.getHomes.data.page.list)
+          }
+        })
+      },
       rotation: function (e) {
       },
       touchend (e) {
@@ -225,7 +231,7 @@
         this.$router.push({name: 'takepage'})
       },
       GoNutrition () {
-        this.$router.push({name: 'nutrition'})
+        this.$router.push({name: 'nutritionDish'})
       },
       GoRandom () {
         this.showHideOnBlur = true

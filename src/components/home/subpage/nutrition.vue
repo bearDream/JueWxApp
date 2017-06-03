@@ -12,8 +12,8 @@
         </ul>
       </div>
     </blur>
-    <div @click="GoRankingdetails" >
-      <panel :list="list">
+    <div>
+      <panel :list="list" @on-click-item="GoRankingdetails" >
       </panel>
     </div>
   </div>
@@ -45,27 +45,54 @@
         list: [{
           src: img1,
           title: 'NO.1',
-          desc: '水果紫米粥'
+          desc: '水果紫米粥',
+          dishId: 1
         }, {
           src: img2,
           title: 'NO.2',
-          desc: '营养*早餐'
+          desc: '营养*早餐',
+          dishId: 2
         }, {
           src: img3,
           title: 'NO.3',
-          desc: '营养*早餐'
+          desc: '营养*早餐',
+          dishId: 3
         }],
         url: img,
         attentions: '营养菜品排行',
         editedate: '点击了解详情'
       }
     },
+    created () {
+      this.get()
+    },
     methods: {
+      get () {
+        this.$store.dispatch('getNutritionDishes', {
+          uri: '/rank'
+        }).then(() => {
+          let data = this.$store.getters.getNutritionDishes
+          var datalist = []
+          if (data.code !== -1) {
+            data = data.data
+            // 装数据
+            for (let i = 0; i < 3; i++) {
+              datalist.push({
+                src: data[i].dishImage,
+                title: 'NO.' + i,
+                desc: data[i].dishName,
+                dishId: data[i].dishId
+              })
+            }
+            this.$set(this, 'list', datalist)
+          }
+        })
+      },
       GoNutritionDetail () {
         this.$router.push({name: 'NutritionDetail'})
       },
-      GoRankingdetails () {
-        this.$router.push({name: 'Rankingdetails'})
+      GoRankingdetails (params) {
+        this.$router.push({name: 'Rankingdetails', params: {dishId: params.dishId}})
       },
       created () {
         this.gets()

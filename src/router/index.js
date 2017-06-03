@@ -32,7 +32,7 @@ const router = new Router({
       }
     }, {
       path: '/home/subpage',
-      name: 'nutrition',
+      name: 'nutritionDish',
       components: {
         'insidePage': resolve => require(['../components/home/subpage/nutrition.vue'], resolve)
       },
@@ -58,7 +58,7 @@ const router = new Router({
         requiresAuth: true
       }
     }, {
-      path: '/home/subpage/Rankingdetails',
+      path: '/home/subpage/Rankingdetails:dishId',
       name: 'Rankingdetails',
       components: {
         'insidePage': resolve => require(['../components/home/subpage/Rankingdetails.vue'], resolve)
