@@ -112,10 +112,10 @@ const router = new Router({
         requiresAuth: true
       }
     }, {
-      path: '/find/shss',
-      name: 'find',
+      path: '/find/detailedfood',
+      name: 'detailedfood',
       components: {
-        'insidePage': resolve => require(['../components/find/subpage/findList.vue'], resolve)
+        'insidePage': resolve => require(['../components/find/subpage/detailedfood.vue'], resolve)
       },
       meta: {
         requiresAuth: true
