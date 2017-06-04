@@ -122,7 +122,7 @@
 //          params: {
 //          }
 //        })
-//      }
+//      },
       rotation: function (e) {
 //        console.log('*****' + e.changedTouches[0].clientX)
 //        console.log('xxxxx' + e.changedTouches[0].clientX)
@@ -138,8 +138,25 @@
       },
       touchend (e) {
         end = e.changedTouches[0].clientX
+        let mid = document.getElementsByClassName('mid')[0]
+        let l = document.getElementsByClassName('l')[0]
+        let r = document.getElementsByClassName('r')[0]
         if (end > start) {
-          document.getElementsByClassName('mid')[0].classList.add('l')
+          mid.className = ''
+          mid.classList.add('r')
+          l.classList = ''
+          l.classList.add('mid')
+          r.className = ''
+          r.classList.add('l')
+        } else if (end < start) {
+          mid.className = ''
+          l.classList = ''
+          r.className = ''
+          mid.classList.add('l')
+          l.classList.add('r')
+          r.classList.add('mid')
+        } else {
+          console.log(123)
         }
       },
       touchstart (e) {
@@ -278,22 +295,32 @@
     overflow: hidden;
     background-color: #0bb908;
   }
-  .img-box .l_mid_r{
+  /*.img-box .l_mid_r{*/
+    /*transform: scale(0.8);*/
+  /*}*/
+  .img-box .mid{
     position: absolute;
     width: 150px;
     height: 150px;
     top: 40px;
-    transform: scale(0.8);
-  }
-  .img-box .mid{
     left: 24%;
     z-index: 10;
     transform: scale(1.2);
   }
   .img-box .l{
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    top: 40px;
     left: 5%;
+    transform: scale(0.8);
   }
   .img-box .r{
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    top: 40px;
     left: 45%;
+    transform: scale(0.8);
   }
 </style>
