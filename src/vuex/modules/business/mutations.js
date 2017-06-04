@@ -6,5 +6,8 @@ export default {
   },
   [types.GET_BUSINESS] (state, payload) {
     state.business = payload.data
+  },
+  [types.GET_TOPBUSINESSS] (state, payload) {
+    state.topBusinesss = payload.data
   }
 }

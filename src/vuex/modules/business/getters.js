@@ -4,5 +4,8 @@ export default {
   },
   getBusiness: function (state) {
     return state.business
+  },
+  getTopBusinesss: function (state) {
+    return state.topBusinesss
   }
 }

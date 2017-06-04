@@ -575,6 +575,8 @@
     display: inline-block;
   }
   .T-title{
+    position: absolute;
+    top: 5px;
     font-size: 20px;
     color: #315D83;
   }
