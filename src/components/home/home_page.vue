@@ -63,6 +63,7 @@
       <div @click="showHideOnBlur=false"></div>
     </x-dialog>
   </div>
+  <div style="height: 50px;width: 100%;"></div>
   </div>
 </template>
 
@@ -71,6 +72,7 @@
   let end = 0
   import { Divider, Grid, GridItem, Masker, XInput, Scroller, Swiper, Search, Icon, Alert, XDialog, TransferDomDirective as TransferDom } from 'vux'
   import { mapState } from 'vuex'
+  import { Indicator } from 'mint-ui'
   import banner from '../../assets/images/bg/home1.png'
   import randomdish1 from '../../assets/img/busi1.jpg'
   import randomdish2 from '../../assets/img/busi2.jpg'
@@ -159,10 +161,15 @@
         console.log('换一批')
       },
       gets () {
+        Indicator.open({
+          text: '加载中...',
+          spinnerType: 'fading-circle'
+        })
         this.$store.dispatch('getHomes', {
           params: {
           }
         }).then(() => {
+          Indicator.close()
           if (this.$store.getters.getHomes.code !== -1) {
             console.info(this.$store.getters.getHomes.data.page.list)
             this.$set(this, 'list2', this.$store.getters.getHomes.data.page.list)

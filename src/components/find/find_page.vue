@@ -39,35 +39,32 @@
       <!--</div>-->
     </div>
 
-    <div  v-if="showContent002" @click="GoDishesDetail">
-      <div style="padding:4% 4%;margin-top:2%;background-color:#fff;" v-for="item in dishImageList">
-        <div class="t-img" :style="{backgroundImage: 'url(' + item.img1 + ')'}">
-          <div class="masker" style="background-color: rgba(255, 255, 255, .5);">
-            <div class="title">{{ item.title }}</div>
-          </div>
+    <mt-loadmore v-if="showContent002" @click="GoDishesDetail" :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore">
+      <ul v-for="item in dishImageList" class="weui-media-box weui-media-box_appmsg">
+        <div class="weui-media-box__hd" v-if="item.dishRecImage">
+          <img class="weui-media-box__thumb" :src="item.dishRecImage" alt="">
         </div>
-      </div>
-      <div style="padding:4% 4%;margin-top:2%;background-color:#fff;" v-for="item in dishRecList">
-        <div style="padding:5% 0%;margin-top:2%;background-color:#fff;">
-          <div class="e-img" style="margin-right:2%;" :style="{backgroundImage: 'url(' + item.img3 + ')'}"></div>
+        <div class="weui-media-box__bd">
+          <h6 class="weui-media-box__title">{{item.dishName}}</h6>
+          <p class="weui-media-box__desc">{{item.dishDesc}}</p>
         </div>
-      </div>
-    </div>
+      </ul>
+    </mt-loadmore>
+
+    <div style="height:70px;width: 100%;"></div>
   </div>
 </template>
 
 <script>
   import { Grid, GridItem, Group, Cell } from 'vux'
+  import { Indicator } from 'mint-ui'
   import { mapState } from 'vuex'
 
   import find1 from '../../assets/img/find1.png'
-  import find2 from '../../assets/img/find2.png'
-  import find3 from '../../assets/img/find3.png'
   import find4 from '../../assets/img/find4.png'
 
   import find6 from '../../assets/img/5-2.png'
   import find7 from '../../assets/img/5-3.png'
-  import find9 from '../../assets/img/5-5.png'
 
   export default {
     components: {
@@ -82,6 +79,7 @@
     data () {
       return {
         current: 1,
+        allLoaded: false,
         showContent001: true,
         showContent002: false,
         businessList: [
@@ -96,69 +94,73 @@
             businessImage: find4
           }
         ],
-        dishRecList: [
-          {
-            title: '宣威小炒肉',
-            img1: find1,
-            img3: find2,
-            img4: find3,
-            img5: find9
-          }, {
-            title: '宣威小炒肉',
-            img1: find1,
-            img3: find2,
-            img4: find3,
-            img5: find9
-          }
-        ],
         dishImageList: [
           {
-            title: '宣威小炒肉',
-            img1: find1,
-            img3: find2,
-            img4: find3,
-            img5: find9
+            dishName: '宣威小炒肉',
+            dishRecImage: find1,
+            typeName: '炒菜',
+            dishDesc: '我是正宗的宣威小炒肉'
           }, {
-            title: '宣威小炒肉',
-            img1: find1,
-            img3: find2,
-            img4: find3,
-            img5: find9
+            dishName: '洋芋丝炒肉',
+            dishRecImage: find1,
+            typeName: '炒菜',
+            dishDesc: '我是卖洋芋的小炒肉'
           }
         ]
       }
     },
     mounted () {
       this.getBusiness(1)
-      this.getDishes(1)
     },
     methods: {
       getBusiness (current = 1) {
+        Indicator.open({
+          text: '加载中...',
+          spinnerType: 'fading-circle'
+        })
         this.$store.dispatch('getTopBusinesss', {params: {
           pageNum: 1,
           pageSize: 10
         }}).then(() => {
+          Indicator.close()
           let data = this.$store.getters.getTopBusinesss
           if (data.code !== -1) {
             data = data.data
             this.$set(this, 'businessList', data)
             console.info(data)
           }
+          this.$vux.loading.hide()
         })
       },
       getDishes (current = 1) {
+        Indicator.open({
+          text: '加载中...',
+          spinnerType: 'fading-circle'
+        })
         this.$store.dispatch('getDishList', {params: {
           pageNum: 1,
           pageSize: 10
         }}).then(() => {
+          Indicator.close()
           let data = this.$store.getters.getDishList
           console.info(data)
-//          if (data.code !== -1) {
-//            data = data.data
-//            this.$set(this, 'businessList', data)
-//            console.info(data)
-//          }
+          if (data.code !== -1) {
+            data = data.data
+            this.allLoaded = true// 若数据已全部获取完毕
+            this.$set(this, 'dishImageList', data.list)
+            console.info(data)
+          }
         })
+      },
+      loadTop () {
+        this.getDishes(1)
+        this.$refs.loadmore.onTopLoaded()
+      },
+      loadBottom () {
+        alert('bottom')
+        this.getDishes(this.current)
+        this.allLoaded = true// 若数据已全部获取完毕
+        this.$refs.loadmore.onBottomLoaded()
       },
       show1 () {
         this.showContent001 = true
@@ -175,6 +177,16 @@
   }
 </script>
 
+<style lang="less">
+  @import 'styles/widget/weui_cell/weui_cell_global';
+  @import 'styles/widget/weui_cell/weui_access';
+  @import 'styles/widget/weui_panel/weui_panel';
+  @import 'styles/widget/weui_media_box/weui_media_box';
+
+  .weui-panel .weui-cell:first-child:before {
+    display: block;
+  }
+</style>
 <style scoped>
   .t-img{
     padding-bottom: 35%;

@@ -13,7 +13,7 @@
         <router-view name="default"></router-view>
       </keep-alive>
     </section>
-    <!--底部导航 路由 -->
+      <!--底部导航 路由 -->
     <footer class="app-footer">
       <transition name="custom-classes-transition" :enter-active-class="enterAnimate" :leave-active-class="leaveAnimate">
         <JueNav></JueNav>

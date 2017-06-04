@@ -13,6 +13,7 @@ import randomDishes from './modules/random'
 import collection from './modules/collection'
 import evaluate from './modules/evaluate'
 import dish from './modules/dish'
+import article from './modules/article'
 
 import actions from './actions'
 Vue.use(Vuex)
@@ -46,6 +47,7 @@ export default new Vuex.Store({
     randomDishes,
     collection,
     evaluate,
-    dish
+    dish,
+    article
   }
 })
