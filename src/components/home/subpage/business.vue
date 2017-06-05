@@ -47,17 +47,14 @@
 
         <!--<alert v-model="alertConfirm" title="取号" content="确认取号，默认小桌"  @on-hide="onHide"></alert>-->
 
-        <div v-if="takePageshow">当前状态 还有{{num}}位</div>
         <confirm v-model="alertConfirm"  content="确认取号"  @on-confirm="onconfirem" @on-cancel="onCancel">
-<divider>选择人数{{demo1.i}}</divider>
+          <divider>请选择就餐人数{{peopleNum.i}}</divider>
           <checker
-            v-model="demo1"
+            v-model="peopleNum"
             default-item-class="demo5-item"
-            selected-item-class="demo5-item-selected"
-          >
-            <checker-item v-for="i in list01" :key="i"  :value="i" :on-change="checker (demo1.i)">{{i.i}}</checker-item>
+            selected-item-class="demo5-item-selected">
+            <checker-item v-for="i in list01" :key="i"  :value="i" :on-change="checker (peopleNum.i)">{{i.i}}</checker-item>
           </checker>
-
         </confirm>
       </grid-item>
     </grid>
@@ -72,12 +69,12 @@
     <div >
       <loading v-model="loading" text="取票中..."></loading>
     </div>
-    <toast v-model="errorToast" :time="2000" type="warn">取号失败</toast>
   </div>
 </template>
 <script>
-  let demo1
-  import { Confirm, XHeader, Blur, Group, Cell, Rater, Badge, Grid, GridItem, XButton, Alert, Loading, Toast, Checker, CheckerItem, Divider } from 'vux'
+  let peopleNum
+  import { Confirm, XHeader, Blur, Group, Cell, Rater, Badge, Grid, GridItem, XButton, Alert, Loading, Checker, CheckerItem, Divider } from 'vux'
+  import { Toast } from 'mint-ui'
   import img from '../../../assets/img/8.png'
   export default {
     components: {
@@ -92,7 +89,6 @@
       XButton,
       Alert,
       Loading,
-      Toast,
       Confirm,
       Checker,
       CheckerItem,
@@ -100,7 +96,7 @@
     },
     data () {
       return {
-        demo1: 2,
+        peopleNum: 2,
         list01: [
             {i: 2},
             {i: 3},
@@ -142,21 +138,20 @@
         takebutton: true,
         wait: '5',
         number: '1',
-        time: '早上9:00-晚上10:00  周一至周五',
-        errorToast: false
+        time: '早上9:00-晚上10:00  周一至周五'
       }
     },
     created () {
       console.info(this.$route.params.businessId)
       if (this.$route.params.businessId === '' || this.$route.params.businessId === undefined) {
-//        this.$router.go(-1)
+        this.$router.go(-1)
       }
       this.$set(this.businessInfo, 'businessId', this.$route.params.businessId)
       this.getInfo()
+      this.getUserNum()
     },
     methods: {
       getInfo () {
-        console.info('....' + this.businessInfo.businessId)
         this.$store.dispatch('getBusiness', {
           params: {
             'businessId': this.businessInfo.businessId
@@ -187,7 +182,6 @@
         }).then(() => {
           let data = this.$store.getters.getNumber
           if (data.code === -1) {
-            this.$set(this, 'errorToast', true)
             this.$set(this, 'takebutton', true)
             this.$set(this, 'takePageshow', false)
           } else {
@@ -213,26 +207,31 @@
         this.loading = true
 //        let that = this
         console.info(this.businessInfo)
-        console.log('提交当前选择人数:' + demo1)
+        console.log('提交当前选择人数:' + peopleNum)
         // 发送网络请求（排队人数）
         this.$store.dispatch('takeNumber', {
           params: {
-            peopleNum: 3,
+            peopleNum: peopleNum,
             businessId: this.businessInfo.businessId
           }
         }).then(() => {
           console.info(this.$store.getters.getNumber)
-          this.getInfo()
-          this.getUserNum()
+          let data = this.$store.getters.getNumber
+          if (data.code === -1) {
+            Toast({message: data.msg})
+          } else {
+            this.getInfo()
+            this.getUserNum()
+          }
           this.loading = false
           this.takePageshow = !this.takePageshow
-        }, 2000)
+        })
       },
       onCancel () {
         this.takebutton = !this.takebutton
       },
       checker (key) {
-        demo1 = key
+        peopleNum = key
       }
     }
   }

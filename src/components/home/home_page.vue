@@ -53,11 +53,17 @@
           <div class="businesstitle" v-if="dishname2">{{list3[2].dishName}}</div>
           <img :src="list3[2].dishImage" class="l_mid_r mid">
         </div>
-        <div class="onlyeat" @click="Refresh">不想吃换一批</div>
+        <button-tab class="onlyeat">
+          <button-tab-item @click="Refresh" style="margin-right: 10px;">不想吃换一批</button-tab-item>
+          <button-tab-item @click="GoOrder" style="margin-left: 40px;">就是它们了</button-tab-item>
+        </button-tab>
+        <!--<div class="onlyeat" @click="Refresh">不想吃换一批</div>-->
+        <!--<div class="onlyeat" @click="Refresh">sdasdasdasdasdasdas</div>-->
       </div>
       <div @click="showHideOnBlur=false"></div>
     </x-dialog>
   </div>
+  <div style="height: 50px;width: 100%;"></div>
   </div>
 </template>
 
@@ -66,6 +72,7 @@
   let end = 0
   import { Divider, Grid, GridItem, Masker, XInput, Scroller, Swiper, Search, Icon, Alert, XDialog, TransferDomDirective as TransferDom } from 'vux'
   import { mapState } from 'vuex'
+  import { Indicator } from 'mint-ui'
   import banner from '../../assets/images/bg/home1.png'
   import randomdish1 from '../../assets/img/busi1.jpg'
   import randomdish2 from '../../assets/img/busi2.jpg'
@@ -130,15 +137,18 @@
         list3: [{
           dishId: 1,
           dishName: '麻婆豆腐',
-          dishImage: randomdish1
+          dishImage: randomdish1,
+          businessId: 1
         }, {
           dishId: 2,
           dishName: '青椒炒肉',
-          dishImage: randomdish2
+          dishImage: randomdish2,
+          businessId: 1
         }, {
           dishId: 3,
           dishName: '番茄鸡蛋',
-          dishImage: randomdish3
+          dishImage: randomdish3,
+          businessId: 1
         }
         ]
       }
@@ -146,15 +156,21 @@
     methods: {
       Refresh (item) {
         this.item = false
+        this.showHideOnBlur = false
+        this.GoRandom()
         console.log('换一批')
       },
       gets () {
+        Indicator.open({
+          text: '加载中...',
+          spinnerType: 'fading-circle'
+        })
         this.$store.dispatch('getHomes', {
           params: {
           }
         }).then(() => {
+          Indicator.close()
           if (this.$store.getters.getHomes.code !== -1) {
-            console.info(this.$store.getters.getHomes.data.page.list)
             this.$set(this, 'list2', this.$store.getters.getHomes.data.page.list)
           }
         })
@@ -245,7 +261,20 @@
         this.$router.push({name: 'nutritionDish'})
       },
       GoRandom () {
+        // 获取今天吃啥的数据
+        this.$store.dispatch('getRandomDishes', {}).then(() => {
+          console.info('..........')
+          let data = this.$store.getters.getRandomDishes
+          if (data.data.length === 3) {
+            this.$set(this, 'list3', data.data)
+            console.info(this.$store.getters.getRandomDishes)
+          }
+        })
         this.showHideOnBlur = true
+      },
+      GoOrder () {
+        this.showHideOnBlur = false
+        this.$router.push({name: 'random'})
       },
       GoArticle () {
         this.$router.push({name: 'article'})
@@ -397,7 +426,7 @@
     font-size: 15px;
     color: #59850b;
     position: absolute;
-    left: 35%;
+    left: 20%;
     bottom: 5px;
   }
   .show{

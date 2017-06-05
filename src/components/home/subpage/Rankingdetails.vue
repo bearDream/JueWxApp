@@ -17,12 +17,6 @@
         <div class="sorting3" :style="{backgroundImage: 'url(' + item.dishImage + ')'}"></div>
         <div class="sortingr3">
           <x-table :cell-bordered="false" :content-bordered="false" style="background-color:#fff;">
-            <thead >
-              <tr class="listtitle" >
-                <td >材料</td>
-                <td >营养价值</td>
-              </tr>
-            </thead>
             <tbody class="noneboder">
             <tr>
               <td><span class="spanfontsize">热量</span></td>
@@ -101,9 +95,17 @@
     methods: {
       get () {
         this.$store.dispatch('getNutritionDish', {
-          uri: '/get?dishId=' + this.dishId
+          uri: '/get?dishId' + this.dishId
         }).then(() => {
-          console.info(this.$store.getters.getNutritionDish)
+          let data = this.$store.getters.getNutritionDish
+          if (data.code !== -1) {
+            console.info(data.data)
+            this.$set(this, 'list3', data.data)
+//            this.$set(this.list3, 'heat', data.data.heat)
+//            this.$set(this.list3, 'sugar_content', data.data.sugar_content)
+//            this.$set(this.list3, 'grease', data.data.grease)
+            console.info(this.list3.grease)
+          }
         })
       },
       business_info (item) {

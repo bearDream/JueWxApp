@@ -36,6 +36,7 @@ import icon from '../../../assets/img/dishesIcon.png'
 export default {
   data () {
     return {
+      dishId: '',
       dishesbg: dishes,
       maskTitle: '水果+串串=香',
       title: '菜品详情',
@@ -46,7 +47,11 @@ export default {
     }
   },
   mounted () {
-    // 进入页面的钩子函数
+    if (this.$route.params.dishId === undefined) {
+      this.$router.go(-1)
+    }
+    this.$set(this, 'dishId', this.$route.params.dishId)
+    console.info(this.$route.params.dishId)
   }
 }
 </script>

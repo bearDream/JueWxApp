@@ -112,10 +112,10 @@ const router = new Router({
         requiresAuth: true
       }
     }, {
-      path: '/find/detailedfood',
-      name: 'detailedfood',
+      path: '/find/dd:dishId',
+      name: 'dishesDetail',
       components: {
-        'insidePage': resolve => require(['../components/find/subpage/detailedfood.vue'], resolve)
+        'insidePage': resolve => require(['../components/find/subpage/dishesDetail.vue'], resolve)
       },
       meta: {
         requiresAuth: true
@@ -184,7 +184,7 @@ const router = new Router({
         requiresAuth: true
       }
     }, {
-      path: '/subpage/collect/comments',
+      path: '/subpage/collect/comments:articleId',
       name: 'comments',
       components: {
         'insidePage': resolve => require(['../components/mine/subpage/comments.vue'], resolve)

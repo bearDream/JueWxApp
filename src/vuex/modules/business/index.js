@@ -5,7 +5,8 @@ import mutations from './mutations'
 export default {
   state: {
     businesss: null,
-    business: null
+    business: null,
+    topBusinesss: null
   },
   getters,
   actions,

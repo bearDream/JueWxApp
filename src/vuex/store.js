@@ -9,6 +9,11 @@ import business from './modules/business'
 import take from './modules/take'
 import location from './modules/location'
 import nutritionDish from './modules/nutritionDish'
+import randomDishes from './modules/random'
+import collection from './modules/collection'
+import evaluate from './modules/evaluate'
+import dish from './modules/dish'
+import article from './modules/article'
 
 import actions from './actions'
 Vue.use(Vuex)
@@ -38,6 +43,11 @@ export default new Vuex.Store({
     business,
     take,
     location,
-    nutritionDish
+    nutritionDish,
+    randomDishes,
+    collection,
+    evaluate,
+    dish,
+    article
   }
 })
