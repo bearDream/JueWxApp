@@ -6,7 +6,7 @@
         <input type="image" id="file" >
       </form>
         <label class="cover" for="file">
-          <p>+添加封面</p>
+          <p> + 添加封面</p>
         </label>
     </div>
   </div>
