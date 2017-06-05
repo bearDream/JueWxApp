@@ -9,12 +9,12 @@ import store from './vuex/store'
 import router from './router/index'
 import { LoadingPlugin, WechatPlugin } from 'vux'
 import JueLoading from './loading'
-import { template, Icon, Progress, Upload, Modal } from 'iview'
+import { Template, Icon, Progress, Upload, Modal } from 'iview'
 
 Vue.use(LoadingPlugin)
 Vue.use(WechatPlugin)
 Vue.use(JueLoading)
-Vue.use(template, Icon, Progress, Upload, Modal)
+Vue.use(Template, Icon, Progress, Upload, Modal)
 
 Vue.use(VueRouter, axios)
 
