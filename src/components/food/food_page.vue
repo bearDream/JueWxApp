@@ -10,7 +10,7 @@
             <p class="f-name">{{item.username}}</p>
             <p class="f-time">{{item.addTime}}</p>
             <p class="f-title">{{item.title}}</p>
-            <rater v-model="item.data1" slot="value" star="♡"  :click="togoods" :max="1" active-color="red" style="position: absolute;top:1%;left:88%;" :font-size="35"></rater>
+            <rater v-model="item.data1" slot="value" star="♡"  v-on:click="collect" :max="1" active-color="red" style="position: absolute;top:1%;left:88%;" :font-size="35"></rater>
             <div class="photo3" v-for="i in item.recImageList" v-if="item.recImageList.length===3">
               <img :src="i">
             </div>
@@ -52,6 +52,7 @@
     ]),
     data () {
       return {
+        current: 1,
         allLoaded: false,
         jueloading: false,
         list: [{
@@ -78,6 +79,8 @@
         })
         this.$store.dispatch('getArticles', {
           params: {
+            pageNum: this.current,
+            pageSize: 5
           }
         }).then(() => {
           Indicator.close()
@@ -85,11 +88,11 @@
           let data = this.$store.getters.getArticles
           if (data.code !== -1) {
             data = data.data
-            for (let i = 0; i < data.length; i++) {
-              data[i].addTime = time.getDate(data[i].addTime)
+            for (let i = 0; i < data.page.list.length; i++) {
+              data.page.list[i].addTime = time.getDate(data.page.list[i].addTime)
             }
-            this.$set(this, 'list', data)
-            console.info(data)
+            this.$set(this, 'list', data.page.list)
+            console.info(this.list)
           }
         })
       },
@@ -112,16 +115,41 @@
         }
       },
       loadTop () {
-//        this.getDishes(1)
+        this.current = 1
+        this.gets()
+        this.allLoaded = false// 若数据已全部获取完毕
         this.$refs.loadmore.onTopLoaded()
       },
       loadBottom () {
-        alert('bottom')
-//        this.getDishes(this.current)
-        this.allLoaded = true// 若数据已全部获取完毕
+        this.current++
+        Indicator.open({
+          text: '加载中...',
+          spinnerType: 'fading-circle'
+        })
+        this.$store.dispatch('getArticles', {
+          params: {
+            pageNum: this.current,
+            pageSize: 5
+          }
+        }).then(() => {
+          Indicator.close()
+          let data = this.$store.getters.getArticles
+          if (data.code !== -1) {
+            data = data.data
+            for (let i = 0; i < data.page.list.length; i++) {
+              data.page.list[i].addTime = time.getDate(data.page.list[i].addTime)
+              this.list.push(data.page.list[i])
+            }
+            console.info(this.list)
+            if (data.page.lastPage === this.current) {
+              this.allLoaded = true// 若数据已全部获取完毕
+            }
+          }
+        })
         this.$refs.loadmore.onBottomLoaded()
       },
-      togoods () {
+      collect () {
+        alert('collect')
         this.data1 = 1
       },
       load (uuid) {

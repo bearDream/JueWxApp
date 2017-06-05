@@ -171,7 +171,6 @@
         }).then(() => {
           Indicator.close()
           if (this.$store.getters.getHomes.code !== -1) {
-            console.info(this.$store.getters.getHomes.data.page.list)
             this.$set(this, 'list2', this.$store.getters.getHomes.data.page.list)
           }
         })
@@ -263,6 +262,7 @@
         this.showHideOnBlur = true
       },
       GoOrder () {
+        this.showHideOnBlur = false
         this.$router.push({name: 'random'})
       },
       GoArticle () {

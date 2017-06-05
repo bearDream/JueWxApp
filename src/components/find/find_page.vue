@@ -17,31 +17,27 @@
       </div>
     </div>
 
-    <div  v-if="showContent001" v-for="item in businessList">
-      <div style="padding:4% 4%;margin-top:2%;background-color:#fff;">
-        <div class="t-img" :style="{backgroundImage: 'url(' + item.businessImage + ')'}">
-          <div class="masker" style="background-color: rgba(0, 0, 0, .3);">
-            <div class="title">{{ item.name }}</div>
+    <mt-loadmore v-if="showContent001" :top-method="loadBusinessTop" :bottom-method="loadBusinessBottom" :bottom-all-loaded="BusinessAllLoaded" ref="loadBusinessMore">
+      <div v-for="item in businessList">
+        <div style="padding:4% 4%;margin-top:2%;background-color:#fff;">
+          <div class="t-img" :style="{backgroundImage: 'url(' + item.businessImage + ')'}">
+            <div class="masker" style="background-color: rgba(0, 0, 0, .3);">
+              <div class="title">{{ item.name }}</div>
+            </div>
+          </div>
+        </div>
+        <div style="padding:4% 4%;margin-top:2%;background-color:#fff;">
+          <div>
+            <div class="e-img" style="margin-right:2%;" :style="{backgroundImage: 'url(' + item.oneDishRecImage + ')'}"></div>
+            <div class="e-img" style="margin-left: 2.5%;" :style="{backgroundImage: 'url(' + item.twoDishRecImage + ')'}"></div>
           </div>
         </div>
       </div>
-      <div style="padding:4% 4%;margin-top:2%;background-color:#fff;">
-        <div>
-          <div class="e-img" style="margin-right:2%;" :style="{backgroundImage: 'url(' + item.oneDishRecImage + ')'}"></div>
-          <div class="e-img" style="margin-left: 2.5%;" :style="{backgroundImage: 'url(' + item.twoDishRecImage + ')'}"></div>
-        </div>
-      </div>
-      <!--<div style="padding:4% 4%;margin-top:2%;background-color:#fff;">-->
-        <!--<div>-->
-          <!--<div class="e-img" style="margin-right:2%;" :style="{backgroundImage: 'url(' + item.img3 + ')'}"></div>-->
-          <!--<div class="e-img" style="margin-left: 2.5%;" :style="{backgroundImage: 'url(' + item.img5 + ')'}"></div>-->
-        <!--</div>-->
-      <!--</div>-->
-    </div>
+    </mt-loadmore>
 
-    <mt-loadmore v-if="showContent002" @click="GoDishesDetail" :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore">
+    <mt-loadmore v-if="showContent002" :top-method="loadDishTop" :bottom-method="loadDishBottom" :bottom-all-loaded="DishAllLoaded" ref="loadDishMore">
       <ul v-for="item in dishImageList" class="weui-media-box weui-media-box_appmsg">
-        <div class="weui-media-box__hd" v-if="item.dishRecImage">
+        <div class="weui-media-box__hd" v-if="item.dishRecImage"  @click="GoDishesDetail(item)">
           <img class="weui-media-box__thumb" :src="item.dishRecImage" alt="">
         </div>
         <div class="weui-media-box__bd">
@@ -51,7 +47,7 @@
       </ul>
     </mt-loadmore>
 
-    <div style="height:70px;width: 100%;"></div>
+    <!--<div style="height:70px;width: 100%;"></div>-->
   </div>
 </template>
 
@@ -78,8 +74,10 @@
     ]),
     data () {
       return {
-        current: 1,
-        allLoaded: false,
+        BusinessCurrent: 1,
+        DishCurrent: 1,
+        BusinessAllLoaded: false,
+        DishAllLoaded: false,
         showContent001: true,
         showContent002: false,
         businessList: [
@@ -110,10 +108,11 @@
       }
     },
     mounted () {
-      this.getBusiness(1)
+      this.getBusiness()
+      this.getDishes()
     },
     methods: {
-      getBusiness (current = 1) {
+      getBusiness () {
         Indicator.open({
           text: '加载中...',
           spinnerType: 'fading-circle'
@@ -126,13 +125,12 @@
           let data = this.$store.getters.getTopBusinesss
           if (data.code !== -1) {
             data = data.data
-            this.$set(this, 'businessList', data)
-            console.info(data)
+            this.$set(this, 'businessList', data.page.list)
+            console.info(this.businessList)
           }
-          this.$vux.loading.hide()
         })
       },
-      getDishes (current = 1) {
+      getDishes () {
         Indicator.open({
           text: '加载中...',
           spinnerType: 'fading-circle'
@@ -146,21 +144,70 @@
           console.info(data)
           if (data.code !== -1) {
             data = data.data
-            this.allLoaded = true// 若数据已全部获取完毕
             this.$set(this, 'dishImageList', data.list)
             console.info(data)
           }
         })
       },
-      loadTop () {
-        this.getDishes(1)
-        this.$refs.loadmore.onTopLoaded()
+      loadBusinessTop () {
+        this.BusinessAllLoaded = false
+        this.getBusiness()
+        this.$refs.loadBusinessMore.onTopLoaded()
       },
-      loadBottom () {
-        alert('bottom')
-        this.getDishes(this.current)
-        this.allLoaded = true// 若数据已全部获取完毕
-        this.$refs.loadmore.onBottomLoaded()
+      loadBusinessBottom () {
+        this.BusinessCurrent++
+        // 获取数据
+        Indicator.open({
+          text: '加载中...',
+          spinnerType: 'fading-circle'
+        })
+        this.$store.dispatch('getTopBusinesss', {params: {
+          pageNum: this.BusinessCurrent,
+          pageSize: 10
+        }}).then(() => {
+          Indicator.close()
+          let data = this.$store.getters.getTopBusinesss
+          if (data.code !== -1) {
+            data = data.data
+            for (let i = 0; i < data.page.list.length; i++) {
+              this.businessList.push(data.page.list[i])
+            }
+            if (data.page.lastPage === this.BusinessCurrent) {
+              this.BusinessAllLoaded = true// 若数据已全部获取完毕
+            }
+          }
+        })
+        this.$refs.loadBusinessMore.onBottomLoaded()
+      },
+      loadDishTop () {
+        this.DishAllLoaded = false
+        this.getDishes()
+        this.$refs.loadDishMore.onTopLoaded()
+      },
+      loadDishBottom () {
+        this.DishCurrent++
+        // 获取数据
+        Indicator.open({
+          text: '加载中...',
+          spinnerType: 'fading-circle'
+        })
+        this.$store.dispatch('getDishList', {params: {
+          pageNum: this.DishCurrent,
+          pageSize: 10
+        }}).then(() => {
+          Indicator.close()
+          let data = this.$store.getters.getDishList
+          if (data.code !== -1) {
+            data = data.data
+            for (let i = 0; i < data.page.list.length; i++) {
+              this.dishImageList.push(data.page.list[i])
+            }
+            if (data.page.lastPage === this.DishCurrent) {
+              this.DishAllLoaded = true// 若数据已全部获取完毕
+            }
+          }
+        })
+        this.$refs.loadDishMore.onBottomLoaded()
       },
       show1 () {
         this.showContent001 = true
@@ -170,7 +217,7 @@
         this.showContent001 = false
         this.showContent002 = true
       },
-      GoDishesDetail () {
+      GoDishesDetail (item) {
         this.$router.push({name: 'dishesDetail'})
       }
     }
