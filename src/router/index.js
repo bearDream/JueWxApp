@@ -32,9 +32,18 @@ const router = new Router({
       }
     }, {
       path: '/home/subpage',
-      name: 'nutrition',
+      name: 'nutritionDish',
       components: {
         'insidePage': resolve => require(['../components/home/subpage/nutrition.vue'], resolve)
+      },
+      meta: {
+        requiresAuth: true
+      }
+    }, {
+      path: '/home/subpage/random',
+      name: 'random',
+      components: {
+        'insidePage': resolve => require(['../components/home/subpage/random.vue'], resolve)
       },
       meta: {
         requiresAuth: true
@@ -49,7 +58,7 @@ const router = new Router({
         requiresAuth: true
       }
     }, {
-      path: '/home/subpage/Rankingdetails',
+      path: '/home/subpage/Rankingdetails:dishId',
       name: 'Rankingdetails',
       components: {
         'insidePage': resolve => require(['../components/home/subpage/Rankingdetails.vue'], resolve)
@@ -76,6 +85,15 @@ const router = new Router({
         requiresAuth: true
       }
     }, {
+      path: '/home/subpage/business',
+      name: 'business',
+      components: {
+        'insidePage': resolve => require(['../components/home/subpage/business.vue'], resolve)
+      },
+      meta: {
+        requiresAuth: true
+      }
+    }, {
       path: '/home/article',
       name: 'article',
       components: {
@@ -94,10 +112,10 @@ const router = new Router({
         requiresAuth: true
       }
     }, {
-      path: '/find/shss',
-      name: 'find',
+      path: '/find/detailedfood',
+      name: 'detailedfood',
       components: {
-        'insidePage': resolve => require(['../components/find/subpage/findList.vue'], resolve)
+        'insidePage': resolve => require(['../components/find/subpage/detailedfood.vue'], resolve)
       },
       meta: {
         requiresAuth: true
@@ -139,6 +157,15 @@ const router = new Router({
         requiresAuth: true
       }
     }, {
+      path: '/subpage/post_article',
+      name: 'site',
+      components: {
+        'insidePage': resolve => require(['../components/mine/subpage/post_article.vue'], resolve)
+      },
+      meta: {
+        requiresAuth: true
+      }
+    }, {
       path: '/subpage/check',
       name: 'check',
       components: {
@@ -152,6 +179,15 @@ const router = new Router({
       name: 'collect',
       components: {
         'insidePage': resolve => require(['../components/mine/subpage/collect.vue'], resolve)
+      },
+      meta: {
+        requiresAuth: true
+      }
+    }, {
+      path: '/subpage/collect/comments',
+      name: 'comments',
+      components: {
+        'insidePage': resolve => require(['../components/mine/subpage/comments.vue'], resolve)
       },
       meta: {
         requiresAuth: true

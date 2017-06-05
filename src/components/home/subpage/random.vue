@@ -1,98 +1,107 @@
 <template>
-  <div>
-    <x-header v-on:click="$router.back()">随机推荐</x-header>
-    <br>
-    <div style="margin: 10px;overflow: hidden;" v-for="item in list" v-on:click="business_info(item)">
-      <masker style="border-radius: 2px;" >
-        <div class="m-img" :style="{backgroundImage: 'url(' + item.img + ')'}"></div>
-        <div slot="content" class="m-title">
-          {{item.title}}
-          <br/>
-          <span class="m-time">2016-03-18</span>
+  <div style="background-color: #eee;font-family: 'Adobe Fan Heiti Std B'">
+    <div class="head">提交订单</div>
+    <group>
+      <div class="body">
+        <div>
+          <span class="first">{{businessname}}</span>
+          <span class="second">蕨币：{{price}}</span>
         </div>
-      </masker>
+        <div>
+          <x-number class="first" title="数量" :min="0" style="padding:0;margin-right:0;" @on-change="count"></x-number>
+        </div>
+        <div>
+          <span class="first">小计</span>
+          <span class="second" >蕨币：{{subtotal}}</span>
+        </div>
+      </div>
+    </group>
+    <group>
+      <div class="takeSorting">
+        <div class="body">
+          <div class="center1">
+            <span class="first">抵用券</span>
+            <span class="second">蕨币：-{{voucher}}</span>
+          </div>
+          <div class="center1">
+            <span class="first">还需支付</span>
+            <span class="second" >{{sum}}</span>
+          </div>
+        </div>
+      </div>
+    </group>
+    <div style="width:100%;position: absolute;bottom:0;">
+      <x-button type="primary" class="btn">提交订单</x-button>
     </div>
   </div>
 </template>
-
 <script>
-  import { Masker, XHeader, TransferDom } from 'vux'
+  import { Group, XButton, Icon, XNumber } from 'vux'
   export default {
-    directives: {
-      TransferDom
-    },
     components: {
-      Masker,
-      XHeader
-    },
-    created () {
-      // 数据交互：通过this.$route.params或.query取出数据
-      console.info(this.$route.params)
+      Group,
+      XButton,
+      Icon,
+      XNumber
     },
     data () {
       return {
-        list: [{
-          title: '洗颜新潮流！人气洁面皂排行榜',
-          img: 'https://cdn.xiaotaojiang.com/uploads/82/1572ec37969ee263735262dc017975/_.jpg'
-        }, {
-          title: '美容用品 & 日用品（上）',
-          img: 'https://cdn.xiaotaojiang.com/uploads/59/b22e0e62363a4a652f28630b3233b9/_.jpg'
-        }]
+        businessname: '越南家3人餐',
+        price: 68,
+        voucher: 3.1,
+        subtotal: 0,
+        sum: 0
       }
     },
-    mounted () {
-      // 进入页面的钩子函数
-    },
     methods: {
-      business_info (item) {
-        alert(item.title)
+      count (val) {
+        this.subtotal = this.price * val
+        if (val === 0) {
+          this.sum = 0
+        } else {
+          this.sum = this.subtotal - this.voucher
+        }
       }
     }
   }
 </script>
-
-<style lang="less">
-
-  .iconfont {
-    font-family:"iconfont" !important;
-    font-size:16px;
-    font-style:normal;
-    -webkit-font-smoothing: antialiased;
-    -webkit-text-stroke-width: 0.2px;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  .m-img {
-    padding-bottom: 33%;
-    display: block;
-    position: relative;
-    max-width: 100%;
-    background-size: cover;
-    background-position: center center;
-    cursor: pointer;
-    border-radius: 2px;
-  }
-
-  .m-title {
-    color: #fff;
+<style>
+  .head{
     text-align: center;
-    text-shadow: 0 0 2px rgba(0, 0, 0, .5);
-    font-weight: 500;
-    font-size: 16px;
-    position: absolute;
-    left: 0;
-    right: 0;
-    width: 100%;
-    text-align: center;
-    top: 50%;
-    transform: translateY(-50%);
+    font-size: 22px;
+    background-color: #fff;
+    padding: 3% 0;
   }
-
-  .m-time {
-    font-size: 12px;
-    padding-top: 4px;
-    border-top: 1px solid #f0f0f0;
-    display: inline-block;
-    margin-top: 5px;
+  .body{
+    font-size: 20px;
+    padding:2%;
+  }
+  .body>div{
+    width:100%;
+    margin-top:2%;
+    height:50px;
+  }
+  .first{
+    margin-left: 3%;
+  }
+  .second{
+    float: right;
+    margin-right: 3%;
+  }
+  a.vux-number-selector-plus{
+    margin-right:0;
+    padding:0;
+  }
+  a.vux-number-selector-sub{
+    padding:0;
+  }
+  a.vux-number-selector svg{
+    fill:#59850b;
+  }
+  .btn{
+    background: #59850B !important;
+    margin-top: 165px;
+    height: 65px !important;
+    border-radius: 0 !important;
   }
 </style>

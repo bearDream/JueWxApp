@@ -3,7 +3,7 @@
     <x-header v-on:click="$router.back()">营养价值</x-header>
     <blur :blur-amount=0 :url="url" style="height:220px">
 
-      <div style="border-radius: 2px;width: 100%">
+      <div style="border-radius: 2px;width: 100%;">
         <div class="m-buttom" >营养价值分析</div>
         <div class="m-buttom1"></div>
         <ul class="me_show">
@@ -12,8 +12,8 @@
         </ul>
       </div>
     </blur>
-    <div @click="GoRankingdetails" >
-      <panel :list="list1">
+    <div>
+      <panel :list="list" @on-click-item="GoRankingdetails" >
       </panel>
     </div>
   </div>
@@ -41,32 +41,72 @@
     },
     data () {
       return {
-        list1: [{
+        // 修改panel源码文件来更改字段名
+        list: [{
           src: img1,
           title: 'NO.1',
-          desc: '水果紫米粥'
-        },
-        {
+          desc: '水果紫米粥',
+          dishId: 1
+        }, {
           src: img2,
           title: 'NO.2',
-          desc: '营养*早餐'
-        },
-        {
+          desc: '营养*早餐',
+          dishId: 2
+        }, {
           src: img3,
           title: 'NO.3',
-          desc: '爱心*午餐'
+          desc: '营养*早餐',
+          dishId: 3
         }],
         url: img,
         attentions: '营养菜品排行',
         editedate: '点击了解详情'
       }
     },
+    created () {
+      this.get()
+    },
     methods: {
+      get () {
+        this.$store.dispatch('getNutritionDishes', {
+          uri: '/rank'
+        }).then(() => {
+          let data = this.$store.getters.getNutritionDishes
+          var datalist = []
+          if (data.code !== -1) {
+            data = data.data
+            // 装数据
+            for (let i = 0; i < 3; i++) {
+              datalist.push({
+                src: data[i].dishImage,
+                title: 'NO.' + i,
+                desc: data[i].dishName,
+                dishId: data[i].dishId
+              })
+            }
+            this.$set(this, 'list', datalist)
+          }
+        })
+      },
       GoNutritionDetail () {
         this.$router.push({name: 'NutritionDetail'})
       },
-      GoRankingdetails () {
-        this.$router.push({name: 'Rankingdetails'})
+      GoRankingdetails (params) {
+        this.$router.push({name: 'Rankingdetails', params: {dishId: params.dishId}})
+      },
+      created () {
+        this.gets()
+      },
+      gets () {
+        this.$store.dispatch('getRankings', {
+          params: {
+          }
+        }).then(() => {
+          if (this.$store.getters.getRankings.code !== -1) {
+            console.info(this.$store.getters.getRankings.data.page.list)
+            this.$set(this, 'list', this.$store.getters.getRankings.data.page.list)
+          }
+        })
       }
     },
     mounted () {
@@ -108,14 +148,14 @@
     height: 50px;
     background: #f3f3f5;
     opacity: 0.8;
-    bottom: 0;
+    bottom: -5px;
   }
   .me_show{
     display: flex;
     width: 100%;
     height:40px;
     position: absolute;
-    bottom: 5px;
+    bottom: 0px;
     color:#000;
   }
   .me_show li{

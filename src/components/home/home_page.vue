@@ -1,5 +1,6 @@
 <template>
   <div>
+  <div>
     <scroller enable-horizontal-swiping=""  :loading="load" >
       <!--<search @on-submit="onSubmit" :auto-fixed="false" v-model="value2" @on-focus="onFocus" @on-cancel="onCancel"></search>--> <!--height="260px"-->
       <swiper :list="list1" :min-moving-distance="20" auto="" style="height: 180px" >
@@ -22,7 +23,7 @@
       </grid-item>
     </grid>
     <div style="margin: 10px;overflow: hidden;height:40%;" v-for="item in list2" v-on:click="GoArticle">
-      <div class="m-img"  :style="{backgroundImage: 'url(' + item.img + ')'}">
+      <div class="m-img"  :style="{backgroundImage: 'url(' + item.coverImage + ')'}">
         <div class="outer">
           <div class="masker" style="border-radius:3px;width:90%;height:80%;position:absolute;top:10%;left:5%;  backgroundColor:rgba(255,255,255,.5);">
             <div slot="content" class="m-title">
@@ -34,18 +35,29 @@
         </div>
       </div>
     </div>
-
-<!--随机来几个菜-->
-    <div >
-      <x-dialog style="border-radius: 10px" v-model="showHideOnBlur" class="dialog-demo" hide-on-blur>
-        <div class="img-box" @touchmove='rotation' @touchstart='touchstart' @touchend='touchend' v-for="item in list3" id="Rotation" >
-          <img :src="item.randomdish1" class="l_mid_r l">
-          <img :src="item.randomdish3" class="l_mid_r r">
-          <img :src="item.randomdish2" class="l_mid_r mid">
+  </div>
+  <!--随机来几个菜-->
+  <div>
+    <x-dialog hide-on-blur  :dialog-style="{'max-width': '100%',overflow: 'visible', width: '90%', height: '50%', 'background-color': 'transparent'}" v-model="showHideOnBlur"  >
+      <div class="img-box" @touchmove='rotation' @touchstart='touchstart' @touchend='touchend' id="Rotation" >
+        <img src="../../assets/img/flow.png" style="position: absolute;width: 70%;top: -60px;left: 40px;z-index: 10">
+        <div>
+          <div class="businesstitle" v-if="dishname1">{{list3[0].dishName}}</div>
+          <img :src="list3[0].dishImage" class="l_mid_r l">
         </div>
-        <div @click="showHideOnBlur=false"></div>
-      </x-dialog>
-    </div>
+        <div>
+          <div class="businesstitle" v-if="dishname3">{{list3[1].dishName}}</div>
+          <img :src="list3[1].dishImage" class="l_mid_r r">
+        </div>
+        <div>
+          <div class="businesstitle" v-if="dishname2">{{list3[2].dishName}}</div>
+          <img :src="list3[2].dishImage" class="l_mid_r mid">
+        </div>
+        <div class="onlyeat" @click="Refresh">不想吃换一批</div>
+      </div>
+      <div @click="showHideOnBlur=false"></div>
+    </x-dialog>
+  </div>
   </div>
 </template>
 
@@ -75,7 +87,10 @@
       Alert,
       XDialog
     },
-    created () {
+    created (i) {
+      this.i += 1
+      console.log(i)
+      this.gets()
     },
     computed: mapState([
       'home'
@@ -85,6 +100,10 @@
         toTake: 'subpage/homeList',
         value2: 'vux',
         showHideOnBlur: false,
+        i: 0,
+        dishname1: false,
+        dishname2: true,
+        dishname3: false,
         list1: [{
           url: 'http://mp.weixin.qq.com/s?__biz=MzAxNjU0MDYxMg==&mid=400385458&idx=1&sn=78f6b8d99715384bdcc7746596d88359&scene=19#wechat_redirect',
           img: banner
@@ -98,31 +117,48 @@
         list2: [{
           title: '藏在昆明巷子里的北欧小清新咖啡馆',
           addrase: 'by jenny 上海',
-          img: 'https://cdn.xiaotaojiang.com/uploads/82/1572ec37969ee263735262dc017975/_.jpg'
+          coverImage: 'https://cdn.xiaotaojiang.com/uploads/82/1572ec37969ee263735262dc017975/_.jpg'
         }, {
           title: '小翠—— 一个特别"脆"的饭馆',
           addrase: 'by Bubble.yuki from kunmin',
-          img: 'https://cdn.xiaotaojiang.com/uploads/59/b22e0e62363a4a652f28630b3233b9/_.jpg'
+          coverImage: 'https://cdn.xiaotaojiang.com/uploads/59/b22e0e62363a4a652f28630b3233b9/_.jpg'
         }, {
           title: '昆明探店——来自pizza爱好者的推荐',
           addrase: 'by Anitalyx tom 昆明',
-          img: 'https://cdn.xiaotaojiang.com/uploads/56/4b3601364b86fdfd234ef11d8712ad/_.jpg'
+          coverImage: 'https://cdn.xiaotaojiang.com/uploads/56/4b3601364b86fdfd234ef11d8712ad/_.jpg'
         }],
         list3: [{
-          randomdish1: randomdish1,
-          randomdish2: randomdish2,
-          randomdish3: randomdish3
+          dishId: 1,
+          dishName: '麻婆豆腐',
+          dishImage: randomdish1
+        }, {
+          dishId: 2,
+          dishName: '青椒炒肉',
+          dishImage: randomdish2
+        }, {
+          dishId: 3,
+          dishName: '番茄鸡蛋',
+          dishImage: randomdish3
         }
         ]
       }
     },
     methods: {
-//      gets () {
-//        this.$store.dispatch('getBusinessList', {
-//          params: {
-//          }
-//        })
-//      },
+      Refresh (item) {
+        this.item = false
+        console.log('换一批')
+      },
+      gets () {
+        this.$store.dispatch('getHomes', {
+          params: {
+          }
+        }).then(() => {
+          if (this.$store.getters.getHomes.code !== -1) {
+            console.info(this.$store.getters.getHomes.data.page.list)
+            this.$set(this, 'list2', this.$store.getters.getHomes.data.page.list)
+          }
+        })
+      },
       rotation: function (e) {
 //        console.log('*****' + e.changedTouches[0].clientX)
 //        console.log('xxxxx' + e.changedTouches[0].clientX)
@@ -148,6 +184,16 @@
           l.classList.add('mid')
           r.className = ''
           r.classList.add('l')
+          if (this.dishname1 === true) {
+            this.dishname3 = true
+            this.dishname1 = false
+          } else if (this.dishname2 === true) {
+            this.dishname1 = true
+            this.dishname2 = false
+          } else if (this.dishname3 === true) {
+            this.dishname2 = true
+            this.dishname3 = false
+          }
         } else if (end < start) {
           mid.className = ''
           l.classList = ''
@@ -155,8 +201,19 @@
           mid.classList.add('l')
           l.classList.add('r')
           r.classList.add('mid')
+          if (this.dishname1 === true) {
+            this.dishname2 = true
+            this.dishname1 = false
+          } else if (this.dishname2 === true) {
+            this.dishname3 = true
+            this.dishname2 = false
+          } else if (this.dishname3 === true) {
+            this.dishname1 = true
+            this.dishname3 = false
+          }
         } else {
           console.log(123)
+//          this.$router.push({name: 'random'})
         }
       },
       touchstart (e) {
@@ -185,7 +242,7 @@
         this.$router.push({name: 'takepage'})
       },
       GoNutrition () {
-        this.$router.push({name: 'nutrition'})
+        this.$router.push({name: 'nutritionDish'})
       },
       GoRandom () {
         this.showHideOnBlur = true
@@ -211,10 +268,10 @@
   }
   .theme{
     width:66%;
-    height:18%;
+    height:35px;
     border:2px solid #fff;
     color:#fff;
-    font-size:26px;
+    font-size:22px;
     z-index:10;
     position:fixed;
     top:46%;
@@ -268,7 +325,7 @@
     color: #4bb94b;
     opacity: .6;
     position: absolute;
-    width: 95%;
+    width: 93%;
     right: 2%;
     border-radius: 15px;
     border: none;
@@ -292,35 +349,58 @@
     position: relative;
     height: 250px;
     width:100%;
-    overflow: hidden;
-    background-color: #0bb908;
+    /*overflow: hidden;*/
+    background-color: rgba(227,227,227,1);
+    border-radius: 5px;
   }
   /*.img-box .l_mid_r{*/
-    /*transform: scale(0.8);*/
+  /*transform: scale(0.8);*/
   /*}*/
   .img-box .mid{
     position: absolute;
-    width: 150px;
-    height: 150px;
-    top: 40px;
+    width: 140px;
+    height: 140px;
+    top: 60px;
     left: 24%;
     z-index: 10;
-    transform: scale(1.2);
+    transition: all 0.4s;
+    transform: scale(1.1);
   }
   .img-box .l{
     position: absolute;
-    width: 150px;
-    height: 150px;
-    top: 40px;
+    width: 140px;
+    height: 140px;
+    top: 60px;
     left: 5%;
+    opacity: .5;
+    transition: all 0.4s;
     transform: scale(0.8);
   }
   .img-box .r{
     position: absolute;
-    width: 150px;
-    height: 150px;
-    top: 40px;
+    width: 140px;
+    height: 140px;
+    top: 60px;
     left: 45%;
+    opacity: .7;
+    transition: all 0.4s;
     transform: scale(0.8);
+  }
+  .businesstitle{
+    position: absolute;
+    top:15px;
+    left: 35%;
+    font-size: 20px;
+    color: #59850b;
+  }
+  .onlyeat{
+    font-size: 15px;
+    color: #59850b;
+    position: absolute;
+    left: 35%;
+    bottom: 5px;
+  }
+  .show{
+    display: block;
   }
 </style>

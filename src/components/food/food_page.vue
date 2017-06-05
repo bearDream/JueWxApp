@@ -1,17 +1,23 @@
 <template>
-  <div style="background-color: #f2f2f2;">
-    <divider style="margin-top:12%;font-size:16px;background-color: #fff;">看看大家都在吃什么</divider>
-      <div v-for="(item,index) in list">
-        <div style="background-color: #fff;padding:2% 2%;position: relative;">
+  <div style="margin-top: -20px"  @touchstart="getY" @touchend="getMore">
+      <load-more  v-if="loadmore" tip="正在加载"></load-more>
+      <JueLoading v-if="jueloading"></JueLoading>
+      <divider style="margin-top:12%;font-size:16px;background-color: #fff;">看看大家都在吃什么</divider>
+      <div v-for="item in list">
+        <div  style="background-color: #fff;padding:2% 2%;overflow: hidden;height: 200px;position: relative;">
           <div class="avatar" :style="{backgroundImage: 'url(' + item.avatar + ')'}"></div>
           <p class="f-name">{{item.name}}</p>
           <p class="f-time">{{item.time}}</p>
           <p class="f-title">{{item.title}}</p>
-          <rater v-model="data1" slot="value" star="♡" :max="1" active-color="#59850b" style="position: absolute;top:5%;left:88%;" :font-size="40"></rater>
-          <div class="photo">
-            <img :src="item.img1">
-            <img :src="item.img2">
-            <img :src="item.img3">
+          <rater v-model="item.data1" slot="value" star="♡"  :click="togoods" :max="1" active-color="red" style="position: absolute;top:1%;left:88%;" :font-size="35"></rater>
+          <div class="photo3" v-for="i in item.img" v-if="item.img.length===3">
+            <img :src="i.img">
+          </div>
+          <div class="photo2" v-for="i in item.img" v-if="item.img.length===2">
+            <img :src="i.img">
+          </div>
+          <div class="photo4" v-for="i in item.img" v-if="item.img.length===4">
+            <img :src="i.img">
           </div>
         </div>
       </div>
@@ -19,7 +25,10 @@
 </template>
 
 <script>
-  import { Divider, Rater } from 'vux'
+  let startY = 0
+  let endY = 0
+  import { Divider, Rater, LoadMore } from 'vux'
+  import { JueLoading } from '../../loading/index.js'
   import { mapState } from 'vuex'
   import ava from '../../assets/img/avatar1.png'
   import food1 from '../../assets/img/food1.png'
@@ -29,7 +38,9 @@
   export default {
     components: {
       Divider,
-      Rater
+      Rater,
+      LoadMore,
+      ...JueLoading
     },
     created () {
     },
@@ -38,14 +49,20 @@
     ]),
     data () {
       return {
+        loadmore: false,
+        jueloading: false,
         list: [{
           avatar: ava,
           name: '蕨菜团队',
           time: '2017-5-26',
           title: '好的食物应该大家分享，今天的美食推荐给大家~',
-          img1: food1,
-          img2: food2,
-          img3: food3,
+          img: [{
+            img: food1}, {
+              img: food2}, {
+                img: food3
+              }
+          ],
+          data1: 0,
           title1: '营养早餐',
           title2: '美味烧烤',
           title3: '鱼片寿司'
@@ -54,12 +71,55 @@
           name: '蕨菜团队',
           time: '2017-5-26',
           title: '好的食物应该大家分享，今天的美食推荐给大家~',
-          img1: food1,
-          img2: food2,
+          img: [{
+            img: food1}, {
+              img: food2}
+          ],
+          data1: 0,
           title1: '营养早餐',
           title2: '美味烧烤'
-        }],
-        data1: 0
+        }, {
+          avatar: ava,
+          name: '蕨菜团队',
+          time: '2017-5-26',
+          title: '好的食物应该大家分享，今天的美食推荐给大家~',
+          img: [{
+            img: food1}, {
+              img: food2}, {
+                img: food3
+              }
+          ],
+          data1: 0,
+          title1: '营养早餐',
+          title2: '美味烧烤',
+          title3: '鱼片寿司'
+        }, {
+          avatar: ava,
+          name: '蕨菜团队',
+          time: '2017-5-26',
+          title: '好的食物应该大家分享，今天的美食推荐给大家~',
+          img: [{
+            img: food1}, {
+              img: food2}
+          ],
+          data1: 0,
+          title1: '营养早餐',
+          title2: '美味烧烤'
+        }, {
+          avatar: ava,
+          name: '蕨菜团队',
+          time: '2017-5-26',
+          title: '好的食物应该大家分享，今天的美食推荐给大家~',
+          img: [{
+            img: food1}, {
+              img: food2}, {
+                img: food3}, {
+                  img: food2}
+          ],
+          data1: 0,
+          title1: '营养早餐',
+          title2: '美味烧烤'
+        }]
       }
     },
     methods: {
@@ -69,6 +129,27 @@
 //          }
 //        })
 //      }
+      getY (e) {
+        startY = e.changedTouches[0].clientY
+      },
+      getMore (e) {
+        endY = e.changedTouches[0].clientY
+        if (startY < endY) {
+          this.jueloading = true
+//          let t = setInterval(function () {
+//            this.jueloading = true
+//            console.log(this.jueloading)
+//          }, 2000)
+          console.log('加载中')
+        }
+        if (startY > endY) {
+          this.jueloading = false
+          this.loadmore = true
+        }
+      },
+      togoods () {
+        this.data1 = 1
+      },
       load (uuid) {
         const _this = this
         setTimeout(function () {
@@ -111,12 +192,31 @@
     left:20%;
     color:#666;
   }
-  .photo{
+  .photo3{
     width: 100%;
   }
-  .photo img{
+  .photo3 img{
     width: 30%;
+    float: left;
     margin-top:1%;
-    margin-left:2%;
+    margin-left:3%;
+  }
+  .photo2{
+    width: 100%;
+  }
+  .photo2 img{
+    width: 45%;
+    float: left;
+    margin-top:1%;
+    margin-left:3%;
+  }
+  .photo4{
+    width: 100%;
+  }
+  .photo4 img{
+    width: 20%;
+    float: left;
+    margin-top:1%;
+    margin-left:3%;
   }
 </style>
