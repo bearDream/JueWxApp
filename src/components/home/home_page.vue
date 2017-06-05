@@ -176,6 +176,17 @@
         })
       },
       rotation: function (e) {
+//        console.log('*****' + e.changedTouches[0].clientX)
+//        console.log('xxxxx' + e.changedTouches[0].clientX)
+//        let ml = e.changedTouches[0].clientX
+//        var img = document.getElementsByClassName('mid')[0]
+//        var left = img.clientLeft
+//        img.setAttribute(left, e.changedTouches[0].clientX)
+//        console.log(document.getElementsByClassName('mid')[0].offsetLeft)
+//        document.getElementsByClassName('mid')[0].style.offsetLeft += e.changedTouches[0].clientX - 100 + 'px'
+//        this.className('mid').style.left = e.changedTouches[0].clientX - this.className('mid').style.left
+//        var start = e.changedTouches[0].clientX
+//        var mid = document.getElementsByClassName('mid')[0]
       },
       touchend (e) {
         end = e.changedTouches[0].clientX
