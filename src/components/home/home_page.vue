@@ -22,7 +22,7 @@
         <div class="icon" style="background-position: -186px -4px;" v-on:click="GoRandom" alt=""></div><p>今天吃啥</p>
       </grid-item>
     </grid>
-    <div style="margin: 10px;overflow: hidden;height:40%;" v-for="item in list2" v-on:click="GoArticle">
+    <div style="margin: 10px;overflow: hidden;height:40%;" v-for="item in list2" v-on:click="GoArticle(item)">
       <div class="m-img"  :style="{backgroundImage: 'url(' + item.coverImage + ')'}">
         <div class="outer">
           <div class="masker" style="border-radius:3px;width:90%;height:80%;position:absolute;top:10%;left:5%;  backgroundColor:rgba(255,255,255,.5);">
@@ -53,10 +53,10 @@
           <div class="businesstitle" v-if="dishname2">{{list3[2].dishName}}</div>
           <img :src="list3[2].dishImage" class="l_mid_r mid">
         </div>
-        <button-tab class="onlyeat">
-          <button-tab-item @click="Refresh" style="margin-right: 10px;">不想吃换一批</button-tab-item>
-          <button-tab-item @click="GoOrder" style="margin-left: 40px;">就是它们了</button-tab-item>
-        </button-tab>
+        <div class="onlyeat">
+          <x-button @click="Refresh" mini style="background-color: #E3E3E3;" >不想吃换一批</x-button>
+          <x-button @click="GoOrder" mini style="background-color: #E3E3E3;"  >就是它们了</x-button>
+        </div>
         <!--<div class="onlyeat" @click="Refresh">不想吃换一批</div>-->
         <!--<div class="onlyeat" @click="Refresh">sdasdasdasdasdasdas</div>-->
       </div>
@@ -70,7 +70,7 @@
 <script>
   let start = 0
   let end = 0
-  import { Divider, Grid, GridItem, Masker, XInput, Scroller, Swiper, Search, Icon, Alert, XDialog, TransferDomDirective as TransferDom } from 'vux'
+  import { Divider, Grid, GridItem, Masker, XInput, Scroller, Swiper, Search, Icon, Alert, XDialog, XButton, Group, TransferDomDirective as TransferDom } from 'vux'
   import { mapState } from 'vuex'
   import { Indicator } from 'mint-ui'
   import banner from '../../assets/images/bg/home1.png'
@@ -92,7 +92,9 @@
       Divider,
       Icon,
       Alert,
-      XDialog
+      XDialog,
+      XButton,
+      Group
     },
     created (i) {
       this.i += 1
@@ -122,14 +124,17 @@
           img: banner
         }],
         list2: [{
+          articleId: 1,
           title: '藏在昆明巷子里的北欧小清新咖啡馆',
           addrase: 'by jenny 上海',
           coverImage: 'https://cdn.xiaotaojiang.com/uploads/82/1572ec37969ee263735262dc017975/_.jpg'
         }, {
+          articleId: 1,
           title: '小翠—— 一个特别"脆"的饭馆',
           addrase: 'by Bubble.yuki from kunmin',
           coverImage: 'https://cdn.xiaotaojiang.com/uploads/59/b22e0e62363a4a652f28630b3233b9/_.jpg'
         }, {
+          articleId: 1,
           title: '昆明探店——来自pizza爱好者的推荐',
           addrase: 'by Anitalyx tom 昆明',
           coverImage: 'https://cdn.xiaotaojiang.com/uploads/56/4b3601364b86fdfd234ef11d8712ad/_.jpg'
@@ -276,8 +281,8 @@
         this.showHideOnBlur = false
         this.$router.push({name: 'random'})
       },
-      GoArticle () {
-        this.$router.push({name: 'article'})
+      GoArticle (item) {
+        this.$router.push({name: 'article', params: {articleId: item.articleId}})
       }
     },
     mounted () {
@@ -426,7 +431,7 @@
     font-size: 15px;
     color: #59850b;
     position: absolute;
-    left: 20%;
+    left: 15%;
     bottom: 5px;
   }
   .show{

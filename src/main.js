@@ -10,8 +10,11 @@ import router from './router/index'
 import 'mint-ui/lib/style.css'
 import { LoadingPlugin, WechatPlugin } from 'vux'
 import { Loadmore, Lazyload } from 'mint-ui'
+import iView from 'iview'
+import 'iview/dist/styles/iview.css'
 import JueLoading from './loading'
 Vue.component(Loadmore.name, Loadmore)
+Vue.use(iView)
 Vue.use(Lazyload)
 Vue.use(LoadingPlugin)
 Vue.use(WechatPlugin)

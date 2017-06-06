@@ -31,7 +31,7 @@
   let startY = 0
   let endY = 0
   import { Divider, Rater, LoadMore } from 'vux'
-  import { JueLoading } from '../../loading/index.js'
+//  import { JueLoading } from '../../loading/index.js'
   import { mapState } from 'vuex'
   import { Indicator } from 'mint-ui'
   import ava from '../../assets/img/avatar1.png'
@@ -44,8 +44,8 @@
     components: {
       Divider,
       Rater,
-      LoadMore,
-      ...JueLoading
+      LoadMore
+//      ...JueLoading
     },
     computed: mapState([
       'food'
@@ -54,7 +54,7 @@
       return {
         current: 1,
         allLoaded: false,
-        jueloading: false,
+//        jueloading: false,
         list: [{
           headImgUrl: ava,
           username: '蕨菜团队',
@@ -102,7 +102,7 @@
       getMore (e) {
         endY = e.changedTouches[0].clientY
         if (startY < endY) {
-          this.jueloading = true
+//          this.jueloading = true
 //          let t = setInterval(function () {
 //            this.jueloading = true
 //            console.log(this.jueloading)
@@ -110,7 +110,7 @@
           console.log('加载中')
         }
         if (startY > endY) {
-          this.jueloading = false
+//          this.jueloading = false
           this.loadmore = true
         }
       },

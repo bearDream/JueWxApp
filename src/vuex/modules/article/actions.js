@@ -17,8 +17,8 @@ export default {
   /**
    * 获取文章详情
    */
-  getArticle ({commit}, {params}) {
-    return new Model().GET({params}).then(res => {
+  getArticle ({commit}, {uri}) {
+    return new Model().GET({uri}).then(res => {
       commit(types.GET_ARTICLE, {
         data: res.data
       })
