@@ -1,5 +1,6 @@
 import helpers from '@/utils/helpers/base'
 
 export default helpers.keyMirror({
-  GET_DISHLIST: null
+  GET_DISHLIST: null,
+  GET_DISH: null
 })

@@ -18,7 +18,7 @@
     </div>
 
     <mt-loadmore v-if="showContent001" :top-method="loadBusinessTop" :bottom-method="loadBusinessBottom" :bottom-all-loaded="BusinessAllLoaded" ref="loadBusinessMore">
-      <div v-for="item in businessList">
+      <div v-for="item in businessList" @click="GoBusinessDetail(item)">
         <div style="padding:4% 4%;margin-top:2%;background-color:#fff;">
           <div class="t-img" :style="{backgroundImage: 'url(' + item.businessImage + ')'}">
             <div class="masker" style="background-color: rgba(0, 0, 0, .3);">
@@ -36,7 +36,7 @@
     </mt-loadmore>
 
     <mt-loadmore v-if="showContent002" :top-method="loadDishTop" :bottom-method="loadDishBottom" :bottom-all-loaded="DishAllLoaded" ref="loadDishMore">
-      <ul v-for="item in dishImageList" class="weui-media-box weui-media-box_appmsg">
+      <ul v-for="item in dishImageList" class="weui-media-box weui-media-box_appmsg" @click="GoDishesDetail(item)">
         <div class="weui-media-box__hd" v-if="item.dishRecImage"  @click="GoDishesDetail(item)">
           <img class="weui-media-box__thumb" :src="item.dishRecImage" alt="">
         </div>
@@ -217,8 +217,11 @@
         this.showContent001 = false
         this.showContent002 = true
       },
+      GoBusinessDetail (item) {
+        this.$router.push({name: 'business', params: { businessId: item.businessId }})
+      },
       GoDishesDetail (item) {
-        this.$router.push({name: 'dishesDetail'})
+        this.$router.push({name: 'dishesDetail', params: {'dishId': item.dishId}})
       }
     }
   }

@@ -16,15 +16,15 @@
     <grid>
       <grid-item link="subpage/collect">
         <img src="../../assets/images/collection.png" alt="">
-        <p>我的收藏</p>
+        <p style="color: #676767;margin-top: 3px;">我的收藏</p>
       </grid-item>
       <grid-item >
         <img src="../../assets/images/vip.png" alt="">
-        <p>我的会员</p>
+        <p style="color: #676767;">我的会员</p>
       </grid-item>
       <grid-item >
         <img src="../../assets/images/release.png" alt="">
-        <p>我的发布</p>
+        <p style="color: #676767;">我的发布</p>
       </grid-item>
     </grid>
     <group>
