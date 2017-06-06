@@ -30,6 +30,7 @@
 
 <script>
   import { Swiper, SwiperItem, Divider } from 'vux'
+  import { Indicator } from 'mint-ui'
   import { mapState } from 'vuex'
   import avatal2 from '../../../assets/img/ava.png'
   import like from '../../../assets/img/user-icon.png'
@@ -81,9 +82,14 @@
     },
     methods: {
       get () {
+        Indicator.open({
+          text: '加载中...',
+          spinnerType: 'triple-bounce'
+        })
         this.$store.dispatch('getArticle', {
           uri: '/get?articleId=' + this.articleId
         }).then(() => {
+          Indicator.close()
           console.info(this.$store.getters.getArticle)
           let data = this.$store.getters.getArticle
           if (data.code !== -1) {

@@ -129,7 +129,7 @@
       getBusiness () {
         Indicator.open({
           text: '加载中...',
-          spinnerType: 'fading-circle'
+          spinnerType: 'triple-bounce'
         })
         this.$store.dispatch('getTopBusinesss', {params: {
           pageNum: 1,
@@ -147,7 +147,7 @@
       getDishes () {
         Indicator.open({
           text: '加载中...',
-          spinnerType: 'fading-circle'
+          spinnerType: 'triple-bounce'
         })
         this.$store.dispatch('getDishList', {params: {
           pageNum: 1,
@@ -173,7 +173,7 @@
         // 获取数据
         Indicator.open({
           text: '加载中...',
-          spinnerType: 'fading-circle'
+          spinnerType: 'triple-bounce'
         })
         this.$store.dispatch('getTopBusinesss', {params: {
           pageNum: this.BusinessCurrent,
@@ -203,7 +203,7 @@
         // 获取数据
         Indicator.open({
           text: '加载中...',
-          spinnerType: 'fading-circle'
+          spinnerType: 'triple-bounce'
         })
         this.$store.dispatch('getDishList', {params: {
           pageNum: this.DishCurrent,

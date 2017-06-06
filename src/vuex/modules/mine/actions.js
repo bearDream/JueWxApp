@@ -23,7 +23,7 @@ export default {
   /**
    * 修改数据
    */
-  putMine ({commit}, {uri, data}) {
-    return new Model().PUT({uri, data})
+  putMine ({commit}, {data}) {
+    return new Model().PUT({data})
   }
 }

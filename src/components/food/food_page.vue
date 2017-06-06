@@ -77,7 +77,7 @@
       gets () {
         Indicator.open({
           text: '加载中...',
-          spinnerType: 'fading-circle'
+          spinnerType: 'triple-bounce'
         })
         this.$store.dispatch('getArticles', {
           params: {
@@ -126,7 +126,7 @@
         this.current++
         Indicator.open({
           text: '加载中...',
-          spinnerType: 'fading-circle'
+          spinnerType: 'triple-bounce'
         })
         this.$store.dispatch('getArticles', {
           params: {
