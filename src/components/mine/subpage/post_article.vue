@@ -1,198 +1,213 @@
 <template>
   <div>
-    <x-header v-on:click="$router.back()">发布文章</x-header>
-    <Upload
-      ref="upload"
-      :show-upload-list="false"
-      :default-file-list="defaultList"
-      :on-success="handleSuccess"
-      :format="['jpg','jpeg','png']"
-      :max-size="2048"
-      :on-format-error="handleFormatError"
-      :on-exceeded-size="handleMaxSize"
-      :before-upload="handleBeforeUpload"
-      multiple
-      type="drag"
-      action="//jsonplaceholder.typicode.com/posts/"
-      style="display: inline-block;width:58px;">
-      <div style="width: 58px;height:58px;line-height: 58px;">
-        <Icon type="camera" size="20"></Icon>
-      </div>
-    </Upload>
-    <div style="padding: 20px">
-      <div class="coverparent" >
-        <form action="" style="display: none">
-          <input type="file"  accept="image/*" v-on:change="upimgfile" id="imgfile" >
-        </form>
-        <label class="cover" for="imgfile" >
-          +添加封面
+    <x-header v-on:click="$router.back()">食话食说</x-header>
+    <div>
+      <group title="">
+        <x-input title="标题" placeholder="快起一个文艺的标题吧" v-model="title"  :show-clear="true" @on-blur="onTitleBlur" placeholder-align="center"></x-input>
+        <x-textarea :max="200" name="description" v-model="content"   placeholder="分享有趣的食话食说" @on-blur="onContentBlur"></x-textarea>
+      </group>
+      <!-- 封面图回显照片区域 -->
+      <Upload :action="action" :on-success="handleCoverSuccess"
+              v-if="showCoverUpload"
+              :format="['jpg','jpeg','png']"
+              :max-size="2048"
+              :on-format-error="handleFormatError"
+              :on-exceeded-size="handleMaxSize"
+              :before-upload="handleBeforeUpload">
+        <label class="cover">
+          <p>+添加封面</p>
         </label>
-        <label class="changeimg" for="imgfile">没选好换一张~</label>
+      </Upload>
+      <div style="padding: 5px 20px 5px 20px;" v-else>
+        <img style="width:100%;height: 50%;" :src="coverImage">
       </div>
-      <input class="title" style="display: block" placeholder="标题...">
-      <div class="upimglabelparent">
-        <form action="" style="display: none">
-          <input type="file"  accept="image/*" v-on:change="upimgs" id="upimgs" >
-        </form>
-        <label class="upimglabel" for="upimgs" >
-          +上传图片-
-        </label>
+        <!-- iView的upload上传组件 -->
+      <divider>上传你想分享的图片</divider>
+      <div class="upload">
+        <div class="demo-upload-list" v-for="item in uploadList">
+          <template v-if="item.status === 'finished'">
+            <img :src="item.url">
+            <div class="demo-upload-list-cover">
+              <Icon type="ios-eye-outline" @click.native="handleView(item.name)"></Icon>
+              <Icon type="ios-trash-outline" @click.native="handleRemove(item)"></Icon>
+            </div>
+          </template>
+          <template v-else>
+            <Progress v-if="item.showProgress" :percent="item.percentage" hide-info></Progress>
+          </template>
+        </div>
+        <Upload
+          ref="recUpload"
+          :show-upload-list="false"
+          :default-file-list="defaultList"
+          :on-success="handleSuccess"
+          :format="['jpg','jpeg','png']"
+          :max-size="2048"
+          :on-format-error="handleFormatError"
+          :on-exceeded-size="handleMaxSize"
+          :before-upload="handleBeforeUpload"
+          multiple
+          type="drag"
+          :action="action"
+          style="display: inline-block;width:58px;">
+          <div style="width: 58px;height:58px;line-height: 58px;">
+            <Icon type="camera" size="20"></Icon>
+          </div>
+        </Upload>
       </div>
+      <x-button type="primary" :disabled="can_post" :show-loading="submieLoading" @click.native="submit()">发表</x-button>
+      <!-- 上传后的图片地址 -->
+      <input v-show="false" value="" v-model="recImage"/>
+      <input v-show="false" value="" v-model="coverImage"/>
     </div>
   </div>
 </template>
 <script>
-  import { XHeader } from 'vux'
-  import { Upload, Icon } from 'iview'
-  import avatar from '../../../assets/img/avatar.jpg'
+  import {Indicator} from 'mint-ui'
+  import { XHeader, Divider, XInput, XTextarea, Group, XButton, XImg } from 'vux'
+  import consts from '../../../utils/consts'
+  import axios from 'axios'
+
   export default {
     components: {
       XHeader,
-      Upload,
-      Icon
+      Divider,
+      XInput,
+      XTextarea,
+      Group,
+      XButton,
+      XImg
     },
     data () {
       return {
-        defaultList: [
-          {
-            'name': 'a42bdcc1178e62b4694c830f028db5c0',
-            'url': avatar
-          },
-          {
-            'name': 'bc7521e033abdd1e92222d733590f104',
-            'url': avatar
-          }
-        ],
+        submieLoading: false,
+        showCoverUpload: true,
+        can_post: true,
+        content: '',
+        recImage: '',
+        coverImage: '',
+        title: '',
+        action: '',
+        defaultList: [],
         imgName: '',
         visible: false,
         uploadList: []
       }
     },
     mounted () {
-      this.uploadList = this.$refs.upload.fileList
+      this.uploadList = this.$refs.recUpload.fileList
+      let param = '?' + 'type=' + 'article'
+      this.$set(this, 'action', consts.UPLOAD_URL + '/singleUpload' + param)
     },
     methods: {
-      upimgfile () {
-        var fi = document.getElementById('imgfile').files[0]
-        var cover = document.getElementsByClassName('cover')[0]
-        var coverparent = document.getElementsByClassName('coverparent')[0]
-        var changeimg = document.getElementsByClassName('changeimg')[0]
-        var title = document.getElementsByClassName('title')[0]
-        if (fi) {
-          var reader = new FileReader()
-          reader.readAsDataURL(fi)
-          reader.onload = function (e) {
-            coverparent.style.height = '180px'
-            coverparent.style.backgroundImage = 'url(' + this.result + ')'
-            cover.style.display = 'none'
-            changeimg.style.display = 'block'
-            title.style.top = '260px'
-          }
-        }
-      },
-      upimgs () {
-        var upimglabel = document.getElementsByClassName('upimglabel')[0]
-        var ui = document.getElementById('upimgs').files[0]
-        if (ui) {
-          var reader = new FileReader()
-          reader.readAsDataURL(ui)
-          reader.onload = function (e) {
-            var img = document.createElement('img')
-            img.style.width = '100px'
-            img.src = this.result
-            upimglabel.parentNode.appendChild(img)
-          }
-        }
-      },
       handleView (name) {
         this.imgName = name
         this.visible = true
       },
       handleRemove (file) {
         // 从 upload 实例删除数据
-        const fileList = this.$refs.upload.fileList
-        this.$refs.upload.fileList.splice(fileList.indexOf(file), 1)
+        const fileList = this.$refs.recUpload.fileList
+        this.$refs.recUpload.fileList.splice(fileList.indexOf(file), 1)
       },
       handleSuccess (res, file) {
-        // 因为上传过程为实例，这里模拟添加 url
-        file.url = 'https://o5wwk8baw.qnssl.com/7eb99afb9d5f317c912f08b5212fd69a/avatar'
-        file.name = '7eb99afb9d5f317c912f08b5212fd69a'
+        if (res.code === -1) {
+          this.$vux.toast.show({
+            text: '上传失败'
+          })
+        } else {
+          file.url = res.data
+          file.name = ''
+          // 拼接方形图片url地址
+          this.$set(this, 'recImage', file.url + ',' + this.recImage)
+          console.info(this.recImage)
+          this.checkFiled()
+        }
+      },
+      handleCoverSuccess (res, file) {
+        if (res.code === -1) {
+          this.$vux.toast.show({
+            text: '上传失败'
+          })
+        } else {
+          file.url = res.data
+          file.name = ''
+          // 设置封面图片url地址
+          this.$set(this, 'coverImage', file.url)
+          console.info(this.coverImage)
+          // 设置upload组件不显示
+          // 将img显示出来并把url赋值给他
+          this.showCoverUpload = false
+          this.checkFiled()
+        }
       },
       handleFormatError (file) {
-        this.$Notice.warning({
-          title: '文件格式不正确',
-          desc: '文件 ' + file.name + ' 格式不正确，请上传 jpg 或 png 格式的图片。'
+        this.$vux.toast.show({
+          text: '文件格式不正确，请上传 jpg 或 png 格式的图片'
         })
       },
       handleMaxSize (file) {
-        this.$Notice.warning({
-          title: '超出文件大小限制',
-          desc: '文件 ' + file.name + ' 太大，不能超过 2M。'
+        this.$vux.toast.show({
+          text: '超出文件大小限制，不能超过 2M'
         })
       },
       handleBeforeUpload () {
         const check = this.uploadList.length < 5
         if (!check) {
-          this.$Notice.warning({
-            title: '最多只能上传 5 张图片。'
+          this.$vux.toast.show({
+            text: '上传失败'
           })
         }
         return check
+      },
+      onTitleBlur () {
+        this.checkFiled()
+        console.info('blur')
+      },
+      onContentBlur () {
+        this.checkFiled()
+        console.info('contentBlur')
+      },
+      checkFiled () {
+        // 校验字段是否都填写
+        if (this.title !== '' && this.content !== '' && this.recImage !== '' && this.coverImage !== '') {
+          this.can_post = false
+        } else {
+          this.can_post = true
+        }
+      },
+      submit () {
+        // 将recImage的最后一个逗号截取
+        this.$set(this, 'recImage', this.recImage.substring(0, this.recImage.length - 1))
+        console.info(this.recImage)
+        let data = {
+          title: this.title,
+          content: this.content,
+          recImage: this.recImage,
+          coverImage: this.coverImage
+        }
+        // 显示loading弹层和按钮的loading动画
+        Indicator.open({
+          text: '小蕨努力上传中...',
+          spinnerType: 'snake'
+        })
+        this.submieLoading = true
+        // 发送请求提交数据
+        axios.post(consts.API_URL + 'article', data).then(res => {
+          if (res.code !== -1) {
+            // 上传成功，关闭该页面
+            this.$router.go(-1)
+          } else {
+            // 上传失败，不关闭该页面
+            this.$vux.toast.text(res.msg, 'middle')
+          }
+          this.submieLoading = false
+          Indicator.close()
+        })
       }
     }
   }
 </script>
 <style>
-  .coverparent{
-    width: 100%;
-    height: 100px;
-  }
-  .cover {
-    display: block;
-    height: 100px;
-    border: 2px dashed #c9c9c9;
-    color: #c9c9c9;
-    font-size: 20px;
-    text-align: center;
-    line-height: 90px;
-  }
-  .changeimg{
-    display: block;
-    font-size: 15px;
-    padding: 3px 10px 3px;
-    color: #fff;
-    border-radius: 2px;
-    position: fixed;
-    background-color: rgba(0,0,0,.2);
-    right:20px;
-    top: 220px;
-    display: none;
-  }
-  .title{
-    /*position: absolute;*/
-    color: #7d7e83;
-    font-size: 25px;
-    margin-right: 0;
-    margin-top:20px;
-    padding-top: 10px;
-    padding-bottom: 30px;
-    border:none;
-    border-bottom: 1px solid #c9c9c9;
-    margin-bottom: 30px;
-  }
-  .upimglabelparent{
-    width: 100%;
-  }
-  .upimglabel{
-    display: inline-block;
-    width:100px;
-    height: 100px;
-    border: 2px dashed #c9c9c9;
-    color: #c9c9c9;
-    font-size: 16px;
-    text-align: center;
-    line-height: 90px;
-  }
   .demo-upload-list{
     display: inline-block;
     width: 60px;
@@ -228,5 +243,28 @@
     font-size: 20px;
     cursor: pointer;
     margin: 0 2px;
+  }
+</style>
+<style>
+  .upload{
+    margin: 10px 10px 10px 10px;
+  }
+  .cover{
+    display: block;
+    margin: 20px;
+    width: 90%;
+    height: 100px;
+    position: relative;
+    border: 2px dashed #c9c9c9;
+    z-index: 2;
+  }
+  .cover p{
+    color: #c9c9c9;
+    font-size: 20px;
+    text-align: center;
+    position: absolute;
+    top:30px;
+    left: 35%;
+    z-index: 0;
   }
 </style>

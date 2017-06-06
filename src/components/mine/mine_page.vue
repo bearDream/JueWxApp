@@ -29,7 +29,7 @@
     </grid>
     <group>
       <cell title='设置'  link="subpage/site"  is-link></cell>
-      <cell title='发布文章'  link="subpage/post_article"  is-link></cell>
+      <cell title='分享食话食说'  link="subpage/post_article"  is-link></cell>
       <cell title='每日签到' link="subpage/check" is-link></cell>
       <cell title='关于我们' link="subpage/about" is-link></cell>
     </group>
