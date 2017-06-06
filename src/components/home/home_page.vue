@@ -39,19 +39,21 @@
   <!--随机来几个菜-->
   <div>
     <x-dialog hide-on-blur  :dialog-style="{'max-width': '100%',overflow: 'visible', width: '90%', height: '50%', 'background-color': 'transparent'}" v-model="showHideOnBlur"  >
-      <div class="img-box" @touchmove='rotation' @touchstart='touchstart' @touchend='touchend' id="Rotation" >
-        <img src="../../assets/img/flow.png" style="position: absolute;width: 70%;top: -60px;left: 40px;z-index: 10">
-        <div>
-          <div class="businesstitle" v-if="dishname1">{{list3[0].dishName}}</div>
-          <img :src="list3[0].dishImage" class="l_mid_r l">
-        </div>
-        <div>
-          <div class="businesstitle" v-if="dishname3">{{list3[1].dishName}}</div>
-          <img :src="list3[1].dishImage" class="l_mid_r r">
-        </div>
-        <div>
-          <div class="businesstitle" v-if="dishname2">{{list3[2].dishName}}</div>
-          <img :src="list3[2].dishImage" class="l_mid_r mid">
+      <div class="img-box"   id="Rotation" >
+        <div style="width: 250px;height: 200px;" @touchstart='touchstart' @touchend='touchend'>
+          <img src="../../assets/img/flow.png" style="position: absolute;width: 70%;top: -60px;left: 40px;z-index: 10">
+          <div>
+            <div class="businesstitle" v-if="dishname1">{{list3[0].dishName}}</div>
+            <img :src="list3[0].dishImage" class="l_mid_r l">
+          </div>
+          <div>
+            <div class="businesstitle" v-if="dishname3">{{list3[1].dishName}}</div>
+            <img :src="list3[1].dishImage" class="l_mid_r r">
+          </div>
+          <div>
+            <div class="businesstitle" v-if="dishname2">{{list3[2].dishName}}</div>
+            <img :src="list3[2].dishImage" class="l_mid_r mid">
+          </div>
         </div>
         <div class="onlyeat">
           <x-button @click="Refresh" mini style="background-color: #E3E3E3;" >不想吃换一批</x-button>
@@ -99,7 +101,7 @@
     created (i) {
       this.i += 1
       console.log(i)
-      this.gets()
+//      this.gets()
     },
     computed: mapState([
       'home'
@@ -179,19 +181,6 @@
             this.$set(this, 'list2', this.$store.getters.getHomes.data.page.list)
           }
         })
-      },
-      rotation: function (e) {
-//        console.log('*****' + e.changedTouches[0].clientX)
-//        console.log('xxxxx' + e.changedTouches[0].clientX)
-//        let ml = e.changedTouches[0].clientX
-//        var img = document.getElementsByClassName('mid')[0]
-//        var left = img.clientLeft
-//        img.setAttribute(left, e.changedTouches[0].clientX)
-//        console.log(document.getElementsByClassName('mid')[0].offsetLeft)
-//        document.getElementsByClassName('mid')[0].style.offsetLeft += e.changedTouches[0].clientX - 100 + 'px'
-//        this.className('mid').style.left = e.changedTouches[0].clientX - this.className('mid').style.left
-//        var start = e.changedTouches[0].clientX
-//        var mid = document.getElementsByClassName('mid')[0]
       },
       touchend (e) {
         end = e.changedTouches[0].clientX

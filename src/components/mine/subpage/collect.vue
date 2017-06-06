@@ -72,30 +72,20 @@
           <swiper :list="list02" :min-moving-distance="20" auto="" style="height:200px;margin: 15px 15px 0 15px ">
           </swiper>
         </scroller>
-
         <!--11111111111111111-->
         <div class="article" v-for="item in list3">
           <div class="takeSorting">
             <div class="sortingl" :style="{backgroundImage: 'url(' + item.articleUserAvatar + ')'}"></div>
             <div class="sortingr">
               <span class="T-title">{{item.articleUsername}}</span>
-              <br>
               <span class="T-type">{{item.articleContent}}</span>
-              <!--222222222222222222-->
-                <!--<div class="address">-->
-                  <!--<a href="">-->
-                    <!--<div class="address-img" :style="{backgroundImage: 'url(' + item.img1 + ')'}"></div>-->
-                    <!--<p class="add-name">{{item.name}}</p>-->
-                    <!--<p class="add-add1">{{item.address1}}</p>-->
-                  <!--</a>-->
-                <!--</div>-->
+              <div  class="comment" >
                 <p class="add-add2">{{item.articleAddTime}}</p>
-                <!--<span class="add-add3">浏览 </span> <span class="add-add4">{{item.look}}</span>-->
-                <!--3333333333333333333-->
-                <div  class="comment" >
+                <div style="display:inline-block;float: right;margin-right: 15px">
                   <img :src="comentb" class="comment-img">
                   <a class="comment-text" @click="showcomment (item)">{{item.comment}}</a>
                 </div>
+              </div>
             </div>
           </div>
         </div>
@@ -367,25 +357,16 @@
     width:100%;
   }
   .comment{
-    margin-top: -34px;
-    margin-left: 70px;
   }
   .comment-img{
     width: 25Px;
-    position: absolute;
     right: 45px;
-    top: 255px;
     background-size: cover;
     display: inline-block;
   }
   .comment-text{
-    /*border: 1px solid #878787;*/
     border-radius: 14px;
-    padding: 2px 7px 2px 48px;
-    position: absolute;
-    right: 10px;
     color: #5b5b5d;
-    top:250px;
     font-size: 18px;
   }
   .add-add4{
@@ -403,11 +384,8 @@
     left: 0;
   }
   .add-add2{
+    display: inline-block;
     color: #878787;
-    margin-top: 5px;
-    position: absolute;
-    top:240px;
-    left: 0;
   }
   .add-add1{
     margin-left: 73px;
@@ -548,7 +526,7 @@
   }
   .takeSorting{
     width: 100%;
-    height:300px;
+    min-height:150px;
     margin-bottom: 10px;
     /*border-bottom: 1px solid #dddbdb;*/
   }
@@ -586,8 +564,9 @@
     margin-left: 60px;
   }
   .T-type{
-    margin: -2px;
     font-size: 15px;
+    display: inline-block;
+    margin-top: 20px;
   }
   .sortingl p{
     display: inline-block;
