@@ -56,8 +56,8 @@
           </div>
         </div>
         <div class="onlyeat">
-          <x-button @click="Refresh" mini style="background-color: #E3E3E3;" >不想吃换一批</x-button>
-          <x-button @click="GoOrder" mini style="background-color: #E3E3E3;"  >就是它们了</x-button>
+          <x-button  @click.native="Refresh" mini style="background-color: #E3E3E3;" >不想吃换一批</x-button>
+          <x-button @click.native="GoOrder" mini style="background-color: #E3E3E3;"  >就是它们了</x-button>
         </div>
         <!--<div class="onlyeat" @click="Refresh">不想吃换一批</div>-->
         <!--<div class="onlyeat" @click="Refresh">sdasdasdasdasdasdas</div>-->

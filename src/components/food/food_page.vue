@@ -6,7 +6,9 @@
       <divider style="margin-top:12%;font-size:16px;background-color: #fff;">看看大家都在吃什么</divider>
         <div v-for="item in list">
           <div  style="background-color: #fff;padding:2% 2%;overflow: hidden;height: 200px;position: relative;">
-            <div class="avatar" :style="{backgroundImage: 'url(' + item.headImgUrl + ')'}"></div>
+            <div class="avatar">
+              <img class="avatarimg" :src="item.headImgUrl" >
+            </div>
             <p class="f-name">{{item.username}}</p>
             <p class="f-time">{{item.addTime}}</p>
             <p class="f-title">{{item.title}}</p>
@@ -69,7 +71,7 @@
       }
     },
     mounted () {
-      this.gets()
+//      this.gets()
     },
     methods: {
       gets () {
@@ -166,8 +168,11 @@
   .avatar{
     display: inline-block;
     width:15%;
+    overflow: hidden;
+  }
+  .avatar img.avatarimg{
+    width: 100%;
     border-radius: 50%;
-    padding-bottom:15%;
   }
   .f-name{
     position: absolute;
