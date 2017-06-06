@@ -101,7 +101,7 @@
     created (i) {
       this.i += 1
       console.log(i)
-//      this.gets()
+      this.gets()
     },
     computed: mapState([
       'home'
