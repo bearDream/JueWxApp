@@ -243,6 +243,10 @@
       },
       payOrder () {
         // 支付成功后发送数据给后台修改订单状态
+        axios.get(consts.API_URL + 'order/payNotify', {})
+          .then(res => {
+
+          })
       },
       count (val) {
         this.subtotal = this.price * val
