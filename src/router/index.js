@@ -40,7 +40,7 @@ const router = new Router({
         requiresAuth: true
       }
     }, {
-      path: '/home/subpage/random:dishBusiness',
+      path: '/home/subpage/random/',
       name: 'random',
       components: {
         'insidePage': resolve => require(['../components/home/subpage/random.vue'], resolve)

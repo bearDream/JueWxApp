@@ -5,7 +5,7 @@
     <mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" topLoadingText="小蕨努力加载中..." ref="loadmore">
       <divider style="margin-top:12%;font-size:16px;background-color: #fff;">看看大家都在吃什么</divider>
         <div v-for="item in list">
-          <div  style="background-color: #fff;padding:2% 2%;overflow: hidden;height: 200px;position: relative;">
+          <div  style="background-color: #fff;padding:2% 2%;overflow: hidden;height: 200px;position: relative;" v-on:click="GoArticle(item)">
             <div class="avatar">
               <img class="avatarimg" :src="item.headImgUrl" >
             </div>
@@ -159,6 +159,9 @@
         setTimeout(function () {
           _this.$broadcast('pulldown:reset', uuid)
         }, 2000)
+      },
+      GoArticle (item) {
+        this.$router.push({name: 'article', params: {articleId: item.articleId}})
       }
     }
   }

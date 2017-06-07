@@ -38,8 +38,8 @@
 <script>
   import { Group, XButton, Icon, XNumber, Panel } from 'vux'
   import { Indicator, Toast } from 'mint-ui'
-//  import axios from 'axios'
-//  import consts from '@/utils/consts'
+  import axios from 'axios'
+  import consts from '@/utils/consts'
 
   export default {
     components: {
@@ -198,7 +198,6 @@
           this.orderButtonLoading = false
           let data = this.$store.getters.getSubmitOrder
           if (data.code !== -1) {
-            console.info(data.data)
             this.$set(this, 'wxJsPay', data.data)
             this.onBridge()
           } else {
@@ -207,49 +206,43 @@
         })
       },
       onBridge () {
-        this.$wechat.chooseWXPay({
-          timestamp: this.wxJsPay.timeStamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
-          nonceStr: this.wxJsPay.nonceStr, // 支付签名随机串，不长于 32 位
-          package: this.wxJsPay.package, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
-          signType: this.wxJsPay.signType, // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
-          paySign: this.wxJsPay.paySign, // 支付签名
-          success: function (res) {
-            // 支付成功后的回调函数
-            Toast('支付成功')
-          },
-          cancel: function (res) {
-            Toast('用户取消支付')
-          }
-        })
-//        let url = location.href.split('#')[0]
-//        axios.get(consts.API_URL + 'wechat/portal/getWxConfig?url=' + url, {})
-//          .then(res => {
-//            let data = res.data
-//            if (data.code === -1) {
-//              Toast('获取微信接口失败')
-//            } else {
-//              this.$wechat.config({
-//                debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-//                appId: data.appId, // 必填，公众号的唯一标识
-//                timestamp: data.timestamp, // 必填，生成签名的时间戳
-//                nonceStr: data.nonceStr, // 必填，生成签名的随机串
-//                signature: data.signature, // 必填，签名，见附录1
-//                jsApiList: ['getLocation'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-//              })
-//              this.$wechat.ready(() => {
-//                this.$wechat.chooseWXPay({
-//                  timestamp: 0, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
-//                  nonceStr: '', // 支付签名随机串，不长于 32 位
-//                  package: '', // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
-//                  signType: '', // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
-//                  paySign: '', // 支付签名
-//                  success: function (res) {
-//                    // 支付成功后的回调函数
-//                  }
-//                })
-//              })
-//            }
-//          })
+        let url = location.href.split('#')[0]
+        axios.get(consts.API_URL + 'wechat/portal/getWxConfig?url=' + url, {})
+          .then(res => {
+            let data = res.data
+            if (data.code === -1) {
+              Toast('获取微信api配置信息失败')
+            } else {
+              data = data.data
+              this.$wechat.config({
+                debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                appId: data.appId, // 必填，公众号的唯一标识
+                timestamp: data.timestamp, // 必填，生成签名的时间戳
+                nonceStr: data.nonceStr, // 必填，生成签名的随机串
+                signature: data.signature, // 必填，签名，见附录1
+                jsApiList: ['chooseWXPay'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+              })
+              this.$wechat.ready(() => {
+                this.$wechat.chooseWXPay({
+                  timestamp: this.wxJsPay.timeStamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
+                  nonceStr: this.wxJsPay.nonceStr, // 支付签名随机串，不长于 32 位
+                  package: this.wxJsPay.package, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
+                  signType: this.wxJsPay.signType, // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
+                  paySign: this.wxJsPay.paySign, // 支付签名
+                  success: function (res) {
+                    // 支付成功后的回调函数
+                    Toast('支付成功')
+                  },
+                  cancel: function (res) {
+                    Toast('用户取消支付')
+                  }
+                })
+              })
+            }
+          })
+      },
+      payOrder () {
+        // 支付成功后发送数据给后台修改订单状态
       },
       count (val) {
         this.subtotal = this.price * val
