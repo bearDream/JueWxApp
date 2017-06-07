@@ -53,7 +53,7 @@
         <div style="width: 60%;height:100px;display: inline-block;float: right">
           <span style="font-size: 20px">{{item.dishName}}</span>
           <span style="font-size: 10px">&nbsp;&nbsp;{{item.typeName}}</span>
-          <p style="font-size: 16px">{{item.dishIntroduction}}</p>
+          <p style="font-size: 16px">{{item.dishDesc}}</p>
         </div>
       </div>
 
@@ -122,8 +122,8 @@
       }
     },
     mounted () {
-//      this.getBusiness()
-//      this.getDishes()
+      this.getBusiness()
+      this.getDishes()
     },
     methods: {
       getBusiness () {

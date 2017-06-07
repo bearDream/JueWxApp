@@ -2,7 +2,7 @@
   <div style="margin-top: -20px"  @touchstart="getY" @touchend="getMore">
       <!--<load-more  v-if="loadmore" tip="正在加载"></load-more>-->
       <!--<JueLoading v-if="jueloading"></JueLoading>-->
-    <mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore">
+    <mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" topLoadingText="小蕨努力加载中..." ref="loadmore">
       <divider style="margin-top:12%;font-size:16px;background-color: #fff;">看看大家都在吃什么</divider>
         <div v-for="item in list">
           <div  style="background-color: #fff;padding:2% 2%;overflow: hidden;height: 200px;position: relative;">
@@ -71,7 +71,7 @@
       }
     },
     mounted () {
-//      this.gets()
+      this.gets()
     },
     methods: {
       gets () {
@@ -222,5 +222,43 @@
     float: left;
     margin-top:1%;
     margin-left:3%;
+  }
+</style>
+<style>
+  .vux-rater {
+    text-align: left;
+    display: inline-block;
+    line-height: normal;
+  }
+  .vux-rater a {
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+    color: #ccc;
+  }
+  .vux-rater a:last-child {
+    padding-right: 2px!important;
+    margin-right: 0px!important;
+  }
+  .vux-rater a:hover {
+    color: #ffdd99;
+  }
+  .vux-rater a.is-disabled {
+    color: #ccc !important;
+    cursor: not-allowed;
+  }
+  .vux-rater-box {
+    position: relative;
+  }
+  .vux-rater-inner {
+    position: relative;
+    display: inline-block;
+  }
+  .vux-rater-outer {
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: inline-block;
+    overflow: hidden;
   }
 </style>

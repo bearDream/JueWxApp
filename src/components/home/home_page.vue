@@ -308,20 +308,31 @@
         this.$router.push({name: 'nutritionDish'})
       },
       GoRandom () {
+        Indicator.open({
+          text: '加载中...',
+          spinnerType: 'triple-bounce'
+        })
         // 获取今天吃啥的数据
         this.$store.dispatch('getRandomDishes', {}).then(() => {
-          console.info('..........')
+          Indicator.close()
           let data = this.$store.getters.getRandomDishes
-          if (data.data.length === 3) {
+          if (data.data.length >= 3) {
             this.$set(this, 'list3', data.data)
             console.info(this.$store.getters.getRandomDishes)
           }
+          this.showHideOnBlur = true
         })
-        this.showHideOnBlur = true
       },
       GoOrder () {
         this.showHideOnBlur = false
-        this.$router.push({name: 'random'})
+        let dishBusinessId = ''
+        console.info(this.list3)
+        for (let i = 0; i < 3; i++) {
+          dishBusinessId = this.list3[i].dishBusinessId + ',' + dishBusinessId
+        }
+        dishBusinessId = dishBusinessId.substring(0, dishBusinessId.length - 1)
+        console.info(dishBusinessId)
+        this.$router.push({name: 'random', params: {dishBusiness: dishBusinessId}})
       },
       GoArticle (item) {
         this.$router.push({name: 'article', params: {articleId: item.articleId}})
