@@ -12,7 +12,7 @@
             <p class="f-name">{{item.username}}</p>
             <p class="f-time">{{item.addTime}}</p>
             <p class="f-title">{{item.title}}</p>
-            <rater v-model="item.data1" slot="value" star="♡"  v-on:click="collect" :max="1" active-color="red" style="position: absolute;top:1%;left:88%;" :font-size="35"></rater>
+            <rater v-model="item.data1" slot="value" star="♡"  v-on:click="collect" :max="1" active-color="red" style="position: absolute;top:1%;left:88%;" :font-size="25"></rater>
             <div class="photo3" v-for="i in item.recImageList" v-if="item.recImageList.length===3">
               <img :src="i">
             </div>

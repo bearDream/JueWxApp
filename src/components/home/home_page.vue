@@ -1,16 +1,22 @@
 <template>
   <div>
   <div>
-    <scroller enable-horizontal-swiping=""  :loading="load" >
-      <!--<search @on-submit="onSubmit" :auto-fixed="false" v-model="value2" @on-focus="onFocus" @on-cancel="onCancel"></search>--> <!--height="260px"-->
-      <swiper :list="list1" :min-moving-distance="20" auto="" style="height: 180px" >
+
+
+      <swiper loop auto style="height: 160px;" >
+        <swiper-item :height=160  v-for="(item, index) in list1" :key="index">
+          <img :src="item.img" style="width: 100%">
+        </swiper-item>
         <div class="theme">方便生活从蕨菜开始</div>
       </swiper>
-      <div class="searchdiv">
-       <input type="text" style="padding-left: 60px;" placeholder="搜索菜品、用户、商家" class="inputsearch">
+
+
+      <div class="searchdiv" >
+       <input  type="text" @focus="Gosearch" placeholder="搜索菜品、用户、商家" class="inputsearch" >
        <div class="searchicon"></div>
       </div>
-    </scroller>
+
+
     <grid>
       <grid-item>
         <div class="icon" v-on:click="GoTakePage" style="background-position: -69px -3px;"></div><p>在线取号</p>
@@ -65,17 +71,18 @@
       <div @click="showHideOnBlur=false"></div>
     </x-dialog>
   </div>
-  <div style="height: 50px;width: 100%;"></div>
   </div>
 </template>
 
 <script>
   let start = 0
   let end = 0
-  import { Divider, Grid, GridItem, Masker, XInput, Scroller, Swiper, Search, Icon, Alert, XDialog, XButton, Group, TransferDomDirective as TransferDom } from 'vux'
+  import { Divider, SwiperItem, Grid, GridItem, Masker, XInput, Scroller, Swiper, Search, Icon, Alert, XDialog, XButton, Group, TransferDomDirective as TransferDom } from 'vux'
   import { mapState } from 'vuex'
   import { Indicator } from 'mint-ui'
   import banner from '../../assets/images/bg/home1.png'
+  import banner1 from '../../assets/images/bg/img12.png'
+  import banner2 from '../../assets/images/bg/img13.jpg'
   import randomdish1 from '../../assets/img/busi1.jpg'
   import randomdish2 from '../../assets/img/busi2.jpg'
   import randomdish3 from '../../assets/img/busi3.jpg'
@@ -84,6 +91,7 @@
       TransferDom
     },
     components: {
+      SwiperItem,
       Masker,
       XInput,
       Scroller,
@@ -101,7 +109,7 @@
     created (i) {
       this.i += 1
       console.log(i)
-      this.gets()
+//      this.gets()
     },
     computed: mapState([
       'home'
@@ -120,10 +128,10 @@
           img: banner
         }, {
           url: 'http://mp.weixin.qq.com/s?__biz=MzAxNjU0MDYxMg==&mid=400160890&idx=1&sn=29ef02af25793a11a3f6aec92bfb46c1&scene=19#wechat_redirect',
-          img: banner
+          img: banner1
         }, {
           url: 'http://mp.weixin.qq.com/s?__biz=MzAxNjU0MDYxMg==&mid=400094682&idx=1&sn=8231a2053b772b2108784fccc254d28c&scene=19#wechat_redirect',
-          img: banner
+          img: banner2
         }],
         list2: [{
           articleId: 1,
@@ -161,6 +169,9 @@
       }
     },
     methods: {
+      Gosearch () {
+        this.$router.push({name: 'search'})
+      },
       Refresh (item) {
         this.item = false
         this.showHideOnBlur = false
@@ -280,6 +291,9 @@
 </script>
 
 <style scoped lang="less">
+  .vux-swiper{
+    height: 160px!important;
+  }
   .icon{
     display:inline-block;
     width:50px;
@@ -296,8 +310,8 @@
     color:#fff;
     font-size:22px;
     z-index:10;
-    position:fixed;
-    top:46%;
+    position:absolute;
+    top:50%;
     left:20%;
     text-align:center;
   }
@@ -349,12 +363,13 @@
     opacity: .6;
     position: absolute;
     width: 93%;
-    right: 2%;
+    right: 4%;
     border-radius: 15px;
     border: none;
-    padding: 5px;
-    height: 2.4em;
+    padding: 4px;
+    height: 2.2em;
     font-size: 14px;
+    padding-left: 60px;
   }
   .searchdiv{
     position: absolute;
@@ -364,9 +379,12 @@
     top: 30px;
   }
   .searchicon{
-    position:absolute;left: 40px;width:30px;height:30px;
-    top:3px;
-    background: url("../../assets/img/icon_search.png")no-repeat -48px -108px;
+    position:absolute;
+    left: 40px;
+    width:20px;
+    height:20px;
+    top:7px;
+    background: url("../../assets/img/icon_search.png")
   }
   .img-box{
     position: relative;
@@ -384,7 +402,7 @@
     width: 140px;
     height: 140px;
     top: 60px;
-    left: 24%;
+    left: 27%;
     z-index: 10;
     transition: all 0.4s;
     transform: scale(1.1);
@@ -394,7 +412,7 @@
     width: 140px;
     height: 140px;
     top: 60px;
-    left: 5%;
+    left: 8%;
     opacity: .5;
     transition: all 0.4s;
     transform: scale(0.8);

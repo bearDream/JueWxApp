@@ -22,6 +22,15 @@ const router = new Router({
         requiresAuth: false
       }
     }, {
+      path: '/home/search',
+      name: 'search',
+      components: {
+        'insidePage': resolve => require(['../components/home/subpage/search.vue'], resolve)
+      },
+      meta: {
+        requiresAuth: true
+      }
+    }, {
       path: '/home/takepage',
       name: 'takepage',
       components: {

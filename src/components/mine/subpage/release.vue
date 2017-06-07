@@ -7,9 +7,9 @@
         <p style="position:absolute;font-size:24px;top:58%;left:5%;">{{item.name}}</p>
         <p style="position:relative;">
           <i class="re-address"></i>
-          <i style="position:absolute;font-size:14px;font-weight:bold;left:13%;margin-top:39%">{{item.address}}</i>
+          <i style="position:absolute;font-size:14px;font-weight:bold;left:13%;margin-top:43%">{{item.address}}</i>
        </p>
-        <div style="position:absolute;width:50%;min-height:80px;top:65%;left:62%">
+        <div style="position:absolute;width:60%;min-height:80px;top:65%;left:55%">
           <ul class="me_show">
             <li>发布<p style="
     right: 40%;text-align:center">{{release}}</p></li>
@@ -23,11 +23,11 @@
       </div>
     </blur>
     <div class="body"style="width: 100%;">我的发布</div>
-    <div class="foture" v-for="item in list1" v-on:click="GoArticle">
-      <img :src="item.Nordic">
+    <div class="foture" v-for="item in list1">
+      <img :src="item.Nordic"  v-on:click="GoArticle">
       <p style="text-align: left">{{ item.content }}</p>
-      <i style="background-position: -5px -5px;" v-show="item.bad" @click="addgoods(item,item.sum)"></i>
-      <i style="background-position: -45px -4px;" v-show="item.good" @click="addgoods(item,item.sum)"></i>
+      <i style="background-position: 0 -1px;" v-show="item.bad" @click="addgoods(item,item.sum)"></i>
+      <i style="background-position: -30px -0px;" v-show="item.good" @click="addgoods(item,item.sum)"></i>
        <a>{{item.sumScore}}</a>
     </div>
   </div>
@@ -83,7 +83,7 @@
         }, {
           Nordic: img5,
           content: '藏在转交的咖啡店',
-          sumScore: 123,
+          sumScore: 12,
           bad: true,
           sum: 0
         }],
@@ -134,19 +134,19 @@
   }
   .re-address{
     position:absolute;
-    margin-top:36%;
+    margin-top:40%;
     left:5%;
     display: inline-block;
     width:25px;
     height:35px;
-    background: url("../../../assets/img/re-icon.png") no-repeat -82px 4px;
+    background: url("../../../assets/img/re-icon.png") no-repeat -62px 4px;
   }
   .me_show{
     display: flex;
     width: 100%;
     height:40%;
     bottom: 5px;
-    color:#000;
+    color:#7d7e83;
   }
   .me_show li{
     float: left;
@@ -179,7 +179,7 @@
     padding-right:5%;
     position: absolute;
     top: 96%;
-    right: 15%;
+    right: 10%;
     width:30px;
     height:25px;
     background-image: url("../../../assets/img/re-icon.png");

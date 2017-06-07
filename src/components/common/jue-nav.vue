@@ -40,24 +40,24 @@
     background:url('../../assets/img/icon-gray.png') no-repeat -6px -86px;
   }
   .icon-finds{
-    background:url('../../assets/img/icon-gray.png') no-repeat -50px -86px;
+    background:url('../../assets/img/icon-gray.png') no-repeat -50px -88px;
   }
   .icon-food{
     background:url('../../assets/img/icon-gray.png') no-repeat -95px -87px;
   }
   .icon-mine{
-    background:url('../../assets/img/icon-gray.png') no-repeat -141px -86px;
+    background:url('../../assets/img/icon-gray.png') no-repeat -146px -82px;
   }
   #wx-nav nav dl.router-link-active dt.icon-home{
     background: url('../../assets/img/icon-green.png') no-repeat -6px -86px;
   }
   #wx-nav nav dl.router-link-active dt.icon-finds{
-    background: url('../../assets/img/icon-green.png') no-repeat -50px -86px;
+    background: url('../../assets/img/icon-green.png') no-repeat -50px -88px;
   }
   #wx-nav nav dl.router-link-active dt.icon-food{
     background: url('../../assets/img/icon-green.png') no-repeat -95px -87px;
   }
   #wx-nav nav dl.router-link-active dt.icon-mine{
-    background: url('../../assets/img/icon-green.png') no-repeat -141px -86px;
+    background: url('../../assets/img/icon-green.png') no-repeat -146px -82px;
   }
 </style>

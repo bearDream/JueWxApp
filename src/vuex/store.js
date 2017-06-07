@@ -14,6 +14,7 @@ import collection from './modules/collection'
 import evaluate from './modules/evaluate'
 import dish from './modules/dish'
 import article from './modules/article'
+import search from './modules/search'
 
 import actions from './actions'
 Vue.use(Vuex)
@@ -48,6 +49,7 @@ export default new Vuex.Store({
     collection,
     evaluate,
     dish,
-    article
+    article,
+    search
   }
 })
