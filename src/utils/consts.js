@@ -16,6 +16,9 @@ const BASE_URL = ENV === DEV ? 'http://wx.chiprincess.cn/api/mobile' : '/api/mob
 // 接口地址
 const API_URL = BASE_URL
 
+// 文件上传接口
+const UPLOAD_URL = '/api/upload'
+
 // 分页大小
 const PAGE_SIZE = 10
 
@@ -26,5 +29,6 @@ export default {
   BASE_URL,
   API_URL,
   PAGE_SIZE,
-  TITLE
+  TITLE,
+  UPLOAD_URL
 }
