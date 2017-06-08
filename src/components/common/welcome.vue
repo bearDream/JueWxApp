@@ -1,20 +1,42 @@
 <template>
     <div class="welcome" :class="{hide:hide}">
-        <img src="https://sinacloud.net/vue-wechat/images/welcome.jpg" alt="">
+        <img src="../../assets/images/启动页.png" alt="">
     </div>
 </template>
 <script>
-export default {
-  data () {
-    return {
-      hide: false
+  import { Indicator, Toast } from 'mint-ui'
+
+  export default {
+    components: {
+      Indicator,
+      Toast
+    },
+    data () {
+      return {
+        hide: false
+      }
+    },
+    mounted () {
+      this.login()
+    },
+    methods: {
+      login () {
+        Indicator.open({
+          text: '小蕨努力加载中...',
+          spinnerType: 'snake'
+        })
+        this.$store.dispatch('login').then(res => {
+          let data = res.data
+          if (data.code === -1) {
+            Toast(data.msg)
+          } else {
+            this.hide = true
+            Indicator.close()
+            this.$router.replace({name: '首页'})
+          }
+        })
+      }
     }
-  },
-  mounted () {
-    setTimeout(() => {
-      this.hide = true
-    }, 1000)
-  }
 }
 </script>
 <style>

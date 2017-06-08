@@ -22,6 +22,13 @@ const router = new Router({
         requiresAuth: false
       }
     }, {
+      path: '/welcome',
+      name: 'welcome',
+      component: resolve => require(['../components/common/welcome.vue'], resolve),
+      meta: {
+        requiresAuth: false
+      }
+    }, {
       path: '/home/takepage',
       name: 'takepage',
       components: {
@@ -215,6 +222,24 @@ const router = new Router({
       name: 'about',
       components: {
         'insidePage': resolve => require(['../components/mine/subpage/about.vue'], resolve)
+      },
+      meta: {
+        requiresAuth: true
+      }
+    }, {
+      path: '/home/subpage/payResult',
+      name: 'payResult',
+      components: {
+        'insidePage': resolve => require(['../components/common/payResult.vue'], resolve)
+      },
+      meta: {
+        requiresAuth: true
+      }
+    }, {
+      path: '/home/subpage/orderInfo',
+      name: 'orderInfo',
+      components: {
+        'insidePage': resolve => require(['../components/common/orderInfo.vue'], resolve)
       },
       meta: {
         requiresAuth: true

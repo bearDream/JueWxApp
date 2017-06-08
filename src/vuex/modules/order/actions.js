@@ -4,10 +4,21 @@ import Model from '../../../models/order'
 // 订单的所有请求
 export default {
   /**
-   * 获取文章列表
+   * 根据prepayId获取一个订单信息
    */
-  getOrder ({commit}, {params}) {
-    return new Model().GET({params}).then(res => {
+  getOrder ({commit}, {uri}) {
+    return new Model().GET({uri}).then(res => {
+      commit(types.GET_ORDER, {
+        data: res.data
+      })
+    })
+  },
+
+  /**
+   * 根据orderId获取一个订单信息
+   */
+  getOrderInfo ({commit}, {uri}) {
+    return new Model().GET({uri}).then(res => {
       commit(types.GET_ORDER, {
         data: res.data
       })
