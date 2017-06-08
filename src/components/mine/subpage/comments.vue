@@ -14,15 +14,18 @@
           <p class="f-title">{{item.content}}</p>
         </div>
       </div>
+      <input type="text"  v-if="showComment" style="width:100%;height:40px;position: fixed;display: flex;bottom: 50px">
       <div style="height: 50px;width: 100%"></div>
-    <div class="footer" >
-      <div><img :src="reprintb" >&nbsp;&nbsp;转发</div>
-      <div><img :src="commentsb" style="padding-top: 2px">&nbsp;&nbsp;评论</div>
-      <div @click="takegoods (goods, goodimg)">
-        <img :src="goodb" v-if="goodimg === 0" >
-        <img :src="gooda" v-if="goodimg === 1" >
-        &nbsp;&nbsp;赞</div>
-    </div>
+      <div class="footer" >
+        <div><img :src="reprintb" >&nbsp;&nbsp;转发</div>
+        <div @click="show">
+          <img :src="commentsb" style="padding-top: 2px">&nbsp;&nbsp;评论
+        </div>
+        <div @click="takegoods (goods, goodimg)">
+          <img :src="goodb" v-if="goodimg === 0" >
+          <img :src="gooda" v-if="goodimg === 1" >
+          &nbsp;&nbsp;赞</div>
+      </div>
   </div>
 </template>
 <script>
@@ -52,6 +55,8 @@
         reprintb: reprintb,
         goodimg: 1,
         comment: 22, /** 评论个数 */
+        showComment: false,
+        sc: 0,
         goods: 30, /** 点赞个数 */
         list: [{
           headImgUrl: ava, /** 用户头像 */
@@ -109,6 +114,15 @@
         } else if (goodimg > 0) {
           this.goodimg -= 1
           this.goods -= 1
+        }
+      },
+      show () {
+        if (this.sc === 0) {
+          this.showComment = true
+          this.sc++
+        } else if (this.sc === 1) {
+          this.showComment = false
+          this.sc--
         }
       }
     }

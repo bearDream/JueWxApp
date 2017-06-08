@@ -108,8 +108,8 @@
       }
     },
     mounted () {
-      this.getBusiness()
-      this.getDishes()
+//      this.getBusiness()
+//      this.getDishes()
     },
     methods: {
       getBusiness () {

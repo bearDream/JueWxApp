@@ -72,7 +72,7 @@
   let end = 0
   import { Divider, Grid, GridItem, Masker, XInput, Scroller, Swiper, Search, Icon, Alert, XDialog, XButton, Group, TransferDomDirective as TransferDom } from 'vux'
   import { mapState } from 'vuex'
-  import { Indicator } from 'mint-ui'
+//  import { Indicator } from 'mint-ui'
   import banner from '../../assets/images/bg/home1.png'
   import randomdish1 from '../../assets/img/busi1.jpg'
   import randomdish2 from '../../assets/img/busi2.jpg'
@@ -165,21 +165,21 @@
         this.GoRandom()
         console.log('换一批')
       },
-      gets () {
-        Indicator.open({
-          text: '加载中...',
-          spinnerType: 'fading-circle'
-        })
-        this.$store.dispatch('getHomes', {
-          params: {
-          }
-        }).then(() => {
-          Indicator.close()
-          if (this.$store.getters.getHomes.code !== -1) {
-            this.$set(this, 'list2', this.$store.getters.getHomes.data.page.list)
-          }
-        })
-      },
+//      gets () {
+//        Indicator.open({
+//          text: '加载中...',
+//          spinnerType: 'fading-circle'
+//        })
+//        this.$store.dispatch('getHomes', {
+//          params: {
+//          }
+//        }).then(() => {
+//          Indicator.close()
+//          if (this.$store.getters.getHomes.code !== -1) {
+//            this.$set(this, 'list2', this.$store.getters.getHomes.data.page.list)
+//          }
+//        })
+//      },
       rotation: function (e) {
 //        console.log('*****' + e.changedTouches[0].clientX)
 //        console.log('xxxxx' + e.changedTouches[0].clientX)

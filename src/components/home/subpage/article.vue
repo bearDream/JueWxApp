@@ -8,8 +8,8 @@
       <div style="position: relative;border-bottom:1px solid #ccc">
         <div class="a-photo" :style="{backgroundImage:'url(' + list.headImgUrl + ')',borderRadius: '200px'}"></div>
         <p class="a-name">{{list.username}}</p>
-        <i class="a-like" v-show="list.bad" style="background-position:-6px 0;" :style="{backgroundImage:'url(' + list.img + ')'}" @click="addgoods(list,list.sum)"></i>
-        <i class="a-like" v-show="list.goods" style="background-position: -45px 0;" :style="{backgroundImage:'url(' + list.img + ')'}" @click="addgoods(list,list.sum)"></i>
+        <i class="a-like" v-if="list.goods === 0" style="background-position:-6px 0;" :style="{backgroundImage:'url(' + list.img + ')'}" @click="addgoods(list,list.sum)"></i>
+        <i class="a-like" v-if="list.goods !== 0" style="background-position: -45px 0;" :style="{backgroundImage:'url(' + list.img + ')'}" @click="addgoods(list,list.sum)"></i>
       </div>
       <div style="position: relative;border-bottom: 1px solid #ddd;min-height:240px;">
         <p style="font-size:18px;font-weight:bold;margin:2% 5% 0;text-align:left;">{{list.title}}</p>
@@ -56,10 +56,9 @@
         list: {
           headImgUrl: avatal2,
           username: 'Jenny',
-          goods: false,
           img: like,
-          bad: true,
           sum: 0,
+          goods: 0, /** 是否点过赞，0代表没有点过 */
           praise: 0,
           sumScan: 12,
           title: '藏在昆明巷子里的北欧小清新咖啡馆',
@@ -99,15 +98,15 @@
       },
       addgoods (item, sum) {
         if (sum >= 1) {
-          item.goods = false
-          item.bad = true
+          item.goods = 0
           item.sumScore -= 1
           item.sum -= 1
+          item.praise -= 1
         } else {
-          item.goods = true
-          item.bad = false
+          item.goods = 1
           item.sumScore += 1
           item.sum += 1
+          item.praise += 1
         }
       }
     },
