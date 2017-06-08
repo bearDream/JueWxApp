@@ -13,6 +13,8 @@ import randomDishes from './modules/random'
 import collection from './modules/collection'
 import evaluate from './modules/evaluate'
 import dish from './modules/dish'
+import dishbusiness from './modules/dishBusiness'
+import order from './modules/order'
 import article from './modules/article'
 import search from './modules/search'
 
@@ -50,6 +52,8 @@ export default new Vuex.Store({
     evaluate,
     dish,
     article,
+    dishbusiness,
+    order,
     search
   }
 })

@@ -280,6 +280,7 @@
     mounted () {
       console.info(time.getDate('1495382400000'))
       this.showArticle()
+      this.get()
     },
     methods: {
       get (type) {

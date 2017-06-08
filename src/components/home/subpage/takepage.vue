@@ -210,7 +210,7 @@
       getsort () {
         Indicator.open({
           text: '加载中...',
-          spinnerType: 'fading-circle'
+          spinnerType: 'triple-bounce'
         })
         this.$store.dispatch('getBusinesss', {
           params: {
@@ -240,7 +240,7 @@
         this.LevelCurrent++
         Indicator.open({
           text: '加载中...',
-          spinnerType: 'fading-circle'
+          spinnerType: 'triple-bounce'
         })
         this.$store.dispatch('getBusinesss', {
           params: {
@@ -271,7 +271,7 @@
         this.DistanceCurrent++
         Indicator.open({
           text: '加载中...',
-          spinnerType: 'fading-circle'
+          spinnerType: 'triple-bounce'
         })
         this.$store.dispatch('getBusinesss', {
           params: {
@@ -302,7 +302,7 @@
         this.TakeCurrent++
         Indicator.open({
           text: '加载中...',
-          spinnerType: 'fading-circle'
+          spinnerType: 'triple-bounce'
         })
         this.$store.dispatch('getBusinesss', {
           params: {

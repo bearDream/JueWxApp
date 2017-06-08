@@ -10,8 +10,8 @@
           <img :src="list.headImgUrl" style="width: 100%">
         </div>
         <p class="a-name">{{list.username}}</p>
-        <i class="a-like" v-show="list.bad" style="background-position:-6px 0;" :style="{backgroundImage:'url(' + list.img + ')'}" @click="addgoods(list,list.sum)"></i>
-        <i class="a-like" v-show="list.goods" style="background-position: -45px 0;" :style="{backgroundImage:'url(' + list.img + ')'}" @click="addgoods(list,list.sum)"></i>
+        <i class="a-like" v-if="list.goods === 0" style="background-position:-6px 0;" :style="{backgroundImage:'url(' + list.img + ')'}" @click="addgoods(list,list.sum)"></i>
+        <i class="a-like" v-if="list.goods !== 0" style="background-position: -45px 0;" :style="{backgroundImage:'url(' + list.img + ')'}" @click="addgoods(list,list.sum)"></i>
       </div>
       <div style="position: relative;border-bottom: 1px solid #ddd;min-height:240px;">
         <p style="font-size:18px;font-weight:bold;margin:2% 5% 0;text-align:left;">{{list.title}}</p>
@@ -32,6 +32,7 @@
 
 <script>
   import { Swiper, SwiperItem, Divider } from 'vux'
+  import { Indicator } from 'mint-ui'
   import { mapState } from 'vuex'
   import avatal2 from '../../../assets/img/ava.png'
   import like from '../../../assets/img/user-icon.png'
@@ -58,10 +59,9 @@
         list: {
           headImgUrl: avatal2,
           username: 'Jenny',
-          goods: false,
           img: like,
-          bad: true,
           sum: 0,
+          goods: 0, /** 是否点过赞，0代表没有点过 */
           praise: 0,
           sumScan: 12,
           title: '藏在昆明巷子里的北欧小清新咖啡馆',
@@ -83,9 +83,14 @@
     },
     methods: {
       get () {
+        Indicator.open({
+          text: '加载中...',
+          spinnerType: 'triple-bounce'
+        })
         this.$store.dispatch('getArticle', {
           uri: '/get?articleId=' + this.articleId
         }).then(() => {
+          Indicator.close()
           console.info(this.$store.getters.getArticle)
           let data = this.$store.getters.getArticle
           if (data.code !== -1) {
@@ -101,15 +106,15 @@
       },
       addgoods (item, sum) {
         if (sum >= 1) {
-          item.goods = false
-          item.bad = true
+          item.goods = 0
           item.sumScore -= 1
           item.sum -= 1
+          item.praise -= 1
         } else {
-          item.goods = true
-          item.bad = false
+          item.goods = 1
           item.sumScore += 1
           item.sum += 1
+          item.praise += 1
         }
       }
     },
