@@ -30,7 +30,7 @@ module.exports = {
     proxyTable: {
       '/api': {
         target: 'http://localhost:8888',
-        // target: 'http://bnqtai.natappfree.cc',
+        // target: 'http://wx.chiprincess.cn',
         changeOrigin: true
       }
     },

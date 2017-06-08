@@ -11,7 +11,7 @@ const PROD = 'PROD'
 const ENV = HOST === 'http://localhost:8080' ? DEV : PROD
 
 // 基础地址
-const BASE_URL = ENV === DEV ? 'http://wx.chiprincess.cn/api/mobile/' : '/api/mobile/'
+const BASE_URL = ENV === DEV ? 'https://wx.chiprincess.cn/api/mobile/' : '/api/mobile/'
 
 // 文件上传接口
 const UPLOAD_URL = '/api/mobile/upload'

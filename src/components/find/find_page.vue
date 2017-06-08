@@ -36,15 +36,27 @@
     </mt-loadmore>
 
     <mt-loadmore v-if="showContent002" :top-method="loadDishTop" :bottom-method="loadDishBottom" :bottom-all-loaded="DishAllLoaded" ref="loadDishMore">
-      <ul v-for="item in dishImageList" class="weui-media-box weui-media-box_appmsg" @click="GoDishesDetail(item)">
-        <div class="weui-media-box__hd" v-if="item.dishRecImage"  @click="GoDishesDetail(item)">
-          <img class="weui-media-box__thumb" :src="item.dishRecImage" alt="">
+      <!--<ul v-for="item in dishImageList" class="weui-media-box weui-media-box_appmsg" @click="GoDishesDetail(item)">-->
+        <!--<div class="weui-media-box__hd" v-if="item.dishRecImage"  @click="GoDishesDetail(item)">-->
+          <!--<img class="weui-media-box__thumb" :src="item.dishRecImage" alt="">-->
+        <!--</div>-->
+        <!--<div class="weui-media-box__bd">-->
+          <!--<h6 class="weui-media-box__title">{{item.dishName}}</h6>-->
+          <!--<p class="weui-media-box__desc">{{item.dishDesc}}</p>-->
+        <!--</div>-->
+      <!--</ul>-->
+
+      <div style="width: 100%;min-height: 150px;padding: 10px;background-color: #E3E3E3;margin-top: 10px" v-for="item in dishImageList" @click="GoDishesDetail(item)" >
+        <div style="width: 30%;display: inline-block;float: left" v-if="item.dishRecImage"  @click="GoDishesDetail(item)" >
+          <img style="width: 100%" :src="item.dishRecImage" alt="">
         </div>
-        <div class="weui-media-box__bd">
-          <h6 class="weui-media-box__title">{{item.dishName}}</h6>
-          <p class="weui-media-box__desc">{{item.dishDesc}}</p>
+        <div style="width: 60%;height:100px;display: inline-block;float: right">
+          <span style="font-size: 20px">{{item.dishName}}</span>
+          <span style="font-size: 10px">&nbsp;&nbsp;{{item.typeName}}</span>
+          <p style="font-size: 16px">{{item.dishDesc}}</p>
         </div>
-      </ul>
+      </div>
+
     </mt-loadmore>
 
     <!--<div style="height:70px;width: 100%;"></div>-->
@@ -56,12 +68,12 @@
   import { Indicator } from 'mint-ui'
   import { mapState } from 'vuex'
 
-  import find1 from '../../assets/img/find1.png'
+//  import find1 from '../../assets/img/find1.png'
   import find4 from '../../assets/img/find4.png'
 
   import find6 from '../../assets/img/5-2.png'
   import find7 from '../../assets/img/5-3.png'
-
+  import finddish from '../../assets/images/F2-7.png'
   export default {
     components: {
       Grid,
@@ -95,14 +107,16 @@
         dishImageList: [
           {
             dishName: '宣威小炒肉',
-            dishRecImage: find1,
+            dishRecImage: finddish,
             typeName: '炒菜',
-            dishDesc: '我是正宗的宣威小炒肉'
+            dishDesc: '我是正宗的宣威小炒肉',
+            dishIntroduction: '潮汕卤鸡是广东潮汕地区汉族传统名菜，属于炒菜系'
           }, {
             dishName: '洋芋丝炒肉',
-            dishRecImage: find1,
+            dishRecImage: finddish,
             typeName: '炒菜',
-            dishDesc: '我是卖洋芋的小炒肉'
+            dishDesc: '我是卖洋芋的小炒肉',
+            dishIntroduction: '潮汕卤鸡是广东潮汕地区汉族传统名菜，属于炒菜系'
           }
         ]
       }
@@ -115,7 +129,7 @@
       getBusiness () {
         Indicator.open({
           text: '加载中...',
-          spinnerType: 'fading-circle'
+          spinnerType: 'triple-bounce'
         })
         this.$store.dispatch('getTopBusinesss', {params: {
           pageNum: 1,
@@ -133,7 +147,7 @@
       getDishes () {
         Indicator.open({
           text: '加载中...',
-          spinnerType: 'fading-circle'
+          spinnerType: 'triple-bounce'
         })
         this.$store.dispatch('getDishList', {params: {
           pageNum: 1,
@@ -159,7 +173,7 @@
         // 获取数据
         Indicator.open({
           text: '加载中...',
-          spinnerType: 'fading-circle'
+          spinnerType: 'triple-bounce'
         })
         this.$store.dispatch('getTopBusinesss', {params: {
           pageNum: this.BusinessCurrent,
@@ -189,7 +203,7 @@
         // 获取数据
         Indicator.open({
           text: '加载中...',
-          spinnerType: 'fading-circle'
+          spinnerType: 'triple-bounce'
         })
         this.$store.dispatch('getDishList', {params: {
           pageNum: this.DishCurrent,

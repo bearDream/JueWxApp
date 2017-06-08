@@ -39,23 +39,25 @@
   <!--随机来几个菜-->
   <div>
     <x-dialog hide-on-blur  :dialog-style="{'max-width': '100%',overflow: 'visible', width: '90%', height: '50%', 'background-color': 'transparent'}" v-model="showHideOnBlur"  >
-      <div class="img-box" @touchmove='rotation' @touchstart='touchstart' @touchend='touchend' id="Rotation" >
-        <img src="../../assets/img/flow.png" style="position: absolute;width: 70%;top: -60px;left: 40px;z-index: 10">
-        <div>
-          <div class="businesstitle" v-if="dishname1">{{list3[0].dishName}}</div>
-          <img :src="list3[0].dishImage" class="l_mid_r l">
-        </div>
-        <div>
-          <div class="businesstitle" v-if="dishname3">{{list3[1].dishName}}</div>
-          <img :src="list3[1].dishImage" class="l_mid_r r">
-        </div>
-        <div>
-          <div class="businesstitle" v-if="dishname2">{{list3[2].dishName}}</div>
-          <img :src="list3[2].dishImage" class="l_mid_r mid">
+      <div class="img-box"   id="Rotation" >
+        <div style="width: 250px;height: 200px;" @touchstart='touchstart' @touchend='touchend'>
+          <img src="../../assets/img/flow.png" style="position: absolute;width: 70%;top: -60px;left: 40px;z-index: 10">
+          <div>
+            <div class="businesstitle" v-if="dishname1">{{list3[0].dishName}}</div>
+            <img :src="list3[0].dishImage" class="l_mid_r l">
+          </div>
+          <div>
+            <div class="businesstitle" v-if="dishname3">{{list3[1].dishName}}</div>
+            <img :src="list3[1].dishImage" class="l_mid_r r">
+          </div>
+          <div>
+            <div class="businesstitle" v-if="dishname2">{{list3[2].dishName}}</div>
+            <img :src="list3[2].dishImage" class="l_mid_r mid">
+          </div>
         </div>
         <div class="onlyeat">
-          <x-button @click="Refresh" mini style="background-color: #E3E3E3;" >不想吃换一批</x-button>
-          <x-button @click="GoOrder" mini style="background-color: #E3E3E3;"  >就是它们了</x-button>
+          <x-button  @click.native="Refresh" mini style="background-color: #E3E3E3;" >不想吃换一批</x-button>
+          <x-button @click.native="GoOrder" mini style="background-color: #E3E3E3;"  >就是它们了</x-button>
         </div>
         <!--<div class="onlyeat" @click="Refresh">不想吃换一批</div>-->
         <!--<div class="onlyeat" @click="Refresh">sdasdasdasdasdasdas</div>-->
@@ -63,6 +65,27 @@
       <div @click="showHideOnBlur=false"></div>
     </x-dialog>
   </div>
+    <!-- 设置用户的身体状态body_status -->
+    <x-dialog v-model="bodyModal">
+      <group title="选择你最近期望的身体状态">
+        <!--title="绑定手机"-->
+        <checker v-model="bodyStatus" default-item-class="demo5-item" selected-item-class="demo5-item-selected">
+          <checker-item value="1">标准</checker-item>
+          <checker-item value="2">塑性</checker-item>
+          <checker-item value="3">减脂</checker-item>
+        </checker>
+      </group>
+      <div @click.native="showphone3=false">
+        <span class="vux-close"></span>
+      </div>
+      <div style="padding:15px;">
+        <flexbox>
+          <flexbox-item>
+            <x-button  type="primary" @click.native="setBodyStatus">确&nbsp;&nbsp;认</x-button>
+          </flexbox-item>
+        </flexbox>
+      </div>
+    </x-dialog>
   <div style="height: 50px;width: 100%;"></div>
   </div>
 </template>
@@ -70,9 +93,9 @@
 <script>
   let start = 0
   let end = 0
-  import { Divider, Grid, GridItem, Masker, XInput, Scroller, Swiper, Search, Icon, Alert, XDialog, XButton, Group, TransferDomDirective as TransferDom } from 'vux'
+  import { Divider, Grid, GridItem, Masker, Flexbox, FlexboxItem, Checker, CheckerItem, XInput, Scroller, Swiper, Search, Icon, Alert, XDialog, XButton, Group, TransferDomDirective as TransferDom } from 'vux'
   import { mapState } from 'vuex'
-//  import { Indicator } from 'mint-ui'
+  import { Indicator, Toast } from 'mint-ui'
   import banner from '../../assets/images/bg/home1.png'
   import randomdish1 from '../../assets/img/busi1.jpg'
   import randomdish2 from '../../assets/img/busi2.jpg'
@@ -94,20 +117,28 @@
       Alert,
       XDialog,
       XButton,
-      Group
+      Group,
+      Flexbox,
+      FlexboxItem,
+      Checker,
+      CheckerItem
     },
     created (i) {
       this.i += 1
       console.log(i)
       this.gets()
+      this.getUser()
     },
     computed: mapState([
       'home'
     ]),
     data () {
       return {
+        userInfo: '',
+        bodyStatus: 1,
         toTake: 'subpage/homeList',
         value2: 'vux',
+        bodyModal: false,
         showHideOnBlur: false,
         i: 0,
         dishname1: false,
@@ -159,6 +190,22 @@
       }
     },
     methods: {
+      getUser () {
+        this.$store.dispatch('getMineInfo', {
+          params: ''
+        }).then(() => {
+          let userInfo = this.$store.getters.getMine
+          if (userInfo.code !== -1) {
+            userInfo = userInfo.data
+            this.userInfo = userInfo
+            if (userInfo.bodyStatus === 0) {
+              this.bodyModal = true
+            }
+          } else {
+            Toast('网络出错')
+          }
+        })
+      },
       Refresh (item) {
         this.item = false
         this.showHideOnBlur = false
@@ -192,6 +239,21 @@
 //        this.className('mid').style.left = e.changedTouches[0].clientX - this.className('mid').style.left
 //        var start = e.changedTouches[0].clientX
 //        var mid = document.getElementsByClassName('mid')[0]
+      },
+      gets () {
+        Indicator.open({
+          text: '加载中...',
+          spinnerType: 'triple-bounce'
+        })
+        this.$store.dispatch('getHomes', {
+          params: {
+          }
+        }).then(() => {
+          Indicator.close()
+          if (this.$store.getters.getHomes.code !== -1) {
+            this.$set(this, 'list2', this.$store.getters.getHomes.data.page.list)
+          }
+        })
       },
       touchend (e) {
         end = e.changedTouches[0].clientX
@@ -247,6 +309,14 @@
           _this.$broadcast('pulldown:reset', uuid)
         }, 2000)
       },
+      setBodyStatus () {
+        this.userInfo.bodyStatus = this.bodyStatus
+        this.$store.dispatch('putMine', {
+          data: this.userInfo
+        }).then(() => {
+          this.bodyModal = false
+        })
+      },
       onSubmit (val) {
         this.$vux.toast.show({
           type: '搜索菜品、用户、商家'
@@ -266,20 +336,31 @@
         this.$router.push({name: 'nutritionDish'})
       },
       GoRandom () {
+        Indicator.open({
+          text: '加载中...',
+          spinnerType: 'triple-bounce'
+        })
         // 获取今天吃啥的数据
         this.$store.dispatch('getRandomDishes', {}).then(() => {
-          console.info('..........')
+          Indicator.close()
           let data = this.$store.getters.getRandomDishes
-          if (data.data.length === 3) {
+          if (data.data.length >= 3) {
             this.$set(this, 'list3', data.data)
             console.info(this.$store.getters.getRandomDishes)
           }
+          this.showHideOnBlur = true
         })
-        this.showHideOnBlur = true
       },
       GoOrder () {
         this.showHideOnBlur = false
-        this.$router.push({name: 'random'})
+        let dishBusinessId = ''
+        console.info(this.list3)
+        for (let i = 0; i < 3; i++) {
+          dishBusinessId = this.list3[i].dishBusinessId + ',' + dishBusinessId
+        }
+        dishBusinessId = dishBusinessId.substring(0, dishBusinessId.length - 1)
+        console.info(dishBusinessId)
+        this.$router.push({name: 'random', params: {dishBusiness: dishBusinessId}})
       },
       GoArticle (item) {
         this.$router.push({name: 'article', params: {articleId: item.articleId}})
@@ -436,5 +517,66 @@
   }
   .show{
     display: block;
+  }
+</style>
+<style scoped>
+  .box {
+    padding: 0 15px;
+  }
+  .demo1-item {
+    border: 1px solid #ececec;
+    padding: 5px 15px;
+  }
+  .demo1-item-selected {
+    border: 1px solid green;
+  }
+  .demo2-item {
+    width: 40px;
+    height: 40px;
+    border: 1px solid #ccc;
+    display: inline-block;
+    border-radius: 50%;
+    line-height: 40px;
+    text-align: center;
+  }
+  .demo2-item-selected {
+    border-color: green;
+  }
+  .demo3-item {
+    padding: 5px 5px;
+    font-size: 0;
+  }
+  .demo3-item-selected {
+    outline: 1px solid #8B8AEE;
+  }
+  .demo4-item {
+    background-color: #ddd;
+    color: #222;
+    font-size: 14px;
+    padding: 5px 10px;
+    margin-right: 10px;
+    line-height: 18px;
+    border-radius: 15px;
+  }
+  .demo4-item-selected {
+    background-color: #FF3B3B;
+    color: #fff;
+  }
+  .demo4-item-disabled {
+    color: #999;
+  }
+  .demo5-item {
+    width: 70px;
+    height: 26px;
+    line-height: 26px;
+    text-align: center;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    margin-right: 6px;
+  }
+  .demo5-item-selected {
+    background: #ffffff url(../../assets/images/active.png) no-repeat right bottom;
+    border-color: #ff4a00;
   }
 </style>

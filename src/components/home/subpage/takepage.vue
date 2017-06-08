@@ -4,33 +4,30 @@
 
     <div class="card-demo-flex card-demo-content">
       <div >
-        <group>
-          <cell title="附近商家" is-link
+          <cell style="font-size: 12px!important;"
+                title="附近商家" is-link
                 :border-intent="false"
                 :arrow-direction="showContent001 ? 'up' : 'down'"
                 @click.native="show1">
           </cell>
-        </group>
       </div>
       <div >
-        <group>
           <cell
+            style="font-size: 12px!important;"
             title="商家星级"
             is-link
             :border-intent="false"
             :arrow-direction="showContent002 ? 'up' : 'down'"
             @click.native="show2"></cell>
-        </group>
       </div>
       <div>
-        <group>
           <cell
+            style="font-size: 12px!important;"
             title="排队人数"
             is-link
             :border-intent="false"
             :arrow-direction="showContent003 ? 'up' : 'down'"
             @click.native="show3"></cell>
-        </group>
       </div>
     </div>
 
@@ -212,7 +209,7 @@
       getsort () {
         Indicator.open({
           text: '加载中...',
-          spinnerType: 'fading-circle'
+          spinnerType: 'triple-bounce'
         })
         this.$store.dispatch('getBusinesss', {
           params: {
@@ -242,7 +239,7 @@
         this.LevelCurrent++
         Indicator.open({
           text: '加载中...',
-          spinnerType: 'fading-circle'
+          spinnerType: 'triple-bounce'
         })
         this.$store.dispatch('getBusinesss', {
           params: {
@@ -273,7 +270,7 @@
         this.DistanceCurrent++
         Indicator.open({
           text: '加载中...',
-          spinnerType: 'fading-circle'
+          spinnerType: 'triple-bounce'
         })
         this.$store.dispatch('getBusinesss', {
           params: {
@@ -304,7 +301,7 @@
         this.TakeCurrent++
         Indicator.open({
           text: '加载中...',
-          spinnerType: 'fading-circle'
+          spinnerType: 'triple-bounce'
         })
         this.$store.dispatch('getBusinesss', {
           params: {
