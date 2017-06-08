@@ -166,6 +166,15 @@ const router = new Router({
         requiresAuth: true
       }
     }, {
+      path: '/subpage/my_order',
+      name: 'my_order',
+      components: {
+        'insidePage': resolve => require(['../components/mine/subpage/my_order.vue'], resolve)
+      },
+      meta: {
+        requiresAuth: true
+      }
+    }, {
       path: '/subpage/post_article',
       name: 'site',
       components: {

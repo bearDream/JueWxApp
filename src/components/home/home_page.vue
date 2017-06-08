@@ -99,7 +99,7 @@
 <script>
   let start = 0
   let end = 0
-  import { Divider, Grid, GridItem, Masker, Flexbox, FlexboxItem, Checker, CheckerItem, XInput, Scroller, Swiper, Search, Icon, Alert, XDialog, XButton, Group, TransferDomDirective as TransferDom } from 'vux'
+  import { Divider, Grid, GridItem, Masker, Flexbox, FlexboxItem, Checker, CheckerItem, XInput, Scroller, Swiper, Search, Icon, Alert, XDialog, XButton, Group, TransferDomDirective as TransferDom, SwiperItem } from 'vux'
   import { mapState } from 'vuex'
   import { Indicator, Toast } from 'mint-ui'
   import banner from '../../assets/images/bg/home1.png'
@@ -135,8 +135,8 @@
     created (i) {
       this.i += 1
       console.log(i)
-      this.gets()
-      this.getUser()
+//      this.gets()
+//      this.getUser()
     },
     computed: mapState([
       'home'
@@ -199,6 +199,9 @@
       }
     },
     methods: {
+      Gosearch () {
+        this.$router.push({name: 'search'})
+      },
       getUser () {
         this.$store.dispatch('getMineInfo', {
           params: ''

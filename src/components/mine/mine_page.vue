@@ -28,6 +28,7 @@
       </grid-item>
     </grid>
     <group style="margin-top:-20px">
+      <cell title='我的订单'  link="subpage/my_order"  is-link></cell>
       <cell title='设置'  link="subpage/site"  is-link></cell>
       <cell title='分享食话食说'  link="subpage/post_article"  is-link></cell>
       <cell title='每日签到' link="subpage/check" is-link></cell>
