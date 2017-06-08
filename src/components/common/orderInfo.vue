@@ -1,6 +1,7 @@
 <template>
+<!--订单详细的页面-->
   <div style="background-color: #FBF9FE;font-family: 'Adobe Fan Heiti Std B'">
-    <div class="head">提交订单</div>
+    <div class="head">订单详情</div>
     <panel :list="business" type="1" style="font-size: 10px;"></panel>
     <group>
       <div class="body">
@@ -16,46 +17,40 @@
         <span class="second" >￥{{subtotal}}</span>
       </div>
     </group>
-    <!--<group>-->
-      <!--<div class="takeSorting">-->
-        <!--<div class="body">-->
-          <!--<div class="center1">-->
-            <!--<span class="first">抵用券</span>-->
-            <!--<span class="second">￥-{{voucher}}</span>-->
-          <!--</div>-->
-        <!--</div>-->
-      <!--</div>-->
-    <!--</group>-->
-      <div class="foot">
-        <span class="first">还需支付</span>
-        <span class="second" >{{sum}}</span>
-      </div>
+    <div class="foot">
+      <span class="first">支付金额</span>
+      <span class="second" >{{sum}}</span>
+    </div>
     <div style="width:100%;position: absolute;bottom:0;">
-      <x-button type="primary" class="btn" @click.native="order" :show-loading="orderButtonLoading">提交订单</x-button>
+      <x-button type="primary" class="btn" @click.native="buttonClick" :show-loading="orderButtonLoading">{{orderStatus}}</x-button>
     </div>
   </div>
 </template>
+
 <script>
   import { Group, XButton, Icon, XNumber, Panel } from 'vux'
   import { Indicator, Toast } from 'mint-ui'
   import axios from 'axios'
   import consts from '@/utils/consts'
 
-  export default {
+export default {
     components: {
       Group,
+      Toast,
+      XNumber,
       XButton,
       Icon,
-      XNumber,
       Panel,
-      Indicator,
-      Toast
+      Indicator
     },
     data () {
       return {
-        dishBusiness: '',
+        orderInfo: '',
         wxJsPay: '',
-        orderButtonLoading: false,
+        orderId: '',
+        orderStatus: '待评价',
+        sum: 0,
+        subtotal: 0,
         dishList: [
           {
             'dishBusinessId': 447,
@@ -136,32 +131,29 @@
           'desc': '云南省官渡区昆明市吴井路327号',
           'src': 'http://admin.chiprincess.cn/api/file?url=7f8a484657db40abb79cfef8139da761.jpg'
         }],
-        businessname: '越南家3人餐',
-        price: 68,
-        voucher: 3.1,
-        subtotal: 0,
-        sum: 0
+        orderButtonLoading: false
       }
     },
     mounted () {
-      if (this.$route.params.dishBusiness === undefined) {
+      this.orderId = this.$route.params.orderId
+      if (this.orderId === undefined) {
         this.$router.go(-1)
       } else {
-        this.dishBusiness = this.$route.params.dishBusiness
-        this.get(this.dishBusiness)
+        this.get(this.orderId)
       }
     },
     methods: {
-      get (dishBusiness) {
+      get () {
         Indicator.open({
           text: '加载中...',
           spinnerType: 'snake'
         })
-        this.$store.dispatch('getDishBusinesss', {
-          uri: dishBusiness
+        // 查询订单状况，如果是已支付则显示支付成功的图标，文字和按钮，否则显示不同的情况
+        this.$store.dispatch('getOrderInfo', {
+          uri: 'get?orderId=' + this.orderId
         }).then(() => {
           Indicator.close()
-          let data = this.$store.getters.getDishBusiness
+          let data = this.$store.getters.getOrder
           if (data.code !== -1) {
             data = data.data
             // 设置商家名片数据
@@ -171,29 +163,57 @@
             this.business[0].businessId = data.business.businessId
             // 设置菜品数据
             this.dishList = data.dishList
-            // 计算价钱以及代金券等...
-            for (let i = 0; i < this.dishList.length; i++) {
-              this.subtotal += this.dishList[i].dishPrice
+            // 设置订单信息
+            this.orderInfo = data.order
+            this.subtotal = data.order.orderPice
+            this.sum = data.order.orderPice
+            let status = data.order.orderStatus
+            switch (status) {
+              case 0:
+                this.orderStatus = '去支付'
+                break
+              case 1:
+                this.orderStatus = '待消费'
+                break
+              case 2:
+                this.orderStatus = '去评价'
+                break
+              case 3:
+                this.orderStatus = '已完成'
+                break
             }
-            this.subtotal = this.subtotal.toFixed(2)
-            this.$set(this, 'sum', this.subtotal)
+          } else {
+            Toast(data.msg)
           }
         })
       },
-      order () {
+      close () {
+        this.$router.replace({name: '首页'})
+      },
+      buttonClick () {
+        switch (this.orderStatus) {
+          case '去支付':
+            this.pay()
+            break
+          case '待消费':
+//            alert('待消费')
+            break
+          case '去评价':
+//            alert('去评价')
+            break
+          case '已完成':
+//            alert('已完成')
+            break
+        }
+      },
+      pay () {
         this.orderButtonLoading = true
         Indicator.open({
           text: '加载中...',
           spinnerType: 'snake'
         })
-        let data = {
-          dishId: this.dishBusiness,
-          orderPice: this.sum,
-          remark: '今日吃啥订单',
-          businessId: this.business[0].businessId
-        }
         this.$store.dispatch('submitOrder', {
-          data: data
+          data: this.orderInfo
         }).then(() => {
           Indicator.close()
           this.orderButtonLoading = false
@@ -251,73 +271,7 @@
               })
             }
           })
-      },
-      count (val) {
-        this.subtotal = this.price * val
-        if (val === 0) {
-          this.sum = 0
-        } else {
-          this.sum = this.subtotal - this.voucher
-        }
       }
     }
-  }
+}
 </script>
-<style>
-  .head{
-    text-align: center;
-    font-size: 22px;
-    background-color: #fff;
-    padding: 3% 0;
-  }
-  .body{
-    font-size: 20px;
-    padding:2%;
-  }
-  .body>div{
-    width:100%;
-    margin-top:2%;
-    height:40px;
-    line-height: 40px;
-  }
-  .first{
-    margin-left: 3%;
-  }
-  .second{
-    float: right;
-    margin-right: 3%;
-  }
-  .foot{
-    width: 100%;
-    font-size: 20px;
-    background-color: #fff;
-    padding: 3% 0;
-    position: absolute;
-    bottom:60px;
-  }
-  a.vux-number-selector-plus{
-    margin-right:0;
-    padding:0;
-  }
-  a.vux-number-selector-sub{
-    padding:0;
-  }
-  a.vux-number-selector svg{
-    fill:#59850b;
-  }
-  .btn{
-    background: #09bb07 !important;
-    /*margin-top: 165px;*/
-    height: 45px !important;
-    border-radius: 0 !important;
-    font-size: 20px !important;
-  }
-  .weui-media-box__title{
-    text-align: left;
-    font-size: 20px!important;
-  }
-  .weui-media-box__desc{
-    text-align: left;
-    font-size: 13px!important;
-  }
-</style>
