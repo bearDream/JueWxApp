@@ -1,6 +1,6 @@
 <template>
   <div style="padding-bottom: 50px">
-    <blur :blur-amount=0 :url="url" style="height:250px">
+    <blur :blur-amount=0 :url="url" style="height:200px">
       <p class="center">
         <img :src="headImgUrl">
         <br>
@@ -27,7 +27,7 @@
         <p style="color: #676767;">我的发布</p>
       </grid-item>
     </grid>
-    <group>
+    <group style="margin-top:-20px">
       <cell title='设置'  link="subpage/site"  is-link></cell>
       <cell title='分享食话食说'  link="subpage/post_article"  is-link></cell>
       <cell title='每日签到' link="subpage/check" is-link></cell>

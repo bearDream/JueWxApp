@@ -2,11 +2,13 @@
   <div>
     <!--<swiper loop auto :list="photo_list" :index="photo_index" @on-index-change="onIndexChange"></swiper>-->
     <swiper loop auto :aspect-ratio="300/800" >
-      <swiper-item class="swiper-demo-img swiper-item-image" v-for="(item, index) in photo_list" :key="index"><img :src="item"></swiper-item>
+      <swiper-item class="swiper-demo-img swiper-item-image" v-for="(item, index) in photo_list" :key="index"><img :src="item" style="width: 100%"></swiper-item>
     </swiper>
     <div >
       <div style="position: relative;border-bottom:1px solid #ccc">
-        <div class="a-photo" :style="{backgroundImage:'url(' + list.headImgUrl + ')',borderRadius: '200px'}"></div>
+        <div class="a-photo" style="border-radius: 200px">
+          <img :src="list.headImgUrl" style="width: 100%">
+        </div>
         <p class="a-name">{{list.username}}</p>
         <i class="a-like" v-show="list.bad" style="background-position:-6px 0;" :style="{backgroundImage:'url(' + list.img + ')'}" @click="addgoods(list,list.sum)"></i>
         <i class="a-like" v-show="list.goods" style="background-position: -45px 0;" :style="{backgroundImage:'url(' + list.img + ')'}" @click="addgoods(list,list.sum)"></i>
@@ -19,7 +21,7 @@
       <div style="position:relative;">
         <i class="a-info" style="background-position:-5px 0;left:4%" :style="{backgroundImage:'url(' + list.laud + ')'}"></i>
         <i style="color:#555;position:absolute;left:13%;margin-top:3%">{{list.praise}}个赞</i>
-        <i class="a-info" style="background-position: -66px 0;right:20%" :style="{backgroundImage:'url(' + list.scan + ')'}"></i>
+        <i class="a-info" style="background-position: -66px 0;right:23%" :style="{backgroundImage:'url(' + list.scan + ')'}"></i>
         <i style="color:#555;position:absolute;right:7%;margin-top:3%">12次浏览</i>
         <!--<i class="a-detail" style="margin-top:10%">发布于 {{list.address}}</i>-->
         <i class="a-detail" style="margin-top:20%">{{list.addTime}}</i>
@@ -120,10 +122,11 @@
 <style scoped>
   .a-photo{
     display:inline-block;
-    width:22%;
-    min-height:84px;
+    width:80px;
+    height:80px;
     margin-top:3%;
     margin-left:3%;
+    overflow: hidden;
   }
   .a-name{
     display:inline-block;

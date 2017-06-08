@@ -6,7 +6,7 @@
      </div>
       <div class="inputDiv">
         <icon type="search" style="position: absolute;left: 20px;top: 17px;"></icon>
-        <input autofocus="autofocus" type="text" class="inputSearch">
+        <input autofocus="autofocus" v-model="key" type="text" class="inputSearch">
       </div>
     </div>
     <div style="width: 100%;padding: 15px;border-top: 1px solid #E6E7E8;">
@@ -24,12 +24,25 @@
         </div>
       </div>
     </div>
+    <div style="width: 100%;min-height: 150px;padding: 10px;background-color: #fff;margin-top: 10px" v-for="item in dishImageList" @click="GoDishesDetail(item)" >
+      <div style="width: 30%;display: inline-block;float: left" v-if="item.dishRecImage"  @click="GoDishesDetail(item)" >
+        <img style="width: 100%" :src="item.dishRecImage" alt="">
+      </div>
+      <div style="width: 60%;height:100px;display: inline-block;float: right">
+        <span style="font-size: 20px">{{item.dishName}}</span>
+        <span style="font-size: 10px;color: #59850b">&nbsp;&nbsp;{{item.typeName}}</span>
+        <p style="font-size: 14px">{{item.dishIntroduction}}</p>
+        <p style="font-size: 13px; color:#f74c31">{{item.dishHealth}}</p>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
   import { XHeader, Icon, Rater } from 'vux'
   import img1 from '../../../assets/img/3.png'
+  import finddish from '../../../assets/images/F2-7.png'
+
   export default {
     components: {
       XHeader,
@@ -38,6 +51,7 @@
     },
     data () {
       return {
+        key: '',
         list: [
           {
             img1: img1,
@@ -60,6 +74,23 @@
             address: 500,
             map: '白龙路昆明理工大学新迎校区白龙路昆明理工大学新迎校区',
             tel: 130209022223
+          }
+        ],
+        dishImageList: [
+          {
+            dishName: '宣威小炒肉',
+            dishRecImage: finddish,
+            typeName: '炒菜',
+            dishDesc: '我是正宗的宣威小炒肉',
+            dishIntroduction: '潮汕卤鸡是广东潮汕地区汉族传统名菜，属于炒菜系',
+            dishHealth: '减肥'
+          }, {
+            dishName: '宣威小炒肉',
+            dishRecImage: finddish,
+            typeName: '炒菜',
+            dishDesc: '我是正宗的宣威小炒肉',
+            dishIntroduction: '潮汕卤鸡是广东潮汕地区汉族传统名菜，属于炒菜系',
+            dishHealth: '减肥'
           }
         ]
       }
