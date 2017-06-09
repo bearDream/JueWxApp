@@ -23,5 +23,16 @@ export default {
         data: res.data
       })
     })
+  },
+
+  /**
+   * 更新文章详情（点赞）
+   */
+  updateArticle ({commit}, {data}) {
+    return new Model().PUT({data}).then(res => {
+      commit(types.GET_ARTICLE, {
+        data: res.data
+      })
+    })
   }
 }

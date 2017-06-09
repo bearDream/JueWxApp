@@ -1,6 +1,6 @@
 <template>
   <div style="">
-    <blur :blur-amount=0 :url="url" style="height:250px">
+    <blur :blur-amount=0 :url="url" style="height:220px">
       <p class="center">
         <img :src="headImgUrl">
         <br>

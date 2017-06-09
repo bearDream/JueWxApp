@@ -4,40 +4,25 @@
     </div>
 </template>
 <script>
-  import { Indicator, Toast } from 'mint-ui'
+//  import { Indicator, Toast } from 'mint-ui'
 
   export default {
-    components: {
-      Indicator,
-      Toast
-    },
+//    components: {
+//      Indicator,
+//      Toast
+//    },
     data () {
       return {
         hide: false
       }
     },
     mounted () {
-      this.login()
-    },
-    methods: {
-      login () {
-        Indicator.open({
-          text: '小蕨努力加载中...',
-          spinnerType: 'snake'
-        })
-        this.$store.dispatch('login').then(res => {
-          let data = res.data
-          if (data.code === -1) {
-            Toast(data.msg)
-          } else {
-            this.hide = true
-            Indicator.close()
-            this.$router.replace({name: '首页'})
-          }
-        })
-      }
+      setTimeout(() => {
+        this.$router.replace({name: '首页'})
+      }, 2000)
+//      this.login()
     }
-}
+  }
 </script>
 <style>
 /* 被注释掉的样式不适合部分安卓机 */

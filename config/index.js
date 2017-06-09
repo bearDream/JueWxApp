@@ -29,8 +29,8 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api': {
-        target: 'http://localhost:8888',
-        // target: 'http://wx.chiprincess.cn',
+        // target: 'http://localhost:8888',
+        target: 'http://qcvwdc.natappfree.cc',
         changeOrigin: true
       }
     },

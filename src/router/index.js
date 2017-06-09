@@ -22,7 +22,7 @@ const router = new Router({
         requiresAuth: false
       }
     }, {
-      path: '/welcome',
+      path: '/welocme',
       name: 'welcome',
       component: resolve => require(['../components/common/welcome.vue'], resolve),
       meta: {
@@ -75,24 +75,6 @@ const router = new Router({
       }
     }, {
       path: '/home/business',
-      name: 'business',
-      components: {
-        'insidePage': resolve => require(['../components/home/subpage/business.vue'], resolve)
-      },
-      meta: {
-        requiresAuth: true
-      }
-    }, {
-      path: '/home/random',
-      name: 'random',
-      components: {
-        'insidePage': resolve => require(['../components/home/subpage/random.vue'], resolve)
-      },
-      meta: {
-        requiresAuth: true
-      }
-    }, {
-      path: '/home/subpage/business',
       name: 'business',
       components: {
         'insidePage': resolve => require(['../components/home/subpage/business.vue'], resolve)
@@ -165,7 +147,7 @@ const router = new Router({
       }
     }, {
       path: '/subpage/post_article',
-      name: 'site',
+      name: 'postArticle',
       components: {
         'insidePage': resolve => require(['../components/mine/subpage/post_article.vue'], resolve)
       },

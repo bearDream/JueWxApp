@@ -1,6 +1,9 @@
 <template>
   <div>
-  <div>
+  <div class="welcome" :class="{hide:hide}">
+    <img src="../../assets/images/启动页.png" alt="">
+  </div>
+  <div :class="{hide:hide}">
     <scroller enable-horizontal-swiping=""  :loading="load" >
       <!--<search @on-submit="onSubmit" :auto-fixed="false" v-model="value2" @on-focus="onFocus" @on-cancel="onCancel"></search>--> <!--height="260px"-->
       <swiper :list="list1" :min-moving-distance="20" auto="" style="height: 180px" >
@@ -44,15 +47,15 @@
           <img src="../../assets/img/flow.png" style="position: absolute;width: 70%;top: -60px;left: 40px;z-index: 10">
           <div>
             <div class="businesstitle" v-if="dishname1">{{list3[0].dishName}}</div>
-            <img :src="list3[0].dishImage" class="l_mid_r l">
+            <img :src="list3[0].dishImage" style="border-radius: 20px;" class="l_mid_r l">
           </div>
           <div>
             <div class="businesstitle" v-if="dishname3">{{list3[1].dishName}}</div>
-            <img :src="list3[1].dishImage" class="l_mid_r r">
+            <img :src="list3[1].dishImage" style="border-radius: 20px;" class="l_mid_r r">
           </div>
           <div>
             <div class="businesstitle" v-if="dishname2">{{list3[2].dishName}}</div>
-            <img :src="list3[2].dishImage" class="l_mid_r mid">
+            <img :src="list3[2].dishImage" style="border-radius: 20px;" class="l_mid_r mid">
           </div>
         </div>
         <div class="onlyeat">
@@ -134,6 +137,7 @@
     ]),
     data () {
       return {
+        hide: false,
         userInfo: '',
         bodyStatus: 1,
         toTake: 'subpage/homeList',
@@ -212,21 +216,6 @@
         this.GoRandom()
         console.log('换一批')
       },
-//      gets () {
-//        Indicator.open({
-//          text: '加载中...',
-//          spinnerType: 'fading-circle'
-//        })
-//        this.$store.dispatch('getHomes', {
-//          params: {
-//          }
-//        }).then(() => {
-//          Indicator.close()
-//          if (this.$store.getters.getHomes.code !== -1) {
-//            this.$set(this, 'list2', this.$store.getters.getHomes.data.page.list)
-//          }
-//        })
-//      },
       rotation: function (e) {
 //        console.log('*****' + e.changedTouches[0].clientX)
 //        console.log('xxxxx' + e.changedTouches[0].clientX)
@@ -252,6 +241,7 @@
           Indicator.close()
           if (this.$store.getters.getHomes.code !== -1) {
             this.$set(this, 'list2', this.$store.getters.getHomes.data.page.list)
+            this.hide = true // 加载完成将欢迎页面隐藏，显示首页
           }
         })
       },
@@ -490,6 +480,7 @@
     opacity: .5;
     transition: all 0.4s;
     transform: scale(0.8);
+    border-radius: 20px;
   }
   .img-box .r{
     position: absolute;
@@ -579,4 +570,75 @@
     background: #ffffff url(../../assets/images/active.png) no-repeat right bottom;
     border-color: #ff4a00;
   }
+</style>
+<style>
+  /* 被注释掉的样式不适合部分安卓机 */
+  .welcome {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 6;
+    background: #000b17;
+    animation: welcome 0.5s;
+    transition: 0.3s;
+    -webkit-transition: 0.3s;
+    /*    -webkit-animation: welcome 0.5s;
+       -webkit-animation-fill-mode: forwards;
+       animation-fill-mode: forwards;
+       -webkit-animation-delay: 0.8s;
+       animation-delay: 0.8s; */
+  }
+
+  .welcome img {
+    width: 100%;
+  }
+  .welcome.hide{
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  /*
+      @keyframes welcome {
+          0% {
+              opacity: 1.0;
+              visibility: visible;
+          }
+          100% {
+              opacity: 0.0;
+              visibility: hidden;
+          }
+      }
+      @-webkit-keyframes welcome {
+          0% {
+              opacity: 1.0;
+              visibility: visible;
+          }
+          100% {
+              opacity: 0.0;
+              visibility: hidden;
+          }
+      }
+      @-o-keyframes welcome {
+          0% {
+              opacity: 1.0;
+              visibility: visible;
+          }
+          100% {
+              opacity: 0.0;
+              visibility: hidden;
+          }
+      }
+
+      @-moz-keyframes welcome {
+          0% {
+              opacity: 1.0;
+              visibility: visible;
+          }
+          100% {
+              opacity: 0.0;
+              visibility: hidden;
+          }
+      } */
 </style>

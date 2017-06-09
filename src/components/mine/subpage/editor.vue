@@ -3,10 +3,10 @@
     <div>
       <x-header :left-options="{backText: ''}" v-on:click="$router.back()">编辑资料</x-header>
       <group>
-        <cell title="昵称"  is-link @click.native="Onnameshow"  :is-loading="isloadingname"></cell>
-        <selector style="margin:20px 0 20px 10px;" v-model="value1"  title="性别" :options="genderList" @on-change="ongender"></selector>
-        <cell title="电话" is-link @click.native="OnTel" :value="user.tel"></cell>
-        <cell title="目前进行的身体状态" is-link @click.native="OnBodyStatus" :is-loading="isloadingBody" :value="user.bodyStatus"></cell>
+        <cell title="昵称"  is-link @click.native="Onnameshow"  :value="userInfo.username"></cell>
+        <selector style="margin:20px 0 20px 10px;" v-model="userInfo.sex"  title="性别" :options="genderList" @on-change="ongender"></selector>
+        <cell title="电话" is-link @click.native="OnTel" :value="userInfo.tel"></cell>
+        <cell title="目前进行的身体状态" is-link @click.native="OnBodyStatus" :value="userInfo.bodyStatusTrans"></cell>
       </group>
     </div>
     <div>
@@ -14,19 +14,40 @@
         <div>
           <actionsheet v-model="avatarshow"  :menus="menus2" @on-click-menu="click" show-cancel></actionsheet>
         </div>
-        <div>
-          <confirm v-model="nameshow" @on-confirm="onConfirmname" @on-cancel="oncancelname">
-            <x-input  placeholder="请输入昵称" :max="5" :min="1" v-model="name2"></x-input>
-          </confirm>
-        </div>
+        <!-- 设置昵称-->
+        <x-dialog v-model="usernameModal" hide-on-blur>
+          <group title="输入你的昵称">
+            <x-input title="昵称" v-model="userInfo.username" :max="25" placeholder="起一个动听的名字吧"></x-input>
+            <div style="padding:15px;">
+              <flexbox>
+                <flexbox-item>
+                  <x-button  type="primary" @click.native="update" :show-loading="showButtonLoading">确&nbsp;&nbsp;认</x-button>
+                </flexbox-item>
+              </flexbox>
+            </div>
+          </group>
+        </x-dialog>
+        <!-- 设置电话号码 -->
+        <x-dialog v-model="telModal" hide-on-blur>
+          <group title="输入你的手机号码">
+            <x-input title="电话" v-model="userInfo.tel" :min="11" :max="11" placeholder="11位移动电话"></x-input>
+            <div style="padding:15px;">
+              <flexbox>
+                <flexbox-item>
+                  <x-button  type="primary" @click.native="update" :show-loading="showButtonLoading">确&nbsp;&nbsp;认</x-button>
+                </flexbox-item>
+              </flexbox>
+            </div>
+          </group>
+        </x-dialog>
         <!-- 设置用户的身体状态body_status -->
-        <x-dialog v-model="bodyModal">
+        <x-dialog v-model="bodyModal" hide-on-blur>
           <group title="选择你最近期望的身体状态">
             <!--title="绑定手机"-->
-            <checker v-model="user.bodyStatus" default-item-class="demo5-item" selected-item-class="demo5-item-selected">
-              <checker-item value="1">标准</checker-item>
-              <checker-item value="2">塑性</checker-item>
-              <checker-item value="3">减脂</checker-item>
+            <checker v-model="userInfo.bodyStatus" @on-change="checkerChange" default-item-class="demo5-item" selected-item-class="demo5-item-selected">
+              <checker-item value='1'>标准</checker-item>
+              <checker-item value='2'>塑性</checker-item>
+              <checker-item value='3'>减脂</checker-item>
             </checker>
           </group>
           <div @click.native="showphone3=false">
@@ -35,7 +56,7 @@
           <div style="padding:15px;">
             <flexbox>
               <flexbox-item>
-                <x-button  type="primary" @click.native="setBodyStatus">确&nbsp;&nbsp;认</x-button>
+                <x-button  type="primary" @click.native="setBodyStatus" :show-loading="showButtonLoading">确&nbsp;&nbsp;认</x-button>
               </flexbox-item>
             </flexbox>
           </div>
@@ -47,7 +68,7 @@
 
 <script>
   import { XHeader, Group, Cell, Confirm, Actionsheet, XInput, Alert, Selector, XDialog, XButton, Checker, CheckerItem, Flexbox, FlexboxItem } from 'vux'
-
+  import { Indicator, Toast } from 'mint-ui'
   export default {
     components: {
       XHeader,
@@ -63,7 +84,9 @@
       Checker,
       CheckerItem,
       Flexbox,
-      FlexboxItem
+      FlexboxItem,
+      Indicator,
+      Toast
     },
     data () {
       return {
@@ -72,6 +95,17 @@
           username: '树袋熊',
           bodyStatus: '1'
         },
+        userInfo: {
+          address: '',
+          sex: '',
+          username: '',
+          bodyStatus: 1,
+          tel: '',
+          bodyStatusTrans: '' // 根据bodyStatus转化得到具体的文字标准，减脂等
+        },
+        showButtonLoading: false,
+        usernameModal: false,
+        telModal: false,
         bodyModal: false,
         avatarshow: false,
         nameshow: false,
@@ -81,16 +115,46 @@
         isloadingBody: false,
         name1: 'jue',
         name2: 'jue',
-        value1: 'woman',
         menus2: {
           menu1: '拍照',
           menu2: '从相册选择'
         },
-        genderList: [{key: 'man', value: '男'}, {key: 'woman', value: '女'}, {key: 'secret', value: '保密'}],
+        genderList: [{key: '男', value: '男'}, {key: '女', value: '女'}, {key: 'null', value: '保密'}],
         address2: '昆明理工大学'
       }
     },
+    mounted () {
+      this.get()
+    },
     methods: {
+      get () {
+        this.$store.dispatch('getMineInfo', {
+          params: ''
+        }).then(() => {
+          let userInfo = this.$store.getters.getMine
+          if (userInfo.code !== -1) {
+            userInfo = userInfo.data
+            this.userInfo = userInfo
+            this.userInfo.bodyStatus = this.userInfo.bodyStatus.toString()
+            switch (parseInt(this.userInfo.bodyStatus)) {
+              case 1:
+                this.userInfo.bodyStatusTrans = '标准'
+                break
+              case 2:
+                this.userInfo.bodyStatusTrans = '塑性'
+                break
+              case 3:
+                this.userInfo.bodyStatusTrans = '减脂'
+                break
+              default:
+                this.userInfo.bodyStatusTrans = '未设置'
+            }
+            console.info(this.userInfo)
+          } else {
+            Toast('网络出错')
+          }
+        })
+      },
       Onavatarshow () {
         this.avatarshow = !this.avatarshow
         this.isloadingavatar = !this.isloadingavatar
@@ -100,8 +164,7 @@
         this.isloadingavatar = !this.isloadingavatar
       },
       Onnameshow () {
-        this.isloadingname = !this.isloadingname
-        this.nameshow = !this.nameshow
+        this.usernameModal = true
       },
       onConfirmname () {
         this.name1 = this.name2
@@ -111,19 +174,70 @@
         this.isloadingname = false
       },
       ongender (key) {
-//        alert(key)
         this.value1 = key
+        this.update()
       },
       OnBodyStatus () {
         this.bodyModal = true
         this.isloadingBody = true
       },
       OnTel () {
+        this.telModal = true
         console.info('this is tel alert')
       },
+      checkerChange (value) {
+        console.info(this.userInfo.bodyStatus)
+      },
       setBodyStatus () {
-        this.bodyModal = false
+        console.info(this.userInfo.bodyStatus)
         this.isloadingBody = false
+        switch (parseInt(this.userInfo.bodyStatus)) {
+          case 1:
+            this.userInfo.bodyStatusTrans = '标准'
+            break
+          case 2:
+            this.userInfo.bodyStatusTrans = '塑性'
+            break
+          case 3:
+            this.userInfo.bodyStatusTrans = '减脂'
+            break
+          default:
+            this.userInfo.bodyStatusTrans = '未设置'
+        }
+        this.update()
+      },
+      update () {
+        this.showButtonLoading = true
+        this.$store.dispatch('putMine', {
+          data: this.userInfo
+        }).then(() => {
+          this.showButtonLoading = false
+          this.usernameModal = false
+          this.bodyModal = false
+          this.telModal = false
+          let userInfo = this.$store.getters.getMine
+          if (userInfo.code !== -1) {
+            userInfo = userInfo.data
+            this.userInfo = userInfo
+            this.userInfo.bodyStatus = this.userInfo.bodyStatus.toString()
+            switch (parseInt(this.userInfo.bodyStatus)) {
+              case 1:
+                this.userInfo.bodyStatusTrans = '标准'
+                break
+              case 2:
+                this.userInfo.bodyStatusTrans = '塑性'
+                break
+              case 3:
+                this.userInfo.bodyStatusTrans = '减脂'
+                break
+              default:
+                this.userInfo.bodyStatusTrans = '未设置'
+            }
+            console.info(this.userInfo)
+          } else {
+            Toast('网络出错')
+          }
+        })
       },
       onConfirmBodyStatus () {
         this.isloadingaddress = false
