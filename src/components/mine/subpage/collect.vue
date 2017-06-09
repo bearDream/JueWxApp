@@ -360,7 +360,7 @@
   .comment{
   }
   .comment-img{
-    width: 25Px;
+    width: 20Px;
     right: 45px;
     background-size: cover;
     display: inline-block;
@@ -527,14 +527,14 @@
   }
   .takeSorting{
     width: 100%;
-    min-height:150px;
-    margin-bottom: 10px;
+    min-height:170px;
+    margin-bottom: 20px;
     /*border-bottom: 1px solid #dddbdb;*/
   }
   .sortingl{
     border-radius: 50%;
-    width: 60Px;
-    height: 60px;
+    width: 50Px;
+    height: 50px;
     position: absolute;
     top: 10px;
     left: 25px;
@@ -556,7 +556,8 @@
   .T-title{
     position: absolute;
     top: 5px;
-    font-size: 20px;
+    left: 20px;
+    font-size: 18px;
     color: #315D83;
   }
   .T-time{

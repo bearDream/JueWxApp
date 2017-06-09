@@ -16,6 +16,7 @@ import dish from './modules/dish'
 import dishbusiness from './modules/dishBusiness'
 import order from './modules/order'
 import article from './modules/article'
+import search from './modules/search'
 import login from './modules/login'
 
 import actions from './actions'
@@ -54,6 +55,7 @@ export default new Vuex.Store({
     article,
     dishbusiness,
     order,
-    login
+    login,
+    search
   }
 })

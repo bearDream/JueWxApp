@@ -13,7 +13,7 @@
       <div v-transfer-dom>
         <alert v-model="show2" title="关于" @on-hide="onHide" content="Your Message is sent successfully"></alert>
       </div>
-      <x-switch title='清除缓存' v-model="show3"></x-switch>
+      <x-switch style="margin-left: 10px" title='清除缓存' v-model="show3"></x-switch>
       <cell title="联系我们" @click.native="showPlugin1" is-link></cell>
       <div v-transfer-dom>
         <alert v-model="show1" title="蕨菜客服" @on-hide="onHide" content="400-101-201"></alert>

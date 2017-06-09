@@ -1,6 +1,6 @@
 <template>
-  <div style="">
-    <blur :blur-amount=0 :url="url" style="height:220px">
+  <div style="padding-bottom: 50px">
+    <blur :blur-amount=0 :url="url" style="height:200px">
       <p class="center">
         <img :src="headImgUrl">
         <br>
@@ -16,18 +16,19 @@
     <grid>
       <grid-item link="subpage/collect">
         <img src="../../assets/images/collection.png" alt="">
-        <p style="color: #676767;margin-top: 3px;">我的收藏</p>
+        <p style="color: #676767;">我的收藏</p>
       </grid-item>
-      <grid-item >
+      <grid-item link="subpage/vip">
         <img src="../../assets/images/vip.png" alt="">
         <p style="color: #676767;">我的会员</p>
       </grid-item>
-      <grid-item >
+      <grid-item link="subpage/release">
         <img src="../../assets/images/release.png" alt="">
         <p style="color: #676767;">我的发布</p>
       </grid-item>
     </grid>
-    <group>
+    <group style="margin-top:-20px">
+      <cell title='我的订单'  link="subpage/my_order"  is-link></cell>
       <cell title='设置'  link="subpage/site"  is-link></cell>
       <cell title='分享食话食说'  link="subpage/post_article"  is-link></cell>
       <cell title='每日签到' link="subpage/check" is-link></cell>

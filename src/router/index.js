@@ -22,6 +22,15 @@ const router = new Router({
         requiresAuth: false
       }
     }, {
+      path: '/home/search',
+      name: 'search',
+      components: {
+        'insidePage': resolve => require(['../components/home/subpage/search.vue'], resolve)
+      },
+      meta: {
+        requiresAuth: true
+      }
+    }, {
       path: '/welocme',
       name: 'welcome',
       component: resolve => require(['../components/common/welcome.vue'], resolve),
@@ -141,6 +150,15 @@ const router = new Router({
       name: 'site',
       components: {
         'insidePage': resolve => require(['../components/mine/subpage/site.vue'], resolve)
+      },
+      meta: {
+        requiresAuth: true
+      }
+    }, {
+      path: '/subpage/my_order',
+      name: 'my_order',
+      components: {
+        'insidePage': resolve => require(['../components/mine/subpage/my_order.vue'], resolve)
       },
       meta: {
         requiresAuth: true

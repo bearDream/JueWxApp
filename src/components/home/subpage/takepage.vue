@@ -46,6 +46,7 @@
               </div>
               <br>
               <br>
+              <br>
               <span class="tel">电话&nbsp;:&nbsp;&nbsp;&nbsp;{{item.tel}}</span>
             </div>
           </div>
@@ -60,7 +61,7 @@
           <div class="allsortingl" @click="GoBusiness (item)" :style="{backgroundImage: 'url(' + item.businessImage + ')'}"></div>
           <div class="allsortingr" @click="GoBusiness (item)">
             <br>
-            <rater v-model="item.level" slot="value" disabled></rater>
+            <rater v-model="item.level" slot="value" disabled :font-size="20"></rater>
             <br>
             <br>
             <span class="address2">{{item.address}}</span>
@@ -76,7 +77,7 @@
           <div class="sortingl" @click="GoBusiness (item)" :style="{backgroundImage: 'url(' + item.businessImage + ')'}"></div>
           <div class="sortingr"  @click="GoBusiness (item)">
             <h3>{{item.name}}</h3>
-            <rater v-model="item.level" slot="value" disabled></rater>
+            <rater v-model="item.level" slot="value" disabled :font-size="18"></rater>
             <br>
             <!--<span>{{item.type}}</span>-->
             <span>{{item.address}}</span>
@@ -150,13 +151,13 @@
         }],
         list2: [{
           src: img1,
-          title: '巴蜀知味重庆老火锅',
+          name: '巴蜀知味重庆老火锅',
           address: '呈贡大学城',
           detailed: '呈贡区洛龙街道朝云街昆明市政府',
           tel: 13067349324
         }, {
           src: img1,
-          title: '巴蜀知味重庆老火锅',
+          name: '巴蜀知味重庆老火锅',
           address: '昆明盘龙区',
           detailed: '呈贡区洛龙街道雨花毓秀小区',
           tel: 1234563324
@@ -370,8 +371,9 @@
     border-bottom: 1px solid #dddbdb;
   }
   .sortingl{
-    width: 100px;
+    width: 35%;
     height: 100px;
+    overflow: hidden;
     position: absolute;
     top: 25px;
     left: 25px;
@@ -380,7 +382,7 @@
     display: inline-block;
   }
   .sortingr{
-    width: 60%;
+    width: 55%;
     height: 160px;
     padding:20px 5px;
     position: absolute;
@@ -416,18 +418,19 @@
   }
   .address , .distance , .tel{
     color: #5b5b5d;
-    font-size: 15px;
+    font-size: 14px;
   }
   .addressdiv{
     display: inline-block;
     width: 70%;
     position: absolute;
-    top:53px;
+    top:50px;
     right: 10px;
   }
   .allsortingl{
-    width: 160px;
+    width: 100px;
     height: 100px;
+    overflow: hidden;
     position: absolute;
     top: 40px;
     left: 25px;
@@ -449,7 +452,7 @@
     padding-top: 5px;
     font-size: 16px;
     color: #1b1b1b;
-    border-bottom: 1px solid #c6c7ca;
+    border-bottom: 1px solid #dddbdb;
   }
   span.address2{
     display: inline-block;
