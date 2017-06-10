@@ -7,7 +7,7 @@
           <cell title="商家" is-link
                 :border-intent="false"
                 :arrow-direction="showContent001 ? 'up' : 'down'"
-                @click.native="show1">
+                @click.native="showBusiness">
           </cell>
         </group>
       </div>
@@ -18,7 +18,7 @@
             is-link
             :border-intent="false"
             :arrow-direction="showContent002 ? 'up' : 'down'"
-            @click.native="show2"></cell>
+            @click.native="showDish"></cell>
         </group>
       </div>
       <div>
@@ -28,11 +28,12 @@
             is-link
             :border-intent="false"
             :arrow-direction="showContent003 ? 'up' : 'down'"
-            @click.native="show3"></cell>
+            @click.native="showArticle"></cell>
         </group>
       </div>
     </div>
 
+    <!-- 收藏商家页 -->
     <template v-if="showContent001" style="position: fixed">
       <!--<scroller enable-horizontal-swiping=""  :loading="load" >-->
         <swiper :list="list0" :min-moving-distance="20" auto="" style="height:200px;margin: 15px">
@@ -41,11 +42,13 @@
       <p class="B-text">【美味大数据】今天你挑哪家？</p>
       <hr>
       <div style=" position: relative;margin: 10px;overflow: hidden; width: 43%;float: left;height: 150px;" v-for="item in list1">
-        <div class="m-img1" :style="{backgroundImage: 'url(' + item.img + ')'}"></div>
+        <div class="m-img1" :style="{backgroundImage: 'url(' + item.businessImage + ')'}"></div>
           <div slot="content" class="m-title" > </div>
-            <p class="m-title">{{item.title}}</p>
+            <p class="m-title">{{item.name}}</p>
       </div>
      </template>
+
+    <!-- 收藏菜品页 -->
     <template  v-if="showContent002" style="position: fixed">
         <!--<swiper :list="list01" :min-moving-distance="100" auto="" height="230px" style="height:230px;margin: 15px 15px 0 15px ">-->
         <!--</swiper>-->
@@ -53,45 +56,36 @@
               :index="list01"></swiper>
 　　
 
-      <div style=" position: relative;margin:  21px -8px 13px 13px;overflow: hidden; width: 28%;float: left;height: 140px;" v-for="item in list2">
-        <p class="F-date">{{item.date}}</p>
-        <div class="m-img" :style="{backgroundImage: 'url(' + item.img + ')'}"></div>
+      <div style=" position: relative;margin:  21px -8px 13px 13px;overflow: hidden; width: 28%;float: left;height: 140px;" v-for="item in list2" @click="GoDish(item)">
+        <!--<p class="F-date">{{item.date}}</p>-->
+        <div class="m-img" :style="{backgroundImage: 'url(' + item.dishRecImage + ')'}"></div>
+        <div class="m-img"><span v-text="item.dishName"></span></div>
         <div slot="content" class="m-title" ></div>
       </div>
 
     </template>
+
+    <!-- 收藏文章页 -->
     <template v-if="showContent003">
       <div>
         <scroller enable-horizontal-swiping=""  :loading="load" >
           <swiper :list="list02" :min-moving-distance="20" auto="" style="height:200px;margin: 15px 15px 0 15px ">
           </swiper>
         </scroller>
-
         <!--11111111111111111-->
         <div class="article" v-for="item in list3">
-          <div class="takeSorting"   >
-            <div class="sortingl" :style="{backgroundImage: 'url(' + item.img + ')'}"></div>
+          <div class="takeSorting">
+            <div class="sortingl" :style="{backgroundImage: 'url(' + item.articleUserAvatar + ')'}"></div>
             <div class="sortingr">
-              <span class="T-title">{{item.title}}</span>
-              <span class="T-time">{{item.time}}</span>
-              <br>
-              <span class="T-type">{{item.type}}</span>
-              <br>
-              <!--222222222222222222-->
-                <div class="address">
-                  <a href="">
-                    <div class="address-img" :style="{backgroundImage: 'url(' + item.img1 + ')'}"></div>
-                    <p class="add-name">{{item.name}}</p>
-                    <p class="add-add1">{{item.address1}}</p>
-                  </a>
-                </div>
-                <p class="add-add2">{{item.address2}}</p>
-                <span class="add-add3">浏览 </span> <span class="add-add4">{{item.look}}</span>
-                <!--3333333333333333333-->
-                <div  class="comment" >
+              <span class="T-title">{{item.articleUsername}}</span>
+              <span class="T-type">{{item.articleContent}}</span>
+              <div  class="comment" >
+                <p class="add-add2">{{item.articleAddTime}}</p>
+                <div style="display:inline-block;float: right;margin-right: 15px">
                   <img :src="comentb" class="comment-img">
-                  <a class="comment-text" @click="showcomment (item.list5[0])">{{item.comments}}</a>
+                  <a class="comment-text" @click="showcomment (item)">{{item.comment}}</a>
                 </div>
+              </div>
             </div>
           </div>
         </div>
@@ -121,6 +115,8 @@
   import img15 from '../../../assets/images/T3-3.png'
   import img16 from '../../../assets/images/comment.jpg'
   import img17 from '../../../assets/img/commentsb.png'
+  import time from '../../../utils/helpers/timeLite'
+
   export default {
     directives: {
       TransferDom
@@ -154,7 +150,7 @@
       return {
         showContent001: false,
         showContent002: false,
-        showContent003: true,
+        showContent003: false,
         commentimg: img16, /** 评论显示的小图片 */
         comentb: img17,
         tel: 1232132,
@@ -164,7 +160,7 @@
           img: img1
         }, {
           url: '../../../assets/images/B1-1.png',
-          img: img1
+          businessImage: img1
         }],
         list01: [{
           url: '../../../assets/images/F2-1.jpg',
@@ -175,70 +171,76 @@
           img: img13
         }],
         list1: [{
-          title: '巴西烤肉',
+          name: '巴西烤肉',
           url: '../../../assets/images/B1-3.png',
-          img: img3
+          businessImage: img3
         }, {
-          title: '窄巷子砂锅',
+          name: '窄巷子砂锅',
           url: '../../../assets/images/B1-4.png',
-          img: img2
+          businessImage: img2
         }, {
-          title: '柳香园',
+          name: '柳香园',
           url: '../../../assets/images/B1-5.png',
-          img: img4
+          businessImage: img4
         }, {
-          title: '外婆的味道',
+          name: '外婆的味道',
           url: '../../../assets/images/B1-2.png',
-          img: img5
+          businessImage: img5
         }, {
-          title: '巴西烤肉',
+          name: '巴西烤肉',
           url: '../../../assets/images/B1-3.png',
-          img: img3
+          businessImage: img3
         }, {
-          title: '窄巷子砂锅',
+          name: '窄巷子砂锅',
           url: '../../../assets/images/B1-4.png',
-          img: img2
+          businessImage: img2
         }, {
-          title: '柳香园',
+          name: '柳香园',
           url: '../../../assets/images/B1-5.png',
-          img: img4
+          businessImage: img4
         }, {
-          title: '外婆的味道',
+          name: '外婆的味道',
           url: '../../../assets/images/B1-2.png',
-          img: img5
+          businessImage: img5
         }
         ],
         list2: [{
           date: '2017年4月17日',
+          dishName: '煮蕨菜',
           url: '../../../assets/images/B1-3.png',
-          img: img12
+          dishRecImage: img12
         }, {
           date: '.',
+          dishName: '炒蕨菜',
           url: '../../../assets/images/B1-4.png',
-          img: img7
+          dishRecImage: img7
         }, {
           date: '.',
+          dishName: '烤羊肉',
           url: '../../../assets/images/B1-5.png',
-          img: img8
+          dishRecImage: img8
         }, {
           date: '2017年4月17日',
+          dishName: '油炸肉',
           url: '../../../assets/images/B1-2.png',
-          img: img9
+          dishRecImage: img9
         }, {
           date: '.',
+          dishName: '酸菜洋芋',
           url: '../../../assets/images/B1-3.png',
-          img: img10
+          dishRecImage: img10
         }, {
+          dishName: '麻辣豆腐',
           date: '.',
           url: '../../../assets/images/B1-5.png',
-          img: img11
+          dishRecImage: img11
         }
         ],
         list3: [{
-          img: img15,
-          title: '小李吃货',
-          time: '2017年4月17日',
-          type: '无意见和同学来到了这家店，菜的味道真心不错，分量足足的，' +
+          articleUserAvatar: img15,
+          articleUsername: '小李吃货',
+          articleAddTime: '2017年4月17日',
+          articleContent: '无意见和同学来到了这家店，菜的味道真心不错，分量足足的，' +
           '而且餐厅很有情调小清新风格工作人员态度热情，这里交通还方便，一定会再来！',
           img1: img14,
           url: '../../../assets/images/T3-2.png',
@@ -246,7 +248,7 @@
           address1: '环城东路',
           address2: '昆明理工大学  新迎校区',
           look: 1314,
-          comments: 22,
+          comment: 22,
           list5: [{
             comments1: '评论正解1',
             comments2: '评论正解2',
@@ -254,10 +256,10 @@
             comments4: '评论正解4'
           }]
         }, {
-          img: img15,
-          title: '小李吃货',
-          time: '2017年4月17日',
-          type: '无意见和同学来到了这家店，菜的味道真心不错，分量足足的，' +
+          articleUserAvatar: img15,
+          articleUsername: '小李吃货',
+          articleAddTime: '2017年4月17日',
+          articleContent: '无意见和同学来到了这家店，菜的味道真心不错，分量足足的，' +
           '而且餐厅很有情调小清新风格工作人员态度热情，这里交通还方便，一定会再来！',
           img1: img14,
           url: '../../../assets/images/T3-2.png',
@@ -265,7 +267,7 @@
           address1: '环城东路',
           address2: '昆明理工大学  新迎校区',
           look: 1314,
-          comments: 22,
+          comment: 22,
           list5: [{
             comments1: '评论正解1',
             comments2: '评论正解2',
@@ -276,29 +278,56 @@
       }
     },
     mounted () {
-      // 进入页面的钩子函数
+      console.info(time.getDate('1495382400000'))
+      this.showArticle()
+      this.get()
     },
     methods: {
+      get (type) {
+        this.$store.dispatch('getCollections', {
+          params: {collectionType: type}
+        }).then(() => {
+          let data = this.$store.getters.getCollections
+          if (data.code !== -1) {
+            this.$set(this, 'list1', data.data)
+            this.$set(this, 'list2', data.data)
+            // 格式化时间
+            for (let i = 0; i < data.data.length; i++) {
+              data.data[i].articleAddTime = time.getDate(data.data[i].articleAddTime)
+            }
+            this.$set(this, 'list3', data.data)
+          }
+          console.info(this.$store.getters.getCollections)
+        })
+      },
       showcomment (comment) {
-        this.$router.push({name: 'comments'})
+        console.info(comment.articleId)
+        this.$router.push({name: 'comments', params: {articleId: comment.articleId}})
       },
       business_info (item) {
         alert(item.title)
       },
-      show1 () {
+      showBusiness () {
+        this.get(2)
         this.showContent001 = !this.showContent001
         this.showContent003 = false
         this.showContent002 = false
       },
-      show2 () {
+      showDish () {
+        this.get(1)
         this.showContent002 = !this.showContent002
         this.showContent003 = false
         this.showContent001 = false
       },
-      show3 () {
+      showArticle () {
+        this.get(3)
         this.showContent003 = !this.showContent003
         this.showContent002 = false
         this.showContent001 = false
+      },
+      GoDish (item) {
+        console.info(item)
+        this.$router.push({name: 'dishesDetail', params: {dishId: item.dishId}})
       },
       GoBusiness (item) {
         this.$router.push({name: 'business'})
@@ -329,25 +358,16 @@
     width:100%;
   }
   .comment{
-    margin-top: -34px;
-    margin-left: 70px;
   }
   .comment-img{
-    width: 25Px;
-    position: absolute;
+    width: 20Px;
     right: 45px;
-    top: 255px;
     background-size: cover;
     display: inline-block;
   }
   .comment-text{
-    /*border: 1px solid #878787;*/
     border-radius: 14px;
-    padding: 2px 7px 2px 48px;
-    position: absolute;
-    right: 10px;
     color: #5b5b5d;
-    top:250px;
     font-size: 18px;
   }
   .add-add4{
@@ -365,11 +385,8 @@
     left: 0;
   }
   .add-add2{
+    display: inline-block;
     color: #878787;
-    margin-top: 5px;
-    position: absolute;
-    top:240px;
-    left: 0;
   }
   .add-add1{
     margin-left: 73px;
@@ -510,14 +527,14 @@
   }
   .takeSorting{
     width: 100%;
-    height:300px;
-    margin-bottom: 10px;
+    min-height:170px;
+    margin-bottom: 20px;
     /*border-bottom: 1px solid #dddbdb;*/
   }
   .sortingl{
     border-radius: 50%;
-    width: 60Px;
-    height: 60px;
+    width: 50Px;
+    height: 50px;
     position: absolute;
     top: 10px;
     left: 25px;
@@ -537,7 +554,10 @@
     display: inline-block;
   }
   .T-title{
-    font-size: 20px;
+    position: absolute;
+    top: 5px;
+    left: 20px;
+    font-size: 18px;
     color: #315D83;
   }
   .T-time{
@@ -546,8 +566,9 @@
     margin-left: 60px;
   }
   .T-type{
-    margin: -2px;
     font-size: 15px;
+    display: inline-block;
+    margin-top: 20px;
   }
   .sortingl p{
     display: inline-block;

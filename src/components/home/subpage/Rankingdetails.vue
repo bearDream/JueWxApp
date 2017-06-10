@@ -2,49 +2,50 @@
   <div>
     <x-header v-on:click="$router.back()">营养价值详情</x-header>
     <blur :blur-amount=0 :url="url" style="height:220px">
-
-      <div style="border-radius: 2px;width: 100%">
-        <div class="m-buttom1"></div>
         <ul class="me_show">
-          <li><p>{{attentions}}</p></li>
+          <li><p>{{dishName}}</p></li>
         </ul>
-      </div>
     </blur>
 
 
-    <template  v-if="showContent003 = true" v-for="item in list3" >
       <div class="takeSorting3" @click="GoBusiness (item)">
-        <div class="sorting3" :style="{backgroundImage: 'url(' + item.dishImage + ')'}"></div>
         <div class="sortingr3">
-          <x-table :cell-bordered="false" :content-bordered="false" style="background-color:#fff;">
-            <thead >
-              <tr class="listtitle" >
-                <td >材料</td>
-                <td >营养价值</td>
-              </tr>
-            </thead>
+          <table :cell-bordered="false" :content-bordered="false" style="background-color:#fff;">
             <tbody class="noneboder">
             <tr>
-              <td><span class="spanfontsize">热量</span></td>
-              <td>{{item.heat}}</td>
+              <td class="ltd"><span class="spanfontsize">热量</span></td>
+              <td>
+                <flow>
+                  <flow-state state="1" title="0" is-done v-if="scol >=1"></flow-state>
+                  <flow-line is-done></flow-line>
+
+                  <flow-state state="2" title="底" is-done v-if="scol >=2"></flow-state>
+                  <flow-line></flow-line>
+
+                  <flow-state state="3" title="中" v-if="scol >= 3"></flow-state>
+                  <flow-line></flow-line>
+
+                  <flow-state state="4" title="高" v-if="scol=4"></flow-state>
+                </flow>
+              </td>
             </tr>
             <tr>
-              <td><span class="spanfontsize">糖分</span></td>
-              <td>{{item.sugarContent}}</td>
+              <td class="ltd"><span class="spanfontsize">糖分</span></td>
+              <td>{{sugarContent}}</td>
             </tr>
             <tr>
-              <td><span class="spanfontsize">营养价值</span></td>
-              <td>{{item.grease}}</td>
+              <td class="ltd"><span class="spanfontsize">营养价值</span></td>
+              <td>{{grease}}</td>
             </tr>
             </tbody>
-          </x-table>
+          </table>
         </div>
       </div>
-    </template>
   </div>
 </template>
 <script>
-  import { CellBox, XTable, Card, Masker, XHeader, Blur, TransferDom, Group, Cell, Panel, Rater, Badge } from 'vux'
+  import { CellBox, XTable, Card, Masker, XHeader, Blur, TransferDom, Group, Cell, Panel, Rater, Badge,
+    Flow, FlowLine, FlowState } from 'vux'
   import img from '../../../assets/images/8.png'
   import img1 from '../../../assets/img/8.png'
   //  import img2 from '../../../assets/img/gruel.png'
@@ -53,6 +54,9 @@
       TransferDom
     },
     components: {
+      Flow,
+      FlowLine,
+      FlowState,
       Masker,
       XHeader,
       Group,
@@ -67,27 +71,15 @@
     },
     data () {
       return {
-        dishId: '',
-        showContent003: true,
-        tel: 1232132,
-        list3: [{
-          dishImage: img1,
-          title: '材料营  养价值',
-          title1: '大米 ',
-          address1: '补充营养素',
-          title2: '基尾虾 ',
-          address2: '增强免疫力',
-          title3: '芦笋 ',
-          heat: '抗癌、降脂',
-          title4: '色拉油 ',
-          sugarContent: '抗氧化',
-          title5: '盐 ',
-          grease: '去腥味',
-          title6: '胡椒 ',
-          address6: '防腐调味'
-        }],
-        url: img,
-        attentions: '营养价值分析'
+        scol: 4,
+        dishId: 1,
+        dishName: '水果紫米粥',
+        url: img, /** 顶部传进来的图片 */
+        dishImage: img1,
+        title: '材料营  养价值',
+        heat: '抗癌、降脂',
+        sugarContent: '抗氧化',
+        grease: '去腥味'
       }
     },
     mounted () {
@@ -101,9 +93,17 @@
     methods: {
       get () {
         this.$store.dispatch('getNutritionDish', {
-          uri: '/get?dishId=' + this.dishId
+          uri: '/get?dishId' + this.dishId
         }).then(() => {
-          console.info(this.$store.getters.getNutritionDish)
+          let data = this.$store.getters.getNutritionDish
+          if (data.code !== -1) {
+            console.info(data.data)
+            this.$set(this, 'list3', data.data)
+//            this.$set(this.list3, 'heat', data.data.heat)
+//            this.$set(this.list3, 'sugar_content', data.data.sugar_content)
+//            this.$set(this.list3, 'grease', data.data.grease)
+            console.info(this.list3.grease)
+          }
         })
       },
       business_info (item) {
@@ -133,30 +133,14 @@
     position: relative;
     /*border: 3px solid #E6E6E6;*/
   }
-  .sorting3{
-    width: 45%;
-    height: 295px;
-    position: absolute;
-    float: left;
-    left: 2%;
-    background-size: cover;
-    background-color: #9b9b9b;
-    display: inline-block;
-  }
   .sortingr3{
-    width: 53%;
+    width: 100%;
     height: 300px;
     position: absolute;
     float: right;
     right:0%;
     display: inline-block;
   }
-  .address , .distance , .tel{
-    color: #5b5b5d;
-    font-size: 15px;
-  }
-
-
   .m-buttom1 {
     display: block;
     position: absolute;
@@ -173,10 +157,12 @@
   .me_show{
     display: flex;
     width: 100%;
-    height:40px;
+    height:50px;
     position: absolute;
-    bottom: 5px;
+    bottom: 0px;
     color:#000;
+    background-color: rgba(254,254,254,.5);
+    padding: 5px;
   }
   .me_show li{
     float: left;
@@ -187,11 +173,15 @@
   }
   .noneboder tr td{
     border:none;
-    width: 45%;
+    width: 70%;
     text-align: left;
     padding-left: 5px;
     padding-right: 0;
     font-size: 14px;
+  }
+  .noneboder tr td.ltd{
+    width: 20%;
+    margin-right:20px;
   }
   .noneboder tr td span.spanfontsize{
     font-size: 18px;

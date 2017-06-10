@@ -8,14 +8,17 @@ import App from './App'
 import store from './vuex/store'
 import router from './router/index'
 import { LoadingPlugin, WechatPlugin } from 'vux'
-import JueLoading from './loading'
+import { Loadmore, Lazyload } from 'mint-ui'
+import 'mint-ui/lib/style.css'
+import iView from 'iview'
 import 'iview/dist/styles/iview.css'
-import { Upload, Icon, template, Progress, Modal } from 'iview'
-
+import JueLoading from './loading'
+Vue.component(Loadmore.name, Loadmore)
+Vue.use(iView)
+Vue.use(Lazyload)
 Vue.use(LoadingPlugin)
 Vue.use(WechatPlugin)
 Vue.use(JueLoading)
-Vue.use(Upload, template, Icon, Progress, Modal)
 
 Vue.use(VueRouter, axios)
 

@@ -25,6 +25,8 @@
   import img1 from '../../../assets/images/8.png'
   import img2 from '../../../assets/images/9.png'
   import img3 from '../../../assets/images/10.png'
+  import { Indicator } from 'mint-ui'
+
   import { mapState } from 'vuex'
   export default {
     components: {
@@ -64,13 +66,18 @@
       }
     },
     created () {
-      this.get()
+//      this.get()
     },
     methods: {
       get () {
+        Indicator.open({
+          text: '加载中...',
+          spinnerType: 'fading-circle'
+        })
         this.$store.dispatch('getNutritionDishes', {
           uri: '/rank'
         }).then(() => {
+          Indicator.close()
           let data = this.$store.getters.getNutritionDishes
           var datalist = []
           if (data.code !== -1) {
@@ -79,7 +86,7 @@
             for (let i = 0; i < 3; i++) {
               datalist.push({
                 src: data[i].dishImage,
-                title: 'NO.' + i,
+                title: 'NO.' + (parseInt(i) + 1),
                 desc: data[i].dishName,
                 dishId: data[i].dishId
               })

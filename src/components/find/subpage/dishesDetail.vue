@@ -1,52 +1,78 @@
 <template>
   <div style="background:#eee">
     <div style="max-height:250px;position:relative;">
-      <img class="bg" :src="dishesbg">
-      <div class="mask">{{maskTitle}}</div>
+      <img class="bg" :src="dish.dishImage">
+      <div class="mask">{{dish.dishName}}</div>
     </div>
     <div style="margin-top:2%;background-color: #fff;">
       <div class="title">{{title}}</div>
       <div class="row">
         <div class="icon" :style="{background:'url('+dishesIcon+') no-repeat -8px -247px'}"></div>
-        <i style="font-size:24px;position:absolute;top:24%;left:18%;">菜名：</i>
-        <i style="font-size:24px;position:absolute;top:24%;left:38%;">{{dishesName}}</i>
+        <i style="font-size:20px;position:absolute;top:24%;left:18%;">菜名：</i>
+        <i style="font-size:24px;position:absolute;top:24%;left:38%;">{{dish.dishName}}</i>
       </div>
       <div style="border-bottom: 2px solid #eee;">
         <div class="left">
-          <span class="icon" :style="{background:'url('+dishesIcon+') no-repeat -105px -250px'}"></span>
-          <i style="font-size:20px;position:absolute;top:17px;left:62px;">材料：</i>
+          <span class="icon" :style="{background:'url('+dishesIcon+') no-repeat -105px -250px', width: '50%;'}"></span>
+          <i style="font-size:20px;">简介：</i>
         </div>
-        <p style="font-size:20px;margin-left:125px;padding:2%;">{{material}}</p>
+        <div>
+          <p style="font-size:15px;padding:5px 20px 5px 20px;">{{dish.dishDesc}}</p>
+        </div>
       </div>
       <div style="border-bottom: 2px solid #eee;">
         <div class="left">
           <span class="icon" :style="{background:'url('+dishesIcon+') no-repeat -200px -250px'}"></span>
-          <i style="font-size:20px;position:absolute;top:17px;left:62px;">佐料：</i>
+          <i style="font-size:20px;">详细介绍：</i>
         </div>
-        <p style="font-size:20px;margin-left:125px;padding:2%;">{{seasoning}}</p>
       </div>
+      <p style="font-size:20px;padding:5px 20px 5px 20px;">{{dish.dishContent}}</p>
+      <x-button type="primary">查看会做该菜的商家</x-button>
     </div>
   </div>
 </template>
 
 <script>
+import { XButton } from 'vux'
 import dishes from '../../../assets/img/dishes.png'
 import icon from '../../../assets/img/dishesIcon.png'
 
 export default {
+  components: {
+    XButton
+  },
   data () {
     return {
-      dishesbg: dishes,
-      maskTitle: '水果+串串=香',
-      title: '菜品详情',
-      dishesName: '水果串串香',
       dishesIcon: icon,
-      material: '豆腐、西红柿、柠檬、黄瓜、生菜、洋葱',
-      seasoning: '食盐、花椒、味精、辣椒粉、香油、冰糖'
+      title: '菜品详情',
+      dish: {
+        dishId: '',
+        dishImage: dishes,
+        dishName: '水果串串香',
+        dishDesc: '豆腐、西红柿、柠檬、黄瓜、生菜、洋葱',
+        dishContent: '食盐、花椒、味精、辣椒粉、香油、冰糖'
+      }
     }
   },
   mounted () {
-    // 进入页面的钩子函数
+    if (this.$route.params.dishId === undefined) {
+      this.$router.go(-1)
+    }
+    this.$set(this.dish, 'dishId', this.$route.params.dishId)
+    this.get()
+  },
+  methods: {
+    get () {
+      this.$store.dispatch('getDish', {
+        uri: '/' + this.dish.dishId
+      }).then(() => {
+        console.info(this.$store.getters.getDish)
+        let data = this.$store.getters.getDish
+        if (data.code !== -1) {
+          this.dish = data.data
+        }
+      })
+    }
   }
 }
 </script>
@@ -93,11 +119,8 @@ export default {
     margin-top:1%;
   }
   .left{
-    width:125px;
     min-hieght:60px;
     background: #fff;
     padding:2%;
-    float:left;
-    position: relative;
   }
 </style>

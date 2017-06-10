@@ -1,21 +1,28 @@
 <template>
     <div class="welcome" :class="{hide:hide}">
-        <img src="https://sinacloud.net/vue-wechat/images/welcome.jpg" alt="">
+        <img src="../../assets/images/启动页.png" alt="">
     </div>
 </template>
 <script>
-export default {
-  data () {
-    return {
-      hide: false
+//  import { Indicator, Toast } from 'mint-ui'
+
+  export default {
+//    components: {
+//      Indicator,
+//      Toast
+//    },
+    data () {
+      return {
+        hide: false
+      }
+    },
+    mounted () {
+      setTimeout(() => {
+        this.$router.replace({name: '首页'})
+      }, 2000)
+//      this.login()
     }
-  },
-  mounted () {
-    setTimeout(() => {
-      this.hide = true
-    }, 1000)
   }
-}
 </script>
 <style>
 /* 被注释掉的样式不适合部分安卓机 */
