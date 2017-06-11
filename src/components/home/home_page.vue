@@ -3,12 +3,10 @@
   <div class="welcome" :class="{hide:hide}">
     <img src="../../assets/images/启动页.png" alt="">
   </div>
-  <div :class="{hide:hide}">
-    <scroller enable-horizontal-swiping=""  :loading="load" >
+    <!--<scroller enable-horizontal-swiping=""  :loading="load" >-->
       <!--<search @on-submit="onSubmit" :auto-fixed="false" v-model="value2" @on-focus="onFocus" @on-cancel="onCancel"></search>--> <!--height="260px"-->
-      <swiper :list="list1" :min-moving-distance="20" auto="" style="height: 180px" >
+      <!--<swiper :list="list1" :min-moving-distance="20" auto="" style="height: 180px" >-->
   <div>
-
 
       <swiper loop auto style="height: 160px;" >
         <swiper-item :height=160  v-for="(item, index) in list1" :key="index">
