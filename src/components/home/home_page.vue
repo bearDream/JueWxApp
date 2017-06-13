@@ -143,8 +143,8 @@
     created (i) {
       this.i += 1
       console.log(i)
-//      this.gets()
-//      this.getUser()
+      this.gets()
+      this.getUser()
     },
     computed: mapState([
       'home'
