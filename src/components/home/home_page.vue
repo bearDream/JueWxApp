@@ -1,12 +1,8 @@
 <template>
   <div>
-  <div class="welcome" :class="{hide:hide}">
-    <img src="../../assets/images/启动页.png" alt="">
-  </div>
-  <div :class="{hide:hide}">
-    <scroller enable-horizontal-swiping=""  :loading="load" >
-      <!--<search @on-submit="onSubmit" :auto-fixed="false" v-model="value2" @on-focus="onFocus" @on-cancel="onCancel"></search>--> <!--height="260px"-->
-      <swiper :list="list1" :min-moving-distance="20" auto="" style="height: 180px" >
+  <!--<div class="welcome" :class="{hide:hide}">-->
+    <!--<img src="../../assets/images/启动页.png" alt="">-->
+  <!--</div>-->
   <div>
 
 
@@ -16,8 +12,6 @@
         </swiper-item>
         <div class="theme">方便生活从蕨菜开始</div>
       </swiper>
-
-
       <div class="searchdiv" >
        <input  type="text" @focus="Gosearch" placeholder="搜索菜品、用户、商家" class="inputsearch" >
        <div class="searchicon"></div>
@@ -50,7 +44,7 @@
     </div>
   </div>
   <!--随机来几个菜-->
-  <div>
+    <div>
     <x-dialog hide-on-blur  :dialog-style="{'max-width': '100%',overflow: 'visible', width: '90%', height: '50%', 'background-color': 'transparent'}" v-model="showHideOnBlur"  >
       <div class="img-box"   id="Rotation" >
         <div style="width: 250px;height: 200px;" @touchstart='touchstart' @touchend='touchend'>
@@ -77,7 +71,7 @@
       </div>
       <div @click="showHideOnBlur=false"></div>
     </x-dialog>
-  </div>
+     </div>
     <!-- 设置用户的身体状态body_status -->
     <x-dialog v-model="bodyModal">
       <group title="选择你最近期望的身体状态">
@@ -99,7 +93,7 @@
         </flexbox>
       </div>
     </x-dialog>
-  <div style="height: 50px;width: 100%;"></div>
+  <!--<div style="height: 50px;width: 100%;"></div>-->
   </div>
 </template>
 
@@ -142,8 +136,8 @@
     created (i) {
       this.i += 1
       console.log(i)
-      this.gets()
-      this.getUser()
+//      this.gets()
+//      this.getUser()
     },
     computed: mapState([
       'home'
