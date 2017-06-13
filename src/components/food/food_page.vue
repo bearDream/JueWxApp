@@ -5,21 +5,26 @@
     <mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" topLoadingText="小蕨努力加载中..." ref="loadmore">
       <divider style="margin-top:12%;font-size:16px;background-color: #fff;">看看大家都在吃什么</divider>
         <div v-for="item in list">
-          <div  style="background-color: #fff;padding:2% 2%;overflow: hidden;height: 200px;position: relative;" v-on:click="GoArticle(item)">
-            <div class="avatar">
+          <div  style="background-color: #fff;padding:2% 2%;overflow: hidden;height: 200px;position: relative;">
+            <div class="avatar" v-on:click="GoArticle(item)">
               <img class="avatarimg" :src="item.headImgUrl" >
             </div>
-            <p class="f-name">{{item.username}}</p>
+            <p class="f-name" v-on:click="GoArticle(item)">{{item.username}}</p>
             <p class="f-time">{{item.addTime}}</p>
-            <p class="f-title">{{item.title}}</p>
-            <rater v-model="item.data1" slot="value" star="♡"  v-on:click="collect" :max="1" active-color="red" style="position: absolute;top:1%;left:88%;" :font-size="25"></rater>
-            <div class="photo3" v-for="i in item.recImageList" v-if="item.recImageList.length===3">
+            <p class="f-title" v-on:click="GoArticle(item)">{{item.title}}</p>articleId
+            <img class="a-img" v-if="item.collectionId === null" v-on:click="collect(item.articleId)" src="../../assets/images/heart_default.png" style="height: 40px; width: 40px; padding: 5px"/>
+            <img class="a-img" v-else v-on:click="cancelCollect(item.collectionId)"  src="../../assets/images/heart_select.png" style="height: 40px; width: 40px; padding: 5px"/>
+            <!--<rater v-model="item.data1" slot="value" star="♡"  v-on:click="collect" :max="1" active-color="red" style="position: absolute;top:1%;left:88%;" :font-size="35"></rater>-->
+            <div class="photo3" v-on:click="GoArticle(item)" style="border-radius:3px;width:90%;height:80%; backgroundColor:rgba(255,255,255,.5);" v-for="i in item.recImageList" v-if="item.recImageList.length===1">
               <img :src="i">
             </div>
-            <div class="photo2" v-for="i in item.recImageList" v-if="item.recImageList.length===2">
+            <div class="photo2" v-on:click="GoArticle(item)" style="text-align: center" v-for="i in item.recImageList" v-if="item.recImageList.length===2">
               <img :src="i">
             </div>
-            <div class="photo4" v-for="i in item.recImageList" v-if="item.recImageList.length===4">
+            <div class="photo3" v-on:click="GoArticle(item)" v-for="i in item.recImageList" v-if="item.recImageList.length===3">
+              <img :src="i">
+            </div>
+            <div class="photo4" v-on:click="GoArticle(item)" v-for="i in item.recImageList" v-if="item.recImageList.length===4">
               <img :src="i">
             </div>
           </div>
@@ -35,7 +40,7 @@
   import { Divider, Rater, LoadMore } from 'vux'
 //  import { JueLoading } from '../../loading/index.js'
   import { mapState } from 'vuex'
-  import { Indicator } from 'mint-ui'
+  import { Indicator, Toast } from 'mint-ui'
   import ava from '../../assets/img/avatar1.png'
   import food1 from '../../assets/img/food1.png'
   import food2 from '../../assets/img/food2.png'
@@ -46,7 +51,8 @@
     components: {
       Divider,
       Rater,
-      LoadMore
+      LoadMore,
+      Toast
 //      ...JueLoading
     },
     computed: mapState([
@@ -66,7 +72,9 @@
           data1: 0,
           title1: '营养早餐',
           title2: '美味烧烤',
-          title3: '鱼片寿司'
+          title3: '鱼片寿司',
+          collectionId: '',
+          articleId: ''
         }]
       }
     },
@@ -150,9 +158,26 @@
         })
         this.$refs.loadmore.onBottomLoaded()
       },
-      collect () {
-        alert('collect')
-        this.data1 = 1
+      cancelCollect (collectionId) {
+        this.$store.dispatch('cancelCollections', {
+          params: {
+            collectionId: collectionId
+          }
+        }).then(() => {
+          this.gets()
+          Toast('取消收藏成功')
+        })
+      },
+      collect (articleId) {
+        this.$store.dispatch('setCollections', {
+          data: {
+            businessDishId: articleId,
+            collectionType: 3
+          }
+        }).then(() => {
+          this.gets()
+          Toast('收藏成功')
+        })
       },
       load (uuid) {
         const _this = this
@@ -182,7 +207,7 @@
     top:4%;
     left:20%;
     display:inline-block;
-    font-size:18px;
+    font-size:15px;
     color:#777;
   }
   .f-time{
@@ -225,6 +250,12 @@
     float: left;
     margin-top:1%;
     margin-left:3%;
+  }
+  .a-img{
+    display:inline-block;
+    font-size:14pt;
+    position: absolute;
+    right:5%;
   }
 </style>
 <style>

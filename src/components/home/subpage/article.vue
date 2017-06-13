@@ -6,6 +6,16 @@
     </swiper>
     <div >
       <div style="position: relative;border-bottom:1px solid #ccc">
+        <div class="a-photo">
+          <img :src="list.headImgUrl" style="borderRadius: 50%; width: 70px; height: 70px">
+        </div>
+        <div>
+          <p class="a-name">
+            {{list.username}}
+          </p>
+          <img class="a-img" v-if="list.collectionId === null" v-on:click="collect" src="../../../assets/images/heart_default.png" style="height: 40px; width: 40px; padding: 5px"/>
+          <img class="a-img" v-else v-on:click="cancelCollect"  src="../../../assets/images/heart_select.png" style="height: 40px; width: 40px; padding: 5px"/>
+          </div>
         <div class="a-photo" style="border-radius: 200px">
           <img :src="list.headImgUrl" style="width: 100%">
         </div>
@@ -13,15 +23,16 @@
         <i class="a-like" v-if="list.goods === 0" style="background-position:-6px 0;" :style="{backgroundImage:'url(' + list.img + ')'}" @click="addgoods(list,list.sum)"></i>
         <i class="a-like" v-if="list.goods !== 0" style="background-position: -45px 0;" :style="{backgroundImage:'url(' + list.img + ')'}" @click="addgoods(list,list.sum)"></i>
       </div>
-      <div style="position: relative;border-bottom: 1px solid #ddd;min-height:240px;">
+      <div style="position: relative;border-bottom: 1px solid #ddd;">
         <p style="font-size:18px;font-weight:bold;margin:2% 5% 0;text-align:left;">{{list.title}}</p>
-        <p style="font-size:14px;text-align:left;margin:1% 5% 0;">{{list.content}}</p>
-        <p style="font-size:14px;text-align:left;margin:3% 5% 0;color:#59850b">{{list.recommend}}</p>
+        <p style="font-size:14px;text-align:left; margin:1% 5% 0;padding-bottom: 16px;">{{list.content}}</p>
       </div>
+      <div style="width: 100%; height: 30px;"></div>
       <div style="position:relative;">
         <i class="a-info" style="background-position:-5px 0;left:4%" :style="{backgroundImage:'url(' + list.laud + ')'}"></i>
         <i style="color:#555;position:absolute;left:13%;margin-top:3%">{{list.praise}}个赞</i>
-        <i class="a-info" style="background-position: -66px 0;right:23%" :style="{backgroundImage:'url(' + list.scan + ')'}"></i>
+        <img class="praise-img" v-on:click="praise" src="../../../assets/images/praise_default.png" style="height: 35px; width: 35px; padding: 5px"/>
+        <i class="a-info" style="background-position: -66px 0;right:20%" :style="{backgroundImage:'url(' + list.scan + ')'}"></i>
         <i style="color:#555;position:absolute;right:7%;margin-top:3%">12次浏览</i>
         <!--<i class="a-detail" style="margin-top:10%">发布于 {{list.address}}</i>-->
         <i class="a-detail" style="margin-top:20%">{{list.addTime}}</i>
@@ -31,8 +42,8 @@
 </template>
 
 <script>
-  import { Swiper, SwiperItem, Divider } from 'vux'
-  import { Indicator } from 'mint-ui'
+  import { Swiper, SwiperItem, Divider, XImg } from 'vux'
+  import { Indicator, Toast } from 'mint-ui'
   import { mapState } from 'vuex'
   import avatal2 from '../../../assets/img/ava.png'
   import like from '../../../assets/img/user-icon.png'
@@ -49,11 +60,14 @@
     components: {
       Swiper,
       SwiperItem,
-      Divider
+      Divider,
+      XImg,
+      Toast
     },
     data () {
       return {
         articleId: '',
+        is_praise: true,
         photo_list: baseList,
         photo_index: 0,
         list: {
@@ -116,6 +130,43 @@
           item.sum += 1
           item.praise += 1
         }
+      },
+      cancelCollect () {
+        this.$store.dispatch('cancelCollections', {
+          params: {
+            collectionId: this.list.collectionId
+          }
+        }).then(() => {
+          this.get()
+          Toast('取消收藏成功')
+        })
+      },
+      collect () {
+        this.$store.dispatch('setCollections', {
+          data: {
+            businessDishId: this.list.articleId,
+            collectionType: 3
+          }
+        }).then(() => {
+          this.get()
+          Toast('收藏成功')
+        })
+      },
+      praise () {
+        if (!this.is_praise) {
+          Toast('你已点过赞了，不可以重复点赞哦')
+          return
+        }
+        this.$store.dispatch('updateArticle', {
+          data: {
+            articleId: this.list.articleId,
+            praise: 1
+          }
+        }).then(() => {
+          this.get()
+          this.is_praise = false
+          Toast('点赞成功')
+        })
       }
     },
     computed: mapState([
@@ -135,10 +186,23 @@
   }
   .a-name{
     display:inline-block;
-    font-size:28px;
+    font-size:14pt;
     position: absolute;
     top:33%;
     left:28%;
+  }
+  .a-img{
+    display:inline-block;
+    font-size:14pt;
+    position: absolute;
+    top:33%;
+    right:5%;
+  }
+  .praise-img{
+    display:inline-block;
+    font-size:14pt;
+    position: absolute;
+    left:3%;
   }
   .a-like{
     position: absolute;
