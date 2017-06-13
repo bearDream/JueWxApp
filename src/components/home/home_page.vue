@@ -3,6 +3,13 @@
   <!--<div class="welcome" :class="{hide:hide}">-->
     <!--<img src="../../assets/images/启动页.png" alt="">-->
   <!--</div>-->
+  <!--<div :class="{hide:hide}">-->
+    <!--<scroller enable-horizontal-swiping=""  :loading="load" >-->
+      <!--&lt;!&ndash;<search @on-submit="onSubmit" :auto-fixed="false" v-model="value2" @on-focus="onFocus" @on-cancel="onCancel"></search>&ndash;&gt; &lt;!&ndash;height="260px"&ndash;&gt;-->
+      <!--<swiper :list="list1" :min-moving-distance="20" auto="" style="height: 180px" >-->
+      <!--</swiper>-->
+    <!--</scroller>-->
+
   <div>
 
 
