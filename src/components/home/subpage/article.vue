@@ -87,10 +87,10 @@
     },
     mounted () {
       if (this.$route.params.articleId === '' || this.$route.params.articleId === undefined) {
-//        this.$router.go(-1)
+        this.$router.go(-1)
       }
       this.articleId = this.$route.params.articleId
-//      this.get()
+      this.get()
     },
     methods: {
       get () {

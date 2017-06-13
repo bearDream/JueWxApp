@@ -19,7 +19,7 @@
         <p style="color: #676767;">我的收藏</p>
       </grid-item>
       <grid-item link="subpage/my_order">
-        <img src="../../assets/images/order2.png" alt="">
+        <img src="../../assets/images/order3.png" alt="">
         <p style="color: #676767;">我的订单</p>
       </grid-item>
       <grid-item link="subpage/release">
@@ -114,7 +114,7 @@ export default {
 <style scoped>
   .center {
     text-align: center;
-    padding-top: 60px;
+    padding-top: 50px;
     color: #fff;
     font-size: 18px;
   }
