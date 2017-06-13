@@ -27,7 +27,7 @@
 
     <grid>
       <grid-item>
-        <div class="icon" v-on:click="GoTakePage" style="background-position: -69px -3px;"></div><p>在线取号</p>
+        <div class="icon" v-on:click="GoTakePage"  style="background-position: -69px -3px;"></div><p>在线取号</p>
       </grid-item>
       <grid-item>
         <div class="icon" style="background-position: -130px -4px;" v-on:click="GoNutrition" alt=""></div><p>营养价值</p>
@@ -143,8 +143,8 @@
     created (i) {
       this.i += 1
       console.log(i)
-      this.gets()
-      this.getUser()
+//      this.gets()
+//      this.getUser()
     },
     computed: mapState([
       'home'
@@ -387,6 +387,7 @@
     width:50px;
     height:50px;
     background-image: url("../../assets/img/icon-green.png");
+    /*background-image: url("../../assets/123.png");*/
   }
   p{
     color:#59850b;
