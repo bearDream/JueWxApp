@@ -128,7 +128,7 @@ const router = new Router({
         requiresAuth: true
       }
     }, {
-      path: '/find/dd:dishId',
+      path: '/find/dishesDetail',
       name: 'dishesDetail',
       components: {
         'insidePage': resolve => require(['../components/find/subpage/dishesDetail.vue'], resolve)
