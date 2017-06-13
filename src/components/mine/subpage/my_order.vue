@@ -7,6 +7,7 @@
         <sticky scroll-box="vux_view_box_body" :offset="46" :check-sticky-support="false">
           <tab :line-width="1">
             <tab-item selected @click.native="showlist1">全部</tab-item>
+            <tab-item @click.native="showlist4">待使用</tab-item>
             <tab-item @click.native="showlist2">待付款</tab-item>
             <tab-item @click.native="showlist3">待评价</tab-item>
           </tab>
@@ -23,7 +24,8 @@
             <p >总价: ￥{{item.price}} </p>
             <div class="evaluationrType" >
               <p v-if="item.pay === 1">
-                <span v-if="item.evaluation === 1">完成</span>
+                <span v-if="item.use === 0">未使用</span>
+                <span v-else-if="item.evaluation === 1">完成</span>
                 <span v-else>未评价</span>
               </p>
               <p v-else>
@@ -32,7 +34,8 @@
             </div>
             <div class="evaluationrBox">
               <p  v-if="item.pay === 1">
-                <span v-if="item.evaluation === 0">评论</span>
+                <span v-if="item.use === 0">去使用</span>
+                <span v-else-if="item.evaluation === 0">评论</span>
                 <span v-else>再来一单</span>
               </p>
               <p v-else>支付</p>
@@ -51,17 +54,17 @@
             <p >数量: {{item.quantity}}</p>
             <p >总价: ￥{{item.price}} </p>
             <div class="evaluationrType" >
-              <p v-if="item.pay === 0">未付款</p>
+              <p>未付款</p>
             </div>
             <div class="evaluationrBox">
-              <p v-if="item.pay === 0">去付款</p>
+              <p>去付款</p>
             </div>
           </div>
         </div>
       </div>
       <div style="width: 100%;margin-top: 10px;background-color: #fff">
         <div v-show="show03"  style="width: 100%;min-height: 100px;border-bottom: 1px solid #f2eeee"
-             v-for="item in allList" v-if="item.evaluation === 0">
+             v-for="item in allList" v-if="item.evaluation === 0 & item.pay === 1 & item.use === 1">
           <div class="evaluationl" >
             <img :src="item.imgl">
           </div>
@@ -70,10 +73,29 @@
             <p >数量: {{item.quantity}}</p>
             <p >总价: ￥{{item.price}} </p>
             <div class="evaluationrType" >
-              <p v-if="item.evaluation === 0">未评价</p>
+              <p>未评价</p>
             </div>
             <div class="evaluationrBox">
-              <p v-if="item.evaluation === 0">去评价</p>
+              <p>去评价</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="width: 100%;margin-top: 10px;background-color: #fff">
+        <div v-show="show04"  style="width: 100%;min-height: 100px;border-bottom: 1px solid #f2eeee"
+             v-for="item in allList" v-if="item.use === 0 & item.pay === 1">
+          <div class="evaluationl" >
+            <img :src="item.imgl">
+          </div>
+          <div class="evaluationr">
+            <h3 >{{item.businessName}}</h3>
+            <p >数量: {{item.quantity}}</p>
+            <p >总价: ￥{{item.price}} </p>
+            <div class="evaluationrType" >
+                <p>未使用</p>
+            </div>
+            <div class="evaluationrBox">
+              <p>去使用</p>
             </div>
           </div>
         </div>
@@ -98,55 +120,39 @@
         show01: true,
         show02: false,
         show03: false,
+        show04: false,
         allList: [{
           imgl: imgl,
           businessName: '玫瑰之约-11只蓝色妖姬',
-          quantity: 1,
-          price: 168,
+          quantity: 3,  /** 数量 */
+          price: 34,  /** 价格 */
           evaluation: 1, /** 评价type 1为已经评价 */
-          pay: 1 /** pay 1为已支付 */
+          pay: 1, /** pay 1为已支付 */
+          use: 1 /** use为1为已经使用 */
         }, {
           imgl: imgl,
-          businessName: '玫瑰之约-11只蓝色妖姬',
-          quantity: 1,
+          businessName: '重庆老火锅',
+          quantity: 2,
+          price: 58,
+          evaluation: 0, /** 评价type 1为已经评价 */
+          pay: 1,
+          use: 0
+        }, {
+          imgl: imgl,
+          businessName: '涮羊肉',
+          quantity: 9,
           price: 168,
           evaluation: 0, /** 评价type 1为已经评价 */
-          pay: 1
+          pay: 0,
+          use: 0
         }, {
           imgl: imgl,
-          businessName: '玫瑰之约-11只蓝色妖姬',
-          quantity: 1,
-          price: 168,
+          businessName: '海底捞',
+          quantity: 2,
+          price: 228,
           evaluation: 0, /** 评价type 1为已经评价 */
-          pay: 0
-        }],
-        notuseList: [
-          {
-            imgl: imgl,
-            businessName: '玫瑰之约-11只蓝色妖姬',
-            quantity: 1,
-            price: 168,
-            pay: 0
-          }, {
-            imgl: imgl,
-            businessName: '玫瑰之约-11只蓝色妖姬',
-            quantity: 1,
-            price: 168,
-            pay: 0
-          }
-        ],
-        notevaluationList: [{
-          imgl: imgl,
-          businessName: '玫瑰之约-11只蓝色妖姬',
-          quantity: 1,
-          price: 168,
-          notevaluation: 0 /** 评价type 1为已经付款 */
-        }, {
-          imgl: imgl,
-          businessName: '玫瑰之约-11只蓝色妖姬',
-          quantity: 1,
-          price: 168,
-          notevaluation: 0 /** 评价type 1为已经评价 */
+          pay: 1,
+          use: 1
         }]
       }
     },
@@ -155,14 +161,23 @@
         this.show01 = true
         this.show02 = false
         this.show03 = false
+        this.show04 = false
       },
       showlist2 () {
         this.show02 = true
         this.show03 = false
         this.show01 = false
+        this.show04 = false
       },
       showlist3 () {
         this.show03 = true
+        this.show01 = false
+        this.show02 = false
+        this.show04 = false
+      },
+      showlist4 () {
+        this.show04 = true
+        this.show03 = false
         this.show01 = false
         this.show02 = false
       }
