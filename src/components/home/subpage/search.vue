@@ -13,12 +13,17 @@
       <div class="searchDiv" v-for="item in listbusinessName">
         <icon type="search" style="margin-top: 10px"></icon>
         <p class="businessName">{{item.businessName}}</p>
-        <p class="quantity">约{{item.quantity}}个结果</p>
+        <p class="quantity quantityBusiness">
+          商家
+        </p>
       </div>
-      <div class="searchDiv" v-for="item in list">
+      <div class="searchDiv" v-for="item in listdishName">
         <icon type="search" style="margin-top: 10px"></icon>
-        <p class="businessName">{{item.businessName}}</p>
-        <p class="quantity">约{{item.quantity}}个结果</p>
+        <p class="businessName">{{item.dishName}}</p>
+        <p class="quantity quantityDish">
+          <i class="id"></i>
+          菜品
+        </p>
       </div>
     </div>
   </div>
@@ -46,6 +51,16 @@
           }, {
             businessName: '火锅自助餐',
             quantity: 2
+          }
+        ],
+        listdishName: [
+          {
+            dishId: 1,
+            dishName: '广东烧猪肉'
+          },
+          {
+            dishId: 2,
+            dishName: '红烧肘子肉'
           }
         ]
       }
@@ -87,5 +102,17 @@
   }
   p.quantity {
     position: absolute;top: 8px;right: 20px;color: #7d7e83
+  }
+  p.quantityBusiness{
+    color: red;
+  }
+  p.quantityDish{
+    color: #00cc66;
+  }
+  ib{
+    background-image: url("../../../assets/images/商家.png");
+  }
+  id{
+    background-image: url("../../../assets/images/菜品.png");
   }
 </style>
