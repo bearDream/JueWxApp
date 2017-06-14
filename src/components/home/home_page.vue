@@ -24,7 +24,7 @@
 
     <grid>
       <grid-item>
-        <div class="icon" v-on:click="GoTakePage" style="background-position: -69px -3px;"></div><p>在线取号</p>
+        <div class="icon" v-on:click="GoTakePage"  style="background-position: -69px -3px;"></div><p>在线取号</p>
       </grid-item>
       <grid-item>
         <div class="icon" style="background-position: -130px -4px;" v-on:click="GoNutrition" alt=""></div><p>营养价值</p>
@@ -48,7 +48,7 @@
     </div>
   </div>
   <!--随机来几个菜-->
-  <div>
+    <div>
     <x-dialog hide-on-blur  :dialog-style="{'max-width': '100%',overflow: 'visible', width: '90%', height: '50%', 'background-color': 'transparent'}" v-model="showHideOnBlur"  >
       <div class="img-box"   id="Rotation" >
         <div style="width: 250px;height: 200px;" @touchstart='touchstart' @touchend='touchend'>
@@ -75,7 +75,7 @@
       </div>
       <div @click="showHideOnBlur=false"></div>
     </x-dialog>
-  </div>
+     </div>
     <!-- 设置用户的身体状态body_status -->
     <x-dialog v-model="bodyModal">
       <group title="选择你最近期望的身体状态">

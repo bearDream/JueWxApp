@@ -235,10 +235,13 @@
         this.showContent002 = true
       },
       GoBusinessDetail (item) {
-        this.$router.push({name: 'business', params: { businessId: item.businessId }})
+//        this.$router.push({name: 'business', params: { businessId: item.businessId }})
+        this.$router.push({name: 'business'})
       },
       GoDishesDetail (item) {
-        this.$router.push({name: 'dishesDetail', params: {'dishId': item.dishId}})
+        console.log(234234)
+//        this.$router.push({name: 'dishesDetail', params: {'dishId': item.dishId}})
+        this.$router.push({name: 'dishesDetail'})
       }
     }
   }

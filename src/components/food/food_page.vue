@@ -78,7 +78,7 @@
       }
     },
     mounted () {
-      this.gets()
+//      this.gets()
     },
     methods: {
       gets () {
@@ -212,7 +212,7 @@
   .f-time{
     position: absolute;
     top:4%;
-    left:65%;
+    left:62%;
     font-size:14px;
     color:#777;
   }
