@@ -16,17 +16,17 @@
       </swiper>
 
 
-      <div class="searchdiv" >
-       <input  type="text" @focus="Gosearch" placeholder="搜索菜品、用户、商家" class="inputsearch" >
+      <div class="searchdiv" link="subpage/search">
+       <input  type="text" placeholder="搜索菜品、用户、商家" class="inputsearch" >
        <div class="searchicon"></div>
       </div>
 
 
     <grid>
-      <grid-item>
+      <grid-item link="home/takepage">
         <div class="icon" v-on:click="GoTakePage"  style="background-position: -69px -3px;"></div><p>在线取号</p>
       </grid-item>
-      <grid-item>
+      <grid-item link="home/subpage">
         <div class="icon" style="background-position: -130px -4px;" v-on:click="GoNutrition" alt=""></div><p>营养价值</p>
       </grid-item>
       <grid-item>
@@ -332,12 +332,6 @@
       },
       onFocus () {
         console.log('on focus')
-      },
-      GoTakePage () {
-        this.$router.push({name: 'takepage'})
-      },
-      GoNutrition () {
-        this.$router.push({name: 'nutritionDish'})
       },
       GoRandom () {
         Indicator.open({

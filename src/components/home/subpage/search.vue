@@ -10,16 +10,16 @@
       </div>
     </div>
     <div style="width: 100%" class="search">
-      <div class="searchDiv" v-for="item in listbusinessName">
+      <div class="searchDiv" v-for="item in listbusinessName" v-show="showBusiness" @click="GoBusiness(item.businessId)">
         <icon type="search" style="margin-top: 10px"></icon>
-        <p class="businessName">{{item.businessName}}</p>
+        <p class="name">{{item.name}}</p>
         <p class="quantity quantityBusiness">
           商家
         </p>
       </div>
-      <div class="searchDiv" v-for="item in listdishName">
+      <div class="searchDiv" v-for="item in listdishName" v-show="showDish" @click="GoDish(item.dishId)">
         <icon type="search" style="margin-top: 10px"></icon>
-        <p class="businessName">{{item.dishName}}</p>
+        <p class="name">{{item.dishName}}</p>
         <p class="quantity quantityDish">
           <i class="id"></i>
           菜品
@@ -41,16 +41,18 @@
     data () {
       return {
         key: '',
+        showBusiness: false,
+        showDish: false,
         listbusinessName: [
           {
-            businessName: '火锅',
-            quantity: 12
+            name: '火锅',
+            businessId: 1
           }, {
-            businessName: '火锅铁板烧',
-            quantity: 223
+            name: '火锅铁板烧',
+            businessId: 223
           }, {
-            businessName: '火锅自助餐',
-            quantity: 2
+            name: '火锅自助餐',
+            businessId: 2
           }
         ],
         listdishName: [
@@ -66,9 +68,37 @@
       }
     },
     methods: {
+      search (key) {
+        this.$store.dispatch('getSearchs', {
+          params: {
+            key: key
+          }
+        }).then(() => {
+          console.info(this.$store.getters.getSearchs)
+          let data = this.$store.getters.getSearchs
+          this.$set(this, 'listbusinessName', data.data.business)
+          this.$set(this, 'listdishName', data.data.dish)
+          if (this.listbusinessName.length === 0) {
+            this.showBusiness = false
+          } else {
+            this.showBusiness = true
+          }
+          if (this.listdishName.length === 0) {
+            this.showDish = false
+          } else {
+            this.showDish = true
+          }
+        })
+      },
       changeInput (key) {
         console.log(key)
-        console.log(12)
+        this.search(key)
+      },
+      GoBusiness (id) {
+        this.$router.push({name: 'business', params: {businessId: id}})
+      },
+      GoDish (id) {
+        this.$router.push({name: 'dishesDetail', params: {dishId: id}})
       }
     }
   }
@@ -97,7 +127,7 @@
     width: 100%;height: 35px;padding-left: 15px;border-bottom: 1px solid #f2f2f2;
     position: relative;
   }
-  p.businessName{
+  p.name{
     position: absolute;top: 7px;left: 40px;font-size: 15px
   }
   p.quantity {

@@ -32,7 +32,7 @@
     </div>
 
     <!-- 按照距离排序的list -->
-    <mt-loadmore v-if="showContent001" :top-method="loadDistanceTop" :bottom-method="loadDistanceBottom" :bottom-all-loaded="DistanceAllLoaded" ref="loadDistanceMore">
+    <mt-loadmore v-if="showContent001" :top-method="loadDistanceTop" :bottom-method="loadDistanceBottom" bottomDistance=100 :bottom-all-loaded="DistanceAllLoaded" ref="loadDistanceMore">
       <div v-for="item in list1">
         <div>
           <div class="takeSorting">
@@ -40,7 +40,7 @@
             <div class="sortingr" @click="GoBusiness (item)">
               <h3>{{item.name}}</h3>
               <span class="distance">{{item.distance}}km</span>
-              <span class="address">地址&nbsp;:&nbsp;</span>
+              <span class="address">地址</span>
               <div class="addressdiv">
                 <span class="address">{{item.address}}</span>
               </div>
@@ -133,21 +133,21 @@
         tel: 1232132,
         list1: [{
           businessImage: img2,
-          name: '海底捞11',
-          distance: 228,
-          address: '盘龙区白龙路东华菜市场熟食区六区15商铺',
+          name: '广东烧猪肉',
+          distance: 0.5,
+          address: '盘龙区白龙路东华菜市场',
           tel: '1398702586'
         }, {
           businessImage: img1,
           name: '北京烤鸭',
-          distance: 80,
+          distance: 0.6,
           address: '盘龙区白龙路',
           tel: '1398702586'
         }, {
           businessImage: img1,
           name: '外婆味道',
-          distance: 100,
-          address: '盘龙区白龙路昆明理工大学白龙路',
+          distance: 2,
+          address: '盘龙区环城东路昆明理工大学',
           tel: '1398702586'
         }],
         list2: [{
@@ -419,8 +419,8 @@
     display: inline-block;
     width: 70%;
     position: absolute;
-    top:53px;
-    right: 10px;
+    top:51px;
+    right: 20px;
   }
   .allsortingl{
     width: 160px;

@@ -156,7 +156,17 @@
         }]
       }
     },
+    mounted () {
+      this.gets()
+    },
     methods: {
+      gets () {
+        this.$store.dispatch('getOrders', {
+          uri: 'orders'
+        }).then(() => {
+          console.info(this.$store.getters.getOrders)
+        })
+      },
       showlist1 () {
         this.show01 = true
         this.show02 = false
