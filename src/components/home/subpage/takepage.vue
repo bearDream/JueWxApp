@@ -32,7 +32,7 @@
     </div>
 
     <!-- 按照距离排序的list -->
-    <mt-loadmore v-if="showContent001" :top-method="loadDistanceTop" :bottom-method="loadDistanceBottom" bottomDistance=100 :bottom-all-loaded="DistanceAllLoaded" ref="loadDistanceMore">
+    <mt-loadmore v-if="showContent001" :top-method="loadDistanceTop" :bottom-method="loadDistanceBottom" :bottom-all-loaded="DistanceAllLoaded" ref="loadDistanceMore">
       <div v-for="item in list1">
         <div>
           <div class="takeSorting">
