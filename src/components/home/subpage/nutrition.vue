@@ -66,7 +66,7 @@
       }
     },
     created () {
-//      this.get()
+      this.get()
     },
     methods: {
       get () {
