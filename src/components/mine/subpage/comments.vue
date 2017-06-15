@@ -14,7 +14,7 @@
           <p class="f-title">{{item.content}}</p>
         </div>
       </div>
-      <input type="text"  v-if="showComment" style="width:100%;height:40px;position: fixed;display: flex;bottom: 50px">
+      <input type="text"  v-if="showComment" style="width:100%;height:40px;position: fixed;display: flex;bottom: 50px;border-radius: 5px;border: 1px solid #ddd;padding-left: 20px;font-size: 15px" placeholder="输入评论..." autofocus="autofoucus">
       <div style="height: 50px;width: 100%"></div>
       <div class="footer" >
         <div><img :src="reprintb" >&nbsp;&nbsp;转发</div>
