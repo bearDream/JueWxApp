@@ -41,7 +41,13 @@
           <p class="p" v-if="dish.dishsugar === 1">低</p>
           <p class="p" v-if="dish.dishsugar === 2">中</p>
           <p class="p" v-if="dish.dishsugar === 3">高</p>
-
+        </div>
+      </div>
+      <div style="border-bottom: 2px solid #eee;">
+        <div class="left">
+          <span class="icon" :style="{background:'url('+dishesIcon+') no-repeat -200px -250px'}"></span>
+          <i class="typetitle" >营养详情:</i>
+          <p class="p" style="left: 45%;width: 50%">{{dish.dishnutritional}}</p>
         </div>
       </div>
       <x-button type="primary">找商家</x-button>
@@ -72,7 +78,8 @@ export default {
         dishDesc: '豆腐、西红柿、柠檬、黄瓜、生菜、洋葱',
         dishContent: '食盐、花椒、味精、辣椒粉、香油、冰糖',
         dishheat: 1, /** 热量，1为低，2为中，3为高 */
-        dishsugar: 2 /** 糖分 1为低，2为中，3为高 */
+        dishsugar: 2, /** 糖分 1为低，2为中，3为高 */
+        dishnutritional: '增强免疫力、抗癌、降血脂、抗氧化' /** 营养价值详情 */
       }
     }
   },
