@@ -78,7 +78,7 @@
       }
     },
     mounted () {
-//      this.gets()
+      this.gets()
     },
     methods: {
       gets () {
