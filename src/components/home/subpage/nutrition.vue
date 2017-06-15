@@ -99,7 +99,7 @@
         this.$router.push({name: 'NutritionDetail'})
       },
       GoRankingdetails (params) {
-        this.$router.push({name: 'Rankingdetails', params: {dishId: params.dishId}})
+        this.$router.push({name: 'dishesDetail', params: {dishId: params.dishId}})
       },
       created () {
         this.gets()
