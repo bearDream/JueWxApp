@@ -15,6 +15,17 @@ export default {
   },
 
   /**
+   * 根据prepayId获取一个订单信息
+   */
+  getOrders ({commit}, {uri}) {
+    return new Model().GET({uri}).then(res => {
+      commit(types.GET_ORDERS, {
+        data: res.data
+      })
+    })
+  },
+
+  /**
    * 根据orderId获取一个订单信息
    */
   getOrderInfo ({commit}, {uri}) {

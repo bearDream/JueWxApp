@@ -5,6 +5,7 @@ import mutations from './mutations'
 export default {
   state: {
     order: null,
+    orders: null,
     submitOrder: null
   },
   getters,

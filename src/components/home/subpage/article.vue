@@ -14,6 +14,7 @@
             {{list.username}}
           </p>
           <img class="a-img" v-if="list.collectionId === null" v-on:click="collect" src="../../../assets/images/heart_default.png" style="height: 40px; width: 40px; padding: 5px"/>
+          <img class="a-img" v-else v-on:click="cancelCollect"  src="../../../assets/images/heart_select.png" style="height: 40px; width: 40px; padding: 5px"/>
           </div>
         <p class="a-name">{{list.username}}</p>
         <i class="a-like" v-if="list.goods === 0" style="background-position:-5px 0;" :style="{backgroundImage:'url(' + list.img + ')'}" @click="addgoods(list,list.sum)"></i>
@@ -28,11 +29,11 @@
       <div style="position:relative;">
         <i class="a-info" style="background-position:-5px 0;left:4%" :style="{backgroundImage:'url(' + list.laud + ')'}"></i>
         <i style="color:#555;position:absolute;left:13%;margin-top:3%">{{list.praise}}个赞</i>
-        <!--<img class="praise-img" v-on:click="praise" src="../../../assets/images/praise_default.png" style="height: 35px; width: 35px; padding: 5px"/>-->
-        <i class="a-info" style="background-position: -66px 0;right:25%" :style="{backgroundImage:'url(' + list.scan + ')'}"></i>
+        <img class="praise-img" v-on:click="praise" src="../../../assets/images/praise_default.png" style="height: 35px; width: 35px; padding: 5px"/>
+        <i class="a-info" style="background-position: -66px 0;right:20%" :style="{backgroundImage:'url(' + list.scan + ')'}"></i>
         <i style="color:#555;position:absolute;right:7%;margin-top:3%">12次浏览</i>
         <!--<i class="a-detail" style="margin-top:10%">发布于 {{list.address}}</i>-->
-        <i class="a-detail" style="margin-top:20%">{{list.addTime}}</i>
+        <i class="a-detail" style="position:absolute;left:28%;margin-top:3%">{{list.addTime}}</i>
       </div>
     </div>
   </div>

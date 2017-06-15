@@ -1,17 +1,12 @@
 <template>
   <div>
-  <!--<div class="welcome" :class="{hide:hide}">-->
-    <!--<img src="../../assets/images/启动页.png" alt="">-->
-  <!--</div>-->
-  <!--<div :class="{hide:hide}">-->
+  <div class="welcome" :class="{hide:hide}">
+    <img src="../../assets/images/启动页.png" alt="">
+  </div>
     <!--<scroller enable-horizontal-swiping=""  :loading="load" >-->
-      <!--&lt;!&ndash;<search @on-submit="onSubmit" :auto-fixed="false" v-model="value2" @on-focus="onFocus" @on-cancel="onCancel"></search>&ndash;&gt; &lt;!&ndash;height="260px"&ndash;&gt;-->
+      <!--<search @on-submit="onSubmit" :auto-fixed="false" v-model="value2" @on-focus="onFocus" @on-cancel="onCancel"></search>--> <!--height="260px"-->
       <!--<swiper :list="list1" :min-moving-distance="20" auto="" style="height: 180px" >-->
-      <!--</swiper>-->
-    <!--</scroller>-->
-
   <div>
-
 
       <swiper loop auto style="height: 160px;" >
         <swiper-item :height=160  v-for="(item, index) in list1" :key="index">
@@ -19,18 +14,20 @@
         </swiper-item>
         <div class="theme">方便生活从蕨菜开始</div>
       </swiper>
-      <div class="searchdiv" >
-       <input  type="text" @focus="Gosearch" placeholder="搜索菜品、用户、商家" class="inputsearch" >
+
+
+      <div class="searchdiv" @click="search">
+       <input  type="text" placeholder="搜索菜品、用户、商家" class="inputsearch" >
        <div class="searchicon"></div>
       </div>
 
 
     <grid>
-      <grid-item>
-        <div class="icon" v-on:click="GoTakePage"  style="background-position: -69px -3px;"></div><p>在线取号</p>
+      <grid-item link="home/takepage">
+        <div class="icon" style="background-position: -69px -3px;"></div><p>在线取号</p>
       </grid-item>
-      <grid-item>
-        <div class="icon" style="background-position: -130px -4px;" v-on:click="GoNutrition" alt=""></div><p>营养价值</p>
+      <grid-item link="home/subpage">
+        <div class="icon" style="background-position: -130px -4px;" alt=""></div><p>营养价值</p>
       </grid-item>
       <grid-item>
         <div class="icon" style="background-position: -186px -4px;" v-on:click="GoRandom" alt=""></div><p>今天吃啥</p>
@@ -100,7 +97,7 @@
         </flexbox>
       </div>
     </x-dialog>
-  <!--<div style="height: 50px;width: 100%;"></div>-->
+  <div style="height: 50px;width: 100%;"></div>
   </div>
 </template>
 
@@ -143,8 +140,8 @@
     created (i) {
       this.i += 1
       console.log(i)
-//      this.gets()
-//      this.getUser()
+      this.gets()
+      this.getUser()
     },
     computed: mapState([
       'home'
@@ -336,12 +333,6 @@
       onFocus () {
         console.log('on focus')
       },
-      GoTakePage () {
-        this.$router.push({name: 'takepage'})
-      },
-      GoNutrition () {
-        this.$router.push({name: 'nutritionDish'})
-      },
       GoRandom () {
         Indicator.open({
           text: '加载中...',
@@ -371,6 +362,9 @@
       },
       GoArticle (item) {
         this.$router.push({name: 'article', params: {articleId: item.articleId}})
+      },
+      search () {
+        this.$router.push({name: 'search'})
       }
     },
     mounted () {
@@ -387,7 +381,6 @@
     width:50px;
     height:50px;
     background-image: url("../../assets/img/icon-green.png");
-    /*background-image: url("../../assets/123.png");*/
   }
   p{
     color:#59850b;

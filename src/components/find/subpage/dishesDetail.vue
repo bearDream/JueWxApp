@@ -78,10 +78,10 @@ export default {
   },
   mounted () {
     if (this.$route.params.dishId === undefined) {
-//      this.$router.go(-1)
+      this.$router.go(-1)
     }
     this.$set(this.dish, 'dishId', this.$route.params.dishId)
-//    this.get()
+    this.get()
   },
   methods: {
     get () {

@@ -44,6 +44,12 @@
           <h3>单号 <span class="statuss">{{number}}</span></h3>
           <h3>还需等待 <span class="waitNum"> {{wait}} </span>桌</h3>
         </div>
+        <div v-if="businessInfo.isTake == 0">
+          <div>
+            <h3 style="color: #c1411a">商家未开通取号 </h3>
+            <h3 style="color: darkgray">请耐心等待上架开通哦</h3>
+          </div>
+        </div>
 
         <!--<alert v-model="alertConfirm" title="取号" content="确认取号，默认小桌"  @on-hide="onHide"></alert>-->
 
@@ -109,6 +115,7 @@
           businessId: '',
           businessImage: img,
           name: '生物生鲜肉店(同德广场店)',
+          isTake: 1, // 0标识未开通取号  1标识开通取号
           level: 4,
           small_table: 12,
           small_table_wait: 20,
@@ -165,6 +172,12 @@
             data = data.data
             this.$set(this, 'businessInfo', data.businessInfo)
             this.$set(this, 'queue', data.queue)
+
+            if (this.businessInfo.isTake === 0) {
+              console.info('isTake' + this.businessInfo.isTake)
+              this.$set(this, 'takebutton', false)
+              this.$set(this, 'takePageshow', false)
+            }
 
             // queue中包含allNums（总排队  等待人数），bigQue（大桌队列）， mediumQue（小桌队列），smallQue（小桌队列）
             this.$set(this.queue, 'small_table', data.queue.smallQue.length)

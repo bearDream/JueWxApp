@@ -13,90 +13,101 @@
           </tab>
         </sticky>
       </div>
-      <div style="width: 100%;margin-top: 10px;background-color: #fff">
-        <div v-show="show01"  style="width: 100%;min-height: 100px;border-bottom: 1px solid #f2eeee" v-for="item in allList">
-          <div class="evaluationl" >
-            <img :src="item.imgl">
-          </div>
-          <div class="evaluationr">
-            <h3 >{{item.businessName}}</h3>
-            <p >数量: {{item.quantity}}</p>
-            <p >总价: ￥{{item.price}} </p>
-            <div class="evaluationrType" >
-              <p v-if="item.pay === 1">
-                <span v-if="item.use === 0">未使用</span>
-                <span v-else-if="item.evaluation === 1">完成</span>
-                <span v-else>未评价</span>
-              </p>
-              <p v-else>
-                <span>未支付</span>
-              </p>
+      <div v-show="showOrder">
+        <!-- 全部订单 -->
+        <div style="width: 100%;margin-top: 10px;background-color: #fff">
+          <div v-show="show01"  style="width: 100%;min-height: 100px;border-bottom: 1px solid #f2eeee" v-for="item in allList">
+            <div class="evaluationl" >
+              <img :src="item.businessImage">
             </div>
-            <div class="evaluationrBox">
-              <p  v-if="item.pay === 1">
-                <span v-if="item.use === 0">去使用</span>
-                <span v-else-if="item.evaluation === 0">评论</span>
-                <span v-else>再来一单</span>
-              </p>
-              <p v-else>支付</p>
+            <div class="evaluationr">
+              <h3 >{{item.name}}</h3>
+              <p >数量: 3</p>
+              <p >总价: ￥{{item.orderPice}} </p>
+              <div class="evaluationrType" >
+                <p>
+                  <span v-if="item.orderStatus === 1">未使用</span>
+                  <span v-else-if="item.orderStatus === 2">未评价</span>
+                  <span v-else-if="item.orderStatus === 3">完成</span>
+                  <span v-else>未支付</span>
+                </p>
+              </div>
+              <div class="evaluationrBox">
+                <p  v-if="item.orderStatus !== 0">
+                  <span v-if="item.orderStatus === 1">去使用</span>
+                  <span v-else-if="item.orderStatus === 2">评论</span>
+                  <span v-else-if="item.orderStatus === 3">再来一单</span>
+                </p>
+                <p v-else>支付</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 待付款 -->
+        <div style="width: 100%;margin-top: 10px;background-color: #fff">
+          <div v-show="show02"  style="width: 100%;min-height: 100px;border-bottom: 1px solid #f2eeee"
+               v-for="item in allList" v-if="item.orderStatus === 0">
+            <div class="evaluationl" >
+              <img :src="item.businessImage">
+            </div>
+            <div class="evaluationr">
+              <h3 >{{item.name}}</h3>
+              <p >数量: 3</p>
+              <p >总价: ￥{{item.orderPice}} </p>
+              <div class="evaluationrType" >
+                <p>未付款</p>
+              </div>
+              <div class="evaluationrBox">
+                <p>去付款</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 待评价 -->
+        <div style="width: 100%;margin-top: 10px;background-color: #fff">
+          <div v-show="show03"  style="width: 100%;min-height: 100px;border-bottom: 1px solid #f2eeee"
+               v-for="item in allList" v-if="item.orderStatus === 2">
+            <div class="evaluationl" >
+              <img :src="item.businessImage">
+            </div>
+            <div class="evaluationr">
+              <h3 >{{item.name}}</h3>
+              <p >数量: 3</p>
+              <p >总价: ￥{{item.orderPice}} </p>
+              <div class="evaluationrType" >
+                <p>未评价</p>
+              </div>
+              <div class="evaluationrBox">
+                <p>去评价</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 待使用 -->
+        <div style="width: 100%;margin-top: 10px;background-color: #fff">
+          <div v-show="show04"  style="width: 100%;min-height: 100px;border-bottom: 1px solid #f2eeee"
+               v-for="item in allList" v-if="item.orderStatus === 1">
+            <div class="evaluationl" >
+              <img :src="item.businessImage">
+            </div>
+            <div class="evaluationr">
+              <h3 >{{item.name}}</h3>
+              <p >数量: 3</p>
+              <p >总价: ￥{{item.orderPice}} </p>
+              <div class="evaluationrType" >
+                  <p>未使用</p>
+              </div>
+              <div class="evaluationrBox">
+                <p>去使用</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <div style="width: 100%;margin-top: 10px;background-color: #fff">
-        <div v-show="show02"  style="width: 100%;min-height: 100px;border-bottom: 1px solid #f2eeee"
-             v-for="item in allList" v-if="item.pay === 0">
-          <div class="evaluationl" >
-            <img :src="item.imgl">
-          </div>
-          <div class="evaluationr">
-            <h3 >{{item.businessName}}</h3>
-            <p >数量: {{item.quantity}}</p>
-            <p >总价: ￥{{item.price}} </p>
-            <div class="evaluationrType" >
-              <p>未付款</p>
-            </div>
-            <div class="evaluationrBox">
-              <p>去付款</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div style="width: 100%;margin-top: 10px;background-color: #fff">
-        <div v-show="show03"  style="width: 100%;min-height: 100px;border-bottom: 1px solid #f2eeee"
-             v-for="item in allList" v-if="item.evaluation === 0 & item.pay === 1 & item.use === 1">
-          <div class="evaluationl" >
-            <img :src="item.imgl">
-          </div>
-          <div class="evaluationr">
-            <h3 >{{item.businessName}}</h3>
-            <p >数量: {{item.quantity}}</p>
-            <p >总价: ￥{{item.price}} </p>
-            <div class="evaluationrType" >
-              <p>未评价</p>
-            </div>
-            <div class="evaluationrBox">
-              <p>去评价</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div style="width: 100%;margin-top: 10px;background-color: #fff">
-        <div v-show="show04"  style="width: 100%;min-height: 100px;border-bottom: 1px solid #f2eeee"
-             v-for="item in allList" v-if="item.use === 0 & item.pay === 1">
-          <div class="evaluationl" >
-            <img :src="item.imgl">
-          </div>
-          <div class="evaluationr">
-            <h3 >{{item.businessName}}</h3>
-            <p >数量: {{item.quantity}}</p>
-            <p >总价: ￥{{item.price}} </p>
-            <div class="evaluationrType" >
-                <p>未使用</p>
-            </div>
-            <div class="evaluationrBox">
-              <p>去使用</p>
-            </div>
+      <div v-show="!showOrder">
+        <div style="width: 100%;margin-top: 10px;background-color: #fff">
+          <div style="width: 100%;min-height: 100px;border-bottom: 1px solid #f2eeee">
+              <p style="text-align: center; font-size: 14pt;padding: 10px 5px 10px 5px;">暂时还没有订单哦~</p>
           </div>
         </div>
       </div>
@@ -121,42 +132,50 @@
         show02: false,
         show03: false,
         show04: false,
+        showOrder: false,
         allList: [{
-          imgl: imgl,
-          businessName: '玫瑰之约-11只蓝色妖姬',
-          quantity: 3,  /** 数量 */
-          price: 34,  /** 价格 */
-          evaluation: 1, /** 评价type 1为已经评价 */
-          pay: 1, /** pay 1为已支付 */
-          use: 1 /** use为1为已经使用 */
+          businessImage: imgl,
+          name: '玫瑰之约-11只蓝色妖姬',
+          orderPice: 34,  /** 价格 */
+          orderStatus: 1 /** orderStatus 1为已支付 */
         }, {
-          imgl: imgl,
-          businessName: '重庆老火锅',
-          quantity: 2,
-          price: 58,
-          evaluation: 0, /** 评价type 1为已经评价 */
-          pay: 1,
-          use: 0
+          businessImage: imgl,
+          name: '重庆老火锅',
+          orderPice: 58,
+          orderStatus: 1
         }, {
-          imgl: imgl,
-          businessName: '涮羊肉',
-          quantity: 9,
-          price: 168,
-          evaluation: 0, /** 评价type 1为已经评价 */
-          pay: 0,
-          use: 0
+          businessImage: imgl,
+          name: '涮羊肉',
+          orderPice: 168,
+          orderStatus: 0
         }, {
-          imgl: imgl,
-          businessName: '海底捞',
-          quantity: 2,
-          price: 228,
-          evaluation: 0, /** 评价type 1为已经评价 */
-          pay: 1,
-          use: 1
+          businessImage: imgl,
+          name: '海底捞',
+          orderPice: 228,
+          orderStatus: 1
         }]
       }
     },
+    mounted () {
+      this.gets()
+    },
     methods: {
+      gets () {
+        this.$store.dispatch('getOrders', {
+          uri: 'orders'
+        }).then(() => {
+          console.info(this.$store.getters.getOrders)
+          let res = this.$store.getters.getOrders
+          if (res.code !== -1) {
+            this.showOrder = true
+            let data = res.data
+            this.$set(this, 'allList', data)
+            console.info(data)
+          } else {
+            this.showOrder = false
+          }
+        })
+      },
       showlist1 () {
         this.show01 = true
         this.show02 = false

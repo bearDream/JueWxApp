@@ -4,13 +4,7 @@
     </div>
 </template>
 <script>
-//  import { Indicator, Toast } from 'mint-ui'
-
   export default {
-//    components: {
-//      Indicator,
-//      Toast
-//    },
     data () {
       return {
         hide: false
@@ -20,7 +14,6 @@
       setTimeout(() => {
         this.$router.replace({name: '首页'})
       }, 2000)
-//      this.login()
     }
   }
 </script>
