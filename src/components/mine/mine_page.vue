@@ -23,7 +23,7 @@
         <p style="color: #676767;">我的订单</p>
       </grid-item>
       <grid-item link="subpage/release">
-        <img src="../../assets/images/release.png" alt="">
+        <img src="../../assets/images/release1.png" alt="">
         <p style="color: #676767;">我的发布</p>
       </grid-item>
     </grid>

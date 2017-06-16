@@ -63,7 +63,7 @@
         list1: [{
           articleId: 1,
           recImage: img2,
-          title: '藏在昆明小巷子的小清新咖啡馆',
+          title: '藏在昆明小巷子的小清新咖啡馆sdfsdfsdfssdf,藏在昆明小巷子的小清',
           sumScore: 0,
           bad: true,
           sum: 0
@@ -173,7 +173,7 @@
     width:42%;
     font-size: 15px;
     margin:4%;
-    min-height:258px;
+    min-height:180px;
   }
   .foture img{
     width: 100%;
@@ -194,17 +194,18 @@
     position: absolute;
     display: inline-block;
     right: 13%;
-    bottom:10px;
+    bottom:-20px;
     background-image: url("../../../assets/img/re-icon.png");
   }
   .foture a{
     position: absolute;
     /*top: 92%;*/
     right: 2%;
+    display: inline-block;
     color: #5b5b5d;
     /*margin-left: -7px;*/
     font-size:18px;
-    bottom:10px;
+    bottom:-20px;
   }
   .body{
    text-align: center;
