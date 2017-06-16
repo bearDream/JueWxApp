@@ -1,10 +1,14 @@
 <template>
   <div>
-    <x-header v-on:click="$router.back()">蕨菜</x-header>
-    <blur :blur-amount=0 :url="url" style="height:220px">
+    <x-header :left-options="{backText: ''}" style="background: transparent;position: fixed;color: #f74c31" v-on:click="$router.back()"></x-header>
+
+
+    <blur :blur-amount=0 :url="url" style="height:180px">
 
       <div style="border-radius: 2px;width: 100%">
+
         <div class="m-buttom" >此处为合照</div>
+
         <!--<div class="m-buttom1"></div>-->
       </div>
     </blur>
@@ -21,15 +25,15 @@
       </div>
     </div>
     <div style="padding:8% 2% 8% 2%;background-color:#fff;width:100%;">
-      <div   v-for="item in list" style=" color:#59850b; background-color:rgba(255,255,255,0.8);margin-left: 5px;margin-right: 5px;display: inline-block;width:46%;height: 150px;">
+      <div   v-for="item in list" style=" color:#59850b; background-color:rgba(255,255,255,0.8);margin-left: 5px;margin-right: 5px;margin-bottom: 10px;display: inline-block;width:46%;height: 150px;">
         <div  style="width: 100%;height:150px;float: left;cursor:pointer;position: relative;">
-          <div  style="height: 155px;width: 100%;padding-top: 110px"
+          <div  style="height: 155px;width: 100%;padding-top: 115px"
                 :style="{backgroundImage: 'url(' + item.img + ')'}">
 
             <div  style="text-align: center; background-color: rgba(255,255,255, .5);padding: 1px 10px">
               <!--style="position: absolute;width:auto;bottom: 18%;left: 30%;"-->
               {{ item.title }}</div>
-            <div  style="text-align: center; background-color: rgba(255,255,255, .5);padding: 1px 10px">
+            <div  style="text-align: center; background-color: rgba(255,255,255, .5);padding: 1px 0">
               <!--style="position: absolute;width:auto;bottom: 5%;left: 5%;"-->
               {{ item.content }}
             </div>
@@ -121,10 +125,10 @@
     height: 40%;
     background: #f3f3f5;
     opacity: 0.5;
-    top:20%;
+    top:25%;
     margin-bottom: 25%;
     text-align: center;
-    line-height: 100px;
+    line-height: 80px;
     color: #000;
     font-size:24px;
     font-weight: bold;
