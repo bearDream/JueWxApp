@@ -4,9 +4,11 @@
     <blur :blur-amount=0 :url="url" style="height:180px;">
       <div style="position:relative;min-height:180px;" v-for="item in list" >
         <div class="m-img"  :style="{backgroundImage: 'url(' + item.ava + ')'}"></div>
-        <p style="position:absolute;font-size:24px;top:55%;left:5%;">{{item.name}}</p>
-        <i class="re-address"></i>
-        <i style="font-size:14px;font-weight:bold;margin-left:0;margin-top:30%">{{item.address}}</i>
+        <p style="position:absolute;font-size:24px;top:58%;left:5%;">{{item.name}}</p>
+        <p style="position:relative;">
+          <i class="re-address"></i>
+          <i style="position:absolute;font-size:14px;font-weight:bold;left:13%;margin-top:43%">{{item.address}}</i>
+       </p>
         <div style="position:absolute;width:60%;min-height:80px;top:65%;left:55%">
           <ul class="me_show">
             <li>发布<p style="
@@ -20,7 +22,7 @@
         </div>
       </div>
     </blur>
-    <div class="body"style="width: 100%;">我的发布</div>
+    <div class="body"style="width: 100%;">我的食话</div>
     <div class="foture" v-for="item in list1">
       <img :src="item.Nordic"  v-on:click="GoArticle">
       <p style="text-align: left">{{ item.content }}</p>
@@ -55,33 +57,35 @@
       return {
         bad: false,
         good: false,
-        list: [{
-          ava: img1,
-          name: 'Junny',
-          address: '云南 昆明'
-        }],
+        headImgUrl: img1,
+        username: '小蕨',
+        address: '云南 昆明',
         list1: [{
-          Nordic: img2,
-          content: '藏在昆明小巷子的小清新',
+          articleId: 1,
+          recImage: img2,
+          title: '藏在昆明小巷子的小清新咖啡馆',
           sumScore: 0,
           bad: true,
           sum: 0
         }, {
-          Nordic: img3,
-          content: '昆明网红简约咖啡馆,一个简约pizza爱好者昆明网红简约咖啡馆,一个简约pizza爱好者',
+          articleId: 2,
+          recImage: img3,
+          title: '昆明网红简约咖啡馆',
           sumScore: 4,
           bad: true,
           sum: 0
         }, {
-          Nordic: img4,
-          content: '这是一个来自pizza爱好者的推荐',
+          articleId: 3,
+          recImage: img4,
+          title: '这是一个来自pizza爱好者的推荐',
           sumScore: 0,
           bad: true,
           sum: 0
         }, {
-          Nordic: img5,
-          content: '藏在转交的咖啡店',
-          sumScore: 24,
+          articleId: 4,
+          recImage: img5,
+          title: '藏在转交的咖啡店',
+          sumScore: 12,
           bad: true,
           sum: 0
         }],
@@ -91,7 +95,17 @@
         keep: 53
       }
     },
+    mounted () {
+      this.gets()
+    },
     methods: {
+      gets () {
+        this.$store.dispatch('getOwnArticles', {
+          uri: 'own'
+        }).then(() => {
+          console.info(this.$store.getters.getArticles)
+        })
+      },
       addgoods (item, sum) {
         if (sum >= 1) {
           item.good = false
@@ -108,8 +122,6 @@
       GoArticle () {
         this.$router.push({name: 'article'})
       }
-    },
-    mounted () {
     },
     computed: mapState([
       'ranking'

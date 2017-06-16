@@ -47,7 +47,7 @@
         <div v-if="businessInfo.isTake == 0">
           <div>
             <h3 style="color: #c1411a">商家未开通取号 </h3>
-            <h3 style="color: darkgray">请耐心等待上架开通哦</h3>
+            <h3 style="color: darkgray">请耐心等待商家开通哦</h3>
           </div>
         </div>
 

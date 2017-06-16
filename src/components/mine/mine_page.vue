@@ -31,7 +31,7 @@
       <!--<cell title='我的订单'  link="subpage/my_order"  is-link></cell>-->
       <cell title='设置'  link="subpage/site"  is-link></cell>
       <cell title='分享食话食说'  link="subpage/post_article"  is-link></cell>
-      <cell title='每日签到' link="subpage/check" is-link></cell>
+      <cell title='每日签到' link="subpage/check" is-link v-show=false></cell>
       <cell title='关于我们' link="subpage/about" is-link></cell>
     </group>
     <br>

@@ -4,5 +4,8 @@ export default {
   },
   getArticle: function (state) {
     return state.article
+  },
+  getOwnArticles: function (state) {
+    return state.articles
   }
 }
