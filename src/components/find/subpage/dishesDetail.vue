@@ -1,5 +1,6 @@
 <template>
   <div style="background:#eee">
+    <x-header :left-options="{backText: ''}" style="background: transparent;position: fixed;" v-on:click="$router.back()"></x-header>
     <div style="max-height:250px;position:relative;">
       <img class="bg" :src="dish.dishImage">
       <div class="mask">{{dish.dishName}}</div>
@@ -60,14 +61,15 @@
 </template>
 
 <script>
-import { XButton } from 'vux'
+import { XButton, XHeader } from 'vux'
 import dishes from '../../../assets/img/dishes.png'
 import icon from '../../../assets/img/dishesIcon.png'
 import dishhead from '../../../assets/img/dishhead.png'
 
 export default {
   components: {
-    XButton
+    XButton,
+    XHeader
   },
   data () {
     return {

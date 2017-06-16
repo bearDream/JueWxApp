@@ -1,6 +1,6 @@
 <template>
   <div>
-    <x-header v-on:click="$router.back()">评论</x-header>
+    <x-header :left-options="{backText: ''}" style="background: transparent;position: fixed;" v-on:click="$router.back()"></x-header>
       <divider style="margin-top:0%;font-size:16px;background-color: #fff;">看看大家都怎么说</divider>
       <div class="header">
         <div style="float: left;margin-left: 20px;color: #303036">评论&nbsp;{{comment}}</div>

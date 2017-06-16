@@ -1,8 +1,8 @@
 <template>
   <div>
-    <x-header v-on:click="$router.back()">取号</x-header>
-
-    <div class="card-demo-flex card-demo-content">
+    <!--<x-header v-on:click="$router.back()">取号</x-header>-->
+    <!--<x-header :left-options="{backText: ''}" style="background: transparent;position: fixed;left: -10px;top: -2px" v-on:click="$router.back()"></x-header>-->
+    <div class="card-demo-flex card-demo-content" style="margin-top: 4px">
       <div >
           <cell style="font-size: 12px!important;"
                 title="附近商家" is-link
@@ -426,7 +426,7 @@
     right: 20px;
   }
   .allsortingl{
-    width: 160px;
+    width: 100px;
     height: 100px;
     position: absolute;
     top: 40px;

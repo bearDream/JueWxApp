@@ -1,7 +1,7 @@
 
 <template>
   <div style="background-color: #F0F0F0">
-    <x-header v-on:click="$router.back()">我的订单</x-header>
+    <x-header :left-options="{backText: ''}" style="background: transparent;position: fixed;" v-on:click="$router.back()"></x-header>
     <div>
       <div style="height:44px;width: 100%">
         <sticky scroll-box="vux_view_box_body" :offset="46" :check-sticky-support="false">

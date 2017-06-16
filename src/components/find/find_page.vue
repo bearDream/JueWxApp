@@ -125,8 +125,8 @@
       }
     },
     mounted () {
-//      this.getBusiness()
-//      this.getDishes()
+      this.getBusiness()
+      this.getDishes()
     },
     methods: {
       getBusiness () {
@@ -235,13 +235,13 @@
         this.showContent002 = true
       },
       GoBusinessDetail (item) {
-//        this.$router.push({name: 'business', params: { businessId: item.businessId }})
-        this.$router.push({name: 'business'})
+        this.$router.push({name: 'business', params: { businessId: item.businessId }})
+//        this.$router.push({name: 'business'})
       },
       GoDishesDetail (item) {
         console.log(234234)
-//        this.$router.push({name: 'dishesDetail', params: {'dishId': item.dishId}})
-        this.$router.push({name: 'dishesDetail'})
+        this.$router.push({name: 'dishesDetail', params: {'dishId': item.dishId}})
+//        this.$router.push({name: 'dishesDetail'})
       }
     }
   }

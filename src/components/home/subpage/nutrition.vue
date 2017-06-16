@@ -1,6 +1,6 @@
 <template>
   <div>
-    <x-header v-on:click="$router.back()">营养价值</x-header>
+    <x-header :left-options="{backText: ''}" style="background: transparent;position: fixed;" v-on:click="$router.back()"></x-header>
     <blur :blur-amount=0 :url="url" style="height:220px">
 
       <div style="border-radius: 2px;width: 100%;">
@@ -66,7 +66,7 @@
       }
     },
     created () {
-      this.get()
+//      this.get()
     },
     methods: {
       get () {

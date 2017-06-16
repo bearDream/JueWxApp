@@ -1,6 +1,6 @@
 <template>
   <div style="">
-    <x-header v-on:click="$router.back()">蕨菜</x-header>
+    <x-header :left-options="{backText: ''}" style="background: transparent;position: fixed;" v-on:click="$router.back()"></x-header>
     <blur :blur-amount=0 :url="url" style="height:180px;">
       <div style="position:relative;min-height:180px;" v-for="item in list" >
         <div class="m-img"  :style="{backgroundImage: 'url(' + item.ava + ')'}"></div>
