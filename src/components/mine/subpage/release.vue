@@ -24,8 +24,8 @@
     </blur>
     <div class="body"style="width: 100%;">我的食话</div>
     <div class="foture" v-for="item in list1">
-      <img :src="item.Nordic"  v-on:click="GoArticle">
-      <p style="text-align: left">{{ item.content }}</p>
+      <img :src="item.recImage"  v-on:click="GoArticle">
+      <p style="text-align: left">{{ item.title }}</p>
       <i style="background-position: 0 -1px;" v-show="item.bad" @click="addgoods(item,item.sum)"></i>
       <i style="background-position: -30px -0px;" v-show="item.good" @click="addgoods(item,item.sum)"></i>
        <a>{{item.sumScore}}</a>
@@ -173,7 +173,7 @@
     width:42%;
     font-size: 15px;
     margin:4%;
-    min-height:200px;
+    min-height:258px;
   }
   .foture img{
     width: 100%;
@@ -191,18 +191,20 @@
     /*right: 10%;*/
     /*width:30px;*/
     /*height:25px;*/
+    position: absolute;
     display: inline-block;
-    margin-top: -2px;
-    margin-left:65%;
+    right: 13%;
+    bottom:10px;
     background-image: url("../../../assets/img/re-icon.png");
   }
   .foture a{
-    /*position: absolute;*/
+    position: absolute;
     /*top: 92%;*/
-    /*right: 2%;*/
+    right: 2%;
     color: #5b5b5d;
-    margin-left: -7px;
+    /*margin-left: -7px;*/
     font-size:18px;
+    bottom:10px;
   }
   .body{
    text-align: center;
