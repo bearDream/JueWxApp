@@ -4,11 +4,9 @@
     <blur :blur-amount=0 :url="url" style="height:180px;">
       <div style="position:relative;min-height:180px;" v-for="item in list" >
         <div class="m-img"  :style="{backgroundImage: 'url(' + item.ava + ')'}"></div>
-        <p style="position:absolute;font-size:24px;top:58%;left:5%;">{{item.name}}</p>
-        <p style="position:relative;">
-          <i class="re-address"></i>
-          <i style="position:absolute;font-size:14px;font-weight:bold;left:13%;margin-top:43%">{{item.address}}</i>
-       </p>
+        <p style="position:absolute;font-size:24px;top:55%;left:5%;">{{item.name}}</p>
+        <i class="re-address"></i>
+        <i style="font-size:14px;font-weight:bold;margin-left:0;margin-top:30%">{{item.address}}</i>
         <div style="position:absolute;width:60%;min-height:80px;top:65%;left:55%">
           <ul class="me_show">
             <li>发布<p style="
@@ -64,13 +62,13 @@
         }],
         list1: [{
           Nordic: img2,
-          content: '藏在昆明小巷子的小清新咖啡馆',
+          content: '藏在昆明小巷子的小清新',
           sumScore: 0,
           bad: true,
           sum: 0
         }, {
           Nordic: img3,
-          content: '昆明网红简约咖啡馆',
+          content: '昆明网红简约咖啡馆,一个简约pizza爱好者昆明网红简约咖啡馆,一个简约pizza爱好者',
           sumScore: 4,
           bad: true,
           sum: 0
@@ -83,7 +81,7 @@
         }, {
           Nordic: img5,
           content: '藏在转交的咖啡店',
-          sumScore: 12,
+          sumScore: 24,
           bad: true,
           sum: 0
         }],
@@ -129,17 +127,16 @@
     padding-bottom:17%;
     width: 17%;
     border-radius: 50%;
-    top:25%;
+    top:20%;
     left:5%;
   }
   .re-address{
-    position:absolute;
-    margin-top:40%;
-    left:5%;
+    margin-top:38%;
+    margin-left:5%;
     display: inline-block;
     width:25px;
     height:35px;
-    background: url("../../../assets/img/re-icon.png") no-repeat -62px 4px;
+    background: url("../../../assets/img/re-icon.png") no-repeat -56px 10px;
   }
   .me_show{
     display: flex;
@@ -159,7 +156,8 @@
   .foture {
     display: inline-block;
     position: relative;
-    float: left;
+    /*顶部对齐*/
+    vertical-align: top;
     width:42%;
     font-size: 15px;
     margin:4%;
@@ -167,28 +165,32 @@
   }
   .foture img{
     width: 100%;
-    position: absolute;
   }
   .foture p{
     width:100%;
-    position: absolute;
     top: 82%;
     overflow:hidden;
   }
   .foture i{
-    padding-right:5%;
-    position: absolute;
-    top: 96%;
-    right: 10%;
-    width:30px;
-    height:25px;
+    padding-right:30px;
+    padding-bottom: 27px;
+    /*position: absolute;*/
+    /*top: 90%;*/
+    /*right: 10%;*/
+    /*width:30px;*/
+    /*height:25px;*/
+    display: inline-block;
+    margin-top: -2px;
+    margin-left:65%;
     background-image: url("../../../assets/img/re-icon.png");
   }
   .foture a{
-    position: absolute;
-    top: 100%;
-    right: 2%;
-    font-size:16px;
+    /*position: absolute;*/
+    /*top: 92%;*/
+    /*right: 2%;*/
+    color: #5b5b5d;
+    margin-left: -7px;
+    font-size:18px;
   }
   .body{
    text-align: center;
