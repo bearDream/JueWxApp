@@ -83,11 +83,11 @@
       }
     },
     mounted () {
-      if (this.$route.params.articleId === undefined) {
-        this.$router.go(-1)
-      }
-      this.$set(this, 'articleId', this.$route.params.articleId)
-      this.get()
+//      if (this.$route.params.articleId === undefined) {
+//        this.$router.go(-1)
+//      }
+//      this.$set(this, 'articleId', this.$route.params.articleId)
+//      this.get()
     },
     methods: {
       get () {

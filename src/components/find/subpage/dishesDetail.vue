@@ -1,34 +1,34 @@
 <template>
   <div style="background:#eee">
-    <x-header :left-options="{backText: ''}" style="background: transparent;position: fixed;" v-on:click="$router.back()"></x-header>
-    <div style="max-height:250px;position:relative;">
+    <x-header :left-options="{backText: ''}" style="background: transparent;position: absolute;" v-on:click="$router.back()"></x-header>
+    <div style="max-height:200px;position:relative;overflow: hidden">
       <img class="bg" :src="dish.dishImage">
-      <div class="mask">{{dish.dishName}}</div>
+      <p class="mask">{{dish.dishName}}</p>
     </div>
-    <div style="margin-top:2%;background-color: #fff;">
-      <div class="title">{{title}}</div>
+    <div style="background-color: #fff;">
+      <!--<p class="title">{{title}}</p>-->
       <div class="row">
-        <div class="icon" :style="{background:'url('+dishesIcon+') no-repeat -8px -247px'}"></div>
+        <div class="icon" :style="{background:'url('+dishesIcon+') no-repeat -8px 0'}"></div>
         <p class="typetitle" >菜名:</p>
-        <p style="font-size:20px;position:absolute;top:30%;left:45%;">{{dish.dishName}}</p>
+        <p style="font-size:18px;position:absolute;top:30%;left:35%;">{{dish.dishName}}</p>
       </div>
       <div style="border-bottom: 2px solid #eee;">
         <div class="left">
-          <span class="icon" :style="{background:'url('+dishesIcon+') no-repeat -105px -250px', width: '50%;'}"></span>
+          <span class="icon" :style="{background:'url('+Introduction+')', width: '50%;'}"></span>
           <p class="typetitle" >简介:</p>
-          <p class="typecontent">{{dish.dishDesc}}</p>
+          <span class="typecontent">{{dish.dishDesc}}</span>
         </div>
       </div>
       <div style="border-bottom: 2px solid #eee;">
         <div class="left">
-          <span class="icon" :style="{background:'url('+dishesIcon+') no-repeat -200px -250px'}"></span>
+          <span class="icon" :style="{background:'url('+ingredients+') no-repeat 5px 0'}"></span>
           <i class="typetitle" >配料:</i>
           <p class="typecontent">{{dish.dishContent}}</p>
         </div>
       </div>
       <div style="border-bottom: 2px solid #eee;">
         <div class="left">
-          <span class="icon" :style="{background:'url('+dishheat+') no-repeat -12px -10px'}"></span>
+          <span class="icon" :style="{background:'url('+dishheat+') no-repeat -2px 0'}"></span>
           <i class="typetitle" >热量:</i>
           <p class="p"  v-if="dish.heat === 1">大量</p>
           <p class="p"  v-if="dish.heat === 2">适量</p>
@@ -38,7 +38,7 @@
       </div>
       <div style="border-bottom: 2px solid #eee;">
       <div class="left">
-        <span class="icon" :style="{background:'url('+dishsugar+') no-repeat -7px -11px'}"></span>
+        <span class="icon" :style="{background:'url('+dishsugar+')'}"></span>
         <i class="typetitle" >糖分:</i>
         <p class="p" v-if="dish.sugarContent === 1">大量</p>
         <p class="p" v-if="dish.sugarContent === 2">适量</p>
@@ -49,7 +49,7 @@
     </div>
     <div style="border-bottom: 2px solid #eee;">
       <div class="left">
-        <span class="icon" :style="{background:'url('+analysis+') no-repeat -22px -10px'}"></span>
+        <span class="icon" :style="{background:'url('+analysis+') no-repeat -1px 0px'}"></span>
         <i class="typetitle" >营养价值分析:</i>
         <p class="p" v-text="dish.grease"></p>
       </div>
@@ -63,11 +63,12 @@
 <script>
 import { XButton, XHeader } from 'vux'
 import dishes from '../../../assets/img/dishes.png'
-import icon from '../../../assets/img/dishesIcon.png'
+import icon from '../../../assets/img/dishesicon.png'
 import dishhead from '../../../assets/img/dishhead.png'
 import dishsugar from '../../../assets/img/sugar.png'
-import dishheat from '../../../assets/img/heat.png'
 import analysis from '../../../assets/img/analysis.png'
+import introduction from '../../../assets/img/Introduction.png'
+import ingredients from '../../../assets/img/Ingredients.png'
 
 export default {
   components: {
@@ -79,7 +80,9 @@ export default {
       dishesIcon: icon,
       dishhead: dishhead,
       dishsugar: dishsugar,
-      dishheat: dishheat,
+      dishheat: dishhead,
+      Introduction: introduction,
+      ingredients: ingredients,
       analysis: analysis,
       title: '菜品详情',
       dish: {
@@ -124,34 +127,34 @@ export default {
   .bg{
     display: block;
     width:100%;
-    height:250px;
     background-size: cover;
     background-position: center center;
   }
   .mask{
     width: 100%;
-    height:60px;
-    line-height:60px;
+    height:40px;
+    padding: 5px 0;
     background-color: rgba(0,0,0,.2);
     font-family:"Microsoft YaHei";
-    font-size:26px;
+    font-size:18px;
     text-align: center;
     color:#fff;
     position:absolute;
-    top:190px;
+    bottom:0;
   }
   .title{
-    height:70px;
-    line-height:70px;
+    height:50px;
+    line-height: 40px;
     text-align: center;
-    font-size: 28px;
+    font-size: 20px;
     font-family:"Adobe Fan Heiti Std B";
     border-bottom: 2px solid #eee;
   }
   .row{
-    min-height:60px;
+    min-height:50px;
     background: #fff;
     padding:2%;
+    padding-top: 0;
     border-bottom: 2px solid #eee;
     position: relative;
   }
@@ -159,21 +162,21 @@ export default {
     display:inline-block;
     width:50px;
     height:50px;
-    margin-top:1%;
   }
   .left{
     position: relative;
-    min-hieght:60px;
     background: #fff;
-    padding:2%;
+    padding:1%;
+    padding-top: 0;
   }
   .typetitle{
-    font-size:18px;position: absolute;top: 30%;left: 18%
+    font-size:16px;position: absolute;top: 30%;left: 18%
   }
    .typecontent{
-    font-size:14px;margin-left: 18%;width: 55%;display: inline-block
+     display: inline-block;font-size:14px;margin-left: 18%;width: 55%;margin-top: -10px;
+     padding-top: 0;
   }
   .p{
-    position: absolute;left: 35%;top: 35%;font-size: 14px;
+    position: absolute;left: 35%;top: 33%;font-size: 14px;
   }
 </style>

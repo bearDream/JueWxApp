@@ -191,7 +191,7 @@ const router = new Router({
         requiresAuth: true
       }
     }, {
-      path: '/subpage/collect/comments:articleId',
+      path: '/subpage/collect/comments',
       name: 'comments',
       components: {
         'insidePage': resolve => require(['../components/mine/subpage/comments.vue'], resolve)

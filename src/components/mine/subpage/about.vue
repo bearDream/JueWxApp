@@ -25,15 +25,14 @@
       </div>
     </div>
     <div style="padding:8% 2% 8% 2%;background-color:#fff;width:100%;">
-      <div   v-for="item in list" style=" color:#59850b; background-color:rgba(255,255,255,0.8);margin-left: 5px;margin-right: 5px;margin-bottom: 10px;display: inline-block;width:46%;height: 150px;">
-        <div  style="width: 100%;height:150px;float: left;cursor:pointer;position: relative;">
-          <div  style="height: 155px;width: 100%;padding-top: 115px"
-                :style="{backgroundImage: 'url(' + item.img + ')'}">
-
-            <div  style="text-align: center; background-color: rgba(255,255,255, .5);padding: 1px 10px">
+      <div   v-for="item in list" class="parent">
+        <div class="parentdiv" >
+          <div  style="height: 150px;width: 100%;overflow: hidden">
+            <img :src="item.img" style="width: 100%;z-index: -1;">
+            <div class="divtitle" style="bottom: 20px">
               <!--style="position: absolute;width:auto;bottom: 18%;left: 30%;"-->
               {{ item.title }}</div>
-            <div  style="text-align: center; background-color: rgba(255,255,255, .5);padding: 1px 0">
+            <div class="divcontent"  style="bottom: 0">
               <!--style="position: absolute;width:auto;bottom: 5%;left: 5%;"-->
               {{ item.content }}
             </div>
@@ -50,13 +49,16 @@
 
   import { mapState } from 'vuex'
 
-  import find1 from '../../../assets/img/find1.png'
-  import find2 from '../../../assets/img/find2.png'
-  import find3 from '../../../assets/img/find3.png'
-  import find4 from '../../../assets/img/find4.png'
-
-  import find5 from '../../../assets/img/5-1.png'
-  import find6 from '../../../assets/img/5-2.png'
+  import find1 from '../../../assets/img/zc.jpg'
+  import find2 from '../../../assets/img/zxh.jpg'
+  import find3 from '../../../assets/img/sqf.jpg'
+  import find4 from '../../../assets/img/zd.png'
+  import find5 from '../../../assets/img/yjf.jpg'
+  import find6 from '../../../assets/img/slm.jpg'
+  import find7 from '../../../assets/img/yjj.jpg'
+  import find8 from '../../../assets/img/ls.jpg'
+  import find9 from '../../../assets/img/zsw.jpg'
+  import find10 from '../../../assets/img/ld.png'
   export default {
     components: {
       XHeader,
@@ -93,19 +95,19 @@
           title: '孙露明',
           content: 'JUE组员,WEB前端开发'
         }, {
-          img: find1,
+          img: find7,
           title: '杨娇娇',
           content: 'JUE组员,WEB前端开发'
         }, {
-          img: find2,
+          img: find8,
           title: '罗莎',
           content: 'JUE组员,WEB前端开发'
         }, {
-          img: find4,
+          img: find9,
           title: '张诗唯',
           content: 'JUE组员,UI设计'
         }, {
-          img: find5,
+          img: find10,
           title: '李丹',
           content: 'JUE组员,UI设计'
         }]
@@ -183,7 +185,6 @@
   body{
     font-size:12px;
   }
-
   @media screen and (min-width:767px) and (max-width:1080px){
     .title{
       font-size:3em;
@@ -223,7 +224,6 @@
       color: #c7c7c7;
     }
   }
-
   @media screen and (min-width:1080px) {
     .title{
       font-size:4em;
@@ -264,5 +264,26 @@
   div.introduce+Div{
     content:'';
     display:table;
+  }
+
+  .parent{
+    color:#59850b; background-color:rgba(255,255,255,0.8);
+    margin-left: 5px;margin-right: 5px;margin-bottom: 10px;
+    display: inline-block;width:46%;height: 150px;
+  }
+  .parentdiv{
+    width: 100%;height:150px;float: left;cursor:pointer;position: relative;
+  }
+  .divtitle{
+    width: 50%;
+    text-align: center; background-color: rgba(255,255,255, .5);padding: 1px 10px;
+    position: absolute;
+    left: 50%;
+    bottom: 30px;
+    transform: translate(-50%,0);
+  }
+  .divcontent{
+    width: 100%;
+    text-align: center; background-color: rgba(255,255,255, .5);padding: 1px 0;position: absolute;
   }
 </style>
