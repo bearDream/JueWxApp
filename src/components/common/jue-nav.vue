@@ -15,7 +15,7 @@
 		<router-link to="/food" tag="dl">
         <dt class="iconfont icon-food" >
         </dt>
-        <dd>排行</dd>
+        <dd>说食话</dd>
     </router-link>
 		<router-link to="/mine" tag="dl">
         <dt class="iconfont icon-mine" >
@@ -46,7 +46,7 @@
     background:url('../../assets/img/icon-gray1.png') no-repeat -116px -84px;
   }
   .icon-mine{
-    background:url('../../assets/img/icon-gray1.png') no-repeat -168px -82px;
+    background:url('../../assets/img/icon-gray1.png') no-repeat -168px -87px;
   }
   #wx-nav nav dl.router-link-active dt.icon-home{
     background: url('../../assets/img/icon-green1.png') no-repeat -20px -83px;
@@ -58,6 +58,6 @@
     background: url('../../assets/img/icon-green1.png') no-repeat -116px -84px;
   }
   #wx-nav nav dl.router-link-active dt.icon-mine{
-    background: url('../../assets/img/icon-green1.png') no-repeat -168px -82px;
+    background: url('../../assets/img/icon-green1.png') no-repeat -168px -87px;
   }
 </style>

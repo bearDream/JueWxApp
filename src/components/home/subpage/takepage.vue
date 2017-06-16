@@ -151,13 +151,13 @@
           tel: '1398702586'
         }],
         list2: [{
-          src: img1,
+          businessImage: img1,
           name: '巴蜀知味重庆老火锅',
           address: '呈贡大学城',
           detailed: '呈贡区洛龙街道朝云街昆明市政府',
           tel: 13067349324
         }, {
-          src: img1,
+          businessImage: img1,
           name: '巴蜀知味重庆老火锅',
           address: '昆明盘龙区',
           detailed: '呈贡区洛龙街道雨花毓秀小区',
@@ -365,7 +365,10 @@
     width: 100%;
     /*height:160px;*/
     position: relative;
-    margin-bottom: 10px;
+    /*padding-bottom: 10px;*/
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-bottom:  10px;
     border-bottom: 1px solid #dddbdb;
   }
   .sortingl{
@@ -443,10 +446,9 @@
   }
   h3.businesstitle {
     padding-left: 25px;
-    padding-top: 5px;
     font-size: 16px;
     color: #1b1b1b;
-    border-bottom: 1px solid #c6c7ca;
+    /*border-bottom: 1px solid #c6c7ca;*/
   }
   span.address2{
     display: inline-block;
