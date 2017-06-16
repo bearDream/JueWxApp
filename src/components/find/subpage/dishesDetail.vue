@@ -28,7 +28,7 @@
       </div>
       <div style="border-bottom: 2px solid #eee;">
         <div class="left">
-          <span class="icon" :style="{background:'url('+dishhead+') no-repeat -200px -250px'}"></span>
+          <span class="icon" :style="{background:'url('+dishheat+') no-repeat -12px -10px'}"></span>
           <i class="typetitle" >热量:</i>
           <p class="p"  v-if="dish.heat === 1">大量</p>
           <p class="p"  v-if="dish.heat === 2">适量</p>
@@ -38,7 +38,7 @@
       </div>
       <div style="border-bottom: 2px solid #eee;">
       <div class="left">
-        <span class="icon" :style="{background:'url('+dishesIcon+') no-repeat -200px -250px'}"></span>
+        <span class="icon" :style="{background:'url('+dishsugar+') no-repeat -7px -11px'}"></span>
         <i class="typetitle" >糖分:</i>
         <p class="p" v-if="dish.sugarContent === 1">大量</p>
         <p class="p" v-if="dish.sugarContent === 2">适量</p>
@@ -49,7 +49,7 @@
     </div>
     <div style="border-bottom: 2px solid #eee;">
       <div class="left">
-        <span class="icon" :style="{background:'url('+dishesIcon+') no-repeat -200px -250px'}"></span>
+        <span class="icon" :style="{background:'url('+analysis+') no-repeat -22px -10px'}"></span>
         <i class="typetitle" >营养价值分析:</i>
         <p class="p" v-text="dish.grease"></p>
       </div>
@@ -65,6 +65,9 @@ import { XButton, XHeader } from 'vux'
 import dishes from '../../../assets/img/dishes.png'
 import icon from '../../../assets/img/dishesIcon.png'
 import dishhead from '../../../assets/img/dishhead.png'
+import dishsugar from '../../../assets/img/sugar.png'
+import dishheat from '../../../assets/img/heat.png'
+import analysis from '../../../assets/img/analysis.png'
 
 export default {
   components: {
@@ -75,6 +78,9 @@ export default {
     return {
       dishesIcon: icon,
       dishhead: dishhead,
+      dishsugar: dishsugar,
+      dishheat: dishheat,
+      analysis: analysis,
       title: '菜品详情',
       dish: {
         dishId: '',
@@ -89,11 +95,11 @@ export default {
     }
   },
   mounted () {
-    if (this.$route.params.dishId === undefined) {
-      this.$router.go(-1)
-    }
-    this.$set(this.dish, 'dishId', this.$route.params.dishId)
-    this.get()
+//    if (this.$route.params.dishId === undefined) {
+//      this.$router.go(-1)
+//    }
+//    this.$set(this.dish, 'dishId', this.$route.params.dishId)
+//    this.get()
   },
   methods: {
     get () {
