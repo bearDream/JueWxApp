@@ -36,10 +36,10 @@
     <grid :rows="2">
       <grid-item>
         <h3>当前距离  {{now_distance}} km</h3>
-        <h3>限制距离  {{limit_distance}} km</h3>
+        <!--<h3>限制距离  {{limit_distance}} km</h3>-->
       </grid-item>
       <grid-item>
-        <x-button type="primary" v-if="takebutton" @click.native="takePage">点击取票</x-button>
+        <x-button type="primary" v-if="takebutton" @click.native="takePage"><span style="font-size: 15px;">00:10:10</span>抢票</x-button>
         <div v-if="takePageshow">
           <h3>单号 <span class="statuss">{{number}}</span></h3>
           <h3>还需等待 <span class="waitNum"> {{wait}} </span>桌</h3>
@@ -65,6 +65,7 @@
       </grid-item>
     </grid>
     <div class="business_foot">
+      <h4><x-button type="primary" @click.native="refreshInfo">刷新状态</x-button></h4>
       <h4>{{businessInfo.tel}}</h4>
       <h4>{{businessInfo.address}}</h4>
       <h4>{{time}}</h4>
@@ -154,10 +155,13 @@
         this.$router.go(-1)
       }
       this.$set(this.businessInfo, 'businessId', this.$route.params.businessId)
-      this.getInfo()
-      this.getUserNum()
+      this.refreshInfo()
     },
     methods: {
+      refreshInfo () {
+        this.getInfo()
+        this.getUserNum()
+      },
       getInfo () {
         this.$store.dispatch('getBusiness', {
           params: {

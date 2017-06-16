@@ -98,11 +98,11 @@ export default {
     }
   },
   mounted () {
-//    if (this.$route.params.dishId === undefined) {
-//      this.$router.go(-1)
-//    }
-//    this.$set(this.dish, 'dishId', this.$route.params.dishId)
-//    this.get()
+    if (this.$route.params.dishId === undefined) {
+      this.$router.go(-1)
+    }
+    this.$set(this.dish, 'dishId', this.$route.params.dishId)
+    this.get()
   },
   methods: {
     get () {

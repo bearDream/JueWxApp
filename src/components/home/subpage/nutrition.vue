@@ -66,7 +66,7 @@
       }
     },
     created () {
-//      this.get()
+      this.get()
     },
     methods: {
       get () {
@@ -100,9 +100,6 @@
       },
       GoRankingdetails (params) {
         this.$router.push({name: 'dishesDetail', params: {dishId: params.dishId}})
-      },
-      created () {
-        this.gets()
       },
       gets () {
         this.$store.dispatch('getRankings', {

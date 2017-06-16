@@ -1,40 +1,55 @@
 <template>
   <div style="">
     <x-header :left-options="{backText: ''}" style="background: transparent;position: fixed;" v-on:click="$router.back()"></x-header>
-    <blur :blur-amount=0 :url="url" style="height:180px;">
-      <div style="position:relative;min-height:180px;" v-for="item in list" >
-        <div class="m-img"  :style="{backgroundImage: 'url(' + item.ava + ')'}"></div>
-        <p style="position:absolute;font-size:24px;top:58%;left:5%;">{{item.name}}</p>
-        <p style="position:relative;">
-          <i class="re-address"></i>
-          <i style="position:absolute;font-size:14px;font-weight:bold;left:13%;margin-top:43%">{{item.address}}</i>
-       </p>
-        <div style="position:absolute;width:60%;min-height:80px;top:65%;left:55%">
-          <ul class="me_show">
-            <li>发布<p style="
-    right: 40%;text-align:center">{{release}}</p></li>
-            <i style="border-right:1px solid #000;height:25px;margin-top:6%;"></i>
-            <li>喜欢<p style="
-    right: 20%;text-align:center">{{like}}</p></li>
-            <i style="border-right:1px solid #000;height:25px;margin-top:6%;"></i>
-            <li>收藏<p style="text-align:center">{{keep}}</p></li>
-          </ul>
+    <div v-show="showPage">
+      <blur :blur-amount=0 :url="url" style="height:180px;">
+        <div style="position:relative;min-height:180px;"  >
+          <div class="m-img"  :style="{backgroundImage: 'url(' + headImgUrl + ')'}"></div>
+          <p style="position:absolute;font-size:24px;top:58%;left:5%;">{{username}}</p>
+          <p style="position:relative;">
+            <i class="re-address"></i>
+            <i style="position:absolute;font-size:14px;font-weight:bold;left:13%;margin-top:43%">{{address}}</i>
+         </p>
+          <div style="position:absolute;width:60%;min-height:80px;top:65%;left:55%">
+            <ul class="me_show">
+              <li>发布<p style="
+      right: 40%;text-align:center">{{release}}</p></li>
+              <i style="border-right:1px solid #000;height:25px;margin-top:6%;"></i>
+              <li>喜欢<p style="
+      right: 20%;text-align:center">{{like}}</p></li>
+              <i style="border-right:1px solid #000;height:25px;margin-top:6%;"></i>
+              <li>收藏<p style="text-align:center">{{keep}}</p></li>
+            </ul>
+          </div>
+        </div>
+      </blur>
+      <div class="body"style="width: 100%;">我的食话</div>
+      <div class="foture" v-for="item in list1">
+        <img :src="item.recImage"  v-on:click="GoArticle(item.articleId)">
+        <p style="text-align: left">{{ item.title }}</p>
+        <i style="background-position: 0 -1px;" v-show="item.bad" @click="addgoods(item,item.sum)"></i>
+        <i style="background-position: -30px -0px;" v-show="item.good" @click="addgoods(item,item.sum)"></i>
+         <a>{{item.sumScore}}</a>
+      </div>
+    </div>
+    <div v-show="!showPage" style="background-color: white;">
+      <div style="">
+        <p style="align: center;text-align: center;margin-top: 10px;padding-top: 10px;">
+          <img src="../../../assets/images/哭脸.png" style="width: 30px;vertical-align: bottom;"/>
+          暂时还没有发布任何食话食说图文哦
+        </p>
+        <div style="padding-left: 20px; padding-right: 20px;margin-top: 100px;">
+          <x-button style="margin-top: 10px; " type="primary" @click.native="GoPost">发表</x-button>
         </div>
       </div>
-    </blur>
-    <div class="body"style="width: 100%;">我的食话</div>
-    <div class="foture" v-for="item in list1">
-      <img :src="item.recImage"  v-on:click="GoArticle">
-      <p style="text-align: left">{{ item.title }}</p>
-      <i style="background-position: 0 -1px;" v-show="item.bad" @click="addgoods(item,item.sum)"></i>
-      <i style="background-position: -30px -0px;" v-show="item.good" @click="addgoods(item,item.sum)"></i>
-       <a>{{item.sumScore}}</a>
     </div>
   </div>
 </template>
 
 <script>
-  import { XHeader, Flexbox, FlexboxItem, Blur, Masker, Group, Cell, Panel } from 'vux'
+  import { XHeader, XButton, Flexbox, FlexboxItem, Blur, Masker, Group, Cell, Panel } from 'vux'
+  import { Indicator, Toast } from 'mint-ui'
+
   import img from '../../../assets/img/re-top.png'
   import img1 from '../../../assets/img/re-header.png'
   import img2 from '../../../assets/img/re-Nordic.png'
@@ -51,10 +66,14 @@
       Masker,
       Group,
       Cell,
-      Panel
+      Panel,
+      XButton,
+      Indicator,
+      Toast
     },
     data () {
       return {
+        showPage: false,
         bad: false,
         good: false,
         headImgUrl: img1,
@@ -100,10 +119,29 @@
     },
     methods: {
       gets () {
+        Indicator.open({
+          text: '小蕨努力加载中...',
+          spinnerType: 'snake'
+        })
         this.$store.dispatch('getOwnArticles', {
           uri: 'own'
         }).then(() => {
+          Indicator.close()
           console.info(this.$store.getters.getArticles)
+          let data = this.$store.getters.getArticles
+          if (data.code !== -1) {
+            data = data.data
+            if (data.length === 0) {
+              // 显示友好提示用户没有发布任何内容
+              this.showPage = false
+            } else {
+              this.showPage = true
+              this.list1 = data
+              this.release = data.length
+              this.headImgUrl = data[0].headImgUrl
+              this.username = data[0].username
+            }
+          }
         })
       },
       addgoods (item, sum) {
@@ -119,8 +157,11 @@
           item.sum += 1
         }
       },
-      GoArticle () {
-        this.$router.push({name: 'article'})
+      GoArticle (articleId) {
+        this.$router.push({name: 'article', params: {articleId: articleId}})
+      },
+      GoPost () {
+        this.$router.push({name: 'postArticle'})
       }
     },
     computed: mapState([
