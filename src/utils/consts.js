@@ -19,9 +19,6 @@ const UPLOAD_URL = '/api/mobile/upload'
 // 接口地址
 const API_URL = BASE_URL
 
-// 文件上传接口
-const UPLOAD_URL = '/api/upload'
-
 // 分页大小
 const PAGE_SIZE = 10
 
