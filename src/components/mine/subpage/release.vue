@@ -5,22 +5,16 @@
       <blur :blur-amount=0 :url="url" style="height:180px;">
         <div style="position:relative;min-height:180px;"  >
           <div class="m-img"  :style="{backgroundImage: 'url(' + headImgUrl + ')'}"></div>
-          <p style="position:absolute;font-size:24px;top:58%;left:5%;">{{username}}</p>
+          <p style="position:absolute;font-size:20px;top:58%;left:5%;">{{username}}</p>
           <p style="position:relative;">
             <i class="re-address"></i>
             <i style="position:absolute;font-size:14px;font-weight:bold;left:13%;margin-top:43%">{{address}}</i>
          </p>
-          <div style="position:absolute;width:60%;min-height:80px;top:65%;left:55%">
-            <ul class="me_show">
-              <li>发布<p style="
-      right: 40%;text-align:center">{{release}}</p></li>
-              <i style="border-right:1px solid #000;height:25px;margin-top:6%;"></i>
-              <li>喜欢<p style="
-      right: 20%;text-align:center">{{like}}</p></li>
-              <i style="border-right:1px solid #000;height:25px;margin-top:6%;"></i>
-              <li>收藏<p style="text-align:center">{{keep}}</p></li>
-            </ul>
-          </div>
+          <!--<div style="position:absolute;width:60%;min-height:80px;bottom:2%;right:2%">-->
+            <span class="me_show">
+                发布{{release}}
+            </span>
+          <!--</div>-->
         </div>
       </blur>
       <div class="body"style="width: 100%;">我的食话</div>
@@ -192,19 +186,11 @@
     background: url("../../../assets/img/re-icon.png") no-repeat -56px 10px;
   }
   .me_show{
-    display: flex;
-    width: 100%;
-    height:40%;
-    bottom: 5px;
+    display: inline-block;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
     color:#7d7e83;
-  }
-  .me_show li{
-    float: left;
-    padding-left:5%;
-    bottom:80%;
-    padding-right: 5%;
-    font-size:15px;
-    color: #000;
   }
   .foture {
     display: inline-block;

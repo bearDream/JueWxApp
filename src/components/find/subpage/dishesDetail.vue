@@ -24,7 +24,7 @@
         <div class="left">
           <img class="icon" :src="ingredients"></img>
           <span class="typetitle" >详解:</span>
-          <p style="margin-left: 15%">{{dish.dishContent}}</p>
+          <p style="margin-left: 10%;margin-right: 5%">{{dish.dishContent}}</p>
         </div>
       </div>
       <div style="border-bottom: 2px solid #eee;">
@@ -52,7 +52,7 @@
       <div class="left">
         <img class="icon" :src="analysis"></img>
         <span class="typetitle" style="margin-left: -5%">营养价值分析:</span>
-        <p   style="margin-left: 15%" >
+        <p   style="margin-left: 10%;margin-right: 5%" >
           {{dish.grease}}
         </p>
       </div>

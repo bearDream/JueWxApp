@@ -5,7 +5,8 @@
     <mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" topLoadingText="小蕨努力加载中..." ref="loadmore">
       <divider style="margin-top:12%;font-size:16px;background-color: #fff;">看看大家都在吃什么</divider>
         <div v-for="item in list">
-          <div  style="background-color: #fff;padding:2% 2%;overflow: hidden;height: 200px;position: relative;">
+          <div  style="background-color: #fff;padding:2% 2%;
+          overflow: hidden;height: 200px;position: relative;">
             <div class="avatar" v-on:click="GoArticle(item)">
               <img class="avatarimg" :src="item.headImgUrl" >
             </div>
@@ -212,14 +213,14 @@
     top:4%;
     left:20%;
     display:inline-block;
-    font-size:15px;
+    font-size:14px;
     color:#777;
   }
   .f-time{
     position: absolute;
     top:4%;
     left:62%;
-    font-size:14px;
+    font-size:10px;
     color:#777;
   }
   .f-title{
@@ -261,6 +262,7 @@
     font-size:14pt;
     position: absolute;
     right:5%;
+    padding: 7px;
   }
 </style>
 <style>

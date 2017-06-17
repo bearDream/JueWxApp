@@ -13,8 +13,8 @@
           <p class="a-name">
             {{list.username}}
           </p>
-          <img class="a-img" v-if="list.collectionId === null" v-on:click="collect" src="../../../assets/images/heart_default.png" style="height: 40px; width: 40px; padding: 5px"/>
-          <img class="a-img" v-else v-on:click="cancelCollect"  src="../../../assets/images/heart_select.png" style="height: 40px; width: 40px; padding: 5px"/>
+          <!--<img class="a-img" v-if="list.collectionId === null" v-on:click="collect" src="../../../assets/images/heart_default.png" style="height: 40px; width: 40px; padding: 5px"/>-->
+          <!--<img class="a-img" v-else v-on:click="cancelCollect"  src="../../../assets/images/heart_select.png" style="height: 40px; width: 40px; padding: 5px"/>-->
           </div>
         <p class="a-name">{{list.username}}</p>
         <i class="a-like" v-if="list.goods === 0" style="background-position:-5px 0;" :style="{backgroundImage:'url(' + list.img + ')'}" @click="addgoods(list,list.sum)"></i>

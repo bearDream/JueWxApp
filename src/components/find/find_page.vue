@@ -53,8 +53,11 @@
         <div style="width: 60%;height:100px;display: inline-block;float: right">
           <span style="font-size: 20px">{{item.dishName}}</span>
           <span style="font-size: 10px;color: #59850b">&nbsp;&nbsp;{{item.typeName}}</span>
-          <p style="font-size: 14px">{{item.dishIntroduction}}</p>
-          <p style="font-size: 13px; color:#f74c31">{{item.dishHealth}}</p>
+          <p style="font-size: 14px">{{item.dishDesc}}</p>
+          <p style="font-size: 13px; color:#f74c31" v-if="item.dishNutritionStatus === 0">不健康</p>
+          <p style="font-size: 13px; color:#99ff66" v-if="item.dishNutritionStatus === 1">标准</p>
+          <p style="font-size: 13px; color:#99ff99" v-if="item.dishNutritionStatus === 2">减肥</p>
+          <p style="font-size: 13px; color:#ccff00" v-if="item.dishNutritionStatus === 3">塑形</p>
         </div>
       </div>
 

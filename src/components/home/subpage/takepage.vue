@@ -37,21 +37,19 @@
         <div>
           <div class="takeSorting">
             <div class="sortingl" @click="GoBusiness (item)" :style="{backgroundImage: 'url(' + item.businessImage + ')'}"></div>
-            <div class="sortingr" @click="GoBusiness (item)">
+            <div  class="sortingr" @click="GoBusiness (item)">
               <h3>{{item.name}}</h3>
-              <span class="distance">{{item.distance}}km</span>
-              <span class="address">
-                  <span style="margin:0">地址:</span>
-                  <p style="margin-left: 40px;margin-top: -20px;display: inline-block">
+              <p class="distance">{{item.distance}}km</p>
+              <p class="address" style="margin-top: 5px">
+                  <!--<span style="margin:0">地址:</span>-->
+                  <p style="width: 95%;">
                     {{item.address}}
                   </p>
-              </span>
+              </p>
               <!--<div class="addressdiv">-->
                 <!--<span class="address">{{item.address}}</span>-->
               <!--</div>-->
-              <br>
-              <br>
-              <span class="tel">电话&nbsp;:&nbsp;&nbsp;&nbsp;{{item.tel}}</span>
+              <p class="tel" style="margin-top: 5px">电话&nbsp;:&nbsp;&nbsp;&nbsp;{{item.tel}}</p>
             </div>
           </div>
         </div>
@@ -389,8 +387,8 @@
   }
   .sortingr{
     width: 60%;
-    height: 160px;
-    padding:10px 5px;
+    height: 120px;
+    padding:15px 5px;
     position: absolute;
     top:0;
     right:0;
@@ -402,6 +400,8 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     font-size: 15px;
+    color: #4e5156;
+    font-weight: bold;
   }
   .sortingr span{
     margin-right: 20px;
@@ -417,19 +417,17 @@
     color: red;
     margin-right: 2px;
   }
-  .distance{
-    display: inline-block;
-    padding: 2px 4px;
-    border-radius: 5px;
-    background-color: #c6c7ca;
-    position: absolute;
-    top:8px;
-    right: 1px;
 
-  }
   .address , .distance , .TEL{
     color: #5b5b5d;
     font-size: 8px;
+  }
+  .distance{
+    display: inline-block;
+    top:18px;
+    right: 10px;
+    position: absolute;
+    color: #c6c7ca;
   }
   .addressdiv{
     display: inline-block;
