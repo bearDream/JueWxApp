@@ -27,11 +27,7 @@
     <div v-transfer-dom>
       <x-dialog v-model="show5" hide-on-blur>
         <div class="input1"><span class="input2">请输入您的建议</span>
-            <x-textarea :max="20" placeholder="请输入..."
-                        @on-focus="onEvent('focus')"
-                        @on-blur="onEvent('blur')">
-            </x-textarea>
-          <!--<x-button type="primary" @click="console.info('................')">确认提交</x-button>-->
+          <x-button type="primary" @click="console.info('................')">确认提交</x-button>
           <div @click="show5=false">
             <span class="get">确认提交 </span>
           </div>

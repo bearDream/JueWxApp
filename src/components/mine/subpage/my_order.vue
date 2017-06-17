@@ -23,97 +23,113 @@
         <div style="height: 20px;"></div>
       </x-dialog>
 
-      <div v-show="showOrder">
-        <!-- 全部订单 -->
-        <div style="width: 100%;margin-top: 10px;background-color: #fff">
-          <div v-show="show01"  style="width: 100%;min-height: 100px;border-bottom: 1px solid #f2eeee" v-for="item in allList">
-            <div class="evaluationl" >
-              <img :src="item.businessImage">
-            </div>
-            <div class="evaluationr">
-              <h3 >{{item.name}}</h3>
-              <p >数量: 3</p>
-              <p >总价: ￥{{item.orderPice}} </p>
-              <div class="evaluationrType" >
-                <p>
-                  <span v-if="item.orderStatus === 1">未使用</span>
-                  <span v-else-if="item.orderStatus === 2">未评价</span>
-                  <span v-else-if="item.orderStatus === 3">完成</span>
-                  <span v-else>未支付</span>
-                </p>
+      <!-- 输入评价-->
+      <x-dialog v-model="showEvaluate" hide-on-blur>
+        <group title="评价">
+          <cell title="等级">
+            <rater v-model="data3" slot="value"></rater>
+          </cell>
+        </group>
+          <x-textarea v-model="evaluate" :max="20" placeholder="请输入..."></x-textarea>
+          <div style="padding: 2px 8px 2px 8px;">
+            <x-button type="primary" @click.native="postEvaluate">确认提交</x-button>
+          </div>
+      </x-dialog>
+
+      <mt-loadmore :top-method="loadTop" :bottom-all-loaded="true" ref="loadMore">
+        <div v-show="showOrder">
+          <!-- 全部订单 -->
+          <div style="width: 100%;margin-top: 10px;background-color: #fff">
+            <div v-show="show01"  style="width: 100%;min-height: 100px;border-bottom: 1px solid #f2eeee" v-for="item in allList">
+              <div class="evaluationl" >
+                <img :src="item.businessImage">
               </div>
-              <div class="evaluationrBox">
-                <p  v-if="item.orderStatus !== 0">
-                  <span v-if="item.orderStatus === 1" @click="check(item.orderId)">去使用</span>
-                  <span v-else-if="item.orderStatus === 2">评论</span>
-                  <span v-else-if="item.orderStatus === 3">再来一单</span>
-                </p>
-                <p v-else @click="pay(item.orderId)">支付</p>
+              <div class="evaluationr">
+                <h3 >{{item.name}}</h3>
+                <p >数量: 3</p>
+                <p >总价: ￥{{item.orderPice}} </p>
+                <div class="evaluationrType" >
+                  <p>
+                    <span v-if="item.orderStatus === 1">未使用</span>
+                    <span v-else-if="item.orderStatus === 2">未评价</span>
+                    <span v-else-if="item.orderStatus === 3">完成</span>
+                    <span v-else>未支付</span>
+                  </p>
+                </div>
+                <div class="evaluationrBox">
+                  <p  v-if="item.orderStatus !== 0">
+                    <span v-if="item.orderStatus === 1" @click="check(item.orderId)">去使用</span>
+                    <span v-else-if="item.orderStatus === 2">评论</span>
+                    <span v-else-if="item.orderStatus === 3">再来一单</span>
+                  </p>
+                  <p v-else @click="pay(item.orderId)">支付</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- 待付款 -->
+          <div style="width: 100%;margin-top: 10px;background-color: #fff">
+            <div v-show="show02"  style="width: 100%;min-height: 100px;border-bottom: 1px solid #f2eeee"
+                 v-for="item in allList" v-if="item.orderStatus === 0">
+              <div class="evaluationl" >
+                <img :src="item.businessImage">
+              </div>
+              <div class="evaluationr">
+                <h3 >{{item.name}}</h3>
+                <p >数量: 3</p>
+                <p >总价: ￥{{item.orderPice}} </p>
+                <div class="evaluationrType" >
+                  <p>未付款</p>
+                </div>
+                <div class="evaluationrBox" @click="pay(item.orderId)">
+                  <p>去付款</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- 待评价 -->
+          <div style="width: 100%;margin-top: 10px;background-color: #fff">
+            <div v-show="show03"  style="width: 100%;min-height: 100px;border-bottom: 1px solid #f2eeee"
+                 v-for="item in allList" v-if="item.orderStatus === 2">
+              <div class="evaluationl" >
+                <img :src="item.businessImage">
+              </div>
+              <div class="evaluationr">
+                <h3 >{{item.name}}</h3>
+                <p >数量: 3</p>
+                <p >总价: ￥{{item.orderPice}} </p>
+                <div class="evaluationrType" >
+                  <p>未评价</p>
+                </div>
+                <div class="evaluationrBox" @click="openEvaluate(item.orderId)">
+                  <p>去评价</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- 待使用 -->
+          <div style="width: 100%;margin-top: 10px;background-color: #fff">
+            <div v-show="show04"  style="width: 100%;min-height: 100px;border-bottom: 1px solid #f2eeee"
+                 v-for="item in allList" v-if="item.orderStatus === 1">
+              <div class="evaluationl" >
+                <img :src="item.businessImage">
+              </div>
+              <div class="evaluationr">
+                <h3 >{{item.name}}</h3>
+                <p >数量: 3</p>
+                <p >总价: ￥{{item.orderPice}} </p>
+                <div class="evaluationrType" >
+                    <p>未使用</p>
+                </div>
+                <div class="evaluationrBox" @click="check(item.orderId)">
+                  <p>去使用</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <!-- 待付款 -->
-        <div style="width: 100%;margin-top: 10px;background-color: #fff">
-          <div v-show="show02"  style="width: 100%;min-height: 100px;border-bottom: 1px solid #f2eeee"
-               v-for="item in allList" v-if="item.orderStatus === 0">
-            <div class="evaluationl" >
-              <img :src="item.businessImage">
-            </div>
-            <div class="evaluationr">
-              <h3 >{{item.name}}</h3>
-              <p >数量: 3</p>
-              <p >总价: ￥{{item.orderPice}} </p>
-              <div class="evaluationrType" >
-                <p>未付款</p>
-              </div>
-              <div class="evaluationrBox" @click="pay(item.orderId)">
-                <p>去付款</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- 待评价 -->
-        <div style="width: 100%;margin-top: 10px;background-color: #fff">
-          <div v-show="show03"  style="width: 100%;min-height: 100px;border-bottom: 1px solid #f2eeee"
-               v-for="item in allList" v-if="item.orderStatus === 2">
-            <div class="evaluationl" >
-              <img :src="item.businessImage">
-            </div>
-            <div class="evaluationr">
-              <h3 >{{item.name}}</h3>
-              <p >数量: 3</p>
-              <p >总价: ￥{{item.orderPice}} </p>
-              <div class="evaluationrType" >
-                <p>未评价</p>
-              </div>
-              <div class="evaluationrBox">
-                <p>去评价</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- 待使用 -->
-        <div style="width: 100%;margin-top: 10px;background-color: #fff">
-          <div v-show="show04"  style="width: 100%;min-height: 100px;border-bottom: 1px solid #f2eeee"
-               v-for="item in allList" v-if="item.orderStatus === 1">
-            <div class="evaluationl" >
-              <img :src="item.businessImage">
-            </div>
-            <div class="evaluationr">
-              <h3 >{{item.name}}</h3>
-              <p >数量: 3</p>
-              <p >总价: ￥{{item.orderPice}} </p>
-              <div class="evaluationrType" >
-                  <p>未使用</p>
-              </div>
-              <div class="evaluationrBox" @click="check(item.orderId)">
-                <p>去使用</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      </mt-loadmore>
+
       <div v-show="!showOrder" style="background-color: white">
         <p style="align: center;text-align: center;margin-top: 10px;padding-top: 10px;">
           <img src="../../../assets/images/哭脸.png" style="width: 30px;vertical-align: bottom;"/>
@@ -126,12 +142,15 @@
 </template>
 
 <script>
-  import { XHeader, Sticky, Tab, TabItem, XDialog, Qrcode, Divider } from 'vux'
+  import { Rater, Group, Cell, XHeader, Sticky, Tab, TabItem, XDialog, Qrcode, Divider, XButton, XTextarea, TransferDomDirective as TransferDom } from 'vux'
   import { Indicator, Toast } from 'mint-ui'
   import axios from 'axios'
   import consts from '@/utils/consts'
   import imgl from '../../../assets/img/img_01.png'
   export default {
+    directives: {
+      TransferDom
+    },
     components: {
       XHeader,
       Sticky,
@@ -139,10 +158,17 @@
       XDialog,
       TabItem,
       Qrcode,
-      Divider
+      Divider,
+      XButton,
+      XTextarea,
+      Rater,
+      Group,
+      Cell
     },
     data () {
       return {
+        showEvaluate: false,
+        evaluate: '',
         wxJsPay: '',
         show01: true,
         show02: false,
@@ -268,6 +294,20 @@
             }
           })
       },
+      openEvaluate (orderId) {
+        console.info(orderId)
+        this.selectOrderId = orderId
+        this.showEvaluate = true
+      },
+      postEvaluate () {
+        console.info(this.evaluate)
+        console.info(this.selectOrderId)
+        this.showEvaluate = !this.showEvaluate
+      },
+      loadTop () {
+        this.gets()
+        this.$refs.loadMore.onTopLoaded()
+      },
       showlist1 () {
         this.show01 = true
         this.show02 = false
@@ -291,6 +331,9 @@
         this.show03 = false
         this.show01 = false
         this.show02 = false
+      },
+      onEvent (event) {
+        console.log('on', event)
       }
     }
   }

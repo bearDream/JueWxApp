@@ -39,7 +39,7 @@
         <!--<h3>限制距离  {{limit_distance}} km</h3>-->
       </grid-item>
       <grid-item>
-        <x-button type="primary" v-if="takebutton" @click.native="takePage"><span style="font-size: 15px;">00:10:10</span>抢票</x-button>
+        <x-button type="primary" v-if="takebutton" @click.native="takePage"><span style="font-size: 15px;"></span>{{buttonText}}</x-button>
         <div v-if="takePageshow">
           <h3>单号 <span class="statuss">{{number}}</span></h3>
           <h3>还需等待 <span class="waitNum"> {{wait}} </span>桌</h3>
@@ -103,6 +103,7 @@
     },
     data () {
       return {
+        buttonText: '点击取票',
         peopleNum: 2,
         list01: [
             {i: 2},
@@ -183,6 +184,10 @@
               this.$set(this, 'takePageshow', false)
             }
 
+            if (this.businessInfo.businessId === 64) {
+              this.buttonText = '点击抢号'
+            }
+
             // queue中包含allNums（总排队  等待人数），bigQue（大桌队列）， mediumQue（小桌队列），smallQue（小桌队列）
             this.$set(this.queue, 'small_table', data.queue.smallQue.length)
             this.$set(this.queue, 'medium_table', data.queue.mediumQue.length)
@@ -223,8 +228,6 @@
       onconfirem () {
         this.loading = true
 //        let that = this
-        console.info(this.businessInfo)
-        console.log('提交当前选择人数:' + peopleNum)
         // 发送网络请求（排队人数）
         this.$store.dispatch('takeNumber', {
           params: {
@@ -232,23 +235,23 @@
             businessId: this.businessInfo.businessId
           }
         }).then(() => {
-          console.info(this.$store.getters.getNumber)
           let data = this.$store.getters.getNumber
           if (data.code === -1) {
             Toast({message: data.msg})
           } else {
             this.getInfo()
             this.getUserNum()
+            this.takePageshow = !this.takePageshow
           }
           this.loading = false
-          this.takePageshow = !this.takePageshow
         })
       },
       onCancel () {
         this.takebutton = !this.takebutton
       },
       checker (key) {
-        peopleNum = key
+        peopleNum = 2
+//        peopleNum = key
       }
     }
   }
