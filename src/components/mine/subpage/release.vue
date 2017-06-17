@@ -1,40 +1,55 @@
 <template>
   <div style="">
-    <x-header v-on:click="$router.back()">蕨菜</x-header>
-    <blur :blur-amount=0 :url="url" style="height:180px;">
-      <div style="position:relative;min-height:180px;" v-for="item in list" >
-        <div class="m-img"  :style="{backgroundImage: 'url(' + item.ava + ')'}"></div>
-        <p style="position:absolute;font-size:24px;top:58%;left:5%;">{{item.name}}</p>
-        <p style="position:relative;">
-          <i class="re-address"></i>
-          <i style="position:absolute;font-size:14px;font-weight:bold;left:13%;margin-top:43%">{{item.address}}</i>
-       </p>
-        <div style="position:absolute;width:60%;min-height:80px;top:65%;left:55%">
-          <ul class="me_show">
-            <li>发布<p style="
-    right: 40%;text-align:center">{{release}}</p></li>
-            <i style="border-right:1px solid #000;height:25px;margin-top:6%;"></i>
-            <li>喜欢<p style="
-    right: 20%;text-align:center">{{like}}</p></li>
-            <i style="border-right:1px solid #000;height:25px;margin-top:6%;"></i>
-            <li>收藏<p style="text-align:center">{{keep}}</p></li>
-          </ul>
+    <x-header :left-options="{backText: ''}" style="background: transparent;position: fixed;" v-on:click="$router.back()"></x-header>
+    <div v-show="showPage">
+      <blur :blur-amount=0 :url="url" style="height:180px;">
+        <div style="position:relative;min-height:180px;"  >
+          <div class="m-img"  :style="{backgroundImage: 'url(' + headImgUrl + ')'}"></div>
+          <p style="position:absolute;font-size:24px;top:58%;left:5%;">{{username}}</p>
+          <p style="position:relative;">
+            <i class="re-address"></i>
+            <i style="position:absolute;font-size:14px;font-weight:bold;left:13%;margin-top:43%">{{address}}</i>
+         </p>
+          <div style="position:absolute;width:60%;min-height:80px;top:65%;left:55%">
+            <ul class="me_show">
+              <li>发布<p style="
+      right: 40%;text-align:center">{{release}}</p></li>
+              <i style="border-right:1px solid #000;height:25px;margin-top:6%;"></i>
+              <li>喜欢<p style="
+      right: 20%;text-align:center">{{like}}</p></li>
+              <i style="border-right:1px solid #000;height:25px;margin-top:6%;"></i>
+              <li>收藏<p style="text-align:center">{{keep}}</p></li>
+            </ul>
+          </div>
+        </div>
+      </blur>
+      <div class="body"style="width: 100%;">我的食话</div>
+      <div class="foture" v-for="item in list1">
+        <img :src="item.recImage"  v-on:click="GoArticle(item.articleId)">
+        <p style="text-align: left">{{ item.title }}</p>
+        <i style="background-position: 0 -1px;" v-show="item.bad" @click="addgoods(item,item.sum)"></i>
+        <i style="background-position: -30px -0px;" v-show="item.good" @click="addgoods(item,item.sum)"></i>
+         <a>{{item.sumScore}}</a>
+      </div>
+    </div>
+    <div v-show="!showPage" style="background-color: white;">
+      <div style="">
+        <p style="align: center;text-align: center;margin-top: 10px;padding-top: 10px;">
+          <img src="../../../assets/images/哭脸.png" style="width: 30px;vertical-align: bottom;"/>
+          暂时还没有发布任何食话食说图文哦
+        </p>
+        <div style="padding-left: 20px; padding-right: 20px;margin-top: 100px;">
+          <x-button style="margin-top: 10px; " type="primary" @click.native="GoPost">发表</x-button>
         </div>
       </div>
-    </blur>
-    <div class="body"style="width: 100%;">我的发布</div>
-    <div class="foture" v-for="item in list1">
-      <img :src="item.Nordic"  v-on:click="GoArticle">
-      <p style="text-align: left">{{ item.content }}</p>
-      <i style="background-position: 0 -1px;" v-show="item.bad" @click="addgoods(item,item.sum)"></i>
-      <i style="background-position: -30px -0px;" v-show="item.good" @click="addgoods(item,item.sum)"></i>
-       <a>{{item.sumScore}}</a>
     </div>
   </div>
 </template>
 
 <script>
-  import { XHeader, Flexbox, FlexboxItem, Blur, Masker, Group, Cell, Panel } from 'vux'
+  import { XHeader, XButton, Flexbox, FlexboxItem, Blur, Masker, Group, Cell, Panel } from 'vux'
+  import { Indicator, Toast } from 'mint-ui'
+
   import img from '../../../assets/img/re-top.png'
   import img1 from '../../../assets/img/re-header.png'
   import img2 from '../../../assets/img/re-Nordic.png'
@@ -51,38 +66,44 @@
       Masker,
       Group,
       Cell,
-      Panel
+      Panel,
+      XButton,
+      Indicator,
+      Toast
     },
     data () {
       return {
+        showPage: false,
         bad: false,
         good: false,
-        list: [{
-          ava: img1,
-          name: 'Junny',
-          address: '云南 昆明'
-        }],
+        headImgUrl: img1,
+        username: '小蕨',
+        address: '云南 昆明',
         list1: [{
-          Nordic: img2,
-          content: '藏在昆明小巷子的小清新咖啡馆',
+          articleId: 1,
+          recImage: img2,
+          title: '藏在昆明小巷子的小清新咖啡馆sdfsdfsdfssdf,藏在昆明小巷子的小清',
           sumScore: 0,
           bad: true,
           sum: 0
         }, {
-          Nordic: img3,
-          content: '昆明网红简约咖啡馆',
+          articleId: 2,
+          recImage: img3,
+          title: '昆明网红简约咖啡馆',
           sumScore: 4,
           bad: true,
           sum: 0
         }, {
-          Nordic: img4,
-          content: '这是一个来自pizza爱好者的推荐',
+          articleId: 3,
+          recImage: img4,
+          title: '这是一个来自pizza爱好者的推荐',
           sumScore: 0,
           bad: true,
           sum: 0
         }, {
-          Nordic: img5,
-          content: '藏在转交的咖啡店',
+          articleId: 4,
+          recImage: img5,
+          title: '藏在转交的咖啡店',
           sumScore: 12,
           bad: true,
           sum: 0
@@ -93,7 +114,36 @@
         keep: 53
       }
     },
+    mounted () {
+      this.gets()
+    },
     methods: {
+      gets () {
+        Indicator.open({
+          text: '小蕨努力加载中...',
+          spinnerType: 'snake'
+        })
+        this.$store.dispatch('getOwnArticles', {
+          uri: 'own'
+        }).then(() => {
+          Indicator.close()
+          console.info(this.$store.getters.getArticles)
+          let data = this.$store.getters.getArticles
+          if (data.code !== -1) {
+            data = data.data
+            if (data.length === 0) {
+              // 显示友好提示用户没有发布任何内容
+              this.showPage = false
+            } else {
+              this.showPage = true
+              this.list1 = data
+              this.release = data.length
+              this.headImgUrl = data[0].headImgUrl
+              this.username = data[0].username
+            }
+          }
+        })
+      },
       addgoods (item, sum) {
         if (sum >= 1) {
           item.good = false
@@ -107,11 +157,12 @@
           item.sum += 1
         }
       },
-      GoArticle () {
-        this.$router.push({name: 'article'})
+      GoArticle (articleId) {
+        this.$router.push({name: 'article', params: {articleId: articleId}})
+      },
+      GoPost () {
+        this.$router.push({name: 'postArticle'})
       }
-    },
-    mounted () {
     },
     computed: mapState([
       'ranking'
@@ -129,17 +180,16 @@
     padding-bottom:17%;
     width: 17%;
     border-radius: 50%;
-    top:25%;
+    top:20%;
     left:5%;
   }
   .re-address{
-    position:absolute;
-    margin-top:40%;
-    left:5%;
+    margin-top:38%;
+    margin-left:5%;
     display: inline-block;
     width:25px;
     height:35px;
-    background: url("../../../assets/img/re-icon.png") no-repeat -62px 4px;
+    background: url("../../../assets/img/re-icon.png") no-repeat -56px 10px;
   }
   .me_show{
     display: flex;
@@ -159,36 +209,44 @@
   .foture {
     display: inline-block;
     position: relative;
-    float: left;
+    /*顶部对齐*/
+    vertical-align: top;
     width:42%;
     font-size: 15px;
     margin:4%;
-    min-height:200px;
+    min-height:180px;
   }
   .foture img{
     width: 100%;
-    position: absolute;
   }
   .foture p{
     width:100%;
-    position: absolute;
     top: 82%;
     overflow:hidden;
   }
   .foture i{
-    padding-right:5%;
+    padding-right:30px;
+    padding-bottom: 27px;
+    /*position: absolute;*/
+    /*top: 90%;*/
+    /*right: 10%;*/
+    /*width:30px;*/
+    /*height:25px;*/
     position: absolute;
-    top: 96%;
-    right: 10%;
-    width:30px;
-    height:25px;
+    display: inline-block;
+    right: 13%;
+    bottom:-20px;
     background-image: url("../../../assets/img/re-icon.png");
   }
   .foture a{
     position: absolute;
-    top: 100%;
+    /*top: 92%;*/
     right: 2%;
-    font-size:16px;
+    display: inline-block;
+    color: #5b5b5d;
+    /*margin-left: -7px;*/
+    font-size:18px;
+    bottom:-20px;
   }
   .body{
    text-align: center;

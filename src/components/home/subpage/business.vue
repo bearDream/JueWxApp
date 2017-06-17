@@ -36,13 +36,19 @@
     <grid :rows="2">
       <grid-item>
         <h3>当前距离  {{now_distance}} km</h3>
-        <h3>限制距离  {{limit_distance}} km</h3>
+        <!--<h3>限制距离  {{limit_distance}} km</h3>-->
       </grid-item>
       <grid-item>
-        <x-button type="primary" v-if="takebutton" @click.native="takePage">点击取票</x-button>
+        <x-button type="primary" v-if="takebutton" @click.native="takePage"><span style="font-size: 15px;">00:10:10</span>抢票</x-button>
         <div v-if="takePageshow">
           <h3>单号 <span class="statuss">{{number}}</span></h3>
           <h3>还需等待 <span class="waitNum"> {{wait}} </span>桌</h3>
+        </div>
+        <div v-if="businessInfo.isTake == 0">
+          <div>
+            <h3 style="color: #c1411a">商家未开通取号 </h3>
+            <h3 style="color: darkgray">请耐心等待商家开通哦</h3>
+          </div>
         </div>
 
         <!--<alert v-model="alertConfirm" title="取号" content="确认取号，默认小桌"  @on-hide="onHide"></alert>-->
@@ -59,6 +65,7 @@
       </grid-item>
     </grid>
     <div class="business_foot">
+      <h4><x-button type="primary" @click.native="refreshInfo">刷新状态</x-button></h4>
       <h4>{{businessInfo.tel}}</h4>
       <h4>{{businessInfo.address}}</h4>
       <h4>{{time}}</h4>
@@ -109,6 +116,7 @@
           businessId: '',
           businessImage: img,
           name: '生物生鲜肉店(同德广场店)',
+          isTake: 1, // 0标识未开通取号  1标识开通取号
           level: 4,
           small_table: 12,
           small_table_wait: 20,
@@ -147,10 +155,13 @@
         this.$router.go(-1)
       }
       this.$set(this.businessInfo, 'businessId', this.$route.params.businessId)
-      this.getInfo()
-      this.getUserNum()
+      this.refreshInfo()
     },
     methods: {
+      refreshInfo () {
+        this.getInfo()
+        this.getUserNum()
+      },
       getInfo () {
         this.$store.dispatch('getBusiness', {
           params: {
@@ -165,6 +176,12 @@
             data = data.data
             this.$set(this, 'businessInfo', data.businessInfo)
             this.$set(this, 'queue', data.queue)
+
+            if (this.businessInfo.isTake === 0) {
+              console.info('isTake' + this.businessInfo.isTake)
+              this.$set(this, 'takebutton', false)
+              this.$set(this, 'takePageshow', false)
+            }
 
             // queue中包含allNums（总排队  等待人数），bigQue（大桌队列）， mediumQue（小桌队列），smallQue（小桌队列）
             this.$set(this.queue, 'small_table', data.queue.smallQue.length)

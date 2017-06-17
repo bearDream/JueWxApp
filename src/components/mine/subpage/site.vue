@@ -1,6 +1,6 @@
 <template>
   <div>
-    <x-header v-on:click="$router.back()">设置</x-header>
+    <x-header :left-options="{backText: ''}" style="background: transparent;position: fixed;" v-on:click="$router.back()"></x-header>
     <group>
       <cell title="意见反馈" @click.native="showPlugin3" is-link></cell>
       <cell title="用户帮助" @click.native="showPlugin5" is-link></cell>

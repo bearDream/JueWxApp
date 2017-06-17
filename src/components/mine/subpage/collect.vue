@@ -1,6 +1,6 @@
 <template>
   <div>
-    <x-header v-on:click="$router.back()">我的收藏</x-header>
+    <x-header :left-options="{backText: ''}" style="background: transparent;position: fixed;" v-on:click="$router.back()"></x-header>
     <div class="card-demo-flex card-demo-content">
       <div >
         <group>
@@ -33,6 +33,8 @@
       </div>
     </div>
 
+
+    <div v-show="is_showContent">
     <!-- 收藏商家页 -->
     <template v-if="showContent001" style="position: fixed">
       <!--<scroller enable-horizontal-swiping=""  :loading="load" >-->
@@ -92,6 +94,14 @@
       </div>
     </template>
 
+    </div>
+    <!-- 用户没有收藏则不显示 -->
+    <div v-show="!is_showContent">
+      <p style="align: center;text-align: center;margin-top: 10px;">
+        <img src="../../../assets/images/哭脸.png" style="width: 30px;vertical-align: bottom;"/>
+        您还没有收藏过内容呢
+      </p>
+    </div>
   </div>
 
 </template>
@@ -148,6 +158,7 @@
     },
     data () {
       return {
+        is_showContent: true,
         showContent001: false,
         showContent002: false,
         showContent003: false,
@@ -279,8 +290,8 @@
     },
     mounted () {
       console.info(time.getDate('1495382400000'))
-      this.showArticle()
-      this.get()
+//      this.showArticle()
+//      this.get()
     },
     methods: {
       get (type) {
@@ -296,31 +307,35 @@
               data.data[i].articleAddTime = time.getDate(data.data[i].articleAddTime)
             }
             this.$set(this, 'list3', data.data)
+            this.is_showContent = true
+          } else {
+            this.is_showContent = false
           }
           console.info(this.$store.getters.getCollections)
         })
       },
       showcomment (comment) {
         console.info(comment.articleId)
-        this.$router.push({name: 'comments', params: {articleId: comment.articleId}})
+//        this.$router.push({name: 'comments', params: {articleId: comment.articleId}})
+        this.$router.push({name: 'comments'})
       },
       business_info (item) {
         alert(item.title)
       },
       showBusiness () {
-        this.get(2)
+//        this.get(2)
         this.showContent001 = !this.showContent001
         this.showContent003 = false
         this.showContent002 = false
       },
       showDish () {
-        this.get(1)
+//        this.get(1)
         this.showContent002 = !this.showContent002
         this.showContent003 = false
         this.showContent001 = false
       },
       showArticle () {
-        this.get(3)
+//        this.get(3)
         this.showContent003 = !this.showContent003
         this.showContent002 = false
         this.showContent001 = false

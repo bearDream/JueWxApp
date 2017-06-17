@@ -16,12 +16,10 @@
           <img class="a-img" v-if="list.collectionId === null" v-on:click="collect" src="../../../assets/images/heart_default.png" style="height: 40px; width: 40px; padding: 5px"/>
           <img class="a-img" v-else v-on:click="cancelCollect"  src="../../../assets/images/heart_select.png" style="height: 40px; width: 40px; padding: 5px"/>
           </div>
-        <div class="a-photo" style="border-radius: 200px">
-          <img :src="list.headImgUrl" style="width: 100%">
-        </div>
         <p class="a-name">{{list.username}}</p>
-        <i class="a-like" v-if="list.goods === 0" style="background-position:-6px 0;" :style="{backgroundImage:'url(' + list.img + ')'}" @click="addgoods(list,list.sum)"></i>
-        <i class="a-like" v-if="list.goods !== 0" style="background-position: -45px 0;" :style="{backgroundImage:'url(' + list.img + ')'}" @click="addgoods(list,list.sum)"></i>
+        <i class="a-like" v-if="list.goods === 0" style="background-position:-5px 0;" :style="{backgroundImage:'url(' + list.img + ')'}" @click="addgoods(list,list.sum)"></i>
+        <i class="a-like" v-if="list.goods !== 0" style="background-position: -44px 1px;" :style="{backgroundImage:'url(' + list.img + ')'}" @click="addgoods(list,list.sum)"></i>
+
       </div>
       <div style="position: relative;border-bottom: 1px solid #ddd;">
         <p style="font-size:18px;font-weight:bold;margin:2% 5% 0;text-align:left;">{{list.title}}</p>
@@ -35,7 +33,7 @@
         <i class="a-info" style="background-position: -66px 0;right:20%" :style="{backgroundImage:'url(' + list.scan + ')'}"></i>
         <i style="color:#555;position:absolute;right:7%;margin-top:3%">12次浏览</i>
         <!--<i class="a-detail" style="margin-top:10%">发布于 {{list.address}}</i>-->
-        <i class="a-detail" style="margin-top:20%">{{list.addTime}}</i>
+        <i class="a-detail" style="position:absolute;left:28%;margin-top:3%">{{list.addTime}}</i>
       </div>
     </div>
   </div>

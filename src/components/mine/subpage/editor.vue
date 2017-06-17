@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <x-header :left-options="{backText: ''}" v-on:click="$router.back()">编辑资料</x-header>
+      <x-header :left-options="{backText: ''}" style="background: transparent;position: fixed;" v-on:click="$router.back()"></x-header>
       <group>
         <cell title="昵称"  is-link @click.native="Onnameshow"  :value="userInfo.username"></cell>
         <selector style="margin:20px 0 20px 10px;" v-model="userInfo.sex"  title="性别" :options="genderList" @on-change="ongender"></selector>

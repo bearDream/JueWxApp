@@ -1,6 +1,6 @@
 <template>
   <div>
-    <x-header v-on:click="$router.back()">营养价值</x-header>
+    <x-header :left-options="{backText: ''}" style="background: transparent;position: fixed;" v-on:click="$router.back()"></x-header>
     <blur :blur-amount=0 :url="url" style="height:220px">
 
       <div style="border-radius: 2px;width: 100%;">
@@ -66,7 +66,7 @@
       }
     },
     created () {
-//      this.get()
+      this.get()
     },
     methods: {
       get () {
@@ -99,10 +99,7 @@
         this.$router.push({name: 'NutritionDetail'})
       },
       GoRankingdetails (params) {
-        this.$router.push({name: 'Rankingdetails', params: {dishId: params.dishId}})
-      },
-      created () {
-        this.gets()
+        this.$router.push({name: 'dishesDetail', params: {dishId: params.dishId}})
       },
       gets () {
         this.$store.dispatch('getRankings', {

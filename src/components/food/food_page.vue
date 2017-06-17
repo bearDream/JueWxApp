@@ -11,20 +11,25 @@
             </div>
             <p class="f-name" v-on:click="GoArticle(item)">{{item.username}}</p>
             <p class="f-time">{{item.addTime}}</p>
-            <p class="f-title" v-on:click="GoArticle(item)">{{item.title}}</p>articleId
-            <img class="a-img" v-if="item.collectionId === null" v-on:click="collect(item.articleId)" src="../../assets/images/heart_default.png" style="height: 40px; width: 40px; padding: 5px"/>
-            <img class="a-img" v-else v-on:click="cancelCollect(item.collectionId)"  src="../../assets/images/heart_select.png" style="height: 40px; width: 40px; padding: 5px"/>
-            <!--<rater v-model="item.data1" slot="value" star="♡"  v-on:click="collect" :max="1" active-color="red" style="position: absolute;top:1%;left:88%;" :font-size="35"></rater>-->
-            <div class="photo3" v-on:click="GoArticle(item)" style="border-radius:3px;width:90%;height:80%; backgroundColor:rgba(255,255,255,.5);" v-for="i in item.recImageList" v-if="item.recImageList.length===1">
+            <p class="f-title" v-on:click="GoArticle(item)">{{item.title}}</p>
+            <img class="a-img" v-if="item.collectionId === null" v-on:click="collect(item.articleId)"
+                 src="../../assets/images/heart_default.png" style="height: 40px; width: 40px; padding: 5px"/>
+            <img class="a-img" v-else v-on:click="cancelCollect(item.collectionId)"
+                 src="../../assets/images/heart_select.png" style="height: 40px; width: 40px; padding: 5px"/>
+            <div class="photo3" v-on:click="GoArticle(item)" style="border-radius:3px;width:90%;height:80%; backgroundColor:rgba(255,255,255,.5);" v-for="i in item.recImageList"
+                 v-if="item.recImageList.length===1">
               <img :src="i">
             </div>
-            <div class="photo2" v-on:click="GoArticle(item)" style="text-align: center" v-for="i in item.recImageList" v-if="item.recImageList.length===2">
+            <div class="photo2" v-on:click="GoArticle(item)" style="text-align: center" v-for="i in item.recImageList"
+                 v-if="item.recImageList.length===2">
               <img :src="i">
             </div>
-            <div class="photo3" v-on:click="GoArticle(item)" v-for="i in item.recImageList" v-if="item.recImageList.length===3">
+            <div class="photo3" v-on:click="GoArticle(item)" v-for="i in item.recImageList"
+                 v-if="item.recImageList.length===3">
               <img :src="i">
             </div>
-            <div class="photo4" v-on:click="GoArticle(item)" v-for="i in item.recImageList" v-if="item.recImageList.length===4">
+            <div class="photo4" v-on:click="GoArticle(item)" v-for="i in item.recImageList"
+                 v-if="item.recImageList.length===4">
               <img :src="i">
             </div>
           </div>
@@ -213,7 +218,7 @@
   .f-time{
     position: absolute;
     top:4%;
-    left:65%;
+    left:62%;
     font-size:14px;
     color:#777;
   }

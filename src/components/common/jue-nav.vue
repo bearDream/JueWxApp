@@ -15,7 +15,7 @@
 		<router-link to="/food" tag="dl">
         <dt class="iconfont icon-food" >
         </dt>
-        <dd>排行</dd>
+        <dd>说食话</dd>
     </router-link>
 		<router-link to="/mine" tag="dl">
         <dt class="iconfont icon-mine" >
@@ -37,27 +37,27 @@
 <style>
     @import "../../assets/css/wx-nav.css";
   .icon-home{
-    background:url('../../assets/img/icon-gray.png') no-repeat -6px -86px;
+    background:url('../../assets/img/icon-gray1.png') no-repeat -20px -83px;
   }
   .icon-finds{
-    background:url('../../assets/img/icon-gray.png') no-repeat -50px -88px;
+    background:url('../../assets/img/icon-gray1.png') no-repeat -67px -86px;
   }
   .icon-food{
-    background:url('../../assets/img/icon-gray.png') no-repeat -95px -87px;
+    background:url('../../assets/img/icon-gray1.png') no-repeat -116px -84px;
   }
   .icon-mine{
-    background:url('../../assets/img/icon-gray.png') no-repeat -146px -82px;
+    background:url('../../assets/img/icon-gray1.png') no-repeat -168px -87px;
   }
   #wx-nav nav dl.router-link-active dt.icon-home{
-    background: url('../../assets/img/icon-green.png') no-repeat -6px -86px;
+    background: url('../../assets/img/icon-green1.png') no-repeat -20px -83px;
   }
   #wx-nav nav dl.router-link-active dt.icon-finds{
-    background: url('../../assets/img/icon-green.png') no-repeat -50px -88px;
+    background: url('../../assets/img/icon-green1.png') no-repeat -67px -86px;
   }
   #wx-nav nav dl.router-link-active dt.icon-food{
-    background: url('../../assets/img/icon-green.png') no-repeat -95px -87px;
+    background: url('../../assets/img/icon-green1.png') no-repeat -116px -84px;
   }
   #wx-nav nav dl.router-link-active dt.icon-mine{
-    background: url('../../assets/img/icon-green.png') no-repeat -146px -82px;
+    background: url('../../assets/img/icon-green1.png') no-repeat -168px -87px;
   }
 </style>

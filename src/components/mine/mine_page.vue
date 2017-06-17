@@ -18,20 +18,20 @@
         <img src="../../assets/images/collection.png" alt="">
         <p style="color: #676767;">我的收藏</p>
       </grid-item>
-      <grid-item link="subpage/vip">
-        <img src="../../assets/images/vip.png" alt="">
-        <p style="color: #676767;">我的会员</p>
+      <grid-item link="subpage/my_order">
+        <img src="../../assets/images/order3.png" alt="">
+        <p style="color: #676767;">我的订单</p>
       </grid-item>
       <grid-item link="subpage/release">
-        <img src="../../assets/images/release.png" alt="">
+        <img src="../../assets/images/release1.png" alt="">
         <p style="color: #676767;">我的发布</p>
       </grid-item>
     </grid>
     <group style="margin-top:-20px">
-      <cell title='我的订单'  link="subpage/my_order"  is-link></cell>
+      <!--<cell title='我的订单'  link="subpage/my_order"  is-link></cell>-->
       <cell title='设置'  link="subpage/site"  is-link></cell>
       <cell title='分享食话食说'  link="subpage/post_article"  is-link></cell>
-      <cell title='每日签到' link="subpage/check" is-link></cell>
+      <cell title='每日签到' link="subpage/check" is-link v-show=false></cell>
       <cell title='关于我们' link="subpage/about" is-link></cell>
     </group>
     <br>
@@ -114,7 +114,7 @@ export default {
 <style scoped>
   .center {
     text-align: center;
-    padding-top: 60px;
+    padding-top: 50px;
     color: #fff;
     font-size: 18px;
   }
@@ -131,7 +131,7 @@ export default {
     background-position: center center;
     cursor: pointer;
     border-radius: 2px;
-    height: 60px;
+    height: 40px;
     background: #f3f3f5;
     opacity: .1;
     bottom: 0;
@@ -139,7 +139,7 @@ export default {
   .me_show{
     display: flex;
     width: 100%;
-    height:40px;
+    height:30px;
     position: absolute;
     bottom: 5px;
     color:#e9e9e9;

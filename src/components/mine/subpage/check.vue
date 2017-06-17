@@ -1,6 +1,6 @@
 <template>
   <div>
-   <x-header v-on:click="$router.back()">每日签到</x-header>
+    <x-header :left-options="{backText: ''}" style="background: transparent;position: fixed;" v-on:click="$router.back()"></x-header>
     <div  style="height:250px;width: 100%">
         <ul class="center">
           <li>{{sumScore}}分</li>

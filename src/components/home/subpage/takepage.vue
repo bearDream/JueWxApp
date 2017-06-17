@@ -1,8 +1,8 @@
 <template>
   <div>
-    <x-header v-on:click="$router.back()">取号</x-header>
-
-    <div class="card-demo-flex card-demo-content">
+    <!--<x-header v-on:click="$router.back()">取号</x-header>-->
+    <!--<x-header :left-options="{backText: ''}" style="background: transparent;position: fixed;left: -10px;top: -2px" v-on:click="$router.back()"></x-header>-->
+    <div class="card-demo-flex card-demo-content" style="margin-top: 4px">
       <div >
           <cell style="font-size: 12px!important;"
                 title="附近商家" is-link
@@ -40,11 +40,10 @@
             <div class="sortingr" @click="GoBusiness (item)">
               <h3>{{item.name}}</h3>
               <span class="distance">{{item.distance}}km</span>
-              <span class="address">地址&nbsp;:&nbsp;</span>
+              <span class="address">地址</span>
               <div class="addressdiv">
                 <span class="address">{{item.address}}</span>
               </div>
-              <br>
               <br>
               <br>
               <span class="tel">电话&nbsp;:&nbsp;&nbsp;&nbsp;{{item.tel}}</span>
@@ -57,15 +56,17 @@
     <mt-loadmore v-if="showContent002" :top-method="loadLevelTop" :bottom-method="loadLevelBottom" :bottom-all-loaded="LevelAllLoaded" ref="loadLevelMore">
       <div v-for="item in list2">
         <div class="takeSorting">
-          <h3 class="businesstitle">{{item.name}}</h3>
-          <div class="allsortingl" @click="GoBusiness (item)" :style="{backgroundImage: 'url(' + item.businessImage + ')'}"></div>
-          <div class="allsortingr" @click="GoBusiness (item)">
-            <br>
-            <rater v-model="item.level" slot="value" disabled :font-size="20"></rater>
-            <br>
-            <br>
-            <span class="address2">{{item.address}}</span>
-            <span class="addressstel tel" style="top: 80px"><i style="color: red">电话</i>&nbsp;:&nbsp;&nbsp;&nbsp;{{item.tel}}</span>
+          <div style="height: 160px;">
+            <h3 class="businesstitle">{{item.name}}</h3>
+            <div class="allsortingl" @click="GoBusiness (item)" :style="{backgroundImage: 'url(' + item.businessImage + ')'}"></div>
+            <div class="allsortingr" @click="GoBusiness (item)">
+              <br>
+              <rater v-model="item.level" slot="value" disabled></rater>
+              <br>
+              <br>
+              <span class="address2">{{item.address}}</span>
+              <span class="addressstel tel" style="top: 80px"><i style="color: red">电话</i>&nbsp;:&nbsp;&nbsp;&nbsp;{{item.tel}}</span>
+            </div>
           </div>
         </div>
       </div>
@@ -77,7 +78,7 @@
           <div class="sortingl" @click="GoBusiness (item)" :style="{backgroundImage: 'url(' + item.businessImage + ')'}"></div>
           <div class="sortingr"  @click="GoBusiness (item)">
             <h3>{{item.name}}</h3>
-            <rater v-model="item.level" slot="value" disabled :font-size="18"></rater>
+            <rater v-model="item.level" slot="value" disabled></rater>
             <br>
             <!--<span>{{item.type}}</span>-->
             <span>{{item.address}}</span>
@@ -132,31 +133,31 @@
         tel: 1232132,
         list1: [{
           businessImage: img2,
-          name: '海底捞11',
-          distance: 228,
-          address: '盘龙区白龙路东华菜市场熟食区六区15商铺',
+          name: '广东烧猪肉',
+          distance: 0.5,
+          address: '盘龙区白龙路东华菜市场',
           tel: '1398702586'
         }, {
           businessImage: img1,
           name: '北京烤鸭',
-          distance: 80,
+          distance: 0.6,
           address: '盘龙区白龙路',
           tel: '1398702586'
         }, {
           businessImage: img1,
           name: '外婆味道',
-          distance: 100,
-          address: '盘龙区白龙路昆明理工大学白龙路',
+          distance: 2,
+          address: '盘龙区环城东路昆明理工大学',
           tel: '1398702586'
         }],
         list2: [{
-          src: img1,
+          businessImage: img1,
           name: '巴蜀知味重庆老火锅',
           address: '呈贡大学城',
           detailed: '呈贡区洛龙街道朝云街昆明市政府',
           tel: 13067349324
         }, {
-          src: img1,
+          businessImage: img1,
           name: '巴蜀知味重庆老火锅',
           address: '昆明盘龙区',
           detailed: '呈贡区洛龙街道雨花毓秀小区',
@@ -198,8 +199,6 @@
     },
     created () {
       this.getsort()
-      console.info(this.$store.getters.getLontitude)
-      console.info(this.$store.getters.getLatitude)
       this.$set(this, 'longtitude', this.$store.getters.getLontitude)
       this.$set(this, 'latitude', this.$store.getters.getLatitude)
     },
@@ -225,7 +224,6 @@
           Indicator.close()
           let data = this.$store.getters.getBusinesss
           if (data.code !== -1) {
-            console.info(this.$store.getters.getBusinesss.data.distanceList)
             this.$set(this, 'list1', data.data.distanceList.page.list)
             this.$set(this, 'list2', data.data.levelList.page.list)
             this.$set(this, 'list3', data.data.takeList.page.list)
@@ -365,24 +363,24 @@
   }
   .takeSorting{
     width: 100%;
-    height:160px;
+    /*height:160px;*/
     position: relative;
-    margin-bottom: 10px;
+    /*padding-bottom: 10px;*/
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-bottom:  10px;
     border-bottom: 1px solid #dddbdb;
   }
   .sortingl{
-    width: 35%;
+    width: 100px;
     height: 100px;
-    overflow: hidden;
-    position: absolute;
-    top: 25px;
-    left: 25px;
+    /*position: absolute;*/
     background-size: cover;
     background-color: #9b9b9b;
     display: inline-block;
   }
   .sortingr{
-    width: 55%;
+    width: 60%;
     height: 160px;
     padding:20px 5px;
     position: absolute;
@@ -416,7 +414,7 @@
     top:20px;
     right: 0;
   }
-  .address , .distance , .tel{
+  .address , .distance , .TEL{
     color: #5b5b5d;
     font-size: 14px;
   }
@@ -424,13 +422,12 @@
     display: inline-block;
     width: 70%;
     position: absolute;
-    top:50px;
-    right: 10px;
+    top:51px;
+    right: 20px;
   }
   .allsortingl{
     width: 100px;
     height: 100px;
-    overflow: hidden;
     position: absolute;
     top: 40px;
     left: 25px;
@@ -449,10 +446,9 @@
   }
   h3.businesstitle {
     padding-left: 25px;
-    padding-top: 5px;
     font-size: 16px;
     color: #1b1b1b;
-    border-bottom: 1px solid #dddbdb;
+    /*border-bottom: 1px solid #c6c7ca;*/
   }
   span.address2{
     display: inline-block;

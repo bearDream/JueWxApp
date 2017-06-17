@@ -26,6 +26,17 @@ export default {
   },
 
   /**
+   * 获取用户发布的文章列表
+   */
+  getOwnArticles ({commit}, {uri}) {
+    return new Model().GET({uri}).then(res => {
+      commit(types.GET_ARTICLES, {
+        data: res.data
+      })
+    })
+  },
+
+  /**
    * 更新文章详情（点赞）
    */
   updateArticle ({commit}, {data}) {
