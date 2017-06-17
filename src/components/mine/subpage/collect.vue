@@ -290,8 +290,8 @@
     },
     mounted () {
       console.info(time.getDate('1495382400000'))
-//      this.showArticle()
-//      this.get()
+      this.showArticle()
+      this.get()
     },
     methods: {
       get (type) {
@@ -323,19 +323,19 @@
         alert(item.title)
       },
       showBusiness () {
-//        this.get(2)
+        this.get(2)
         this.showContent001 = !this.showContent001
         this.showContent003 = false
         this.showContent002 = false
       },
       showDish () {
-//        this.get(1)
+        this.get(1)
         this.showContent002 = !this.showContent002
         this.showContent003 = false
         this.showContent001 = false
       },
       showArticle () {
-//        this.get(3)
+        this.get(3)
         this.showContent003 = !this.showContent003
         this.showContent002 = false
         this.showContent001 = false
