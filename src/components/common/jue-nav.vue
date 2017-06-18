@@ -15,7 +15,7 @@
 		<router-link to="/food" tag="dl">
         <dt class="iconfont icon-food" >
         </dt>
-        <dd>说食话</dd>
+        <dd>食话</dd>
     </router-link>
 		<router-link to="/mine" tag="dl">
         <dt class="iconfont icon-mine" >
