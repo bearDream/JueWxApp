@@ -1,12 +1,14 @@
 <template>
   <div style="padding-top: 50px">
-    <div style="background-color: #fff;position: fixed;top: 0;border-bottom: 1px solid #f2eeee">
-     <div style="width: 10%;float: left">
-       <x-header :left-options="{backText: ''}" v-on:click="$router.back()" style="background-color: transparent;font-size: 15px!important;"></x-header>
-     </div>
-      <div class="inputDiv">
-        <icon type="search" style="position: absolute;left: 20px;top: 17px;"></icon>
-        <input autofocus="autofocus" v-model="key"  @input="changeInput (key)" type="text" class="inputSearch">
+    <div style="background-color: #FFFFFF">
+      <div style="background-color: #fff;position: fixed;top: 0;border-bottom: 1px solid #f2eeee">
+       <div style="width: 10%;float: left">
+         <x-header :left-options="{backText: ''}" v-on:click="$router.back()" style="background-color: transparent;font-size: 15px!important;"></x-header>
+       </div>
+        <div class="inputDiv">
+          <icon type="search" style="position: absolute;left: 20px;top: 17px;"></icon>
+          <input autofocus="autofocus" v-model="key"  @input="changeInput (key)" type="text" class="inputSearch">
+        </div>
       </div>
     </div>
     <div style="width: 100%" class="search">

@@ -1,5 +1,5 @@
 <template>
-  <div style="height:100%;width:100%;background-color: #eee;margin-top: -20px" >
+  <div style="height:100%;width:100%;background-color: #eee;margin-top: -20px;padding-bottom: 50px" >
     <div style="width: 100%;height: 70px;background-color:#fff;">
       <div style="width:100px;position:absolute;margin-top:5%;font-size:20px;left:12%">
           <cell title="商家" is-link
@@ -28,8 +28,10 @@
         </div>
         <div style="padding:4% 4%;margin-top:2%;background-color:#fff;">
           <div>
-            <div class="e-img" style="margin-right:2%;" :style="{backgroundImage: 'url(' + item.oneDishRecImage + ')'}"></div>
-            <div class="e-img" style="margin-left: 2.5%;" :style="{backgroundImage: 'url(' + item.twoDishRecImage + ')'}"></div>
+            <div class="e-img" style="margin-right:2%;"
+                 :style="{backgroundImage: 'url(' + item.oneDishRecImage + ')'}"></div>
+            <div class="e-img" style="margin-left: 2.5%;"
+                 :style="{backgroundImage: 'url(' + item.twoDishRecImage + ')'}"></div>
           </div>
         </div>
       </div>
@@ -46,16 +48,16 @@
         <!--</div>-->
       <!--</ul>-->
 
-      <div style="width: 100%;min-height: 150px;padding: 10px;background-color: #fff;margin-top: 10px" v-for="item in dishImageList" @click="GoDishesDetail(item)" >
-        <div style="width: 30%;display: inline-block;float: left" v-if="item.dishRecImage"  @click="GoDishesDetail(item)" >
-          <img style="width: 100%" :src="item.dishRecImage" alt="">
+      <div style="width: 100%;min-height: 120px;padding: 10px;background-color: #fff;margin-top: 10px" v-for="item in dishImageList" @click="GoDishesDetail(item)" >
+        <div style="width: 35%;height: 100px;display: inline-block;float: left;overflow: hidden" v-if="item.dishRecImage"  @click="GoDishesDetail(item)" >
+          <img style="height: 100%" :src="item.dishRecImage" alt="">
         </div>
         <div style="width: 60%;height:100px;display: inline-block;float: right">
           <span style="font-size: 20px">{{item.dishName}}</span>
           <span style="font-size: 10px;color: #59850b">&nbsp;&nbsp;{{item.typeName}}</span>
           <p style="font-size: 14px">{{item.dishDesc}}</p>
           <p style="font-size: 13px; color:#f74c31" v-if="item.dishNutritionStatus === 0">不健康</p>
-          <p style="font-size: 13px; color:#99ff66" v-if="item.dishNutritionStatus === 1">标准</p>
+          <p style="font-size: 13px; color:#44cef6" v-if="item.dishNutritionStatus === 1">标准</p>
           <p style="font-size: 13px; color:#99ff99" v-if="item.dishNutritionStatus === 2">减肥</p>
           <p style="font-size: 13px; color:#ccff00" v-if="item.dishNutritionStatus === 3">塑形</p>
         </div>
