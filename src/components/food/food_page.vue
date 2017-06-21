@@ -1,39 +1,39 @@
 <template>
   <div style="margin-top: -20px"  @touchstart="getY" @touchend="getMore">
-      <!--<load-more  v-if="loadmore" tip="正在加载"></load-more>-->
-      <!--<JueLoading v-if="jueloading"></JueLoading>-->
+    <!--<load-more  v-if="loadmore" tip="正在加载"></load-more>-->
+    <!--<JueLoading v-if="jueloading"></JueLoading>-->
     <mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" topLoadingText="小蕨努力加载中..." ref="loadmore">
       <divider style="margin-top:12%;font-size:16px;background-color: #fff;">看看大家都在吃什么</divider>
-        <div v-for="item in list">
-          <div  style="background-color: #fff;padding:2% 2%;overflow: hidden;height: 200px;position: relative;">
-            <div class="avatar" v-on:click="GoArticle(item)">
-              <img class="avatarimg" :src="item.headImgUrl" >
-            </div>
-            <p class="f-name" v-on:click="GoArticle(item)">{{item.username}}</p>
-            <p class="f-time">{{item.addTime}}</p>
-            <p class="f-title" v-on:click="GoArticle(item)">{{item.title}}</p>
-            <img class="a-img" v-if="item.collectionId === null" v-on:click="collect(item.articleId)"
-                 src="../../assets/images/heart_default.png" style="height: 40px; width: 40px; padding: 5px"/>
-            <img class="a-img" v-else v-on:click="cancelCollect(item.collectionId)"
-                 src="../../assets/images/heart_select.png" style="height: 40px; width: 40px; padding: 5px"/>
-            <div class="photo3" v-on:click="GoArticle(item)" style="border-radius:3px;width:90%;height:80%; backgroundColor:rgba(255,255,255,.5);" v-for="i in item.recImageList"
-                 v-if="item.recImageList.length===1">
-              <img :src="i">
-            </div>
-            <div class="photo2" v-on:click="GoArticle(item)" style="text-align: center" v-for="i in item.recImageList"
-                 v-if="item.recImageList.length===2">
-              <img :src="i">
-            </div>
-            <div class="photo3" v-on:click="GoArticle(item)" v-for="i in item.recImageList"
-                 v-if="item.recImageList.length===3">
-              <img :src="i">
-            </div>
-            <div class="photo4" v-on:click="GoArticle(item)" v-for="i in item.recImageList"
-                 v-if="item.recImageList.length===4">
-              <img :src="i">
-            </div>
+      <div v-for="item in list">
+        <div  style="background-color: #fff;padding:2% 2%;overflow: hidden;height: 200px;position: relative;">
+          <div class="avatar" v-on:click="GoArticle(item)">
+            <img class="avatarimg" :src="item.headImgUrl" >
+          </div>
+          <p class="f-name" v-on:click="GoArticle(item)">{{item.username}}</p>
+          <p class="f-time">{{item.addTime}}</p>
+          <p class="f-title" v-on:click="GoArticle(item)">{{item.title}}</p>
+          <img class="a-img" v-if="item.collectionId === null" v-on:click="collect(item.articleId)"
+               src="../../assets/images/heart_default.png" style="height: 40px; width: 40px; padding: 5px"/>
+          <img class="a-img" v-else v-on:click="cancelCollect(item.collectionId)"
+               src="../../assets/images/heart_select.png" style="height: 40px; width: 40px; padding: 5px"/>
+          <div class="photo3" v-on:click="GoArticle(item)" style="border-radius:3px;width:90%;height:80%; backgroundColor:rgba(255,255,255,.5);" v-for="i in item.recImageList"
+               v-if="item.recImageList.length===1">
+            <img :src="i">
+          </div>
+          <div class="photo2" v-on:click="GoArticle(item)" style="text-align: center" v-for="i in item.recImageList"
+               v-if="item.recImageList.length===2">
+            <img :src="i">
+          </div>
+          <div class="photo3" v-on:click="GoArticle(item)" v-for="i in item.recImageList"
+               v-if="item.recImageList.length===3">
+            <img :src="i">
+          </div>
+          <div class="photo4" v-on:click="GoArticle(item)" v-for="i in item.recImageList"
+               v-if="item.recImageList.length===4">
+            <img :src="i">
           </div>
         </div>
+      </div>
       <div style="height: 50px;width: 100%;"></div>
     </mt-loadmore>
   </div>

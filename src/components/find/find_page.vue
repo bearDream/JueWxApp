@@ -36,16 +36,6 @@
     </mt-loadmore>
 
     <mt-loadmore v-if="showContent002" :top-method="loadDishTop" :bottom-method="loadDishBottom" :bottom-all-loaded="DishAllLoaded" ref="loadDishMore">
-      <!--<ul v-for="item in dishImageList" class="weui-media-box weui-media-box_appmsg" @click="GoDishesDetail(item)">-->
-        <!--<div class="weui-media-box__hd" v-if="item.dishRecImage"  @click="GoDishesDetail(item)">-->
-          <!--<img class="weui-media-box__thumb" :src="item.dishRecImage" alt="">-->
-        <!--</div>-->
-        <!--<div class="weui-media-box__bd">-->
-          <!--<h6 class="weui-media-box__title">{{item.dishName}}</h6>-->
-          <!--<p class="weui-media-box__desc">{{item.dishDesc}}</p>-->
-        <!--</div>-->
-      <!--</ul>-->
-
       <div style="width: 100%;min-height: 150px;padding: 10px;background-color: #fff;margin-top: 10px" v-for="item in dishImageList" @click="GoDishesDetail(item)" >
         <div style="width: 30%;display: inline-block;float: left" v-if="item.dishRecImage"  @click="GoDishesDetail(item)" >
           <img style="width: 100%" :src="item.dishRecImage" alt="">
