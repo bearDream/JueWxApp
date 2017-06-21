@@ -1,5 +1,5 @@
 <template>
-  <div style="height:100%;width:100%;background-color: #eee;margin-top: -20px;padding-bottom: 50px" >
+  <div style="height:100%;width:100%;background-color: #eee;margin-top: -20px" >
     <div style="width: 100%;height: 70px;background-color:#fff;">
       <div style="width:100px;position:absolute;margin-top:5%;font-size:20px;left:12%">
           <cell title="商家" is-link
@@ -38,16 +38,6 @@
     </mt-loadmore>
 
     <mt-loadmore v-if="showContent002" :top-method="loadDishTop" :bottom-method="loadDishBottom" :bottom-all-loaded="DishAllLoaded" ref="loadDishMore">
-      <!--<ul v-for="item in dishImageList" class="weui-media-box weui-media-box_appmsg" @click="GoDishesDetail(item)">-->
-        <!--<div class="weui-media-box__hd" v-if="item.dishRecImage"  @click="GoDishesDetail(item)">-->
-          <!--<img class="weui-media-box__thumb" :src="item.dishRecImage" alt="">-->
-        <!--</div>-->
-        <!--<div class="weui-media-box__bd">-->
-          <!--<h6 class="weui-media-box__title">{{item.dishName}}</h6>-->
-          <!--<p class="weui-media-box__desc">{{item.dishDesc}}</p>-->
-        <!--</div>-->
-      <!--</ul>-->
-
       <div style="width: 100%;min-height: 120px;padding: 10px;background-color: #fff;margin-top: 10px" v-for="item in dishImageList" @click="GoDishesDetail(item)" >
         <div style="width: 35%;height: 100px;display: inline-block;float: left;overflow: hidden" v-if="item.dishRecImage"  @click="GoDishesDetail(item)" >
           <img style="height: 100%" :src="item.dishRecImage" alt="">
@@ -62,7 +52,6 @@
           <p style="font-size: 13px; color:#ccff00" v-if="item.dishNutritionStatus === 3">塑形</p>
         </div>
       </div>
-
     </mt-loadmore>
 
     <!--<div style="height:70px;width: 100%;"></div>-->
@@ -199,6 +188,7 @@
             }
           }
         })
+//        this.BusinessAllLoaded = true// 若数据已全部获取完毕
         this.$refs.loadBusinessMore.onBottomLoaded()
       },
       loadDishTop () {
@@ -229,6 +219,7 @@
             }
           }
         })
+//        this.DishAllLoaded = true// 若数据已全部获取完毕
         this.$refs.loadDishMore.onBottomLoaded()
       },
       show1 () {

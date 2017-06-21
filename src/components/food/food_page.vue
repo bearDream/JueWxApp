@@ -13,10 +13,10 @@
             <p class="f-name" v-on:click="GoArticle(item)">{{item.username}}</p>
             <p class="f-time">{{item.addTime}}</p>
             <p class="f-title" v-on:click="GoArticle(item)">{{item.title}}</p>
-            <img class="a-img" v-if="item.collectionId === null" v-on:click="collect(item.articleId)"
-                 src="../../assets/images/heart_default.png" style="height: 40px; width: 40px; padding: 5px"/>
-            <img class="a-img" v-else v-on:click="cancelCollect(item.collectionId)"
-                 src="../../assets/images/heart_select.png" style="height: 40px; width: 40px; padding: 5px"/>
+            <!--<img class="a-img" v-if="item.collectionId === null" v-on:click="collect(item.articleId)"-->
+                 <!--src="../../assets/images/heart_default.png" style="height: 40px; width: 40px; padding: 5px"/>-->
+            <!--<img class="a-img" v-else v-on:click="cancelCollect(item.collectionId)"-->
+                 <!--src="../../assets/images/heart_select.png" style="height: 40px; width: 40px; padding: 5px"/>-->
             <div class="photo3" v-on:click="GoArticle(item)" style="border-radius:3px;width:90%;height:80%; backgroundColor:rgba(255,255,255,.5);" v-for="i in item.recImageList"
                  v-if="item.recImageList.length===1">
               <img :src="i">
@@ -44,7 +44,6 @@
   let startY = 0
   let endY = 0
   import { Divider, Rater, LoadMore } from 'vux'
-//  import { JueLoading } from '../../loading/index.js'
   import { mapState } from 'vuex'
   import { Indicator, Toast } from 'mint-ui'
   import ava from '../../assets/img/avatar1.png'
@@ -59,7 +58,6 @@
       Rater,
       LoadMore,
       Toast
-//      ...JueLoading
     },
     computed: mapState([
       'food'
@@ -100,7 +98,6 @@
           }
         }).then(() => {
           Indicator.close()
-          console.info(this.$store.getters.getArticles)
           let data = this.$store.getters.getArticles
           if (data.code !== -1) {
             data = data.data
@@ -108,7 +105,6 @@
               data.page.list[i].addTime = time.getDate(data.page.list[i].addTime)
             }
             this.$set(this, 'list', data.page.list)
-            console.info(this.list)
           }
         })
       },

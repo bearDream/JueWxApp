@@ -29,7 +29,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api': {
-        target: 'http://10.1.180.10:8888',
+        target: 'http://localhost:8888',
         // target: 'http://qcvwdc.natappfree.cc',
         changeOrigin: true
       }
