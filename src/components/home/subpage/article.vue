@@ -2,10 +2,13 @@
   <div>
     <!--<swiper loop auto :list="photo_list" :index="photo_index" @on-index-change="onIndexChange"></swiper>-->
     <swiper loop auto :aspect-ratio="300/800" >
-      <swiper-item class="swiper-demo-img swiper-item-image" v-for="(item, index) in photo_list" :key="index"><img :src="item" style="width: 100%"></swiper-item>
+      <swiper-item class="swiper-demo-img swiper-item-image"
+                   v-for="(item, index) in photo_list" :key="index">
+        <img :src="item" style="width: 100%">
+      </swiper-item>
     </swiper>
-    <div >
-      <div style="position: relative;border-bottom:1px solid #ccc">
+    <div style="background-color: transparent">
+      <div style="position: relative;border-bottom:1px solid #ccc;">
         <div class="a-photo">
           <img :src="list.headImgUrl" style="borderRadius: 50%; width: 70px; height: 70px">
         </div>
@@ -13,8 +16,8 @@
           <p class="a-name">
             {{list.username}}
           </p>
-          <img class="a-img" v-if="list.collectionId === null" v-on:click="collect" src="../../../assets/images/heart_default.png" style="height: 40px; width: 40px; padding: 5px"/>
-          <img class="a-img" v-else v-on:click="cancelCollect"  src="../../../assets/images/heart_select.png" style="height: 40px; width: 40px; padding: 5px"/>
+          <!--<img class="a-img" v-if="list.collectionId === null" v-on:click="collect" src="../../../assets/images/heart_default.png" style="height: 40px; width: 40px; padding: 5px"/>-->
+          <!--<img class="a-img" v-else v-on:click="cancelCollect"  src="../../../assets/images/heart_select.png" style="height: 40px; width: 40px; padding: 5px"/>-->
           </div>
         <p class="a-name">{{list.username}}</p>
         <i class="a-like" v-if="list.goods === 0" style="background-position:-5px 0;" :style="{backgroundImage:'url(' + list.img + ')'}" @click="addgoods(list,list.sum)"></i>

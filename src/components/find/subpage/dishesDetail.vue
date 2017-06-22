@@ -8,27 +8,28 @@
     <div style="background-color: #fff;">
       <!--<p class="title">{{title}}</p>-->
       <div class="row">
-        <div class="icon" :style="{background:'url('+dishesIcon+') no-repeat -8px 0'}"></div>
-        <p class="typetitle" >菜名:</p>
+        <img class="icon" :src="dishesIcon"></img>
+        <span class="typetitle" >菜名:</span>
         <p style="font-size:18px;position:absolute;top:30%;left:35%;">{{dish.dishName}}</p>
       </div>
       <div style="border-bottom: 2px solid #eee;">
         <div class="left">
-          <span class="icon" :style="{background:'url('+Introduction+')', width: '50%;'}"></span>
-          <p class="typetitle" >简介:</p>
-          <span class="typecontent">{{dish.dishDesc}}</span>
+          <img class="icon" :src="Introduction"></img>
+          <span class="typetitle" >简介:</span>
+          <span class="" style="
+          position: absolute;font-size: 14px;margin-left: 18%;margin-top: 20px">{{dish.dishDesc}}</span>
         </div>
       </div>
       <div style="border-bottom: 2px solid #eee;">
         <div class="left">
-          <span class="icon" :style="{background:'url('+ingredients+') no-repeat 5px 0'}"></span>
-          <i class="typetitle" >配料:</i>
-          <p class="typecontent">{{dish.dishContent}}</p>
+          <img class="icon" :src="ingredients"></img>
+          <span class="typetitle" >详解:</span>
+          <p style="margin-left: 10%;margin-right: 5%">{{dish.dishContent}}</p>
         </div>
       </div>
       <div style="border-bottom: 2px solid #eee;">
         <div class="left">
-          <span class="icon" :style="{background:'url('+dishheat+') no-repeat -2px 0'}"></span>
+          <img class="icon" :src="dishheat"></img>
           <i class="typetitle" >热量:</i>
           <p class="p"  v-if="dish.heat === 1">大量</p>
           <p class="p"  v-if="dish.heat === 2">适量</p>
@@ -38,7 +39,7 @@
       </div>
       <div style="border-bottom: 2px solid #eee;">
       <div class="left">
-        <span class="icon" :style="{background:'url('+dishsugar+')'}"></span>
+        <img class="icon" :src="dishsugar"></img>
         <i class="typetitle" >糖分:</i>
         <p class="p" v-if="dish.sugarContent === 1">大量</p>
         <p class="p" v-if="dish.sugarContent === 2">适量</p>
@@ -49,14 +50,15 @@
     </div>
     <div style="border-bottom: 2px solid #eee;">
       <div class="left">
-        <span class="icon" :style="{background:'url('+analysis+') no-repeat -1px 0px'}"></span>
-        <i class="typetitle" >营养价值分析:</i>
-        <p class="p" v-text="dish.grease"></p>
+        <img class="icon" :src="analysis"></img>
+        <span class="typetitle" style="margin-left: -5%">营养价值分析:</span>
+        <p   style="margin-left: 10%;margin-right: 5%" >
+          {{dish.grease}}
+        </p>
       </div>
     </div>
-      <x-button type="primary">找商家</x-button>
-
     </div>
+    <!--<x-button style="position: absolute;bottom: 0" type="primary">找商家</x-button>-->
   </div>
 </template>
 
@@ -98,11 +100,11 @@ export default {
     }
   },
   mounted () {
-//    if (this.$route.params.dishId === undefined) {
-//      this.$router.go(-1)
-//    }
-//    this.$set(this.dish, 'dishId', this.$route.params.dishId)
-//    this.get()
+    if (this.$route.params.dishId === undefined) {
+      this.$router.go(-1)
+    }
+    this.$set(this.dish, 'dishId', this.$route.params.dishId)
+    this.get()
   },
   methods: {
     get () {
@@ -162,19 +164,35 @@ export default {
     display:inline-block;
     width:50px;
     height:50px;
+    /*position: absolute;*/
+    /*top:50%;*/
+    /*left: 10%;*/
+    /*transform: translate(10%,10%);*/
   }
   .left{
     position: relative;
     background: #fff;
     padding:1%;
+    min-height: 60px;
     padding-top: 0;
   }
   .typetitle{
-    font-size:16px;position: absolute;top: 30%;left: 18%
+    font-size:16px;
+    display: inline-block;
+    position: absolute;
+    transform: translate(20%,70%);
   }
    .typecontent{
-     display: inline-block;font-size:14px;margin-left: 18%;width: 55%;margin-top: -10px;
-     padding-top: 0;
+     font-size:14px;
+     display: inline-block;
+     margin-left: 35%;
+     margin-top: -40px;
+     /*width: 55%;*/
+     /*position: absolute;*/
+     /*margin-top: -10px;*/
+     /*padding-top: 0;*/
+     /*position: absolute;*/
+     /*transform:translate(30%,2%)*/
   }
   .p{
     position: absolute;left: 35%;top: 33%;font-size: 14px;

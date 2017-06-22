@@ -36,10 +36,10 @@
     <grid :rows="2">
       <grid-item>
         <h3>当前距离  {{now_distance}} km</h3>
-        <h3>限制距离  {{limit_distance}} km</h3>
+        <!--<h3>限制距离  {{limit_distance}} km</h3>-->
       </grid-item>
       <grid-item>
-        <x-button type="primary" v-if="takebutton" @click.native="takePage">点击取票</x-button>
+        <x-button type="primary" v-if="takebutton" @click.native="takePage"><span style="font-size: 15px;"></span>{{buttonText}}</x-button>
         <div v-if="takePageshow">
           <h3>单号 <span class="statuss">{{number}}</span></h3>
           <h3>还需等待 <span class="waitNum"> {{wait}} </span>桌</h3>
@@ -65,6 +65,7 @@
       </grid-item>
     </grid>
     <div class="business_foot">
+      <h4><x-button type="primary" @click.native="refreshInfo">刷新状态</x-button></h4>
       <h4>{{businessInfo.tel}}</h4>
       <h4>{{businessInfo.address}}</h4>
       <h4>{{time}}</h4>
@@ -102,6 +103,7 @@
     },
     data () {
       return {
+        buttonText: '点击取票',
         peopleNum: 2,
         list01: [
             {i: 2},
@@ -154,10 +156,13 @@
         this.$router.go(-1)
       }
       this.$set(this.businessInfo, 'businessId', this.$route.params.businessId)
-      this.getInfo()
-      this.getUserNum()
+      this.refreshInfo()
     },
     methods: {
+      refreshInfo () {
+        this.getInfo()
+        this.getUserNum()
+      },
       getInfo () {
         this.$store.dispatch('getBusiness', {
           params: {
@@ -177,6 +182,10 @@
               console.info('isTake' + this.businessInfo.isTake)
               this.$set(this, 'takebutton', false)
               this.$set(this, 'takePageshow', false)
+            }
+
+            if (this.businessInfo.businessId === 64) {
+              this.buttonText = '点击抢号'
             }
 
             // queue中包含allNums（总排队  等待人数），bigQue（大桌队列）， mediumQue（小桌队列），smallQue（小桌队列）
@@ -219,8 +228,6 @@
       onconfirem () {
         this.loading = true
 //        let that = this
-        console.info(this.businessInfo)
-        console.log('提交当前选择人数:' + peopleNum)
         // 发送网络请求（排队人数）
         this.$store.dispatch('takeNumber', {
           params: {
@@ -228,23 +235,23 @@
             businessId: this.businessInfo.businessId
           }
         }).then(() => {
-          console.info(this.$store.getters.getNumber)
           let data = this.$store.getters.getNumber
           if (data.code === -1) {
             Toast({message: data.msg})
           } else {
             this.getInfo()
             this.getUserNum()
+            this.takePageshow = !this.takePageshow
           }
           this.loading = false
-          this.takePageshow = !this.takePageshow
         })
       },
       onCancel () {
         this.takebutton = !this.takebutton
       },
       checker (key) {
-        peopleNum = key
+        peopleNum = 2
+//        peopleNum = key
       }
     }
   }

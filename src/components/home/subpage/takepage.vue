@@ -37,42 +37,48 @@
         <div>
           <div class="takeSorting">
             <div class="sortingl" @click="GoBusiness (item)" :style="{backgroundImage: 'url(' + item.businessImage + ')'}"></div>
-            <div class="sortingr" @click="GoBusiness (item)">
+            <div  class="sortingr" @click="GoBusiness (item)">
               <h3>{{item.name}}</h3>
-              <span class="distance">{{item.distance}}km</span>
-              <span class="address">地址</span>
-              <div class="addressdiv">
-                <span class="address">{{item.address}}</span>
-              </div>
-              <br>
-              <br>
-              <span class="tel">电话&nbsp;:&nbsp;&nbsp;&nbsp;{{item.tel}}</span>
+              <p class="distance">{{item.distance}}km</p>
+              <p class="address" style="margin-top: 5px">
+                  <!--<span style="margin:0">地址:</span>-->
+                  <p style="width: 95%;">
+                    {{item.address}}
+                  </p>
+              </p>
+              <!--<div class="addressdiv">-->
+                <!--<span class="address">{{item.address}}</span>-->
+              <!--</div>-->
+              <p class="tel" style="margin-top: 5px">电话&nbsp;:&nbsp;&nbsp;&nbsp;{{item.tel}}</p>
             </div>
           </div>
         </div>
       </div>
     </mt-loadmore>
     <!-- 按照商家星级level排序的list -->
-    <mt-loadmore v-if="showContent002" :top-method="loadLevelTop" :bottom-method="loadLevelBottom" :bottom-all-loaded="LevelAllLoaded" ref="loadLevelMore">
+    <mt-loadmore v-if="showContent002" :top-method="loadLevelTop" :bottom-method="loadLevelBottom"
+                 :bottom-all-loaded="LevelAllLoaded" ref="loadLevelMore">
       <div v-for="item in list2">
-        <div class="takeSorting">
-          <div style="height: 160px;">
-            <h3 class="businesstitle">{{item.name}}</h3>
+        <div class="takeSorting" style="padding: 0">
+          <div style="height: 140px;">
             <div class="allsortingl" @click="GoBusiness (item)" :style="{backgroundImage: 'url(' + item.businessImage + ')'}"></div>
             <div class="allsortingr" @click="GoBusiness (item)">
-              <br>
+              <h3 class="businesstitle">{{item.name}}</h3>
               <rater v-model="item.level" slot="value" disabled></rater>
               <br>
-              <br>
-              <span class="address2">{{item.address}}</span>
-              <span class="addressstel tel" style="top: 80px"><i style="color: red">电话</i>&nbsp;:&nbsp;&nbsp;&nbsp;{{item.tel}}</span>
+              <p class="address2">{{item.address}}</p>
+              <span class="addressstel tel" style="top: 80px">
+                <i style="color: red">电话</i>
+                &nbsp;:&nbsp;&nbsp;&nbsp;{{item.tel}}
+              </span>
             </div>
           </div>
         </div>
       </div>
     </mt-loadmore>
     <!-- 按照排队人数排序的list -->
-    <mt-loadmore v-if="showContent003" :top-method="loadTakeTop" :bottom-method="loadTakeBottom" :bottom-all-loaded="TakeAllLoaded" ref="loadTakeMore">
+    <mt-loadmore v-if="showContent003" :top-method="loadTakeTop" :bottom-method="loadTakeBottom"
+                 :bottom-all-loaded="TakeAllLoaded" ref="loadTakeMore">
       <div v-for="item in list3">
         <div class="takeSorting" ><!-- @click="GoBusiness (item)" -->
           <div class="sortingl" @click="GoBusiness (item)" :style="{backgroundImage: 'url(' + item.businessImage + ')'}"></div>
@@ -83,7 +89,7 @@
             <!--<span>{{item.type}}</span>-->
             <span>{{item.address}}</span>
             <br>
-            <badge :text="quename"></badge>
+            <badge style="margin-right: 3px" :text="quename"></badge>
             <span v-if="item.wait>0">前方正在排队</span>
             <span v-else>竟然没有人排队</span>
             <span class="statuss">{{item.wait}}</span><span>桌</span>
@@ -381,15 +387,21 @@
   }
   .sortingr{
     width: 60%;
-    height: 160px;
-    padding:20px 5px;
+    height: 120px;
+    padding:15px 5px;
     position: absolute;
     top:0;
     right:0;
     display: inline-block;
   }
   .sortingr h3{
-    font-size: 20px;
+    width: 60%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 15px;
+    color: #4e5156;
+    font-weight: bold;
   }
   .sortingr span{
     margin-right: 20px;
@@ -405,18 +417,17 @@
     color: red;
     margin-right: 2px;
   }
-  .distance{
-    display: inline-block;
-    padding: 3px 8px;
-    border-radius: 5px;
-    background-color: #c6c7ca;
-    position: absolute;
-    top:20px;
-    right: 0;
-  }
+
   .address , .distance , .TEL{
     color: #5b5b5d;
-    font-size: 14px;
+    font-size: 8px;
+  }
+  .distance{
+    display: inline-block;
+    top:18px;
+    right: 10px;
+    position: absolute;
+    color: #c6c7ca;
   }
   .addressdiv{
     display: inline-block;
@@ -429,37 +440,40 @@
     width: 100px;
     height: 100px;
     position: absolute;
-    top: 40px;
+    top: 20px;
     left: 25px;
     background-size: cover;
     background-color: #9b9b9b;
     display: inline-block;
   }
   .allsortingr{
-    width: 48%;
+    width: 55%;
     height: 160px;
-    padding:25px 5px;
+    padding:20px 5px;
     position: absolute;
     top:0;
     right:0;
     display: inline-block;
   }
   h3.businesstitle {
-    padding-left: 25px;
-    font-size: 16px;
+    font-size: 15px;
     color: #1b1b1b;
+    width: 90%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     /*border-bottom: 1px solid #c6c7ca;*/
   }
-  span.address2{
-    display: inline-block;
-    padding: 3px 8px;
-    border-radius: 5px;
-    position: absolute;
-    top:5px;
-    right: 10px;
+  p.address2{
+    /*display: inline-block;*/
+    /*padding: 3px 8px;*/
+    /*position: absolute;*/
+    /*top:15px;*/
+    /*left: -5px;*/
+    vertical-align: top;
   }
   .addressstel {
-    position: absolute;
-    top:40px;
+    /*position: absolute;*/
+    /*top:40px;*/
   }
 </style>
