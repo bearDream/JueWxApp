@@ -5,6 +5,10 @@
       <img class="bg" :src="dish.dishImage">
       <p class="mask">{{dish.dishName}}</p>
     </div>
+    <div style="position:absolute;right:20px;top: 10px;" >
+      <img class="a-img" v-if="dish.collectionId === null" v-on:click="collect" src="../../../assets/images/collect_default_star.png" style="height: 40px; width: 48px; padding: 5px"/>
+      <img class="a-img" v-else v-on:click="cancelCollect"  src="../../../assets/images/collect_select_star.png" style="height: 40px; width: 48px; padding: 5px"/>
+    </div>
     <div style="background-color: #fff;">
       <!--<p class="title">{{title}}</p>-->
       <div class="row">
@@ -64,6 +68,7 @@
 
 <script>
 import { XButton, XHeader } from 'vux'
+import { Toast } from 'mint-ui'
 import dishes from '../../../assets/img/dishes.png'
 import icon from '../../../assets/img/dishesicon.png'
 import dishhead from '../../../assets/img/dishhead.png'
@@ -119,6 +124,27 @@ export default {
 
           this.dish = data.data
         }
+      })
+    },
+    cancelCollect () {
+      this.$store.dispatch('cancelCollections', {
+        params: {
+          collectionId: this.dish.collectionId
+        }
+      }).then(() => {
+        this.get()
+        Toast('取消收藏成功')
+      })
+    },
+    collect () {
+      this.$store.dispatch('setCollections', {
+        data: {
+          businessDishId: this.dish.dishId,
+          collectionType: 1
+        }
+      }).then(() => {
+        this.get()
+        Toast('收藏成功')
       })
     }
   }

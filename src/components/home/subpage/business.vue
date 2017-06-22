@@ -5,7 +5,8 @@
       <div class="sortingl" :style="{backgroundImage: 'url(' + businessInfo.businessImage + ')'}"></div>
       <div class="sortingr">
         <div style="position:absolute;right:20px;top: -10px;" >
-          <rater star="♡" active-color="red" slot="value" :max="1"></rater>
+          <img class="a-img" v-if="businessInfo.collectionId === null" v-on:click="collect" src="../../../assets/images/heart_default.png" style="height: 40px; width: 40px; padding: 5px"/>
+          <img class="a-img" v-else v-on:click="cancelCollect"  src="../../../assets/images/heart_select_red.png" style="height: 40px; width: 40px; padding: 5px"/>
         </div>
         <h3>{{businessInfo.name}}</h3>
         <rater v-model="businessInfo.level"  slot="value" disabled></rater>
@@ -309,6 +310,27 @@
       checker (key) {
         peopleNum = 2
 //        peopleNum = key
+      },
+      cancelCollect () {
+        this.$store.dispatch('cancelCollections', {
+          params: {
+            collectionId: this.businessInfo.collectionId
+          }
+        }).then(() => {
+          this.refreshInfo()
+          Toast('取消收藏成功')
+        })
+      },
+      collect () {
+        this.$store.dispatch('setCollections', {
+          data: {
+            businessDishId: this.businessInfo.businessId,
+            collectionType: 2
+          }
+        }).then(() => {
+          this.refreshInfo()
+          Toast('收藏成功')
+        })
       }
     }
   }
