@@ -291,7 +291,6 @@
     mounted () {
       console.info(time.getDate('1495382400000'))
       this.showArticle()
-      this.get()
     },
     methods: {
       get (type) {
@@ -316,8 +315,8 @@
       },
       showcomment (comment) {
         console.info(comment.articleId)
-//        this.$router.push({name: 'comments', params: {articleId: comment.articleId}})
-        this.$router.push({name: 'comments'})
+        this.$router.push({name: 'comments', params: {articleId: comment.articleId}})
+//        this.$router.push({name: 'comments'})
       },
       business_info (item) {
         alert(item.title)

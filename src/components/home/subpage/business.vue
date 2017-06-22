@@ -35,11 +35,14 @@
 
     <grid :rows="2">
       <grid-item>
-        <h3>当前距离  {{now_distance}} km</h3>
+        <h3>{{now_distance}}</h3>
         <!--<h3>限制距离  {{limit_distance}} km</h3>-->
       </grid-item>
       <grid-item>
-        <x-button type="primary" v-if="takebutton" @click.native="takePage"><span style="font-size: 15px;"></span>{{buttonText}}</x-button>
+        <x-button type="primary" v-if="takebutton" @click.native="takePage">
+          <span style="font-size: 15px;"></span>
+          {{buttonText}}
+        </x-button>
         <div v-if="takePageshow">
           <h3>单号 <span class="statuss">{{number}}</span></h3>
           <h3>还需等待 <span class="waitNum"> {{wait}} </span>桌</h3>
@@ -66,10 +69,14 @@
     </grid>
     <div class="business_foot">
       <h4><x-button type="primary" @click.native="refreshInfo">刷新状态</x-button></h4>
-      <h4>{{businessInfo.tel}}</h4>
-      <h4>{{businessInfo.address}}</h4>
-      <h4>{{time}}</h4>
+      <!--<h4>{{businessInfo.tel}}</h4>-->
+      <!--<h4 @click="openMap">{{businessInfo.address}}(点击查看详细位置)</h4>-->
+      <!--<h4>{{time}}</h4>-->
     </div>
+      <group>
+        <cell title="📢电话"  is-link  :value="businessInfo.tel" style="font-size: 12px;"></cell>
+        <cell title="📌位置地址" is-link @click.native="openMap" :value="businessInfo.address" style="font-size: 12px;"></cell>
+      </group>
     </div>
 
     <!--加载进度-->
@@ -83,6 +90,9 @@
   import { Confirm, XHeader, Blur, Group, Cell, Rater, Badge, Grid, GridItem, XButton, Alert, Loading, Checker, CheckerItem, Divider } from 'vux'
   import { Toast } from 'mint-ui'
   import img from '../../../assets/img/8.png'
+  import axios from 'axios'
+  import consts from '@/utils/consts'
+
   export default {
     components: {
       XHeader,
@@ -166,7 +176,9 @@
       getInfo () {
         this.$store.dispatch('getBusiness', {
           params: {
-            'businessId': this.businessInfo.businessId
+            businessId: this.businessInfo.businessId,
+            userLontitude: this.$store.getters.getLontitude,
+            userLatitude: this.$store.getters.getLatitude
           }
         }).then(() => {
           let data = this.$store.getters.getBusiness
@@ -188,6 +200,12 @@
               this.buttonText = '点击抢号'
             }
 
+            if (this.businessInfo.distance === null) {
+              this.now_distance = '用户拒绝获取位置信息'
+            } else {
+              this.now_distance = '当前距离  ' + this.businessInfo.distance + '  km'
+            }
+
             // queue中包含allNums（总排队  等待人数），bigQue（大桌队列）， mediumQue（小桌队列），smallQue（小桌队列）
             this.$set(this.queue, 'small_table', data.queue.smallQue.length)
             this.$set(this.queue, 'medium_table', data.queue.mediumQue.length)
@@ -204,7 +222,7 @@
         }).then(() => {
           let data = this.$store.getters.getNumber
           if (data.code === -1) {
-            this.$set(this, 'takebutton', true)
+//            this.$set(this, 'takebutton', true)
             this.$set(this, 'takePageshow', false)
           } else {
             data = data.data
@@ -245,6 +263,45 @@
           }
           this.loading = false
         })
+      },
+      openMap () {
+        let longtitude = this.businessInfo.longtitude
+        let latitude = this.businessInfo.latitude
+        let url = location.href.split('#')[0]
+        if (longtitude != null && latitude != null) {
+          axios.get(consts.API_URL + 'wechat/portal/getWxConfig?url=' + url, {})
+            .then(res => {
+              let data = res.data
+              if (data.code === -1) {
+                console.info(data.msg)
+              } else {
+                data = data.data
+                this.$wechat.config({
+                  debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                  appId: data.appId, // 必填，公众号的唯一标识
+                  timestamp: data.timestamp, // 必填，生成签名的时间戳
+                  nonceStr: data.nonceStr, // 必填，生成签名的随机串
+                  signature: data.signature, // 必填，签名，见附录1
+                  jsApiList: ['openLocation'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+                })
+                this.$wechat.ready(() => {
+                  this.$wechat.openLocation({
+                    latitude: latitude, // 纬度，浮点数，范围为90 ~ -90
+                    longitude: longtitude, // 经度，浮点数，范围为180 ~ -180。
+                    name: this.businessInfo.address, // 位置名
+                    address: '', // 地址详情说明
+                    scale: 20, // 地图缩放级别,整形值,范围从1~28。默认为最大
+                    infoUrl: '' // 在查看位置界面底部显示的超链接,可点击跳转
+                  })
+                })
+                this.$wechat.error(function (res) {
+                  alert('验证jsapi失败')
+                  alert(res)
+                  // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+                })
+              }
+            })
+        }
       },
       onCancel () {
         this.takebutton = !this.takebutton

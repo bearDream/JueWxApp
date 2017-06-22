@@ -2,9 +2,10 @@
   <div>
     <x-header :left-options="{backText: ''}" style="background: transparent;position: fixed;" v-on:click="$router.back()"></x-header>
     <div>
+      <divider style="font-size: 17px;">食话食说</divider>
       <group title="">
         <x-input title="标题" placeholder="快起一个文艺的标题吧" v-model="title"  :show-clear="true" @on-blur="onTitleBlur" placeholder-align="center"></x-input>
-        <x-textarea :max="200" name="description" v-model="content"   placeholder="分享有趣的食话食说" @on-blur="onContentBlur"></x-textarea>
+        <x-textarea :max="2000" :height="200" name="description" v-model="content"   placeholder="分享有趣的食话食说" @on-blur="onContentBlur"></x-textarea>
       </group>
       <!-- 封面图回显照片区域 -->
       <Upload :action="action" :on-success="handleCoverSuccess"
