@@ -1,33 +1,41 @@
 <template>
-  <div style="margin-top: -20px"  @touchstart="getY" @touchend="getMore">
+  <div style="margin-top: -20px;margin-bottom: 50px"  @touchstart="getY" @touchend="getMore">
       <!--<load-more  v-if="loadmore" tip="正在加载"></load-more>-->
       <!--<JueLoading v-if="jueloading"></JueLoading>-->
+
     <mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" topLoadingText="小蕨努力加载中..." ref="loadmore">
-      <divider style="margin-top:12%;font-size:16px;background-color: #fff;">看看大家都在吃什么</divider>
+
+      <divider style="margin-top:12%;font-size:16px;background-color: #fff;">
+        看看大家都在吃什么
+      </divider>
         <div v-for="item in list">
           <div  style="background-color: #fff;padding:2% 2%;
-          overflow: hidden;height: 200px;position: relative;">
+          overflow: hidden;height: 180px;position: relative;">
             <div class="avatar" v-on:click="GoArticle(item)">
               <img class="avatarimg" :src="item.headImgUrl" >
             </div>
             <p class="f-name" v-on:click="GoArticle(item)">{{item.username}}</p>
             <p class="f-time">{{item.addTime}}</p>
             <p class="f-title" v-on:click="GoArticle(item)">{{item.title}}</p>
-            <!--<img class="a-img" v-if="item.collectionId === null" v-on:click="collect(item.articleId)"-->
-                 <!--src="../../assets/images/heart_default.png" style="height: 40px; width: 40px; padding: 5px"/>-->
-            <!--<img class="a-img" v-else v-on:click="cancelCollect(item.collectionId)"-->
-                 <!--src="../../assets/images/heart_select.png" style="height: 40px; width: 40px; padding: 5px"/>-->
-            <div class="photo3" v-on:click="GoArticle(item)" style="border-radius:3px;width:90%;height:80%; backgroundColor:rgba(255,255,255,.5);" v-for="i in item.recImageList"
+            <img class="a-img" v-if="item.collectionId === null" v-on:click="collect(item.articleId)"
+                 src="../../assets/images/heart_default.png" style="height: 40px; width: 40px; padding: 5px"/>
+            <img class="a-img" v-else v-on:click="cancelCollect(item.collectionId)"
+                 src="../../assets/images/heart_select.png" style="height: 40px; width: 40px; padding: 5px"/>
+            <div class="photo1" v-on:click="GoArticle(item)" v-for="i in item.recImageList"
                  v-if="item.recImageList.length===1">
-              <img :src="i">
+              <!--<img :src="i">-->
+              <div :style="{backgroundImage: 'url('+i+')'}"></div>
             </div>
-            <div class="photo2" v-on:click="GoArticle(item)" style="text-align: center" v-for="i in item.recImageList"
+            <div class="photo2" v-on:click="GoArticle(item)"
                  v-if="item.recImageList.length===2">
-              <img :src="i">
+              <!--<img :src="i">-->
+              <div  v-for="i in item.recImageList"
+                    :style="{backgroundImage: 'url('+i+')'}" class="photo2div"></div>
             </div>
-            <div class="photo3" v-on:click="GoArticle(item)" v-for="i in item.recImageList"
+            <div class="photo3" v-on:click="GoArticle(item)"
                  v-if="item.recImageList.length===3">
-              <img :src="i">
+              <div  v-for="i in item.recImageList"
+                    :style="{backgroundImage: 'url('+i+')'}" class="photo3div"></div>
             </div>
             <div class="photo4" v-on:click="GoArticle(item)" v-for="i in item.recImageList"
                  v-if="item.recImageList.length===4">
@@ -35,7 +43,6 @@
             </div>
           </div>
         </div>
-      <div style="height: 50px;width: 100%;"></div>
     </mt-loadmore>
   </div>
 </template>
@@ -44,6 +51,7 @@
   let startY = 0
   let endY = 0
   import { Divider, Rater, LoadMore } from 'vux'
+//  import { JueLoading } from '../../loading/index.js'
   import { mapState } from 'vuex'
   import { Indicator, Toast } from 'mint-ui'
   import ava from '../../assets/img/avatar1.png'
@@ -58,6 +66,7 @@
       Rater,
       LoadMore,
       Toast
+//      ...JueLoading
     },
     computed: mapState([
       'food'
@@ -65,9 +74,21 @@
     data () {
       return {
         current: 1,
-        allLoaded: false,
+        allLoaded: true,
 //        jueloading: false,
         list: [{
+          headImgUrl: ava,
+          username: '蕨菜团队',
+          addTime: '2017-5-26',
+          title: '好的食物应该大家分享，今天的美食推荐给大家~',
+          recImageList: [food1, food2, food3],
+          data1: 0,
+          title1: '营养早餐',
+          title2: '美味烧烤',
+          title3: '鱼片寿司',
+          collectionId: '',
+          articleId: ''
+        }, {
           headImgUrl: ava,
           username: '蕨菜团队',
           addTime: '2017-5-26',
@@ -83,7 +104,7 @@
       }
     },
     mounted () {
-      this.gets()
+//      this.gets()
     },
     methods: {
       gets () {
@@ -98,6 +119,7 @@
           }
         }).then(() => {
           Indicator.close()
+          console.info(this.$store.getters.getArticles)
           let data = this.$store.getters.getArticles
           if (data.code !== -1) {
             data = data.data
@@ -105,6 +127,7 @@
               data.page.list[i].addTime = time.getDate(data.page.list[i].addTime)
             }
             this.$set(this, 'list', data.page.list)
+            console.info(this.list)
           }
         })
       },
@@ -229,21 +252,39 @@
   .photo3{
     width: 100%;
   }
-  .photo3 img{
-    width: 30%;
+  /*.photo3 img{*/
+    /*width: 30%;*/
+    /*float: left;*/
+    /*margin-top:1%;*/
+    /*margin-left:3%;*/
+  /*}*/
+  .photo3div{
     float: left;
-    margin-top:1%;
-    margin-left:3%;
+    background-size: cover;
+    width: 30%;
+    margin-left: 5px;
+    height: 100px;
   }
   .photo2{
     width: 100%;
   }
-  .photo2 img{
-    width: 45%;
+  .photo2div{
     float: left;
-    margin-top:1%;
-    margin-left:3%;
+    background-size: cover;
+    width: 48%;
+    margin-left: 5px;
+    height: 100px;
   }
+  .photo1{
+    width: 100%;
+    height:100px;
+  }
+  .photo1>div{
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+  }
+
   .photo4{
     width: 100%;
   }
