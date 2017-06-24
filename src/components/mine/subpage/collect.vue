@@ -1,7 +1,7 @@
 <template>
   <div>
-    <x-header :left-options="{backText: ''}" style="background: transparent;position: fixed;" v-on:click="$router.back()"></x-header>
-    <div class="card-demo-flex card-demo-content">
+    <x-header v-on:click="$router.back()"></x-header>
+    <div class="card-demo-flex card-demo-content" style="margin-top: -20px">
       <div >
         <group>
           <cell title="商家" is-link
@@ -71,7 +71,8 @@
     <template v-if="showContent003">
       <div>
         <scroller enable-horizontal-swiping=""  :loading="load" >
-          <swiper :list="list02" :min-moving-distance="20" auto="" style="height:200px;margin: 15px 15px 0 15px ">
+          <swiper :list="list02" :min-moving-distance="20" auto=""
+                  style="height:200px;margin: 15px 15px 0 15px ">
           </swiper>
         </scroller>
         <!--11111111111111111-->

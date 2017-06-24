@@ -1,6 +1,6 @@
 <template>
   <div>
-    <x-header :left-options="{backText: ''}" style="background: transparent;position: fixed;" v-on:click="$router.back()"></x-header>
+    <x-header v-on:click="$router.back()"></x-header>
       <divider style="margin-top:0%;font-size:16px;background-color: #fff;">看看大家都怎么说</divider>
       <div class="header">
         <div style="float: left;margin-left: 20px;color: #303036">评论&nbsp;{{comment}}</div>
@@ -14,22 +14,33 @@
           <p class="f-title">{{item.content}}</p>
         </div>
       </div>
-      <input type="text"  v-if="showComment" style="width:100%;height:40px;position: fixed;display: flex;bottom: 50px;border-radius: 5px;border: 1px solid #ddd;padding-left: 20px;font-size: 15px" placeholder="输入评论..." autofocus="autofoucus">
       <div style="height: 50px;width: 100%"></div>
       <div class="footer" >
         <div><img :src="reprintb" >&nbsp;&nbsp;转发</div>
+
         <div @click="show">
           <img :src="commentsb" style="padding-top: 2px">&nbsp;&nbsp;评论
         </div>
+
         <div @click="takegoods (goods, goodimg)">
           <img :src="goodb" v-if="goodimg === 0" >
           <img :src="gooda" v-if="goodimg === 1" >
           &nbsp;&nbsp;赞</div>
       </div>
+    <x-dialog  v-model="showComment"
+               hide-on-blur
+               :dialog-style="{'max-width': '100%', width: '100%', height: '50px',position: 'fixed',top:'96%',
+               'background-color': 'transparent'}"
+    >
+      <div class="input_style" >
+        <input type="text" placeholder="输入评论..." autofocus="autofoucus">
+        <span>发送</span>
+      </div>
+    </x-dialog>
   </div>
 </template>
 <script>
-  import { XHeader, Divider, Rater } from 'vux'
+  import { XHeader, Divider, Rater, XDialog } from 'vux'
   import { mapState } from 'vuex'
   import ava from '../../../assets/img/avatar1.png'
   import commentsb from '../../../assets/img/commentsb.png'
@@ -41,7 +52,8 @@
     components: {
       XHeader,
       Divider,
-      Rater
+      Rater,
+      XDialog
     },
     computed: mapState([
       'mine'
@@ -140,12 +152,12 @@
     top:10px;
     left:20%;
     display:inline-block;
-    font-size:18px;
+    font-size:16px;
     color:#777;
   }
   .f-time{
     position: absolute;
-    top:38px;
+    top:33px;
     left:20%;
     font-size:12px;
     color:#777;
@@ -185,9 +197,31 @@
     padding-left: 5px;
     border:1px solid #fff;
     text-align: center;
+    font-size: 15px;
   }
   .footer div img{
     width: 20px;margin-top: 15px
   }
-
+  .input_style{
+    background-color: #F9F9F9;
+    /*background-color: #f74c31;*/
+    width:100%;height:40px;
+    padding-left: 20px;
+    font-size: 15px;
+    /*color: #9b9b9b;*/
+    position: absolute;
+    bottom: 0;
+  }
+  .input_style>input{
+    width: 80%;
+    height:40px;
+    border: none;
+    font-size: 12px;
+  }
+  .input_style>span{
+    margin-top: 4px;
+    padding: 3px 6px;
+    border-radius: 3px;
+    background-color: #c6c7ca;
+  }
   </style>

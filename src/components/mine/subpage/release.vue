@@ -1,14 +1,16 @@
 <template>
   <div style="">
-    <x-header :left-options="{backText: ''}" style="background: transparent;position: fixed;" v-on:click="$router.back()"></x-header>
-    <div v-show="showPage">
+    <x-header :left-options="{backText: ''}" style="background: transparent;"
+              v-on:click="$router.back()"></x-header>
+    <div v-show="showPage" style="margin-top: -20px">
       <blur :blur-amount=0 :url="url" style="height:180px;">
         <div style="position:relative;min-height:180px;"  >
           <div class="m-img"  :style="{backgroundImage: 'url(' + headImgUrl + ')'}"></div>
           <p style="position:absolute;font-size:20px;top:58%;left:5%;">{{username}}</p>
           <p style="position:relative;">
             <i class="re-address"></i>
-            <i style="position:absolute;font-size:14px;font-weight:bold;left:13%;margin-top:43%">{{address}}</i>
+            <i style="position:absolute;font-size:14px;font-weight:bold;
+            left:13%;margin-top:43%">{{address}}</i>
          </p>
           <!--<div style="position:absolute;width:60%;min-height:80px;bottom:2%;right:2%">-->
             <span class="me_show">
@@ -26,6 +28,7 @@
          <a>{{item.sumScore}}</a>
       </div>
     </div>
+
     <div v-show="!showPage" style="background-color: white;">
       <div style="">
         <p style="align: center;text-align: center;margin-top: 10px;padding-top: 10px;">
