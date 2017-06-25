@@ -109,6 +109,7 @@
 
 <script>
   import { Swiper, Scroller, FlexboxItem, Flexbox, Divider, CellBox, Card, Masker, XHeader, TransferDom, Group, Cell, Panel, Rater, Badge } from 'vux'
+  import { Indicator } from 'mint-ui'
   import img2 from '../../../assets/images/B1-2.png'
   import img3 from '../../../assets/images/B1-3.png'
   import img4 from '../../../assets/images/B1-5.png'
@@ -295,9 +296,14 @@
     },
     methods: {
       get (type) {
+        Indicator.open({
+          text: '加载中...',
+          spinnerType: 'triple-bounce'
+        })
         this.$store.dispatch('getCollections', {
           params: {collectionType: type}
         }).then(() => {
+          Indicator.close()
           let data = this.$store.getters.getCollections
           if (data.code !== -1) {
             this.$set(this, 'list1', data.data)

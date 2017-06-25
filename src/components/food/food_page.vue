@@ -17,10 +17,10 @@
             <p class="f-name" v-on:click="GoArticle(item)">{{item.username}}</p>
             <p class="f-time">{{item.addTime}}</p>
             <p class="f-title" v-on:click="GoArticle(item)">{{item.title}}</p>
-            <img class="a-img" v-if="item.collectionId === null" v-on:click="collect(item.articleId)"
-                 src="../../assets/images/heart_default.png" style="height: 40px; width: 40px; padding: 5px"/>
-            <img class="a-img" v-else v-on:click="cancelCollect(item.collectionId)"
-                 src="../../assets/images/heart_select.png" style="height: 40px; width: 40px; padding: 5px"/>
+            <!--<img class="a-img" v-if="item.collectionId === null" v-on:click="collect(item.articleId)"-->
+                 <!--src="../../assets/images/heart_default.png" style="height: 40px; width: 40px; padding: 5px"/>-->
+            <!--<img class="a-img" v-else v-on:click="cancelCollect(item.collectionId)"-->
+                 <!--src="../../assets/images/heart_select.png" style="height: 40px; width: 40px; padding: 5px"/>-->
             <div class="photo1" v-on:click="GoArticle(item)" v-for="i in item.recImageList"
                  v-if="item.recImageList.length===1">
               <!--<img :src="i">-->
@@ -54,10 +54,6 @@
 //  import { JueLoading } from '../../loading/index.js'
   import { mapState } from 'vuex'
   import { Indicator, Toast } from 'mint-ui'
-  import ava from '../../assets/img/avatar1.png'
-  import food1 from '../../assets/img/food1.png'
-  import food2 from '../../assets/img/food2.png'
-  import food3 from '../../assets/img/food3.png'
   import time from '../../utils/helpers/timeLite'
 
   export default {
@@ -76,35 +72,36 @@
         current: 1,
         allLoaded: true,
 //        jueloading: false,
-        list: [{
-          headImgUrl: ava,
-          username: '蕨菜团队',
-          addTime: '2017-5-26',
-          title: '好的食物应该大家分享，今天的美食推荐给大家~',
-          recImageList: [food1, food2, food3],
-          data1: 0,
-          title1: '营养早餐',
-          title2: '美味烧烤',
-          title3: '鱼片寿司',
-          collectionId: '',
-          articleId: ''
-        }, {
-          headImgUrl: ava,
-          username: '蕨菜团队',
-          addTime: '2017-5-26',
-          title: '好的食物应该大家分享，今天的美食推荐给大家~',
-          recImageList: [food1, food2, food3],
-          data1: 0,
-          title1: '营养早餐',
-          title2: '美味烧烤',
-          title3: '鱼片寿司',
-          collectionId: '',
-          articleId: ''
-        }]
+        list: []
+//        list: [{
+//          headImgUrl: ava,
+//          username: '蕨菜团队',
+//          addTime: '2017-5-26',
+//          title: '好的食物应该大家分享，今天的美食推荐给大家~',
+//          recImageList: [food1, food2, food3],
+//          data1: 0,
+//          title1: '营养早餐',
+//          title2: '美味烧烤',
+//          title3: '鱼片寿司',
+//          collectionId: '',
+//          articleId: ''
+//        }, {
+//          headImgUrl: ava,
+//          username: '蕨菜团队',
+//          addTime: '2017-5-26',
+//          title: '好的食物应该大家分享，今天的美食推荐给大家~',
+//          recImageList: [food1, food2, food3],
+//          data1: 0,
+//          title1: '营养早餐',
+//          title2: '美味烧烤',
+//          title3: '鱼片寿司',
+//          collectionId: '',
+//          articleId: ''
+//        }]
       }
     },
     mounted () {
-//      this.gets()
+      this.gets()
     },
     methods: {
       gets () {

@@ -12,5 +12,15 @@ export default {
         data: res.data
       })
     })
+  },
+  /**
+   * 发送评论
+   */
+  sendEvaluates ({commit}, {data}) {
+    return new Model().POST({data}).then(res => {
+      commit(types.GET_SENDEVALUATES, {
+        data: res.data
+      })
+    })
   }
 }

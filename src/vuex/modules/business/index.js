@@ -6,7 +6,8 @@ export default {
   state: {
     businesss: null,
     business: null,
-    topBusinesss: null
+    topBusinesss: null,
+    dishBusinesss: null
   },
   getters,
   actions,

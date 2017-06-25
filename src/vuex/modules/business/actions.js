@@ -2,6 +2,7 @@ import types from './types'
 import Model from '../../../models/businessList'
 import TopModel from '../../../models/topBusinessList'
 import BusinessModel from '../../../models/business'
+import DishModel from '../../../models/queryDishBusinessList'
 
 // 角色的所有请求
 export default {
@@ -11,6 +12,16 @@ export default {
   getBusinesss ({commit}, {params}) {
     return new Model().GET({params}).then(res => {
       commit(types.GET_BUSINESSS, {
+        data: res.data
+      })
+    })
+  },
+  /**
+   * 根据菜品id查询会该菜的商家
+   */
+  getDishBusinesss ({commit}, {params}) {
+    return new DishModel().GET({params}).then(res => {
+      commit(types.GET_DISHBUSINESS, {
         data: res.data
       })
     })

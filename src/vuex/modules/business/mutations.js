@@ -9,5 +9,8 @@ export default {
   },
   [types.GET_TOPBUSINESSS] (state, payload) {
     state.topBusinesss = payload.data
+  },
+  [types.GET_DISHBUSINESS] (state, payload) {
+    state.dishBusinesss = payload.data
   }
 }

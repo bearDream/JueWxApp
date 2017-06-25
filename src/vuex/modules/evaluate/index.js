@@ -4,7 +4,8 @@ import mutations from './mutations'
 
 export default {
   state: {
-    evaluates: null
+    evaluates: null,
+    sendEvaluates: null
   },
   getters,
   actions,

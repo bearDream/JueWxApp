@@ -63,12 +63,6 @@
   import { Indicator } from 'mint-ui'
   import { mapState } from 'vuex'
 
-//  import find1 from '../../assets/img/find1.png'
-  import find4 from '../../assets/img/find4.png'
-
-  import find6 from '../../assets/img/5-2.png'
-  import find7 from '../../assets/img/5-3.png'
-  import finddish from '../../assets/images/F2-7.png'
   export default {
     components: {
       Grid,
@@ -88,33 +82,8 @@
         showContent001: true,
         showContent002: false,
         businessList: [
-          {
-            name: '隔锅香',
-            oneDishId: 1,
-            oneDishName: '爆炒大猪脚',
-            oneDishRecImage: find6,
-            twoDishId: 1,
-            twoDishName: '爆炒大猪脚',
-            twoDishRecImage: find7,
-            businessImage: find4
-          }
         ],
         dishImageList: [
-          {
-            dishName: '宣威小炒肉',
-            dishRecImage: finddish,
-            typeName: '炒菜',
-            dishDesc: '我是正宗的宣威小炒肉',
-            dishIntroduction: '潮汕卤鸡是广东潮汕地区汉族传统名菜，属于炒菜系',
-            dishHealth: '减肥'
-          }, {
-            dishName: '洋芋丝炒肉',
-            dishRecImage: finddish,
-            typeName: '炒菜',
-            dishDesc: '我是卖洋芋的小炒肉',
-            dishIntroduction: '潮汕卤鸡是广东潮汕地区汉族传统名菜，属于炒菜系',
-            dishHealth: '标准'
-          }
         ]
       }
     },

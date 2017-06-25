@@ -1,14 +1,14 @@
 <template>
   <div>
     <!---->
-  <!--<div class="welcome" :class="{hide:hide}">-->
+    <!--<div class="welcome" :class="{hide:hide}">-->
     <!--<img src="../../assets/images/启动页.png" alt="">-->
-  <!--</div>-->
+    <!--</div>-->
 
     <!--<scroller enable-horizontal-swiping=""  :loading="load" >-->
-      <!--<search @on-submit="onSubmit" :auto-fixed="false" v-model="value2" @on-focus="onFocus" @on-cancel="onCancel"></search>--> <!--height="260px"-->
-      <!--<swiper :list="list1" :min-moving-distance="20" auto="" style="height: 180px" >-->
-  <div>
+    <!--<search @on-submit="onSubmit" :auto-fixed="false" v-model="value2" @on-focus="onFocus" @on-cancel="onCancel"></search>--> <!--height="260px"-->
+    <!--<swiper :list="list1" :min-moving-distance="20" auto="" style="height: 180px" >-->
+    <div>
 
       <swiper loop auto style="height: 160px;" >
         <swiper-item :height=160  v-for="(item, index) in list1" :key="index">
@@ -19,71 +19,70 @@
 
 
       <div class="searchdiv" @click="search">
-       <input  type="text" placeholder="搜索菜品、用户、商家" class="inputsearch" >
-       <div class="searchicon"></div>
+        <input  type="text" placeholder="搜索菜品、用户、商家" class="inputsearch" >
+        <div class="searchicon"></div>
       </div>
 
 
-    <grid>
-      <grid-item link="home/takepage">
-        <div class="icon" style="background-position: -69px -3px;"></div><p>在线取号</p>
-      </grid-item>
-      <grid-item link="home/subpage">
-        <div class="icon" style="background-position: -130px -4px;" alt=""></div><p>营养价值</p>
-      </grid-item>
-      <grid-item>
-        <div class="icon" style="background-position: -186px -4px;" v-on:click="GoRandom" alt=""></div><p>今天吃啥</p>
-      </grid-item>
-    </grid>
-    <div style="margin: 10px;overflow: hidden;height:40%;" v-for="item in list2" v-on:click="GoArticle(item)">
-      <div class="m-img"  :style="{backgroundImage: 'url(' + item.coverImage + ')'}">
-        <div class="outer">
-          <div class="masker" style="border-radius:3px;width:90%;height:80%;position:absolute;top:10%;left:5%;  backgroundColor:rgba(255,255,255,.5);">
-            <div slot="content" class="m-title">
-              {{item.title}}
-              <br/>
-              <divider style="width: 50%;color: #000;margin:auto;padding:0;">{{item.addrase}}</divider>
+      <grid>
+        <grid-item link="home/takepage">
+          <div class="icon" style="background-position: -69px -3px;"></div><p>在线取号</p>
+        </grid-item>
+        <grid-item link="home/subpage">
+          <div class="icon" style="background-position: -130px -4px;" alt=""></div><p>营养价值</p>
+        </grid-item>
+        <grid-item>
+          <div class="icon" style="background-position: -186px -4px;" v-on:click="GoRandom" alt=""></div><p>今天吃啥</p>
+        </grid-item>
+      </grid>
+      <div style="margin: 10px;overflow: hidden;height:40%;" v-for="item in list2" v-on:click="GoArticle(item)">
+        <div class="m-img"  :style="{backgroundImage: 'url(' + item.coverImage + ')'}">
+          <div class="outer">
+            <div class="masker" style="border-radius:3px;width:90%;height:80%;position:absolute;top:10%;left:5%;  backgroundColor:rgba(255,255,255,.5);">
+              <div slot="content" class="m-title">
+                {{item.title}}
+                <br/>
+                <divider style="width: 50%;color: #000;margin:auto;padding:0;">{{item.addrase}}</divider>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <!--随机来几个菜-->
+    <!--随机来几个菜-->
     <div>
-    <x-dialog hide-on-blur  :dialog-style="{'max-width': '100%',overflow: 'visible', width: '90%', height: '50%', 'background-color': 'transparent'}" v-model="showHideOnBlur"  >
-      <div class="img-box"   id="Rotation" >
-        <div style="width: 250px;height: 200px;" @touchstart='touchstart' @touchmove="touchmove" @touchend='touchend'>
-          <img src="../../assets/img/flow.png" style="position: absolute;width: 70%;top: -60px;left: 40px;z-index: 10">
-          <div>
-            <div class="businesstitle" v-if="dishname1">{{list3[0].dishName}}</div>
-            <img :src="list3[0].dishImage" style="border-radius: 10px;" class="l_mid_r l">
+      <x-dialog hide-on-blur  :dialog-style="{'max-width': '100%',overflow: 'visible', width: '90%', height: '50%', 'background-color': 'transparent'}" v-model="showHideOnBlur"  >
+        <div class="img-box"   id="Rotation" >
+          <div style="width: 250px;height: 200px;" @touchstart='touchstart' @touchend='touchend'>
+            <img src="../../assets/img/flow.png" style="position: absolute;width: 70%;top: -60px;left: 40px;z-index: 10">
+            <div>
+              <div class="businesstitle" v-if="dishname1">{{list3[0].dishName}}</div>
+              <img :src="list3[0].dishImage" style="border-radius: 20px;" class="l_mid_r l">
+            </div>
+            <div>
+              <div class="businesstitle" v-if="dishname3">{{list3[1].dishName}}</div>
+              <img :src="list3[1].dishImage" style="border-radius: 20px;" class="l_mid_r r">
+            </div>
+            <div>
+              <div class="businesstitle" v-if="dishname2">{{list3[2].dishName}}</div>
+              <img :src="list3[2].dishImage" style="border-radius: 20px;" class="l_mid_r mid">
+            </div>
           </div>
-          <div>
-            <div class="businesstitle" v-if="dishname3">{{list3[1].dishName}}</div>
-            <img :src="list3[1].dishImage" style="border-radius: 10px;" class="l_mid_r r">
+          <div class="onlyeat">
+            <x-button  @click.native="Refresh" mini style="background-color: #E3E3E3;" >不想吃换一批</x-button>
+            <x-button @click.native="GoOrder" mini style="background-color: #E3E3E3;"  >就是它们了</x-button>
           </div>
-          <div>
-            <div class="businesstitle" v-if="dishname2">{{list3[2].dishName}}</div>
-            <img :src="list3[2].dishImage" style="border-radius: 10px;" class="l_mid_r mid">
-          </div>
+          <!--<div class="onlyeat" @click="Refresh">不想吃换一批</div>-->
+          <!--<div class="onlyeat" @click="Refresh">sdasdasdasdasdasdas</div>-->
         </div>
-        <div class="onlyeat">
-          <x-button  @click.native="Refresh" mini style="background-color: #E3E3E3;" >不想吃换一批</x-button>
-          <x-button @click.native="GoOrder" mini style="background-color: #E3E3E3;"  >就是它们了</x-button>
-        </div>
-        <!--<div class="onlyeat" @click="Refresh">不想吃换一批</div>-->
-        <!--<div class="onlyeat" @click="Refresh">sdasdasdasdasdasdas</div>-->
-      </div>
-      <div @click="showHideOnBlur=false"></div>
-    </x-dialog>
-     </div>
+        <div @click="showHideOnBlur=false"></div>
+      </x-dialog>
+    </div>
     <!-- 设置用户的身体状态body_status -->
     <x-dialog v-model="bodyModal">
       <group title="选择你最近期望的身体状态">
         <!--title="绑定手机"-->
-        <checker v-model="bodyStatus" default-item-class="demo5-item"
-                 selected-item-class="demo5-item-selected">
+        <checker v-model="bodyStatus" default-item-class="demo5-item" selected-item-class="demo5-item-selected">
           <checker-item value="1">标准</checker-item>
           <checker-item value="2">塑性</checker-item>
           <checker-item value="3">减脂</checker-item>
@@ -100,7 +99,7 @@
         </flexbox>
       </div>
     </x-dialog>
-  <div style="height: 50px;width: 100%;"></div>
+    <div style="height: 50px;width: 100%;"></div>
   </div>
 </template>
 
@@ -143,8 +142,8 @@
     created (i) {
       this.i += 1
       console.log(i)
-//      this.gets()
-//      this.getUser()
+      this.gets()
+      this.getUser()
     },
     computed: mapState([
       'home'
@@ -310,15 +309,6 @@
         start = e.changedTouches[0].clientX
 //        console.log(e.changedTouches[0].clientX)
       },
-      touchmove (e) {
-        let x = e.changedTouches[0].clientX
-        let mid = document.getElementsByClassName('mid')[0]
-//        let l = document.getElementsByClassName('l')[0]
-//        let r = document.getElementsByClassName('r')[0]
-        console.log('x 坐标为：' + x)
-        mid.style.cssText = 'left:' + (x - mid) + 'px'
-        console.log(mid.style.cssText)
-      },
       load (uuid) {
         const _this = this
         setTimeout(function () {
@@ -346,21 +336,20 @@
         console.log('on focus')
       },
       GoRandom () {
-        this.showHideOnBlur = true
-//        Indicator.open({
-//          text: '加载中...',
-//          spinnerType: 'triple-bounce'
-//        })
-//        // 获取今天吃啥的数据
-//        this.$store.dispatch('getRandomDishes', {}).then(() => {
-//          Indicator.close()
-//          let data = this.$store.getters.getRandomDishes
-//          if (data.data.length >= 3) {
-//            this.$set(this, 'list3', data.data)
-//            console.info(this.$store.getters.getRandomDishes)
-//          }
-//          this.showHideOnBlur = true
-//        })
+        Indicator.open({
+          text: '加载中...',
+          spinnerType: 'triple-bounce'
+        })
+        // 获取今天吃啥的数据
+        this.$store.dispatch('getRandomDishes', {}).then(() => {
+          Indicator.close()
+          let data = this.$store.getters.getRandomDishes
+          if (data.data.length >= 3) {
+            this.$set(this, 'list3', data.data)
+            console.info(this.$store.getters.getRandomDishes)
+          }
+          this.showHideOnBlur = true
+        })
       },
       GoOrder () {
         this.showHideOnBlur = false
@@ -507,11 +496,11 @@
     width: 140px;
     height: 140px;
     top: 60px;
-    right: 110%;
+    left: 8%;
     opacity: .5;
     transition: all 0.4s;
     transform: scale(0.8);
-    border-radius: 10px;
+    border-radius: 20px;
   }
   .img-box .r{
     position: absolute;

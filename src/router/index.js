@@ -47,6 +47,13 @@ const router = new Router({
         requiresAuth: true
       }
     }, {
+      path: '/home/business_list:dishId',
+      name: 'businessList',
+      components: {
+        'insidePage': resolve => require(['../components/home/subpage/business_list.vue'], resolve)
+      }
+    },
+    {
       path: '/home/subpage',
       name: 'nutritionDish',
       components: {
@@ -87,6 +94,15 @@ const router = new Router({
       name: 'business',
       components: {
         'insidePage': resolve => require(['../components/home/subpage/business.vue'], resolve)
+      },
+      meta: {
+        requiresAuth: true
+      }
+    }, {
+      path: '/home/businessDish:businessId',
+      name: 'businessDish',
+      components: {
+        'insidePage': resolve => require(['../components/home/subpage/businessDish.vue'], resolve)
       },
       meta: {
         requiresAuth: true

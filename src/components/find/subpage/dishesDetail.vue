@@ -62,7 +62,7 @@
       </div>
     </div>
     </div>
-    <!--<x-button style="position: absolute;bottom: 0" type="primary">找商家</x-button>-->
+    <x-button style="" @click.native="findBusiness" type="primary">找商家</x-button>
   </div>
 </template>
 
@@ -146,6 +146,9 @@ export default {
         this.get()
         Toast('收藏成功')
       })
+    },
+    findBusiness () {
+      this.$router.push({name: 'businessList', params: {dishId: this.dish.dishId}})
     }
   }
 }

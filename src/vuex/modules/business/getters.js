@@ -7,5 +7,8 @@ export default {
   },
   getTopBusinesss: function (state) {
     return state.topBusinesss
+  },
+  getDishBusinesss: function (state) {
+    return state.dishBusinesss
   }
 }

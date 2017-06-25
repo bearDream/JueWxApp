@@ -28,7 +28,7 @@
         <p style="font-size:18px;font-weight:bold;margin:2% 5% 0;text-align:left;">{{list.title}}</p>
         <p style="font-size:14px;text-align:left; margin:1% 5% 0;padding-bottom: 16px;">{{list.content}}</p>
       </div>
-      <div style="width: 100%; height: 30px;"></div>
+      <div style="width: 100%; height: 10px;"></div>
       <div style="position:relative;">
         <i class="a-info" style="background-position:-5px 0;left:4%" :style="{backgroundImage:'url(' + list.laud + ')'}"></i>
         <i style="color:#555;position:absolute;left:13%;margin-top:3%">{{list.praise}}个赞</i>
@@ -38,12 +38,34 @@
         <!--<i class="a-detail" style="margin-top:10%">发布于 {{list.address}}</i>-->
         <i class="a-detail" style="position:absolute;left:28%;margin-top:3%">{{list.addTime}}</i>
       </div>
+
+      <!-- 评论区 -->
+      <div style="position: relative;margin-top: 30px;">
+        <divider>热评区</divider>
+      </div>
+      <div v-if="is_show">
+        <div v-for="item in commentList" >
+          <div class="commentContent" >
+            <div class="avatar" :style="{backgroundImage: 'url(' + item.headImgUrl + ')'}"></div>
+            <p class="f-name">{{item.username}}</p>
+            <p class="f-time">{{item.addTime}}</p>
+            <p class="f-title">{{item.content}}</p>
+          </div>
+        </div>
+      </div>
+      <div v-else style="text-align: center;">
+        <p style="padding: 5px 10px 5px 10px;">还没有人评论呢！快来抢个沙发吧</p>
+      </div>
+
+      <div style="position: fixed; bottom: 10px;right: 10px;">
+        <img style="border-radius: 50%; width: 40px; height: 40px;" @click="comment" src="../../../assets/images/评论.png"/>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-  import { Swiper, SwiperItem, Divider, XImg } from 'vux'
+  import { Swiper, SwiperItem, Divider, XImg, XButton } from 'vux'
   import { Indicator, Toast } from 'mint-ui'
   import { mapState } from 'vuex'
   import avatal2 from '../../../assets/img/ava.png'
@@ -63,10 +85,12 @@
       SwiperItem,
       Divider,
       XImg,
-      Toast
+      Toast,
+      XButton
     },
     data () {
       return {
+        is_show: false,
         articleId: '',
         is_praise: true,
         photo_list: baseList,
@@ -86,7 +110,8 @@
           scan: info,
           address: '昆明市 金星路',
           addTime: '2017-05-28'
-        }
+        },
+        commentList: []
       }
     },
     mounted () {
@@ -95,6 +120,7 @@
       }
       this.articleId = this.$route.params.articleId
       this.get()
+      this.getComment()
     },
     methods: {
       get () {
@@ -113,6 +139,32 @@
             this.$set(this, 'photo_list', data.data.recImage.split(','))
             this.$set(this, 'list', data.data)
             this.$set(this.list, 'addTime', time.getDate(data.data.addTime))
+          }
+        })
+      },
+      getComment () {
+        Indicator.open({
+          text: '加载中...',
+          spinnerType: 'triple-bounce'
+        })
+        this.$store.dispatch('getEvaluates', {
+          params: {
+            objectId: this.articleId,
+            evaluateType: 3
+          }
+        }).then(() => {
+          Indicator.close()
+          console.info(this.$store.getters.getEvaluates)
+          let data = this.$store.getters.getEvaluates
+          if (data.code !== -1) {
+            this.is_show = true
+            for (let i = 0; i < data.data.length; i++) {
+              data.data[i].addTime = time.getDate(data.data[i].addTime)
+            }
+            this.$set(this, 'commentList', data.data)
+          } else {
+            this.is_show = false
+            console.info('没人评价')
           }
         })
       },
@@ -168,6 +220,9 @@
           this.is_praise = false
           Toast('点赞成功')
         })
+      },
+      comment () {
+        this.$router.push({name: 'comments', params: {articleId: this.articleId}})
       }
     },
     computed: mapState([
@@ -226,5 +281,44 @@
   .swiper-item-image{
     width: 100%;
     height: 80%;
+  }
+  .content {
+    background-color: #fff;
+    overflow: scroll ;padding:2% 2%; height:auto;
+    position: relative;border-top: 1px solid #e9e9e9
+  }
+  .avatar{
+    display: inline-block;
+    width:50px;
+    height: 50px;
+    border-radius: 50%;
+    padding-bottom:15%;
+  }
+  .f-name{
+    position: absolute;
+    top:10px;
+    left:20%;
+    display:inline-block;
+    font-size:16px;
+    color:#777;
+  }
+  .f-time{
+    position: absolute;
+    top:33px;
+    left:20%;
+    font-size:12px;
+    color:#777;
+  }
+  .f-title{
+    font-size:14px;
+    margin-top: -10px;
+    margin-left:18%;
+    margin-right: 10%;
+    color:#666;
+  }
+  .commentContent {
+    background-color: #fff;
+    overflow: scroll ;padding:2% 2%; height:auto;
+    position: relative;border-top: 1px solid #e9e9e9
   }
 </style>
