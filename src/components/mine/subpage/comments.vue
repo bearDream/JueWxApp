@@ -3,8 +3,8 @@
     <x-header v-on:click="$router.back()"></x-header>
       <divider style="margin-top:0%;font-size:16px;background-color: #fff;">看看大家都怎么说</divider>
       <div class="header">
-        <div style="float: left;margin-left: 20px;color: #303036">评论 {{comment}}</div>
-        <div style="float: right;">赞 {{goods}}</div>
+        <div style="float: left;margin-left: 20px;color: #303036;font-size: 14px;">评论 {{comment}}</div>
+        <div style="float: right;font-size: 14px;">赞 {{goods}}</div>
       </div>
       <div v-if="is_show">
         <div v-for="item in list" >
@@ -21,18 +21,26 @@
       </div>
 
       <div style="height: 50px;width: 100%"></div>
-      <div class="footer" >
-        <div><img :src="reprintb" >&nbsp;&nbsp;转发</div>
-
-        <div @click="show">
-          <img :src="commentsb" style="padding-top: 2px">&nbsp;&nbsp;评论
+    <flexbox style="position: fixed;bottom: 0px;">
+      <flexbox-item>
+        <div style="text-align: center;" @click="dispatchThr">
+          <img style="width: 15px;padding-top: 2px" :src="reprintb" >&nbsp;&nbsp;转发
         </div>
-
-        <div @click="takegoods (goods, goodimg)">
-          <img :src="goodb" v-if="goodimg === 0" >
-          <img :src="gooda" v-if="goodimg === 1" >赞
+      </flexbox-item>
+      <flexbox-item>
+        <div @click="show" style="text-align: center;">
+          <img :src="commentsb" style="width: 15px;padding-top: 2px">&nbsp;&nbsp;评论
         </div>
-      </div>
+      </flexbox-item>
+    </flexbox>
+      <!--<div class="footer" >-->
+        <!--<div @click="dispatchThr"><img :src="reprintb" >&nbsp;&nbsp;转发</div>-->
+
+        <!--<div @click="show" style="text-align: center;">-->
+          <!--<img :src="commentsb" style="padding-top: 2px">&nbsp;&nbsp;评论-->
+        <!--</div>-->
+
+      <!--</div>-->
 
       <x-dialog  v-model="showComment"
                  hide-on-blur
@@ -46,7 +54,7 @@
   </div>
 </template>
 <script>
-  import { XHeader, Divider, Rater, XDialog } from 'vux'
+  import { XHeader, Divider, Rater, XDialog, Flexbox, FlexboxItem } from 'vux'
   import { mapState } from 'vuex'
   import { Indicator, Toast } from 'mint-ui'
   import ava from '../../../assets/img/avatar1.png'
@@ -60,7 +68,9 @@
       XHeader,
       Divider,
       Rater,
-      XDialog
+      XDialog,
+      Flexbox,
+      FlexboxItem
     },
     computed: mapState([
       'mine'
@@ -106,6 +116,9 @@
     mounted () {
       if (this.$route.params.articleId === undefined) {
         this.$router.go(-1)
+      }
+      if (this.$route.params.praise !== undefined) {
+        this.$set(this, 'goods', this.$route.params.praise)
       }
       this.$set(this, 'articleId', this.$route.params.articleId)
       this.get()
@@ -155,6 +168,9 @@
           this.showComment = false
           this.sc--
         }
+      },
+      dispatchThr () {
+        Toast('敬请期待')
       },
       sendComment () {
         if (this.commentText === '' || this.commentText === undefined) {
@@ -228,13 +244,13 @@
   }
   .footer{
     position: fixed;
-    height:50px;
+    height:40px;
     width:100%;
-    bottom: 0;
+    bottom: 2px;
     display: flex;
-    background-color: #FAFAFA;
+    /*background-color: #FAFAFA;*/
     justify-content: center;
-    font-size: 18px;
+    font-size: 14px;
     color: #9b9b9b;
   }
   .footer>div{
@@ -251,12 +267,13 @@
   .input_style{
     background-color: #F9F9F9;
     /*background-color: #f74c31;*/
-    width:100%;height:40px;
+    width:100%;
+    height:45px;
     padding-left: 20px;
     font-size: 15px;
     /*color: #9b9b9b;*/
     position: absolute;
-    bottom: 0;
+    bottom: 2px;
   }
   .input_style>input{
     width: 80%;

@@ -1,5 +1,5 @@
 <template>
-  <div style="margin-top: -20px;margin-bottom: 50px"  @touchstart="getY" @touchend="getMore">
+  <div style="margin-top: -20px;"  @touchstart="getY" @touchend="getMore">
       <!--<load-more  v-if="loadmore" tip="正在加载"></load-more>-->
       <!--<JueLoading v-if="jueloading"></JueLoading>-->
 
@@ -70,7 +70,7 @@
     data () {
       return {
         current: 1,
-        allLoaded: true,
+        allLoaded: false,
 //        jueloading: false,
         list: []
 //        list: [{

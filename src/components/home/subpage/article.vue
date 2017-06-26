@@ -222,7 +222,7 @@
         })
       },
       comment () {
-        this.$router.push({name: 'comments', params: {articleId: this.articleId}})
+        this.$router.push({name: 'comments', params: {articleId: this.articleId, praise: this.list.praise}})
       }
     },
     computed: mapState([

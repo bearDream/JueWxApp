@@ -4,10 +4,11 @@
     <!--<x-header :left-options="{backText: ''}" style="background: transparent;position: fixed;left: -10px;top: -2px" v-on:click="$router.back()"></x-header>-->
     <div class="card-demo-flex card-demo-content" style="margin-top: 4px">
       <div >
-          <cell style="font-size: 12px!important;"
-                title="商家" is-link
-                :border-intent="false">
-          </cell>
+        <x-header style="background-color: white;">
+          <span style="color: #0d0d0d; font-size: 14px;">商家</span>
+          <x-icon slot="overwrite-left" type="ios-arrow-back" size="35" style="fill:#fff;position:relative;top:-8px;left:-3px;"></x-icon>
+        </x-header>
+          <!--<x-header style="background-color:white;color: black!important;font-size: 12px!important;">商家</x-header>-->
       </div>
     </div>
 
@@ -143,7 +144,7 @@
         this.$refs.loadLevelMore.onBottomLoaded()
       },
       GoBusiness (item) {
-        this.$router.push({name: 'businessDish  ', params: { businessId: item.businessId }})
+        this.$router.push({name: 'business', params: { businessId: item.businessId }})
       }
     }
   }
